@@ -1,10 +1,12 @@
-//features\decks\components\DeckList.tsx
+//features/decks/components/DeckList.tsx
 "use client";
 
 import Link from "next/link";
 import { RefreshCw, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import type { CSSProperties } from "react";
 
 import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
 import ConfirmResetModal from "@/shared/components/ConfirmResetModal";
@@ -15,11 +17,39 @@ import { useSubscription } from "@/features/subscription/hook/useSubscription";
 
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
 
-export default function DeckList({ decks, getDeckProgress }: any) {
+type Deck = any;
+
+type Styles = {
+  list: CSSProperties;
+  card: CSSProperties;
+  link: CSSProperties;
+  top: CSSProperties;
+  titleRow: CSSProperties;
+  count: CSSProperties;
+  right: CSSProperties;
+  percent: CSSProperties;
+  trashBtn: CSSProperties;
+  eyeBtn: CSSProperties;
+  bar: CSSProperties;
+  fill: CSSProperties;
+};
+
+type ModalStyles = {
+  backdrop: CSSProperties;
+  box: CSSProperties;
+};
+
+export default function DeckList({
+  decks,
+  getDeckProgress,
+}: {
+  decks: Deck[];
+  getDeckProgress: (deck: Deck) => { percent: number };
+}) {
   const [mounted, setMounted] = useState(false);
-  const [targetDeck, setTargetDeck] = useState<any>(null);
-  const [buyDeck, setBuyDeck] = useState<any>(null);
-  const [purchaseDeck, setPurchaseDeck] = useState<any>(null);
+  const [targetDeck, setTargetDeck] = useState<Deck | null>(null);
+  const [buyDeck, setBuyDeck] = useState<Deck | null>(null);
+  const [purchaseDeck, setPurchaseDeck] = useState<Deck | null>(null);
 
   const router = useRouter();
   const { user } = useAuthSession();
@@ -35,10 +65,9 @@ export default function DeckList({ decks, getDeckProgress }: any) {
 
   return (
     <div style={styles.list}>
-      {decks.map((deck: any) => {
+      {decks.map((deck) => {
         const { percent } = getDeckProgress(deck);
 
-        // ✅ CENTRALIZED ACCESS LOGIC
         const isUnlocked =
           deck.isFree === true ||
           subscription.isActive ||
@@ -123,7 +152,6 @@ export default function DeckList({ decks, getDeckProgress }: any) {
         );
       })}
 
-      {/* RESET MODAL */}
       <ConfirmResetModal
         open={!!targetDeck}
         onCancel={() => setTargetDeck(null)}
@@ -135,7 +163,6 @@ export default function DeckList({ decks, getDeckProgress }: any) {
         }}
       />
 
-      {/* BUY MODAL */}
       {buyDeck && (
         <div style={modalStyles.backdrop}>
           <div style={modalStyles.box}>
@@ -146,9 +173,7 @@ export default function DeckList({ decks, getDeckProgress }: any) {
             </p>
 
             <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
-              <button onClick={() => setBuyDeck(null)}>
-                Cancel
-              </button>
+              <button onClick={() => setBuyDeck(null)}>Cancel</button>
 
               <button
                 onClick={async () => {
@@ -174,20 +199,19 @@ export default function DeckList({ decks, getDeckProgress }: any) {
         </div>
       )}
 
-      {/* PURCHASE CONFIRM MODAL */}
       <ConfirmPurchaseModal
         open={!!purchaseDeck}
         deck={purchaseDeck}
         onCancel={() => setPurchaseDeck(null)}
         onConfirm={() => {
-          router.push(`/purchase/${purchaseDeck.key}`);
+          router.push(`/purchase/${purchaseDeck?.key}`);
         }}
       />
     </div>
   );
 }
 
-const styles = {
+const styles: Styles = {
   list: {
     display: "flex",
     flexDirection: "column",
@@ -272,7 +296,7 @@ const styles = {
   },
 };
 
-const modalStyles = {
+const modalStyles: ModalStyles = {
   backdrop: {
     position: "fixed",
     top: 0,
