@@ -1,7 +1,8 @@
+//features\auth\components\ForgetPasswordForm.tsx
 "use client";
 
 import { useState } from "react";
-import { useForgetPassword } from "../hooks/UseForgetPassword";
+import { useForgetPassword } from "../hooks/useForgetPassword";
 
 export function ForgetPasswordForm() {
   const { sendReset, loading, error, success } =
