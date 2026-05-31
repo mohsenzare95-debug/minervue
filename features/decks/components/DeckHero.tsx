@@ -26,11 +26,16 @@ export default function DeckHero({
             {scoreLevel ?? 1}
           </div>
 
+          {/* DOTS (FIXED) */}
           <div style={styles.dots}>
-            {(scoreDots ?? []).map((d: string, i: number) => (
-              <span key={i} style={styles.dot}>
-                {d}
-              </span>
+            {(scoreDots ?? []).map((_, i: number) => (
+              <div
+                key={i}
+                style={{
+                  ...styles.dot,
+                  background: i < (scoreDots?.length ?? 0) ? "#111" : "transparent",
+                }}
+              />
             ))}
           </div>
         </div>
@@ -50,9 +55,14 @@ export default function DeckHero({
             (d, i) => (
               <div key={d} style={styles.day}>
                 <div style={styles.dayName}>{d}</div>
-                <div style={styles.weekDot}>
-                  {week?.[i] ? "●" : "○"}
-                </div>
+
+                {/* WEEK DOTS (FIXED CSS VERSION) */}
+                <div
+                  style={{
+                    ...styles.weekDot,
+                    background: week?.[i] ? "#111" : "transparent",
+                  }}
+                />
               </div>
             )
           )}
@@ -62,7 +72,6 @@ export default function DeckHero({
     </div>
   );
 }
-
 
 const styles: any = {
   hero: {
@@ -79,7 +88,6 @@ const styles: any = {
     gap: 12,
   },
 
-  /* CARD BASE (IMPORTANT FIX) */
   card: {
     flex: 1,
     background: "#fff",
@@ -90,8 +98,8 @@ const styles: any = {
 
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",     // 🔴 FIX alignment
-    justifyContent: "center", // 🔴 FIX vertical mismatch
+    alignItems: "center",
+    justifyContent: "center",
     textAlign: "center",
   },
 
@@ -104,7 +112,7 @@ const styles: any = {
   score: {
     fontSize: 44,
     fontWeight: 800,
-    lineHeight: 1, // 🔴 prevents vertical shift
+    lineHeight: 1,
   },
 
   level: {
@@ -113,6 +121,7 @@ const styles: any = {
     lineHeight: 1,
   },
 
+  /* DOTS ROW (LEVEL) */
   dots: {
     marginTop: 6,
     display: "flex",
@@ -121,8 +130,10 @@ const styles: any = {
   },
 
   dot: {
-    fontSize: 14,
-    lineHeight: 1,
+    width: 8,
+    height: 8,
+    borderRadius: "50%",
+    border: "1px solid #111",
   },
 
   /* ===================== */
@@ -157,8 +168,12 @@ const styles: any = {
     color: "#888",
   },
 
+  /* WEEK DOT (FIXED) */
   weekDot: {
-    fontSize: 16,
-    lineHeight: 1,
+    width: 10,
+    height: 10,
+    borderRadius: "50%",
+    border: "1px solid #111",
+    marginTop: 2,
   },
 };
