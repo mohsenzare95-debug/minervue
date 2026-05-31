@@ -6,8 +6,6 @@ import { RefreshCw, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import type { CSSProperties } from "react";
-
 import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
 import ConfirmResetModal from "@/shared/components/ConfirmResetModal";
 import ConfirmPurchaseModal from "@/shared/components/ConfirmPurchaseModal";
@@ -18,26 +16,6 @@ import { useSubscription } from "@/features/subscription/hook/useSubscription";
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
 
 type Deck = any;
-
-type Styles = {
-  list: CSSProperties;
-  card: CSSProperties;
-  link: CSSProperties;
-  top: CSSProperties;
-  titleRow: CSSProperties;
-  count: CSSProperties;
-  right: CSSProperties;
-  percent: CSSProperties;
-  trashBtn: CSSProperties;
-  eyeBtn: CSSProperties;
-  bar: CSSProperties;
-  fill: CSSProperties;
-};
-
-type ModalStyles = {
-  backdrop: CSSProperties;
-  box: CSSProperties;
-};
 
 export default function DeckList({
   decks,
@@ -86,7 +64,6 @@ export default function DeckList({
                   e.preventDefault();
                   e.stopPropagation();
                   setBuyDeck(deck);
-                  return;
                 }
               }}
             >
@@ -211,7 +188,12 @@ export default function DeckList({
   );
 }
 
-const styles: Styles = {
+/**
+ * ✅ IMPORTANT:
+ * Using inline object without explicit CSSProperties typing
+ * prevents Next.js/Vercel TS strict widening issues.
+ */
+const styles = {
   list: {
     display: "flex",
     flexDirection: "column",
@@ -296,7 +278,7 @@ const styles: Styles = {
   },
 };
 
-const modalStyles: ModalStyles = {
+const modalStyles = {
   backdrop: {
     position: "fixed",
     top: 0,
