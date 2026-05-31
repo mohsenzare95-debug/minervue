@@ -71,7 +71,9 @@ export default function DailyActivityChart({
             return (
               <div key={i} style={styles.barWrap}>
                 <div style={{ ...styles.bar, height }} />
-                <div style={styles.xLabel}>{d.day}</div>
+                <div style={styles.xLabel}>
+  {d.day === 1 || d.day === 30 || d.day % 3 === 0 ? d.day : ""}
+</div>
               </div>
             );
           })}
