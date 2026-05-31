@@ -57,19 +57,11 @@ export default function SessionScreen({
   // ======================
 
   if (allMastered) {
-    return (
-      <DeckMastered
-        onReset={handleStartOver}
-      />
-    );
+    return <DeckMastered onReset={handleStartOver} />;
   }
 
   if (sessionFinished) {
-    return (
-      <SessionEnd
-        onNewSession={startNewSession}
-      />
-    );
+    return <SessionEnd onNewSession={startNewSession} />;
   }
 
   // ======================
@@ -85,56 +77,52 @@ export default function SessionScreen({
   // ======================
 
   return (
-    <div style={styles.container}>
-      {/* ======================
-          COUNTER
-      ====================== */}
-      <div style={styles.counter}>
-        Card {index + 1} / {sessionCards.length}
-      </div>
+  <div style={styles.page}>
+    <div style={styles.counter}>
+      Card {index + 1} / {sessionCards.length}
+    </div>
 
-      {/* ======================
-          CARD VIEW (PURE UI)
-      ====================== */}
-      <div onClick={() => setShowAnswer(true)}>
-        <CardView card={card} showAnswer={showAnswer} />
-      </div>
+    <div style={styles.cardContainer} onClick={() => setShowAnswer(true)}>
+      <CardView card={card} showAnswer={showAnswer} />
+    </div>
 
-      {/* ======================
-          ANSWER CONTROLS
-      ====================== */}
-      {showAnswer && (
+    {showAnswer && (
+      <div style={styles.controls}>
         <AnswerControls
           selected={selected}
           chooseAnswer={chooseAnswer}
           canNext={canNext}
           handleNext={handleNext}
         />
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
 }
 
 // ======================
 // STYLES
 // ======================
 
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    padding: 16,
-    maxWidth: 600,
-    margin: "0 auto",
+const styles = {
+  page: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+
+  cardContainer: {
+    width: "100%",
+  },
+
+  controls: {
+    width: "100%",
   },
 
   counter: {
     textAlign: "center",
-    marginBottom: 16,
+    marginBottom: 8,
     color: "#666",
-  },
-
-  loading: {
-    padding: 40,
-    textAlign: "center",
-    color: "#777",
   },
 };

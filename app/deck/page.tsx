@@ -13,16 +13,15 @@ export default function DeckPage() {
 
   return (
     <div style={styles.page}>
-      {/* HERO CARD */}
-      <div style={styles.heroCard}>
-        <DeckHero
-          score={global.score}
-          streak={global.streak}
-          week={global.week}
-          scoreLevel={global.scoreLevel}
-          scoreDots={global.scoreDots}
-        />
-      </div>
+
+      {/* HERO DIRECT (no wrapper card) */}
+      <DeckHero
+        score={global.score}
+        streak={global.streak}
+        week={global.week}
+        scoreLevel={global.scoreLevel}
+        scoreDots={global.scoreDots}
+      />
 
       <div style={styles.titleBlock}>
         <div style={styles.title}>Decks</div>
@@ -35,20 +34,12 @@ export default function DeckPage() {
     </div>
   );
 }
-
 const styles: Record<string, React.CSSProperties> = {
   page: {
     display: "flex",
     flexDirection: "column",
     gap: 24,
     fontFamily: "sans-serif",
-  },
-
-  heroCard: {
-    border: "1px solid #eee",
-    borderRadius: 16,
-    background: "#fff",
-    padding: 16,
   },
 
   titleBlock: {

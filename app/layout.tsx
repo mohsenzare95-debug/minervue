@@ -10,11 +10,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={styles.body}>
+      <body>
         <main className="app">
-          <div style={styles.container}>
-            {children}
-          </div>
+          {children}
         </main>
 
         <Navbar />
@@ -22,20 +20,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  body: {
-    margin: 0,
-    backgroundColor: "#fff",
-  },
-
-  container: {
-    width: "100%",
-    maxWidth: 480,
-    margin: "0 auto",
-    padding: "16px",
-    paddingBottom: 80, // space for navbar
-    display: "flex",
-    flexDirection: "column",
-  },
-};

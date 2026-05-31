@@ -39,6 +39,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     gap: 12,
+    width: "100%",
   },
 
   title: {
@@ -49,6 +50,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   cardWrapper: {
+    width: "100%",
     marginBottom: 16,
   },
 };

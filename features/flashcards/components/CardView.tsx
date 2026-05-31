@@ -87,7 +87,7 @@ export default function CardView({
 
 const styles: Record<string, CSSProperties> = {
   card: {
-    padding: 22,
+    padding: 16,
     borderRadius: 16,
     border: "1px solid #eee",
     background: "#fff",

@@ -16,7 +16,7 @@ type Props = {
 };
 
 /// ======================
-/// SINGLE BUTTON (internal primitive)
+/// SINGLE BUTTON
 /// ======================
 
 function AnswerButton({
@@ -47,7 +47,7 @@ function AnswerButton({
 }
 
 /// ======================
-/// MAIN CONTROL COMPONENT
+/// MAIN COMPONENT
 /// ======================
 
 export default function AnswerControls({
@@ -57,10 +57,8 @@ export default function AnswerControls({
   handleNext,
 }: Props) {
   return (
-    <>
-      {/* ======================
-          ANSWER OPTIONS
-      ====================== */}
+    <div style={styles.container}>
+      {/* ANSWER OPTIONS */}
       <div style={styles.rowButtons}>
         <AnswerButton
           icon={CheckCircle}
@@ -84,15 +82,13 @@ export default function AnswerControls({
         />
       </div>
 
-      {/* ======================
-          NEXT BUTTON
-      ====================== */}
+      {/* NEXT BUTTON */}
       {canNext && (
         <button style={styles.nextBtn} onClick={handleNext}>
           Next
         </button>
       )}
-    </>
+    </div>
   );
 }
 
@@ -101,10 +97,17 @@ export default function AnswerControls({
 /// ======================
 
 const styles = {
+  container: {
+    width: "100%", // 🔴 FIX 1: ensure full layout width context
+    display: "flex",
+    flexDirection: "column",
+  },
+
   rowButtons: {
     display: "flex",
     gap: 10,
     marginTop: 20,
+    width: "100%", // 🔴 FIX 2: prevents flex shrink behavior
   },
 
   btn: {
@@ -119,7 +122,7 @@ const styles = {
 
   nextBtn: {
     marginTop: 14,
-    width: "100%",
+    width: "100%", // already correct, kept for consistency
     padding: 14,
     borderRadius: 12,
     background: "#111",
