@@ -1,5 +1,3 @@
-// features/decks/hooks/useGlobalProgress.ts
-
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -11,8 +9,7 @@ import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 
 import {
   computeScore,
-  getScoreLevel,
-  getScoreDots,
+  getLevelProgress,
   computeStreak,
   computeWeek,
   extractActivityDaysFromLogs,
@@ -23,46 +20,36 @@ export function useGlobalProgress() {
   const [streak, setStreak] = useState(0);
   const [week, setWeek] = useState<boolean[]>([]);
 
+  const [levelProgress, setLevelProgress] = useState({
+    level: 1,
+    from: 0,
+    to: 150,
+    progress: 0,
+  });
+
   const load = useCallback(() => {
-    // ======================
-    // LOAD FROM PROGRESS CACHE
-    // ======================
-
     const allDecks = storageClient.progress.getAll();
-
-    // ======================
-    // FLATTEN TO CardProgress[]
-    // ======================
 
     const allCards = Object.values(allDecks)
       .flatMap((deck) => Object.values(deck || {})) as CardProgress[];
 
-    // ======================
-    // SCORE
-    // ======================
-
     const scoreValue = computeScore(allCards as any);
+
     setScore(scoreValue);
 
-    // ======================
-    // LOG SOURCE (FIX)
-    // ======================
+    // 🔥 مهم: مستقیم از scoreValue استفاده کن (نه state)
+    const lp = getLevelProgress(scoreValue);
+
+    console.log("LP DEBUG:", lp);
+
+    setLevelProgress(lp);
 
     const logsByDeck = reviewLogStorage.getAll();
     const allLogs = Object.values(logsByDeck).flat();
 
     const days = extractActivityDaysFromLogs(allLogs);
 
-    // ======================
-    // STREAK
-    // ======================
-
     setStreak(computeStreak(days));
-
-    // ======================
-    // WEEK
-    // ======================
-
     setWeek(computeWeek(days));
   }, []);
 
@@ -82,7 +69,7 @@ export function useGlobalProgress() {
     score,
     streak,
     week,
-    scoreLevel: getScoreLevel(score),
-    scoreDots: getScoreDots(getScoreLevel(score)),
+    scoreLevel: levelProgress.level,
+    levelProgress,
   };
 }

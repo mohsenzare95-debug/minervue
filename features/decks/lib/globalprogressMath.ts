@@ -4,7 +4,7 @@ import type { CardProgress } from "@/shared/types/progress";
 import type { Activitylog } from "@/shared/storage/local/reviewLogStorage";
 
 // ======================
-// SCORE (NEW SOURCE: progresscache)
+// SCORE
 // ======================
 
 export function computeScore(allCards: CardProgress[]): number {
@@ -24,13 +24,34 @@ export function getScoreLevel(score: number): number {
 }
 
 // ======================
-// SCORE DOTS
+// LEVEL PROGRESS (NEW ONLY)
 // ======================
 
-export function getScoreDots(level: number): string[] {
-  return [1, 2, 3].map((i) => (i <= level ? "●" : "○"));
-}
+export function getLevelProgress(score: number) {
+  const level = getScoreLevel(score);
 
+  const levelStart =
+    level === 1 ? 0 :
+    level === 2 ? 150 :
+    500;
+
+  const levelEnd =
+    level === 1 ? 150 :
+    level === 2 ? 500 :
+    1000;
+
+  const progress =
+    levelEnd === levelStart
+      ? 1
+      : (score - levelStart) / (levelEnd - levelStart);
+
+  return {
+    level,
+    from: levelStart,
+    to: levelEnd,
+    progress: Math.max(0, Math.min(progress, 1)),
+  };
+}
 // ======================
 // EXTRACT DAYS (FROM LOGS)
 // ======================

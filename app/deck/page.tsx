@@ -16,12 +16,12 @@ export default function DeckPage() {
 
       {/* HERO DIRECT (no wrapper card) */}
       <DeckHero
-        score={global.score}
-        streak={global.streak}
-        week={global.week}
-        scoreLevel={global.scoreLevel}
-        scoreDots={global.scoreDots}
-      />
+  score={global.score}
+  streak={global.streak}
+  week={global.week}
+  scoreLevel={global.scoreLevel}
+  levelProgress={global.levelProgress}
+/>
 
       <div style={styles.titleBlock}>
         <div style={styles.title}>Decks</div>

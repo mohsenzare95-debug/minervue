@@ -3,72 +3,49 @@ export default function DeckHero({
   streak,
   week = [],
   scoreLevel,
-  scoreDots = [],
+  levelProgress,
 }: any) {
+
+  console.log("HERO PROPS CHECK:", {
+    score,
+    scoreLevel,
+    levelProgress,
+    progress: levelProgress?.progress,
+  });
+console.log("BAR WIDTH:", {
+  progress: levelProgress?.progress,
+  width: `${(levelProgress?.progress ?? 0) * 100}%`,
+});
   return (
     <div style={styles.hero}>
-      
-      {/* ===================== */}
-      {/* TOP ROW: 2 CARDS */}
-      {/* ===================== */}
+
       <div style={styles.topRow}>
 
-        {/* SCORE CARD */}
         <div style={styles.card}>
           <div style={styles.label}>Score</div>
-          <div style={styles.score}>{score ?? 0}</div>
+          <div style={styles.score}>{score}</div>
         </div>
 
-        {/* LEVEL CARD */}
         <div style={styles.card}>
           <div style={styles.label}>Level</div>
-          <div style={styles.level}>
-            {scoreLevel ?? 1}
+
+          <div style={{ ...styles.level, fontWeight: 800 }}>
+            {scoreLevel}
           </div>
 
-          {/* DOTS (FIXED) */}
-          <div style={styles.dots}>
-            {(scoreDots ?? []).map((_, i: number) => (
+          <div style={styles.progressWrap}>
+            <div style={styles.progressBar}>
               <div
-                key={i}
                 style={{
-                  ...styles.dot,
-                  background: i < (scoreDots?.length ?? 0) ? "#111" : "transparent",
+                  ...styles.progressFill,
+                  width: `${(levelProgress?.progress ?? 0) * 100}%`,
                 }}
               />
-            ))}
+            </div>
           </div>
         </div>
 
       </div>
-
-      {/* ===================== */}
-      {/* BOTTOM CARD */}
-      {/* ===================== */}
-      <div style={styles.bottomCard}>
-        <div style={styles.streakLabel}>
-          Streak Days: {streak ?? 0} 🔥
-        </div>
-
-        <div style={styles.weekRow}>
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
-            (d, i) => (
-              <div key={d} style={styles.day}>
-                <div style={styles.dayName}>{d}</div>
-
-                {/* WEEK DOTS (FIXED CSS VERSION) */}
-                <div
-                  style={{
-                    ...styles.weekDot,
-                    background: week?.[i] ? "#111" : "transparent",
-                  }}
-                />
-              </div>
-            )
-          )}
-        </div>
-      </div>
-
     </div>
   );
 }
@@ -80,9 +57,6 @@ const styles: any = {
     gap: 14,
   },
 
-  /* ===================== */
-  /* TOP ROW */
-  /* ===================== */
   topRow: {
     display: "flex",
     gap: 12,
@@ -93,9 +67,7 @@ const styles: any = {
     background: "#fff",
     border: "1px solid #eee",
     borderRadius: 18,
-
     padding: 18,
-
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -116,29 +88,31 @@ const styles: any = {
   },
 
   level: {
-    fontSize: 22,
-    fontWeight: 700,
+    fontSize: 26,
+    fontWeight: 900,   // مهم: بولد واقعی
     lineHeight: 1,
+    marginBottom: 8,
   },
 
-  /* DOTS ROW (LEVEL) */
-  dots: {
-    marginTop: 6,
-    display: "flex",
-    gap: 4,
-    justifyContent: "center",
+  progressWrap: {
+    width: "100%",
   },
 
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: "50%",
-    border: "1px solid #111",
+  progressBar: {
+    height: 6,
+    width: "100%",
+    background: "#eee",
+    borderRadius: 999,
+    overflow: "hidden",
   },
 
-  /* ===================== */
-  /* BOTTOM CARD */
-  /* ===================== */
+  progressFill: {
+    height: "100%",
+    background: "#111",
+    borderRadius: 999,
+    transition: "width 0.3s ease",
+  },
+
   bottomCard: {
     padding: 18,
     borderRadius: 18,
@@ -168,7 +142,6 @@ const styles: any = {
     color: "#888",
   },
 
-  /* WEEK DOT (FIXED) */
   weekDot: {
     width: 10,
     height: 10,
