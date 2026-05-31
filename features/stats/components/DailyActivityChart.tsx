@@ -18,9 +18,7 @@ export default function DailyActivityChart({
   onNextMonth,
 }: Props) {
   const maxValue = Math.max(...data.map((d) => d.value), 1);
-
   const step = Math.max(1, Math.ceil(maxValue / 4));
-
   const yTicks = Array.from({ length: 5 }, (_, i) => step * (4 - i));
 
   return (
@@ -31,7 +29,7 @@ export default function DailyActivityChart({
         Daily Activity
       </div>
 
-      {/* SUBTITLE (NEW) */}
+      {/* SUBTITLE */}
       <div style={styles.subTitle}>
         based on cards number
       </div>
@@ -84,7 +82,7 @@ export default function DailyActivityChart({
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   wrapper: {
     width: "100%",
     maxWidth: 520,
@@ -105,7 +103,6 @@ const styles = {
     letterSpacing: 0.3,
   },
 
-  /* NEW */
   subTitle: {
     textAlign: "center",
     fontSize: 11.5,
@@ -163,10 +160,12 @@ const styles = {
     alignItems: "flex-end",
     gap: 3,
     paddingLeft: 6,
+    overflowX: "hidden", // safety fix
   },
 
   barWrap: {
     flex: 1,
+    minWidth: 0, // 🔴 critical fix for mobile overflow
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
