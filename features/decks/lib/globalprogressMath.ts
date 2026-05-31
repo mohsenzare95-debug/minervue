@@ -1,0 +1,84 @@
+//features/decks/lib/globalprogressMath.ts
+
+import type { CardProgress } from "@/shared/types/progress";
+import type { Activitylog } from "@/shared/storage/local/reviewLogStorage";
+
+// ======================
+// SCORE (NEW SOURCE: progresscache)
+// ======================
+
+export function computeScore(allCards: CardProgress[]): number {
+  return allCards.reduce((acc, c) => {
+    return acc + (c.streak ?? 0);
+  }, 0);
+}
+
+// ======================
+// SCORE LEVEL
+// ======================
+
+export function getScoreLevel(score: number): number {
+  if (score < 150) return 1;
+  if (score < 500) return 2;
+  return 3;
+}
+
+// ======================
+// SCORE DOTS
+// ======================
+
+export function getScoreDots(level: number): string[] {
+  return [1, 2, 3].map((i) => (i <= level ? "●" : "○"));
+}
+
+// ======================
+// EXTRACT DAYS (FROM LOGS)
+// ======================
+
+export function extractActivityDaysFromLogs(
+  logs: Activitylog[]
+): Set<string> {
+  const days = new Set<string>();
+
+  for (const l of logs) {
+    const date = new Date(l.timestamp);
+    days.add(date.toDateString());
+  }
+
+  return days;
+}
+
+// ======================
+// STREAK
+// ======================
+
+export function computeStreak(days: Set<string>): number {
+  let streak = 0;
+  const d = new Date();
+
+  while (days.has(d.toDateString())) {
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+
+  return streak;
+}
+
+// ======================
+// WEEK MAP
+// ======================
+
+export function computeWeek(days: Set<string>): boolean[] {
+  const today = new Date();
+  const monday = new Date(today);
+
+  const day = (today.getDay() + 6) % 7;
+  monday.setDate(today.getDate() - day);
+
+  return Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+
+    return days.has(d.toDateString());
+  });
+}
