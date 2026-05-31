@@ -55,7 +55,7 @@ Rather than isolated theoretical facts, it is built around structured clinical r
       />
 
       {/* FUTURE ROADMAP */}
-      <FutureRoadmap imageUrl="/images/et c/roadmap.png" />
+      <FutureRoadmap imageUrl="/images/et c/Roadmap.png" />
 
       {/* SOCIAL ICONS */}
       <div style={styles.socialSection}>
