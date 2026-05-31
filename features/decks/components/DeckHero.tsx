@@ -5,47 +5,71 @@ export default function DeckHero({
   scoreLevel,
   levelProgress,
 }: any) {
+  const progress = levelProgress?.progress ?? 0;
 
-  console.log("HERO PROPS CHECK:", {
-    score,
-    scoreLevel,
-    levelProgress,
-    progress: levelProgress?.progress,
-  });
-console.log("BAR WIDTH:", {
-  progress: levelProgress?.progress,
-  width: `${(levelProgress?.progress ?? 0) * 100}%`,
-});
   return (
     <div style={styles.hero}>
 
+      {/* ===================== */}
+      {/* TOP ROW */}
+      {/* ===================== */}
       <div style={styles.topRow}>
 
+        {/* SCORE CARD */}
         <div style={styles.card}>
           <div style={styles.label}>Score</div>
-          <div style={styles.score}>{score}</div>
+          <div style={styles.score}>{score ?? 0}</div>
         </div>
 
+        {/* LEVEL CARD */}
         <div style={styles.card}>
           <div style={styles.label}>Level</div>
 
-          <div style={{ ...styles.level, fontWeight: 800 }}>
-            {scoreLevel}
+          {/* LEVEL NUMBER */}
+          <div style={styles.level}>
+            {scoreLevel ?? 1}
           </div>
 
+          {/* PROGRESS BAR */}
           <div style={styles.progressWrap}>
             <div style={styles.progressBar}>
               <div
                 style={{
                   ...styles.progressFill,
-                  width: `${(levelProgress?.progress ?? 0) * 100}%`,
+                  width: `${progress * 100}%`,
                 }}
               />
             </div>
           </div>
+
         </div>
 
       </div>
+
+      {/* ===================== */}
+      {/* BOTTOM CARD */}
+      {/* ===================== */}
+      <div style={styles.bottomCard}>
+        <div style={styles.streakLabel}>
+          Streak Days: {streak ?? 0} 🔥
+        </div>
+
+        <div style={styles.weekRow}>
+          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d, i) => (
+            <div key={d} style={styles.day}>
+              <div style={styles.dayName}>{d}</div>
+
+              <div
+                style={{
+                  ...styles.weekDot,
+                  background: week?.[i] ? "#111" : "transparent",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }
