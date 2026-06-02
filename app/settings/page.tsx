@@ -42,7 +42,7 @@ export default function SettingsPage() {
       {/* ABOUT */}
       <AboutMeCard
         name="Behind Minervue"
-        bio={`My name is Mohsen Zare. I am a published Iranian ophthalmologist. Minervue is a solo-developed educational platform designed specifically for ophthalmologists, structured around hundreds of flashcards reviewed through a spaced repetition system with integrated self-assessment.
+        bio={`My name is Mohsen Zare. I am a published general ophthalmologist. Minervue is a solo-developed educational platform designed specifically for ophthalmologists, structured around hundreds of flashcards reviewed through a spaced repetition system with integrated self-assessment.
 
 Rather than isolated theoretical facts, it is built around structured clinical reasoning, decision-making frameworks, and deeper conceptual understanding beyond surface-level training content.`}
         imageUrl="/images/et c/Profile.jpg"

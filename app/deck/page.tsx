@@ -20,6 +20,7 @@ export default function DeckPage() {
         streak={global.streak}
         week={global.week}
         scoreLevel={global.scoreLevel}
+        levelProgress={global.levelProgress}
         scoreDots={global.scoreDots}
       />
 

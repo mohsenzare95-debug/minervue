@@ -1,3 +1,4 @@
+//features\flashcards\components\CardsReviewScreen.tsx
 "use client";
 
 import DeckHero from "@/features/decks/components/DeckHero";
@@ -20,6 +21,7 @@ export default function DeckPage() {
           streak={global.streak}
           week={global.week}
           scoreLevel={global.scoreLevel}
+          levelProgress={global.levelProgress}
           scoreDots={global.scoreDots}
         />
       </div>
