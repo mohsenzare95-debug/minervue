@@ -11,6 +11,9 @@ import { getDeckStatus } from "@/features/flashcards/lib/deckStatusRecognition";
 import { outbox } from "@/shared/storage/local/outbox";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 
+import { Progress } from "@/shared/supabase/progress";
+import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
+
 import type { Card } from "@/shared/types/card";
 import type { AnswerType } from "@/shared/types/review";
 
@@ -20,20 +23,15 @@ type SessionState = {
   finished: boolean;
 };
 
-function buildSessionCards(
-  cards: Card[],
-  deckKey: string
-): Card[] {
-  const progress =
-    storageClient.progress.getDeckProgress(deckKey);
-
+function buildSessionCards(cards: Card[], deckKey: string): Card[] {
+  const progress = storageClient.progress.getDeckProgress(deckKey);
   return selectCardsForSession(cards, progress);
 }
 
 export function useSessionFlow({
   deckKey,
   cards,
-  userId,
+  userId, // برای outbox
 }: {
   deckKey: string;
   cards: Card[];
@@ -46,8 +44,9 @@ export function useSessionFlow({
   }));
 
   const [showAnswer, setShowAnswer] = useState(false);
-  const [selected, setSelected] =
-    useState<AnswerType | null>(null);
+  const [selected, setSelected] = useState<AnswerType | null>(null);
+
+  const { user } = useAuthSession();
 
   function resetCardUI() {
     setShowAnswer(false);
@@ -55,85 +54,59 @@ export function useSessionFlow({
   }
 
   const card = state.cards[state.index] ?? null;
-
   const canNext = selected !== null;
-
-  const progress =
-    storageClient.progress.getDeckProgress(deckKey);
-
-  const allMastered =
-    getDeckStatus(progress) === "MASTERED";
+  const progress = storageClient.progress.getDeckProgress(deckKey);
+  const allMastered = getDeckStatus(progress) === "MASTERED";
 
   const chooseAnswer = useCallback(
-    async (answer: AnswerType) => {
+    (answer: AnswerType) => {
       if (!card) return;
 
       const timestamp = Date.now();
 
-      // 1. update progress state
-      const current =
-        storageClient.progress.getDeckProgress(
-          deckKey
+      // 1️⃣ Update local progress
+      const current = storageClient.progress.getDeckProgress(deckKey);
+      const updated = applyAnswerScore(current, card.id, answer);
+      storageClient.progress.saveCardProgress(deckKey, card.id, updated[card.id]);
+
+      // 2️⃣ Async save to Supabase (user_progress)
+      if (user?.id) {
+        // کل progress object شامل streak, seen, mastered
+        Progress.save(deckKey, card.id, updated[card.id]).catch((err) =>
+          console.error("Failed to save progress:", err)
         );
+      }
 
-      const updated = applyAnswerScore(
-        current,
-        card.id,
-        answer
-      );
+      // 3️⃣ Log review locally
+      reviewLogStorage.add(deckKey, { cardId: card.id, result: answer, timestamp });
 
-      storageClient.progress.saveCardProgress(
-        deckKey,
-        card.id,
-        updated[card.id]
-      );
-
-      // 2. analytics log
-      reviewLogStorage.add(deckKey, {
-        cardId: card.id,
-        result: answer,
-        timestamp,
-      });
-
-      // 3. outbox event
+      // 4️⃣ Outbox event for review_events
       if (userId) {
         outbox.add({
           user_id: userId,
           client_event_id: crypto.randomUUID(),
-
           type: "REVIEW_EVENT",
-
-          payload: {
-            deckKey,
-            cardId: card.id,
-            result: answer,
-            timestamp,
-          },
+          payload: { deckKey, cardId: card.id, result: answer, timestamp },
         });
       }
 
-      // 4. UI update
+      // 5️⃣ Update UI
       setSelected(answer);
       setShowAnswer(true);
     },
-    [card, deckKey, userId]
+    [card, deckKey, userId, user]
   );
 
   const handleNext = useCallback(() => {
     setState((prev) => {
       const nextIndex = prev.index + 1;
-      const finished =
-        nextIndex >= prev.cards.length;
-
+      const finished = nextIndex >= prev.cards.length;
       return {
         ...prev,
-        index: finished
-          ? prev.index
-          : nextIndex,
+        index: finished ? prev.index : nextIndex,
         finished,
       };
     });
-
     resetCardUI();
   }, []);
 
@@ -143,7 +116,6 @@ export function useSessionFlow({
       cards: buildSessionCards(cards, deckKey),
       finished: false,
     });
-
     resetCardUI();
   }, [cards, deckKey]);
 

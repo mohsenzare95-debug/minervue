@@ -1,5 +1,6 @@
+//features\flashcards\components\SessionScreen.tsx
 "use client";
-
+import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import AnswerControls from "./AnswerControls";
 import SessionEnd from "./SessionFinished";
 import CardView from "./CardView";
@@ -24,7 +25,8 @@ export default function SessionScreen({
   cards,
   deckKey = "default",
 }: Props) {
-  const {
+  const { user } = useAuthSession();
+    const {
     index,
     showAnswer,
     setShowAnswer,
@@ -45,6 +47,7 @@ export default function SessionScreen({
   } = useSessionFlow({
     cards,
     deckKey,
+    userId: user?.id,
   });
 
   const handleStartOver = () => {

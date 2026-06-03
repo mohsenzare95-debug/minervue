@@ -15,6 +15,7 @@ export default function RootLayout({
   const { user, loading } = useAuthSession();
 
   useEffect(() => {
+    
     // وقتی کاربر لود شد و موجود بود، syncEngine رو استارت کن
     if (!loading && user) {
       syncEngine.start(user);
