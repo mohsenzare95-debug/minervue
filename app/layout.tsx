@@ -9,10 +9,6 @@ export const metadata: Metadata = {
   // PWA manifest
   manifest: "/manifest.json",
 
-  // این خط باعث میشه کاربر نتونه زوم کنه
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-
-
   // آیکون‌ها و favicon
   icons: [
     {
