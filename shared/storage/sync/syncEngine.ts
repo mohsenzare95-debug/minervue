@@ -19,7 +19,6 @@ export const syncEngine = {
     console.log("[SYNC] started");
 
     // ===== 1. push review events =====
-
     const pending = outbox
       .getPending()
       .sort((a, b) => a.seq - b.seq)
@@ -47,85 +46,50 @@ export const syncEngine = {
     }
 
     // ===== 2. push user progress =====
-
     const deckKeys = Object.keys(storageClient.progress.getAll());
-
     for (const deckKey of deckKeys) {
-      const deckProgress =
-        storageClient.progress.getDeckProgress(deckKey);
-
+      const deckProgress = storageClient.progress.getDeckProgress(deckKey);
       for (const cardId in deckProgress) {
         const progress = deckProgress[cardId];
-
         try {
-          await Progress.save(
-            deckKey,
-            cardId,
-            progress
-          );
+          await Progress.save(deckKey, cardId, progress);
         } catch (e) {
-          console.error(
-            "[SYNC] progress push failed",
-            e
-          );
+          console.error("[SYNC] progress push failed", e);
         }
       }
     }
 
     // ===== 3. pull server progress & merge =====
-
     try {
-      const serverProgressRaw =
-        await Progress.getAll();
-
-      console.log(
-        "[SYNC] SERVER PROGRESS",
-        serverProgressRaw
-      );
+      const serverProgressRaw = await Progress.getAll();
+      console.log("[SYNC] SERVER PROGRESS", serverProgressRaw);
 
       for (const key in serverProgressRaw) {
-        const [deckKey, cardId] =
-          key.split("_");
+        // استفاده از آخرین underscore برای جدا کردن deck و card
+        const lastUnderscore = key.lastIndexOf("_");
+        let deckKey = key;
+        let cardId = key;
 
-        const serverCard =
-          serverProgressRaw[key];
+        if (lastUnderscore !== -1) {
+          deckKey = key.substring(0, lastUnderscore);
+          cardId = key.substring(lastUnderscore + 1);
+        }
 
-        const localProgress =
-          storageClient.progress.getDeckProgress(
-            deckKey
-          )[cardId];
+        const serverCard = serverProgressRaw[key];
+        const localProgress = storageClient.progress.getDeckProgress(deckKey)[cardId];
 
         const merged = {
-          streak: Math.max(
-            localProgress?.streak ?? 0,
-            serverCard.streak ?? 0
-          ),
-
-          seen:
-            localProgress?.seen ||
-            serverCard.seen,
-
-          mastered:
-            localProgress?.mastered ||
-            serverCard.mastered,
+          streak: Math.max(localProgress?.streak ?? 0, serverCard.streak ?? 0),
+          seen: localProgress?.seen || serverCard.seen,
+          mastered: localProgress?.mastered || serverCard.mastered,
         };
 
-        storageClient.progress.saveCardProgress(
-          deckKey,
-          cardId,
-          merged
-        );
+        storageClient.progress.saveCardProgress(deckKey, cardId, merged);
       }
 
-      console.log(
-        "[SYNC] LOCAL PROGRESS AFTER MERGE",
-        storageClient.progress.getAll()
-      );
+      console.log("[SYNC] LOCAL PROGRESS AFTER MERGE", storageClient.progress.getAll());
     } catch (e) {
-      console.error(
-        "[SYNC] pull failed",
-        e
-      );
+      console.error("[SYNC] pull failed", e);
     }
   },
 
