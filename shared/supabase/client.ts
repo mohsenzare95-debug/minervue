@@ -1,19 +1,14 @@
 // shared/supabase/client.ts
-
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-console.log("URL =", supabaseUrl);
-console.log("KEY EXISTS =", !!supabaseAnonKey);
-
-// جلوگیری از crash در build (Vercel SSR phase)
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn("Supabase env vars are missing");
+  throw new Error(
+    "Supabase env vars are missing: NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  );
 }
 
-export const supabase =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+export const supabase: SupabaseClient =
+  createClient(supabaseUrl, supabaseAnonKey);

@@ -1,4 +1,4 @@
-//features\flashcards\hooks\useSessionFlow.ts
+// features/flashcards/hooks/useSessionFlow.ts
 "use client";
 
 import { useCallback, useState } from "react";
@@ -20,8 +20,13 @@ type SessionState = {
   finished: boolean;
 };
 
-function buildSessionCards(cards: Card[], deckKey: string): Card[] {
-  const progress = storageClient.progress.getDeckProgress(deckKey);
+function buildSessionCards(
+  cards: Card[],
+  deckKey: string
+): Card[] {
+  const progress =
+    storageClient.progress.getDeckProgress(deckKey);
+
   return selectCardsForSession(cards, progress);
 }
 
@@ -41,7 +46,8 @@ export function useSessionFlow({
   }));
 
   const [showAnswer, setShowAnswer] = useState(false);
-  const [selected, setSelected] = useState<AnswerType | null>(null);
+  const [selected, setSelected] =
+    useState<AnswerType | null>(null);
 
   function resetCardUI() {
     setShowAnswer(false);
@@ -52,9 +58,11 @@ export function useSessionFlow({
 
   const canNext = selected !== null;
 
-  const progress = storageClient.progress.getDeckProgress(deckKey);
+  const progress =
+    storageClient.progress.getDeckProgress(deckKey);
 
-  const allMastered = getDeckStatus(progress) === "MASTERED";
+  const allMastered =
+    getDeckStatus(progress) === "MASTERED";
 
   const chooseAnswer = useCallback(
     async (answer: AnswerType) => {
@@ -62,10 +70,17 @@ export function useSessionFlow({
 
       const timestamp = Date.now();
 
-      // 1. update progress state (learning state)
-      const current = storageClient.progress.getDeckProgress(deckKey);
+      // 1. update progress state
+      const current =
+        storageClient.progress.getDeckProgress(
+          deckKey
+        );
 
-      const updated = applyAnswerScore(current, card.id, answer);
+      const updated = applyAnswerScore(
+        current,
+        card.id,
+        answer
+      );
 
       storageClient.progress.saveCardProgress(
         deckKey,
@@ -73,41 +88,48 @@ export function useSessionFlow({
         updated[card.id]
       );
 
-      // 2. analytics log (immutable)
+      // 2. analytics log
       reviewLogStorage.add(deckKey, {
         cardId: card.id,
         result: answer,
         timestamp,
       });
 
-      // 3. sync queue (outbox)
-      const event = {
-        deckKey,
-        cardId: card.id,
-        result: answer,
-        timestamp,
-      };
+      // 3. outbox event
+      if (userId) {
+        outbox.add({
+          user_id: userId,
+          client_event_id: crypto.randomUUID(),
 
-      outbox.add({
-        type: "REVIEW_EVENT",
-        payload: event,
-      });
+          type: "REVIEW_EVENT",
 
-      // 4. UI state update
+          payload: {
+            deckKey,
+            cardId: card.id,
+            result: answer,
+            timestamp,
+          },
+        });
+      }
+
+      // 4. UI update
       setSelected(answer);
       setShowAnswer(true);
     },
-    [card, deckKey]
+    [card, deckKey, userId]
   );
 
   const handleNext = useCallback(() => {
     setState((prev) => {
       const nextIndex = prev.index + 1;
-      const finished = nextIndex >= prev.cards.length;
+      const finished =
+        nextIndex >= prev.cards.length;
 
       return {
         ...prev,
-        index: finished ? prev.index : nextIndex,
+        index: finished
+          ? prev.index
+          : nextIndex,
         finished,
       };
     });

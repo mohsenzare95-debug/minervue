@@ -1,5 +1,5 @@
 import { supabase } from "@/shared/supabase/client";
-import { Auth } from "@/lib/supabase/auth";
+import { Auth } from "@/shared/supabase/auth";
 
 const makeKey = (deckKey: string, cardId: string) =>
   `${deckKey}_${cardId}`;
