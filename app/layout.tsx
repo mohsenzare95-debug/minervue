@@ -1,32 +1,49 @@
-// app/layout.tsx
-"use client";
-
 import "./globals.css";
-import Navbar from "@/shared/ui/Navbar";
-import { useEffect } from "react";
-import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
-import { syncEngine } from "@/shared/storage/sync/syncEngine"; // مسیر خودت
+import type { Metadata } from "next";
+import NavbarWrapper from "./NavbarWrapper"; // کامپوننت client برای Navbar و syncEngine
+
+export const metadata: Metadata = {
+  title: "Minervue", // این عنوان توی تب مرورگر و PWA نمایش داده می‌شود
+  description: "Flashcards for Ophthalmologists", // توضیح کوتاه اپ
+
+  // PWA manifest
+  manifest: "/manifest.json",
+
+  // آیکون‌ها و favicon
+  icons: [
+    {
+      rel: "icon",
+      url: "/favicon.ico",
+    },
+    {
+      rel: "apple-touch-icon",
+      url: "/apple-touch-icon.png",
+    },
+    {
+      rel: "icon",
+      url: "/icon.png",
+      type: "image/png",
+    },
+  ],
+
+  // تنظیمات مخصوص iOS
+  appleWebApp: {
+    capable: true,
+    title: "Flashcards",
+    statusBarStyle: "default",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { user, loading } = useAuthSession();
-
-  useEffect(() => {
-    
-    // وقتی کاربر لود شد و موجود بود، syncEngine رو استارت کن
-    if (!loading && user) {
-      syncEngine.start(user);
-    }
-  }, [loading, user]);
-
   return (
     <html lang="en">
       <body>
         <main className="app">{children}</main>
-        <Navbar />
+        <NavbarWrapper />
       </body>
     </html>
   );

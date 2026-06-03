@@ -1,3 +1,4 @@
+//shared\supabase\profile.ts
 import { supabase } from "@/shared/supabase/client";
 
 export const Profile = {
