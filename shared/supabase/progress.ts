@@ -1,20 +1,14 @@
-// shared/supabase/progress.ts
-
 import { supabase } from "@/shared/supabase/client";
 import { Auth } from "@/shared/supabase/auth";
-
-const makeKey = (deckKey: string, cardId: string) =>
-  `${deckKey}_${cardId}`;
+import type { AllProgress, CardProgress } from "@/shared/types/progress";
 
 export const Progress = {
   // ======================
   // GET ALL USER PROGRESS
   // ======================
-
-  getAll: async () => {
+  getAll: async (): Promise<AllProgress> => {
     const auth = await Auth.getUser();
     const user = auth?.user;
-
     if (!user) return {};
 
     const { data, error } = await supabase
@@ -24,22 +18,13 @@ export const Progress = {
 
     if (error || !data) return {};
 
-    const result: Record<
-      string,
-      {
-        streak: number;
-        seen: boolean;
-        mastered: boolean;
-      }
-    > = {};
+    const result: AllProgress = {};
 
     data.forEach((item) => {
-      const key = makeKey(
-        item.deck_key,
-        item.card_id
-      );
+      if (!result[item.deck_key]) result[item.deck_key] = {};
 
-      result[key] = {
+      result[item.deck_key][item.card_id] = {
+        cardId: item.card_id,
         streak: item.streak ?? 0,
         seen: item.seen ?? false,
         mastered: item.mastered ?? false,
@@ -52,26 +37,16 @@ export const Progress = {
   // ======================
   // SAVE OR UPDATE ONE CARD
   // ======================
-
   save: async (
     deckKey: string,
     cardId: string,
-    progress: {
-      streak: number;
-      seen: boolean;
-      mastered: boolean;
-    }
+    progress: CardProgress
   ) => {
     const auth = await Auth.getUser();
     const user = auth?.user;
-
     if (!user) return;
 
-    const {
-      streak,
-      seen,
-      mastered,
-    } = progress;
+    const { streak, seen, mastered } = progress;
 
     const { error } = await supabase
       .from("user_progress")
@@ -83,22 +58,13 @@ export const Progress = {
           streak,
           seen,
           mastered,
-          updated_at:
-            new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         },
-        {
-          onConflict:
-            "user_id,deck_key,card_id",
-        }
+        { onConflict: "user_id,deck_key,card_id" }
       );
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
-    return makeKey(
-      deckKey,
-      cardId
-    );
+    return progress; // ✅ برمی‌گردد progress اصلی، نه کلید ترکیبی
   },
 };
