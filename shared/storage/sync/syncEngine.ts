@@ -9,7 +9,7 @@ export const syncEngine = {
   start(userId: string) {
     // اجرای فوری هنگام لاگین
     this.sync(userId);
-    timer = setInterval(() => this.sync(userId), 15000);
+    timer = setInterval(() => this.sync(userId), 60000);
   },
 
   async sync(userId: string) {
