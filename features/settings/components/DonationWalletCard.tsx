@@ -27,7 +27,15 @@ export function DonationWalletCard({
 
       <div style={styles.network}>{network}</div>
 
-      {/* ADDRESS ROW */}
+     
+
+{/* ِDescription */}
+<div style={styles.description}>
+  Minervue is currently developed and maintained entirely through community support. If you find it valuable and would like to see it continue to grow, consider becoming part of its journey.
+
+</div>
+ {/* ADDRESS ROW */}
+
       <div style={styles.addressRow}>
         <div style={styles.addressBox}>
           <code style={styles.address}>{walletAddress}</code>
@@ -67,6 +75,16 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#777",
     marginBottom: 10,
   },
+
+  description: {
+  fontSize: 13,
+  color: "#555",
+  lineHeight: 1.2,
+  textAlign: "left",
+  whiteSpace: "pre-line",
+  marginBottom: 10,
+},
+
 
   /* NEW LAYOUT */
   addressRow: {

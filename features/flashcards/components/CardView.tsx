@@ -1,45 +1,43 @@
-// features/flashcards/components/CardView.tsx
-
 "use client";
 
-/// ======================
-/// IMPORTS
-/// ======================
 import type { Card } from "@/shared/types/card";
 import type { CSSProperties } from "react";
-
-/// ======================
-/// PROPS
-/// ======================
+import ReactMarkdown from "react-markdown";
 
 type Props = {
   card: Card;
   showAnswer: boolean;
 };
 
-/// ======================
-/// COMPONENT
-/// ======================
+const mdComponents = {
+  p: ({ children }: any) => (
+    <p style={{ margin: 0, lineHeight: 1.4 }}>{children}</p>
+  ),
+  ul: ({ children }: any) => (
+    <ul style={{ margin: "6px 0", paddingLeft: 18 }}>{children}</ul>
+  ),
+  li: ({ children }: any) => (
+    <li style={{ margin: "2px 0", lineHeight: 1.4 }}>{children}</li>
+  ),
+  strong: ({ children }: any) => (
+    <strong style={{ fontWeight: 600 }}>{children}</strong>
+  ),
+};
 
-export default function CardView({
-  card,
-  showAnswer,
-}: Props) {
+export default function CardView({ card, showAnswer }: Props) {
   if (!card) return null;
 
   return (
     <div style={styles.card}>
 
-      {/* ======================
-          QUESTION
-      ====================== */}
-      <h3 style={styles.question}>
-        {card.q}
-      </h3>
+      {/* QUESTION */}
+      <div style={styles.question}>
+        <ReactMarkdown components={mdComponents}>
+          {card.q}
+        </ReactMarkdown>
+      </div>
 
-      {/* ======================
-          QUESTION IMAGE
-      ====================== */}
+      {/* QUESTION IMAGE */}
       {card.questionImage && (
         <div style={styles.imageContainer}>
           <img
@@ -50,23 +48,19 @@ export default function CardView({
         </div>
       )}
 
-      {/* ======================
-          SEPARATOR (Q → A)
-      ====================== */}
+      {/* SEPARATOR */}
       <div style={styles.separator} />
 
-      {/* ======================
-          ANSWER TEXT
-      ====================== */}
+      {/* ANSWER */}
       {showAnswer && (
         <div style={styles.answer}>
-          {card.a}
+          <ReactMarkdown components={mdComponents}>
+            {card.a}
+          </ReactMarkdown>
         </div>
       )}
 
-      {/* ======================
-          ANSWER IMAGE
-      ====================== */}
+      {/* ANSWER IMAGE */}
       {showAnswer && card.answerImage && (
         <div style={styles.imageContainer}>
           <img
@@ -81,10 +75,6 @@ export default function CardView({
   );
 }
 
-/// ======================
-/// STYLES
-/// ======================
-
 const styles: Record<string, CSSProperties> = {
   card: {
     padding: 16,
@@ -95,7 +85,7 @@ const styles: Record<string, CSSProperties> = {
 
   question: {
     fontSize: 18,
-    fontWeight: 600,
+    fontWeight: 500,
   },
 
   answer: {
@@ -119,9 +109,6 @@ const styles: Record<string, CSSProperties> = {
     display: "block",
   },
 
-  /// ======================
-  /// FADE SEPARATOR LINE
-  /// ======================
   separator: {
     height: 1,
     margin: "16px 0",

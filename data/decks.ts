@@ -3,6 +3,7 @@
 import { trialCards } from "./trial";
 import { glaucomaCards } from "./glaucoma";
 import { retinaCards } from "./retina";
+import { uveitisCards } from "./uveitis";
 
 export const decks = [
   {
@@ -24,6 +25,13 @@ export const decks = [
     name: "Retina",
     isFree: false,
     cards: retinaCards,
+  },
+
+  {
+    key: "uveitis",
+    name: "Uveitis",
+    isFree: false,
+    cards: uveitisCards,
   },
 ] as const;
 
