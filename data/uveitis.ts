@@ -2,7 +2,224 @@ import type { Card } from "@/shared/types/card";
 
 export const uveitisCards: Card[] = [
 
-    /// Chapt. 9 ///  
+   /// Chapt. 1 ///
+  /// Question 19 ///
+  {
+    id: "uveitis_19",
+    q: `In which diseases are neutrophils the predominant inflammatory cells?`,
+    a: `
+• Bacterial infections *(e.g., endophthalmitis, keratitis, scleritis)*
+
+• Viral infections *(e.g., HSV retinitis and keratitis)*
+
+• LPS-induced inflammation`,
+  },
+
+   /// Question 20 ///
+  {
+    id: "uveitis_20",
+    q: `Where are mast cells normally found in ocular tissues?`,
+    a: `
+• Conjunctival substantia propria
+
+• Choroid
+
+• Anterior uveal tract
+
+-----
+
+**Not present in:** Conjunctival epithelium, Cornea`,
+  },
+
+  /// Question 27 ///
+  {
+    id: "uveitis_27",
+    q: `What are the major targets of resting and scavenging macrophages?`,
+    a: `
+• Membranes and debris of dead cells
+
+• Modified extracellular proteins, particularly acetylated or oxidized lipoproteins
+
+• Carbohydrate ligands recognized through mannose receptors
+
+• Uncoated nucleic acids
+
+• Bacterial pathogens`,
+  },
+
+  /// Question 28 ///
+  {
+    id: "uveitis_28",
+    q: `What are the three key characteristics of classically activated (M1) macrophages?`,
+    a: `
+1.High production of **pro-inflammatory cytokines** and **reactive oxygen/nitrogen species**
+
+2.Promotion of **Th1** immune responses
+
+3.Strong **microbicidal** and **tumoricidal** activity
+    `,
+  },
+
+  /// Question 29 ///
+  {
+    id: "uveitis_29",
+    q: `What are the four key characteristics of alternatively activated (M2) macrophages?`,
+    a: `
+1.Activity against **parasitic infections**
+
+2.Promotion of **tissue remodeling**
+
+3.**Anti-tumor** activity
+
+4.**Immunoregulatory** function
+    `,
+  },
+
+  /// Question 30 ///
+  {
+    id: "uveitis_30",
+    q: `Describe the two major arachidonic acid metabolic pathways and their products.`,
+    a: `
+**Cyclooxygenase (COX) pathway:**
+Thromboxanes (TX)
+Prostacyclins (PGI)
+Prostaglandins (PG)
+
+---
+
+**5-Lipoxygenase (5-LOX) pathway:**
+Leukotrienes (LT)
+Lipoxins
+Eoxins (EX)
+    `,
+    },
+
+    /// Question 31 ///
+  {
+    id: "uveitis_31",
+    q: `What are the four major functions of complement system during inflammation?`,
+    a: `
+**1.Opsonization** (coating of pathogens): mainly via **C3b**
+
+---
+
+**2.Anaphylatoxin activity:** leukocyte activation, chemotaxis, and increased vascular permeability via **C3a** and **C5a** 
+
+---
+
+**3.Membrane attack complex (MAC) formation**: mediated by **C5b** and **C6–C9**
+
+---
+
+**4.Immune modulation** (especially antigen handling): via **iC3b** and **MAC**
+    `,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 32 ///
+  {
+    id: "uveitis_32",
+    q: `What are the SUN criteria for describing uveitis?`,
+    a: `
+**1.Onset:**
+
+• Sudden
+
+• Insidious
+
+---
+
+**2.Duration:**
+
+• Limited: episode duration ≤ 3 months
+
+• Persistent: episode duration > 3 months
+
+---
+
+**3.Course:**
+
+• Acute
+
+• Recurrent: episodes separated by ≥3 months, without treatment
+
+• Chronic: episodes separated <3 months, after stopping treatment)`,
+  },
+
+    /// Question 33 ///
+  {
+    id: "uveitis_33",
+    q: `Which retinal vasculitides primarily involve retinal arterioles (arteritis pattern)?`,
+    a: `
+• Systemic lupus erythematosus (SLE)
+
+• Polyarteritis nodosa (PAN)
+
+• Syphilis
+
+• HSV, VZV retinitis (ARN/PORN)
+
+• IRVAN (Idiopathic Retinal Vasculitis, Aneurysms, and Neuroretinitis)
+
+• Eosinophilic granulomatosis with polyangiitis (Churg–Strauss syndrome)
+
+• Susac syndrome
+    `,
+  },
+
+  /// Question 34 ///
+  {
+    id: "uveitis_34",
+    q: `Which retinal vasculitic diseases primarily involve venules (retinal phlebitis)?`,
+    a: `
+• Sarcoidosis
+
+• Multiple sclerosis (MS)
+
+• Behçet disease
+
+• Birdshot chorioretinopathy
+
+• HIV-associated retinal vasculitis
+
+• Eales disease`,
+  },
+
+  /// Question 35 ///
+  {
+    id: "uveitis_35",
+    q: `Which retinal vasculitic diseases involve both arteries and veins simultaneously from the outset (mixed arteritis and phlebitis)?`,
+    a: `
+• Toxoplasmosis
+
+• Relapsing polychondritis
+
+• Granulomatosis with polyangiitis (GPA)
+
+• Crohn disease
+
+• Frosted branch angiitis`,
+  },
+
+  /// Question 36 ///
+  {
+    id: "uveitis_36",
+    q: `SUN criteria – Anterior Chamber (AC) cell grading`,
+    a: `
+• Grade 0: < 1 cell
+
+• Grade 0.5+: 1–5 cells
+
+• Grade 1+: 6–15 cells
+
+• Grade 2+: 16–25 cells
+
+• Grade 3+: 26–50 cells
+
+• Grade 4+: > 50 cells`,
+  },
+    
+  /// Chapt. 9 ///  
     /// Question 1 /// 
     {
     id: "uveitis_1",
@@ -404,32 +621,167 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
 `,
   },
 
-  /// Question 19 ///
+  /// Chapt. 15 ///
+   /// Question 21 ///
   {
-    id: "uveitis_19",
-    q: `In which diseases are neutrophils the predominant inflammatory cells?`,
+    id: "uveitis_21",
+    q: `What is the typical clinical scenario of Immune Recovery Uveitis (IRU)?`,
     a: `
-• Bacterial infections *(e.g., endophthalmitis, keratitis, scleritis)*
+• In patients with a history of **CMV retinitis** after initiation of HAART; which CD4 count rises **from ≤50 to ≥100 cells/µL**
 
-• Viral infections *(e.g., HSV retinitis and keratitis)*
-
-• LPS-induced inflammation`,
-  },
-
-   /// Chapt. 1 ///
-   /// Question 20 ///
-  {
-    id: "uveitis_20",
-    q: `Where are mast cells normally found in ocular tissues?`,
-    a: `
-• Conjunctival substantia propria
-
-• Choroid
-
-• Anterior uveal tract
+• Presents as **anterior and/or intermediate uveitis**, ± CME
 
 -----
 
-**Not present in:** Conjunctival epithelium, Cornea`,
+**Prevalence:** 10% of patients
+*To date, IRU has not been described in association with ocular infections other than CMV retinitis.*
+    `,
+  },
+
+  /// Question 22 ///
+  {
+    id: "uveitis_22",
+    q: `What are the risk factors for Immune Recovery Uveitis (IRU)?`,
+    a: `
+• >25% retinal involvement
+
+• Cidofovir therapy
+
+• Greater degree of immune recovery after HAART
+
+• Higher CMV antigen load before immune recovery
+    `,
+  },
+
+  /// Question 23 ///
+  {
+    id: "uveitis_23",
+    q: `What is the treatment of Immune Recovery Uveitis (IRU)?`,
+    a: `
+  Short courses of **systemic** or **periocular corticosteroids**
+
+  -----
+
+  **Take Care:** Intravitreal corticosteroids are contraindicated and should be avoided.
+    `,
+  },
+
+  /// Question 24 ///
+  {
+    id: "uveitis_24",
+    q: `What are the differences between toxoplasma chorioretinitis in patients with AIDS and immunocompetent individuals?`,
+    a: `
+• **Larger** lesions
+
+---
+
+• Lesions may be solitary, multifocal, or miliary
+
+---
+
+• **Bilateral** involvement in **~40%** of cases
+
+---
+
+• Typically **milder vitritis**
+
+---
+
+• **Absence of a pre-existing retinochoroidal scar**
+
+---
+
+• Present **Organisms within choroiditis lesions** (unlike immunocompetent patients)
+
+---
+
+• Higher trophozoite-to-cyst ratio within retinal lesions
+
+---
+
+• Often results from newly acquired infection or hematogenous spread from extraocular sites
+
+---
+
+• **Not self-limited**; progresses without treatment  
+  `,
+  },
+
+  /// Question 25 ///
+  {
+    id: "uveitis_25",
+    q: `What is the typical ocular manifestation of Pneumocystis jirovecii (PCP) choroiditis?`,
+    a: `
+
+• Slightly elevated yellow-white plaque-like choroidal lesions
+
+• Minimal vitritis
+
+---
+
+• *Rarely reported in patients with PCP pneumonia*
+
+• *Choroidal infiltrates contain the organism itself*
+    `,
+  },
+
+  /// Question 26 ///
+  {
+    id: "uveitis_26",
+    q: `What systemic workup should be performed in a patient with PCP choroiditis and suspected disseminated infection?`,
+    a: `
+• CXR
+
+• ABG analysis
+
+• Liver function tests (LFTs)
+
+• Abdominal CT scan
+    `,
+  },
+
+  /// Question 13 ///
+  /// Question 37 ///
+  {
+    id: "uveitis_37",
+    q: `What is the typical clinical scenario of primary vitreoretinal lymphoma (PVRL)?`,
+    a: `
+• 50–70 years old patients
+
+• Subretinal infiltrative yellow–cream lesions with thickness ~1–2 mm
+
+• Associated overlying PEDs
+
+• + CNS symptoms; behavioral changes 
+    `,
+  },
+
+  /// Question 38 ///
+  {
+    id: "uveitis_38",
+    q: `What is the bidirectional statistical association between primary vitreoretinal lymphoma (PVRL) and primary CNS lymphoma (PCNSL)?`,
+    a: `
+•PVRL -> 1/4 risk of PCNSL
+
+•PCNSL ->2/3 risk of PVRL
+    `,
+  },
+
+  /// Question 39 ///
+  {
+    id: "uveitis_39",
+    q: `What is the characteristic angiographic appearance in primary vitreoretinal lymphoma (PVRL)?`,
+    a: `
+leopard pattern
+    `,
+  },
+
+  /// Question 40 ///
+  {
+    id: "uveitis_40",
+    q: `What are the typical OCT findings in primary vitreoretinal lymphoma (PVRL)?`,
+    a: `
+IS/OS + RPE-Bruch membrane irregularity
+    `,
   },
 ];
