@@ -263,9 +263,9 @@ PAX6
   },
 
   /// Chapt. 4 ///
-  /// Question 20 ///
+  /// Question 21 ///
   {
-    id: "cataract_20",
+    id: "cataract_21",
     q: `What is the inheritance pattern of aniridia and why is it clinically important?`,
     a: `
 2/3 **familial** cases
@@ -277,9 +277,9 @@ PAX6
   },
 
   /// Chapt. 4 ///
-  /// Question 21 ///
+  /// Question 22 ///
   {
-    id: "cataract_21",
+    id: "cataract_22",
     q: `What types of cataract are associated with aniridia?`,
     a: `
 **At birth:** anterior and posterior polar cataracts
@@ -291,9 +291,9 @@ PAX6
   },
 
   /// Chapt. 4 ///
-  /// Question 22 ///
+  /// Question 23 ///
   {
-    id: "cataract_22",
+    id: "cataract_23",
     q: `What are the clinical characteristics of anterior polar cataract in terms of size, laterality, symmetry, progression, and symptoms?`,
     a: `
 • Small in size
@@ -307,9 +307,9 @@ PAX6
   },
 
   /// Chapt. 4 ///
-  /// Question 23 ///
+  /// Question 24 ///
   {
-    id: "cataract_23",
+    id: "cataract_24",
     q: `What is the inheritance pattern of the two types of polar cataract?`,
     a: `
 Sporadic or autosomal dominant
@@ -317,9 +317,9 @@ Sporadic or autosomal dominant
   },
 
   /// Chapt. 4 ///
-  /// Question 24 ///
+  /// Question 25 ///
   {
-    id: "cataract_24",
+    id: "cataract_25",
     q: `Which ocular anomalies are associated with anterior polar cataract?`,
     a: `
 • Microphthalmia
@@ -331,9 +331,9 @@ Sporadic or autosomal dominant
   },
 
   /// Chapt. 4 ///
-  /// Question 25 ///
+  /// Question 26 ///
   {
-    id: "cataract_25",
+    id: "cataract_26",
     q: `What are the clinical characteristics of posterior polar cataract in terms of size, progression, and visual impairment compared to anterior polar cataract?`,
     a: `
 • **Size:** larger
@@ -343,4 +343,373 @@ Sporadic or autosomal dominant
 • **Visual impairment:** more severe than anterior polar cataract
 `,
   },
+
+  /// Chapt. 4 ///
+  /// Question 27 ///
+  {
+    id: "cataract_27",
+    q: `Which type of congenital cataract is associated with aphakic glaucoma?`,
+    a: `
+Congenital nuclear cataract
+`,
+  },
+
+  /// Chapt. 4 ///
+  /// Question 28 ///
+  {
+    id: "cataract_28",
+    q: `What are the inheritance patterns of ectopia lentis in Marfan syndrome and homocystinuria?`,
+    a: `
+**Marfan syndrome:** autosomal dominant
+
+---
+
+**Homocystinuria:** autosomal recessive
+`,
+  },
+
+  /// Chapt. 4 ///
+  /// Question 29 ///
+  {
+    id: "cataract_29",
+    q: `How does zonular integrity differ between Marfan syndrome and homocystinuria?`,
+    a: `
+**Marfan syndrome:** intact, but stretched and elongated
+
+---
+
+**Homocystinuria:** broken
+`,
+  },
+
+  /// Chapt. 4 ///
+  /// Question 30 ///
+  {
+    id: "cataract_30",
+    q: `How is homocystinuria diagnosed?`,
+    a: `
+By detecting **urinary disulfides** 
+`,
+  },
+
+  /// Chapt. 4 ///
+  /// Question 31 ///
+  {
+    id: "cataract_31",
+    q: `What is the treatment of homocystinuria, and does it affect systemic complications and ectopia lentis?`,
+    a: `
+• Low-methionine, high-cysteine diet
+
+• Vitamin B6 supplementation
+
+---
+
+Reduces both systemic complications + ectopia lentis in infants when treatment is started early
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 32 ///
+  {
+    id: "cataract_32",
+    q: `What are four non-cataractous age-related changes of the crystalline lens in terms of (1) cortical thickness, (2) lens curvature, (3) refractive index, and (4) anterior capsule thickness?`,
+    a: `
+• **Cortical thickness:** increases 
+
+• **Lens curvature:** increases, *leading to increased refractive power*
+
+• **Refractive index:** decreases *due to accumulation of insoluble protein particles*
+
+• **Anterior capsule thickness:** increases 
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 33 ///
+  {
+    id: "cataract_33",
+    q: `What are the risk factors for posterior subcapsular cataract (PSC)?`,
+    a: `
+• Increasing age • Trauma • Corticosteroid use • **Tamoxifen use** • Uveitis
+• Ionizing radiation • Alcoholism
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 34 ///
+  {
+    id: "cataract_34",
+    q: `What are the characteristic features of cataract secondary to ionizing radiation?`,
+    a: `
+Punctate opacities in the **posterior capsule** region
+
+---
+
+Feathery **anterior capsular** opacities extending toward the lens equator
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 35 ///
+  {
+    id: "cataract_35",
+    q: `At which age group does ionizing radiation have a greater cataractogenic effect?`,
+    a: `
+Younger individuals
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 36 ///
+  {
+    id: "cataract_36",
+    q: `What are the types of lens opacities secondary to infrared (IR) radiation?`,
+    a: `
+• True exfoliation 
+
+---
+
+• Cortical cataract *(glassblower’s cataract)*
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 37 ///
+  {
+    id: "cataract_37",
+    q: `What type of cataract is associated with UV exposure and in which sex is it more common?`,
+    a: `
+Type: **Cortical cataract**
+
+---
+
+More common in: **Males**
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 38 ///
+  {
+    id: "cataract_38",
+    q: `What type of cataract is caused by electrical injury?`,
+    a: `
+• Formation of lens **vacuoles** in the **anterior mid-periphery**
+
+---
+
+• Progression to **linear opacities** in **ASC**
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 39 ///
+  {
+    id: "cataract_39",
+    q: `Which lens opacities may spontaneously regress or improve?`,
+    a: `
+1.Drug-induced **PSC in children**
+
+2.Mild Contusions
+
+3.**Vossius ring** following blunt trauma
+
+4.Cataract after **electrical injury**
+
+5.**Galactosemia**-related cataract
+
+6.Some **smoking**-related lens changes
+
+7.Myopic shift due to **hyperbaric oxygen therapy**
+`,
+  },
+
+
+   /// Chapt. 5 ///
+  /// Question 40 ///
+  {
+    id: "cataract_40",
+    q: `What is the clinical appearance of hypocalcemic cataract on examination?`,
+    a: `
+**Punctate iridescent opacities** in the anterior and posterior cortical–**subcapsular** regions, separated from the capsule by a **clear zone**
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 41 ///
+  {
+    id: "cataract_41",
+    q: `What are the inheritance patterns of galactosemia, Wilson disease, and myotonic dystrophy?`,
+    a: `
+• **Galactosemia**, **Wilson disease:** autosomal recessive
+
+---
+
+• **Myotonic dystrophy:** autosomal dominant
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 42 ///
+  {
+    id: "cataract_42",
+    q: `What is the examination appearance of cataract in Wilson disease?`,
+    a: `
+**Sunflower cataract:** red–brown *(copper oxide)* pigment deposition in the **anterior capsule** and **subcapsular cortex**, forming a sunflower pattern
+
+---
+
+*Usually not visually significantl*
+`,
+  },
+
+  /// Chapt. 5 ///
+  /// Question 43 ///
+  {
+    id: "cataract_43",
+    q: `What is the clinical appearance of cataract in myotonic dystrophy on examination?`,
+    a: `
+•**Polychromatic**, **iridescent “crystalline”** opacities in the lens cortex
+
+•Progression toward **PSC** and **cortical cataract**
+
+---
+
+*Histologically composed of **whorl-like plasma membrane changes** of lens fibers*
+`,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 45 ///
+  {
+    id: "cataract_45",
+    q: `What is the progression speed of nuclear sclerosis (NS), cortical cataract (CC), and PSC?`,
+    a: `
+•**NS:** slow progression
+
+
+
+•**CC:** moderate progression
+
+
+
+•**PSC:** variable, often relatively rapid 
+`,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 46 ///
+  {
+    id: "cataract_46",
+    q: `What is the relative severity of glare in nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC)?`,
+    a: `
+SC > CC > NS
+`,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 47 ///
+  {
+    id: "cataract_47",
+    q: `What is the comparative effect of nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC) on distance vision?`,
+    a: `
+NS *(moderate)* > CC ≈ PSC *(mild)*
+`,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 48 ///
+  {
+    id: "cataract_48",
+    q: `What is the relative effect of nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC) on near vision?`,
+    a: `
+PSC *(marked)* > CC *(Mild)* > NS *(none!)*
+`,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 49 ///
+  {
+    id: "cataract_49",
+    q: `What type of cataract can be induced by vitrectomy?`,
+    a: `
+Nuclear sclerosis (NS)
+`,
+  },
+
+  /// Chapt. 7 ///
+  /// Question 50 ///
+  {
+    id: "cataract_50",
+    q: `What is the SRK (classic regression) formula?`,
+    a: `
+P = A − (2.5×AL) − (0.9×K)
+`,
+  },
+
+  /// Chapt. 7 ///
+  /// Question 51 ///
+  {
+    id: "cataract_51",
+    q: `In which patients is a facial block used for cataract surgery?`,
+    a: `
+Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
+`,
+  },
+
+  /// Chapt. 7 ///
+  /// Question 52 ///
+  {
+    id: "cataract_52",
+    q: `Name four types of facial nerve blocks based on the site of injection.`,
+    a: `
+
+**O’Brien block:** main trunk
+
+---
+
+**Van Lint block:** terminal branches *near the lateral canthus*
+
+---
+
+**Atkinson block:** between the trunk and terminal branches *(Betweenson!)*
+
+---
+
+**Nadbath–Ellis block:** auricular area
+`,
+  },
+
+    /// Chapt. 7 ///
+  /// Question 53 ///
+  {
+    id: "cataract_53",
+    q: `Name the categories of ophthalmic viscosurgical devices (OVDs) and give examples of each.`,
+    a: `
+**Dispersive OVDs** *(-coat)*: Ocucoat, Viscoat, CelluGel, Healon EndoCoat
+
+---
+
+**Cohesive OVDs:** Healon, Healon GV, Amvisc, Amvisc Plus, Provisc
+
+---
+
+**Intermediate/Viscoadaptive OVDs:** Discovisc (Alcon), Healon5
+`,
+  },
+
+
+    /// Chapt. 7 ///
+  /// Question 54 ///
+  {
+    id: "cataract_54",
+    q: `q`,
+    a: `
+a
+`,
+  },
+
+
+  
+
+
 ];

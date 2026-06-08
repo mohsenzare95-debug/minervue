@@ -6,25 +6,12 @@ import { retinaCards } from "./retina";
 import { uveitisCards } from "./uveitis";
 
 export const decks = [
-  {
-    key: "trial",
-    name: "Trial Deck",
-    isFree: true,
-    cards: trialCards,
-  },
-
+  
   {
     key: "cataract",
     name: "Cataract",
     isFree: false,
     cards: cataractCards,
-  },
-
-  {
-    key: "retina",
-    name: "Retina",
-    isFree: false,
-    cards: retinaCards,
   },
 
   {
