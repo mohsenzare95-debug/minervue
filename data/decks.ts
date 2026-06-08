@@ -1,7 +1,7 @@
 // data/decks.ts
 
 import { trialCards } from "./trial";
-import { glaucomaCards } from "./glaucoma";
+import { cataractCards } from "./cataract";
 import { retinaCards } from "./retina";
 import { uveitisCards } from "./uveitis";
 
@@ -14,10 +14,10 @@ export const decks = [
   },
 
   {
-    key: "glaucoma",
-    name: "Glaucoma",
+    key: "cataract",
+    name: "Cataract",
     isFree: false,
-    cards: glaucomaCards,
+    cards: cataractCards,
   },
 
   {
