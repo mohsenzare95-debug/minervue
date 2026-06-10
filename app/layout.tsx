@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper"; // کامپوننت client برای Navbar و syncEngine
 
 export const metadata: Metadata = {
-  title: "Minervue", // این عنوان توی تب مرورگر و PWA نمایش داده می‌شود
+  title: "VisoSage", // این عنوان توی تب مرورگر و PWA نمایش داده می‌شود
   description: "Flashcards for Ophthalmologists", // توضیح کوتاه اپ
 
   // PWA manifest

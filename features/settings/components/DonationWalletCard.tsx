@@ -31,7 +31,7 @@ export function DonationWalletCard({
 
 {/* ِDescription */}
 <div style={styles.description}>
-  Minervue is currently developed and maintained entirely through community support. If you find it valuable and would like to see it continue to grow, consider becoming part of its journey.
+  VisoSage is currently developed and maintained entirely through community support. If you find it valuable and would like to see it continue to grow, consider becoming part of its journey.
 
 </div>
  {/* ADDRESS ROW */}

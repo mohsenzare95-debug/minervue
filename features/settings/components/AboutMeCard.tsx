@@ -9,7 +9,7 @@ type Props = {
 };
 
 export function AboutMeCard({
-  name = "About Minervue",
+  name = "About VisoSage",
   bio,
   imageUrl,
 }: Props) {
