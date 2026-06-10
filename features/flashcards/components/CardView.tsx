@@ -28,8 +28,12 @@ export default function CardView({ card, showAnswer }: Props) {
   if (!card) return null;
 
   return (
-    <div style={styles.card}>
-
+    <div
+      style={styles.card}
+      onCopy={(e) => e.preventDefault()}
+      onCut={(e) => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()}
+    >
       {/* QUESTION */}
       <div style={styles.question}>
         <ReactMarkdown components={mdComponents}>
@@ -70,7 +74,6 @@ export default function CardView({ card, showAnswer }: Props) {
           />
         </div>
       )}
-
     </div>
   );
 }
@@ -81,6 +84,9 @@ const styles: Record<string, CSSProperties> = {
     borderRadius: 16,
     border: "1px solid #eee",
     background: "#fff",
+    userSelect: "none",
+    WebkitUserSelect: "none" as any,
+    WebkitTouchCallout: "none" as any,
   },
 
   question: {

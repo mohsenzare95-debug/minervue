@@ -702,11 +702,380 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
   /// Question 54 ///
   {
     id: "cataract_54",
+    q: `Name and describe the four physical properties of OVDs.`,
+    a: `
+• **Viscosity:** resistance to flow; *higher viscosity allows better retention in place and greater ability to displace tissues*.
+
+---
+
+• **Elasticity:** ability to return to the original shape after deformation; *important for maintaining intraocular space.*
+
+---
+
+• **Pseudoplasticity:** ability to change from a viscous state to a more fluid state under shear stress.
+
+---
+
+• **Surface tension:** material adherence to surfaces; *lower surface tension results in better coating ability but more difficult removal.*
+`,
+  },
+
+   /// Chapt. 7 ///
+  /// Question 55 ///
+  {
+    id: "cataract_55",
+    q: `How do the contact angle and surface tension of Cohesive OVD compare to Dispersive OVD?`,
+    a: `
+Both are higher
+`,
+  },
+
+   /// Chapt. 8 ///
+  /// Question 56 ///
+  {
+    id: "cataract_56",
+    q: `How do phaco tip features vary based on bevel slope (less slope vs. more slope) in terms of vacuum, cutting, gripping force, and occlusion?`,
+    a: `
+**Less slope:** Higher vacuum, lower cutting, lower gripping force, easier occlusion.
+
+---
+
+**More slope:** Lower vacuum, higher cutting, higher gripping force, harder occlusion.
+`,
+  },
+
+   /// Chapt. 8 ///
+  /// Question 57 ///
+  {
+    id: "cataract_57",
+    q: `What are the solutions to manage surge during phacoemulsification?`,
+    a: `
+1. Increase bottle height
+
+2. Increase inflow
+
+3. Decrease vacuum
+
+4. Smaller diameter tube _(lower compliance)_
+
+5. Smaller tip
+
+6. Coiled aspiration tube
+
+7. Occlusion mode software
+`,
+  },
+
+  /// Chapt. 8 ///
+  /// Question 58 ///
+  {
+    id: "cataract_58",
+    q: `What is venting?`,
+    a: `
+_Exposure to air_; venting reduces **surge** by allowing the **negative vacuum pressure** to quickly return to **atmospheric pressure**.
+`,
+  },
+
+  /// Chapt. 8 ///
+  /// Question 59 ///
+  {
+    id: "cataract_59",
+    q: `What are the predisposing factors for thermal wound burn?`,
+    a: `
+• Inadequate inflow
+
+• **Dispersive** OVD
+
+• Hard cataract
+
+• Continuous phaco
+
+• **Bimanual small incision** phaco
+`,
+  },
+
+  /// Chapt. 8 ///
+  /// Question 60 ///
+  {
+    id: "cataract_60",
+    q: `In the face of intraoperative fluid misdirection, what steps do you take in order?`,
+    a: `
+Gentle posterior pressure on the lens + OVD injection 
+
+→ Mannitol infusion + wait 20 minutes 
+
+→ Vitreous tap *(after ruling out suprachoroidal effusion)*  with 20–23 gauge needle or vitrectomy probe through 3.5 mm limbus.
+
+---
+
+**Note:** Do not raise the bottle height.
+`,
+  },
+
+
+  /// Chapt. 8 ///
+  /// Question 61 ///
+  {
+    id: "cataract_61",
+    q: `In case of a PC tear during phaco, what settings adjustments do you make?`,
+    a: `
+Low vacuum, low flow, minimal power
+
+---
+
+*Also maintain full occlusion of the aspiration port*
+`,
+  },
+
+
+  /// Chapt. 8 ///
+  /// Question 62 ///
+  {
+    id: "cataract_62",
+    q: `What are the risk factors for suprachoroidal effusion or hemorrhage during surgery?`,
+    a: `
+•Hypertension and atherosclerotic CVD
+
+•**Tachycardia**
+
+•Obesity
+
+•**Glaucoma**
+
+•**High myopia / nanophthalmos**
+
+•Choroidal hemangioma (Sturge-Weber syndrome)
+
+•Chronic uveitis
+
+---
+*DM is not mentioned in the list!*
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 63 ///
+  {
+    id: "cataract_63",
+    q: `What are the five causes of IOL calcification?`,
+    a: `
+1.Glistening *(water influx)*
+
+
+2.Calcium deposition
+
+
+3.IOL staining by capsular dye or medications
+
+
+4.IOL coating with ophthalmic ointment or silicone oil
+
+
+5.Material degradation *(e.g., snowflake degeneration in PMMA)*
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 64 ///
+  {
+    id: "cataract_64",
+    q: `What is IOL glistening? In which lenses is it seen? What is its effect on the patient’s vision and what is the treatment?`,
+    a: `
+**Influx of water** into the lens in the form of lipid-filled microvacuoles.
+
+---
+
+More common in **hydrophobic** lenses.
+
+---
+
+Generally **increases over time**, but **BCVA usually remains unchanged**. However, **contrast sensitivity** and **spatial frequency** are reduced.
+
+---
+
+**Surgery is rarely required**; IOL exchange is needed only in severe cases.
+`,
+  },
+
+    /// Chapt. 11 ///
+  /// Question 65 ///
+  {
+    id: "cataract_65",
+    q: `In which IOLs does calcification-related IOL opacification occur, and how is it managed?`,
+    a: `
+• **Hydrophilic** acrylic IOLs
+
+• **Silicone** IOLs after **YAG laser capsulotomy** in patients with **asteroid hyalosis**
+
+---
+
+Usually causes **significant visual symptoms** > Often requires **IOL exchange** for visual rehabilitation.
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 66 ///
+  {
+    id: "cataract_66",
+    q: `What are three causes of postoperative glare after cataract surgery?`,
+    a: `
+1.IOL **decentration**
+
+2.IOL or capsular **opacification**
+
+3.IOL optic diameter smaller than the scotopic pupil diameter
+
+---
+*Glare and halos are more common with **multifocal IOLs** and **square-edge IOLs** than aspheric IOLs*
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 67 ///
+  {
+    id: "cataract_67",
+    q: `What is the clinical presentation of Brown-McLean syndrome?`,
+    a: `
+**Peripheral corneal edema** with a **clear central cornea** (typically sparing ~5–7 mm centrally), often **starting inferiorly** and progressing circumferentially + **Central guttae** + Brownish punctate endothelial pigment deposits in the edematous peripheral cornea
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 68 ///
+  {
+    id: "cataract_68",
+    q: `Which type of postoperative corneal edema has a worse prognosis: central or peripheral?`,
+    a: `
+Peripheral corneal edema has a worse prognosis
+
+---
+
+Cases with **central edema with peripheral clear cornea** often improve spontaneously
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 69 ///
+  {
+    id: "cataract_69",
+    q: `When does postoperative refraction stabilize after ECCE, and when can selective suture removal begin?`,
+    a: `
+within ~6–8 weeks
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 70 ///
+  {
+    id: "cataract_70",
+    q: `What are the manifestations of positive dysphotopsia and its predisposing factors?`,
+    a: `
+**Manifestations:** glare, halos, flashes, and arc-like photic phenomena
+
+---
+
+**Predisposing factors:** square-edge IOLs and high-refractive-index IOLs
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 71 ///
+  {
+    id: "cataract_71",
+    q: `How does negative dysphotopsia usually present?`,
+    a: `
+a dark or dim curved shadow/arc, typically in the **temporal visual field**
+
+---
+
+***Mechanism:** the anterior capsulorhexis edge overlapping the optic in-the-bag PCIOL creates an optical shadow from **temporal light rays** at the **nasal optic edge/anterior capsule**, which is projected onto the **nasal retina***
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 72 ///
+  {
+    id: "cataract_72",
+    q: `What are the predisposing factors for negative dysphotopsia?`,
+    a: `
+1.Square-edge IOLs
+
+2.High refractive-index IOLs
+
+3.Acrylic IOLs
+
+4.Small-optic IOLs
+
+5.Miotic pupils
+
+6.Nasal displacement of the IOL
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 73 ///
+  {
+    id: "cataract_73",
+    q: `How is negative dysphotopsia managed after cataract surgery?`,
+    a: `
+**Nonsurgical Management:** 
+
+Observation + Cycloplegics + Blocking temporal light rays
+
+*• majority of patients become asymptomatic within 1 year*
+
+---
+
+**Surgical Treatment:**
+
+• IOL repositioning
+
+• Reverse optic capture (± YAG laser capsulotomy after ~3 months)
+
+• Sulcus placement of a larger-optic IOL
+
+• Piggyback IOL in the sulcus
+
+• Partial anterior capsulotomy (nasal sector laser capsulotomy)
+
+• Anterior capsule trimming
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 74 ///
+  {
+    id: "cataract_74",
+    q: `Describe Soemmering ring and Elschnig pearls from a pathological perspective.`,
+    a: `
+**Soemmering ring:** proliferation of **nucleated bladder-shaped (Wedl) cells** within the capsular bag
+
+---
+
+**Elschnig pearls:** migration of bladder cells outside the capsular bag, forming fish egg–like clusters **without a basement membrane.**
+`,
+  },
+
+  /// Chapt. 11 ///
+  /// Question 75 ///
+  {
+    id: "cataract_75",
     q: `q`,
     a: `
 a
 `,
   },
+
+  /// Chapt. 11 ///
+  /// Question 76 ///
+  {
+    id: "cataract_76",
+    q: `q`,
+    a: `
+a
+`,
+  },
+
 
 
   

@@ -1,11 +1,20 @@
-//shared\supabase\auth.ts
 import { supabase } from "@/shared/supabase/client";
+
+let cachedUser: any = null;
+let cachedAt = 0;
 
 export const Auth = {
   // ======================
-  // GET USER + PROFILE
+  // GET USER + PROFILE (CACHED)
   // ======================
   getUser: async () => {
+    const now = Date.now();
+
+    // cache 5 دقیقه‌ای
+    if (cachedUser && now - cachedAt < 5 * 60 * 1000) {
+      return cachedUser;
+    }
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return null;
 
@@ -20,7 +29,10 @@ export const Auth = {
       return { user, profile: null };
     }
 
-    return { user, profile };
+    cachedUser = { user, profile };
+    cachedAt = now;
+
+    return cachedUser;
   },
 
   // ======================
@@ -34,35 +46,32 @@ export const Auth = {
   // ======================
   // SIGNUP
   // ======================
-  
   signUp: async (email: string, password: string, meta?: any) => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: { data: meta },
-  });
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: meta },
+    });
 
-  // 1) واقعی‌ترین error
-  if (error) {
+    if (error) {
+      return {
+        user: null,
+        error,
+      };
+    }
+
+    if (!data?.user) {
+      return {
+        user: null,
+        error: new Error("SIGNUP_FAILED"),
+      };
+    }
+
     return {
-      user: null,
-      error,
+      user: data.user,
+      error: null,
     };
-  }
-
-  // 2) مهم‌ترین حالت: Supabase silent fail
-  if (!data?.user) {
-    return {
-      user: null,
-      error: new Error("SIGNUP_FAILED"),
-    };
-  }
-
-  return {
-    user: data.user,
-    error: null,
-  };
-},
+  },
 
   // ======================
   // LOGIN
@@ -98,6 +107,9 @@ export const Auth = {
   // LOGOUT
   // ======================
   signOut: async () => {
+    cachedUser = null;
+    cachedAt = 0;
+
     return supabase.auth.signOut();
   },
 };
