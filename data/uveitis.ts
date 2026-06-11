@@ -790,9 +790,9 @@ IS/OS + RPE-Bruch membrane irregularity
     id: "uveitis_41",
     q: `Describe your diagnostic approach to a patient with suspected primary vitreoretinal lymphoma (PVRL) presenting with a leopard-spot pattern on fluorescein angiography and irregularities at the IS/OS junction and RPE–Bruch’s membrane complex on OCT.`,
     a: `
-a
+
     `,
-    questionImage: "/images/uveitis/Approach to PVRL.png",
+    answerImage: "/images/uveitis/Approach to PVRL.png",
   },
 
   /// Question 42 ///
