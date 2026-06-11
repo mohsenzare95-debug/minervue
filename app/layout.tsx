@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper"; // کامپوننت client برای Navbar و syncEngine
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "VisoSage", // این عنوان توی تب مرورگر و PWA نمایش داده می‌شود
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body>
         <main className="app">{children}</main>
         <NavbarWrapper />
+        <Analytics />
       </body>
     </html>
   );
