@@ -740,7 +740,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
     `,
   },
 
-  /// Question 13 ///
+  /// Chapter 13 ///
   /// Question 37 ///
   {
     id: "uveitis_37",
@@ -782,6 +782,204 @@ leopard pattern
     q: `What are the typical OCT findings in primary vitreoretinal lymphoma (PVRL)?`,
     a: `
 IS/OS + RPE-Bruch membrane irregularity
+    `,
+  },
+
+  /// Question 41 ///
+  {
+    id: "uveitis_41",
+    q: `Describe your diagnostic approach to a patient with suspected primary vitreoretinal lymphoma (PVRL) presenting with a leopard-spot pattern on fluorescein angiography and irregularities at the IS/OS junction and RPE–Bruch’s membrane complex on OCT.`,
+    a: `
+a
+    `,
+    questionImage: "/images/uveitis/Approach to PVRL.png",
+  },
+
+  /// Question 42 ///
+  {
+    id: "uveitis_42",
+    q: `What are the poor prognostic factors in primary vitreoretinal lymphoma (PVRL)?`,
+    a: `
+• Older age
+
+• Neurologic dysfunction
+
+• Multiple CNS lesions
+
+• Deep CNS involvement (e.g., nuclear or periventricular lesions)
+    `,
+  },
+
+   /// Question 43 ///
+  {
+    id: "uveitis_43",
+    q: `When is maternal-to-fetal transmission most likely to occur in congenital syphilis, rubella, and toxoplasmosis?`,
+    a: `
+**Syphilis:** >10w
+
+---
+
+**Rubella:** first 10w + last month of pregnancy
+
+---
+
+**Toxoplasmosis:** 3rd trimester
+
+*In toxoplasmosis, the gestational age at transmission is inversely related to disease severity: earlier fetal infection → more severe neonatal disease.*
+    `,
+  },
+
+  /// Chapt. 10 ///  
+   /// Question 44 ///
+  {
+    id: "uveitis_44",
+    q: `What is the funduscopic appearance of acquired syphilitic chorioretinitis?`,
+    a: `
+Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE typically involving the **macular** or **peripapillary region**.
+    `,
+  },
+
+   /// Question 45 ///
+  {
+    id: "uveitis_45",
+    q: `What are the ocular manifestations of Stage 1 Lyme disease?`,
+    a: `
+• Follicular conjunctivitis (~11%)
+
+• Episcleritis
+    `,
+  },
+
+   /// Question 46 ///
+  {
+    id: "uveitis_46",
+    q: `What are the ocular manifestations of Stage 2 Lyme disease?`,
+    a: `
+• Uveitis *(most commonly intermediate uveitis)*
+
+• Papillitis
+
+• Neuroretinitis
+
+• Retinal vasculitis
+
+• Exudative retinal detachment
+
+• Peripheral multifocal punched-out choroidal lesions *(sarcoidose-like)*
+    `,
+  },
+
+  /// Question 47 ///
+  {
+    id: "uveitis_47",
+    q: `What are the ocular manifestations of Stage 3 Lyme disease?`,
+    a: `
+• Keratitis *(most common)*
+
+• Episcleritis
+    `,
+  },
+
+  /// Question 48 ///
+  {
+    id: "uveitis_4",
+    q: `How is Lyme disease treated?`,
+    a: `
+**Localized disease:** doxycycline, amoxicillin, or cefuroxime
+
+---
+
+**Neurologic, cardiac, posterior segment ocular involvement, recurrent disease, or failure of oral therapy:** IV ceftriaxone
+
+.
+
+*Systemic **corticosteroids** are associated with an increased risk of **treatment failure**.*
+    `,
+  },
+
+  /// Question 49 ///
+  {
+    id: "uveitis_49",
+    q: `What are the posterior segment manifestations of ocular tuberculosis (TB)?`,
+    a: `
+**1. Choroidal tubercles:** discrete deep yellow lesions *(0.5–3 mm)* in the posterior pole ± disc edema + macular hemorrhage + vitritis + anterior uveitis
+
+---
+
+**2. Choroidal tuberculoma:** large lesion *(4–14 mm)*, often associated with RD and a macular star.
+    `,
+  },
+
+
+  /// Question 50 ///
+  {
+    id: "uveitis_50",
+    q: `In uveitic patients with latent TB who are candidates for systemic steroid therapy, when is treatment indicated and how should they be managed?`,
+    a: `
+Patients receiving **prednisolone ≥15 mg/day for >2 weeks** should receive Isoniazid (INH) for 6–12 months
+
+    `,
+  },
+
+  /// Question 51 ///
+  {
+    id: "uveitis_51",
+    q: `In uveitic patients with latent TB who are candidates for anti-TNF-α therapy, when is treatment indicated and how should they be managed?`,
+    a: `
+INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
+    `,
+  },
+
+  /// Question 52 ///
+  {
+    id: "uveitis_52",
+    q: `What are the systemic and ocular manifestations of Whipple disease?`,
+    a: `
+**Systemic manifestations:** Chronic diarrhea, weight loss, migratory arthritis
+
+---
+
+**Ocular manifestations:** granular crystalline deposits on the iris + capsular bag + and IOL, diffuse chorioretinitis, perifoveal and mid-peripheral retinal vasculitis, optic disc edema/ atrophy
+    `,
+  },
+
+  /// Question 53 ///
+  {
+    id: "uveitis_53",
+    q: `What happens to retinal vasculitis and neurologic complications after treatment of Whipple disease?`,
+    a: `
+**retinal vasculitis:** usually improves with treatment
+
+---
+
+**neurologic complications:** often persist despite therapy
+    `,
+  },
+
+  /// Question 54 ///
+  {
+    id: "uveitis_54",
+    q: `How is Whipple disease diagnosed?`,
+    a: `
+**Duodenal biopsy** *(gold standard)*: PAS-positive macrophages containing bacilli
+
+---
+
+**PCR testing:** from peripheral blood or vitreous samples
+
+---
+
+**Culture:** possible but difficult; *not routinely practical*
+    `,
+  },
+
+  /// Chapt. 6 ///
+  /// Question 55 ///
+  {
+    id: "uveitis_55",
+    q: `q`,
+    a: `
+a
     `,
   },
 ];
