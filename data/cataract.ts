@@ -1055,30 +1055,7 @@ Observation + Cycloplegics + Blocking temporal light rays
 **Elschnig pearls:** migration of bladder cells outside the capsular bag, forming fish egg–like clusters **without a basement membrane.**
 `,
   },
-
-  /// Chapt. 11 ///
-  /// Question 75 ///
-  {
-    id: "cataract_75",
-    q: `q`,
-    a: `
-a
-`,
-  },
-
-  /// Chapt. 11 ///
-  /// Question 76 ///
-  {
-    id: "cataract_76",
-    q: `q`,
-    a: `
-a
-`,
-  },
-
-
-
-  
+ 
 
 
 ];
