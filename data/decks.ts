@@ -4,8 +4,16 @@ import { trialCards } from "./trial";
 import { cataractCards } from "./cataract";
 import { retinaCards } from "./retina";
 import { uveitisCards } from "./uveitis";
+import { glaucomaCards } from "./glaucoma";
 
 export const decks = [
+  
+  {
+    key: "glaucoma",
+    name: "Glaucoma",
+    isFree: false,
+    cards: glaucomaCards,
+  },
   
   {
     key: "cataract",
