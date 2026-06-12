@@ -93,21 +93,5 @@ export const glaucomaCards: Card[] = [
 `,
   },
 
-
-  {
-    id: "glaucoma_5",
-    q: `q`,
-    a: `
-a
-`,
-  },
-
-   {
-    id: "glaucoma_6",
-    q: `q`,
-    a: `
-a
-`,
-  },
  
 ];
