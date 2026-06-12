@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "VisoSage",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <NavbarWrapper />
 
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
