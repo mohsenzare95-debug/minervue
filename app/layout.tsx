@@ -16,6 +16,28 @@ export const metadata: Metadata = {
     { rel: "icon", url: "/icon.png", type: "image/png" },
   ],
 
+  openGraph: {
+    title: "VisoSage",
+    description: "Flashcards for Ophthalmologists",
+    url: "https://visosage.vercel.app",
+    siteName: "VisoSage",
+    images: [
+      {
+        url: "https://visosage.vercel.app/og.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "VisoSage",
+    description: "Flashcards for Ophthalmologists",
+    images: ["https://visosage.vercel.app/og.png"],
+  },
+
   appleWebApp: {
     capable: true,
     title: "Flashcards",
