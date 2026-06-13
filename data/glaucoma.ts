@@ -93,5 +93,108 @@ export const glaucomaCards: Card[] = [
 `,
   },
 
+
+  {
+    id: "5",
+    q: `What are the gene loci, gene mutations, and inheritance patterns associated with primary congenital glaucoma (PCG)?`,
+    a: `
+**Pattern 1**
+
+**Locus:** GLC3A
+**Gene:** CYP1B1 *(TM development)*
+**Inheritance:** Autosomal recessive (AR)
+
+---
+
+**Pattern 2**
+
+
+**Locus:** GLC3D 
+**Gene:** LTBP2 *(Extracellular matrix maintenance + cell adhesion)*
+**Inheritance:** Autosomal recessive (AR)
+
+---
+
+**Pattern 3**
+
+**Locus:** GLC3E **Genes:** TEK (TIE2) or ANGPT1 *(both Schlemm canal maldevelopment)*
+**Inheritance:** Autosomal dominant (AD)
+`,
+  },
+
+   {
+    id: "6",
+    q: `What diseases are associated with LTBP2 mutation?`,
+    a: `
+• Primary congenital glaucoma (PCG) *(Locus: GLC3D)*
+
+
+• Weill–Marchesani syndrome
+
+
+• Microspherophakia
+
+
+• Ectopia lentis
+`,
+  },
+
+   {
+    id: "7",
+    q: `What are the gene locus, gene mutation, and inheritance pattern of nail-patella syndrome?`,
+    a: `
+**Gene Locus:** NPS
+
+---
+
+**Gene Mutation:** LMX1B
+
+---
+
+**Inheritance Pattern:** Autosomal dominant (AD)
+`,
+  },
+
+   {
+    id: "8",
+    q: `What are the gene locus, gene mutation, and inheritance pattern of aniridia?`,
+    a: `
+**Locus:** 11p13
+
+**Gene:** PAX6
+
+**Inheritance:** Autosomal dominant (AD)
+
+---
+
+***Sporadic aniridia** is associated with *WT1* deletion (**Wilms tumor** risk).*
+`,
+  },
+
+   {
+    id: "9",
+    q: `What is the common mutation in pseudoexfoliation (PXF), what is its function, and how frequently is it found in normal individuals?`,
+    a: `
+LOXL1 *(Elastin mutation)*
+
+---
+
+PXF: 99%, Control: 80%
+`,
+  },
+
+   {
+    id: "10",
+    q: `What are environmental factors associated with glaucoma?`,
+    a: `
+1. Sunlight exposure
+2. Low environmental temperature
+3. Estrogen exposure
+4. Hypercholesterolemia
+5. Statin use
+6. Lead (heavy metal) exposure
+`,
+  },
+
  
 ];
