@@ -3,47 +3,76 @@ import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
 import PostHogProvider from "@/features/analytics/PostHogProvider";
 
 export const metadata: Metadata = {
-  title: "VisoSage",
-  description: "Flashcards for Ophthalmologists",
+  metadataBase: new URL("https://visosage.com"),
 
-  manifest: "/manifest.json",
+  title: {
+    default: "VisoSage – Ophthalmology Flashcards",
+    template: "%s | VisoSage",
+  },
 
-  icons: [
-    { rel: "icon", url: "/favicon.ico" },
-    { rel: "apple-touch-icon", url: "/apple-touch-icon.png" },
-    { rel: "icon", url: "/icon.png", type: "image/png" },
+  description:
+    "Ophthalmology flashcards for residents and specialists. Structured clinical summaries for rapid exam preparation and clinical practice.",
+
+  keywords: [
+    "ophthalmology",
+    "flashcards",
+    "retina",
+    "glaucoma",
+    "uveitis",
+    "cataract",
+    "medical education",
+    "board exam",
+    "residents",
   ],
 
+  authors: [{ name: "Mohsen Zare" }],
+  creator: "VisoSage",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "https://visosage.com",
+  },
+
   openGraph: {
-    title: "VisoSage",
-    description: "Flashcards for Ophthalmologists",
-    url: "https://visosage.vercel.app",
+    title: "VisoSage – Ophthalmology Flashcards",
+    description:
+      "Structured ophthalmology flashcards for residents and board exam preparation.",
+    url: "https://visosage.com",
     siteName: "VisoSage",
+    type: "website",
     images: [
       {
-        url: "https://visosage.vercel.app/og.png",
+        url: "/og.png",
         width: 1200,
         height: 630,
+        alt: "VisoSage ophthalmology flashcards",
       },
     ],
-    type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "VisoSage",
-    description: "Flashcards for Ophthalmologists",
-    images: ["https://visosage.vercel.app/og.png"],
+    title: "VisoSage – Ophthalmology Flashcards",
+    description:
+      "Structured ophthalmology flashcards for residents and board exam preparation.",
+    images: ["/og.png"],
   },
 
   appleWebApp: {
     capable: true,
-    title: "Flashcards",
+    title: "VisoSage",
     statusBarStyle: "default",
+  },
+
+  formatDetection: {
+    telephone: false,
   },
 };
 

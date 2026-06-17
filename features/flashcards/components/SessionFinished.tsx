@@ -1,8 +1,8 @@
-// features/flashcards/components/SessionFinished.tsx
-
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { analytics } from "@/features/analytics/events";
 
 // ======================
 // ICON
@@ -30,6 +30,9 @@ const SessionIcon = () => (
 
 type SessionFinishedProps = {
   onNewSession: () => void;
+  deckKey?: string;
+  totalSeen?: number;
+  totalCards?: number;
 };
 
 // ======================
@@ -38,8 +41,18 @@ type SessionFinishedProps = {
 
 export default function SessionFinished({
   onNewSession,
+  deckKey = "default",
+  totalSeen = 0,
+  totalCards = 0,
 }: SessionFinishedProps) {
   const router = useRouter();
+
+  // ======================
+  // ANALYTICS
+  // ======================
+  useEffect(() => {
+    analytics.sessionCompleted(deckKey, totalSeen, totalCards);
+  }, []);
 
   return (
     <div style={styles.container}>

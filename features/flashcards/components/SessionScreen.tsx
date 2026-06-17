@@ -81,22 +81,6 @@ export default function SessionScreen({
   }, [card, deckKey, index]);
 
   // ======================
-  // SESSION END
-  // ======================
-  useEffect(() => {
-    if (!sessionFinished) return;
-
-    // اگر session تموم شد، دیگر abandon نزن
-    shouldIgnoreAbandon.current = true;
-
-    analytics.sessionCompleted(
-      deckKey,
-      index + 1,
-      sessionCards.length
-    );
-  }, [sessionFinished, deckKey, index, sessionCards.length]);
-
-  // ======================
   // SESSION ABANDONED
   // ======================
   useEffect(() => {
@@ -116,8 +100,15 @@ export default function SessionScreen({
   // STATES
   // ======================
   if (sessionFinished) {
-    return <SessionEnd onNewSession={startNewSession} />;
-  }
+  return (
+    <SessionEnd
+      onNewSession={startNewSession}
+      deckKey={deckKey}
+      totalSeen={index + 1}
+      totalCards={sessionCards.length}
+    />
+  );
+}
 
   if (allMastered) {
     return <DeckMastered onReset={handleStartOver} />;
