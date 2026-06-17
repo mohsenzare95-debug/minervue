@@ -49,10 +49,8 @@ export default function SessionScreen({
   const hasStarted = useRef(false);
   const lastCardId = useRef<string | null>(null);
 
-  const lastStateRef = useRef({
-    index: 0,
-    cardId: null as string | null,
-  });
+  // مهم: جلوگیری از double-abandon و cleanup اشتباه
+  const shouldIgnoreAbandon = useRef(false);
 
   const handleStartOver = () => {
     resetDeckLifecycle(deckKey);
@@ -88,6 +86,9 @@ export default function SessionScreen({
   useEffect(() => {
     if (!sessionFinished) return;
 
+    // اگر session تموم شد، دیگر abandon نزن
+    shouldIgnoreAbandon.current = true;
+
     analytics.sessionCompleted(
       deckKey,
       index + 1,
@@ -96,20 +97,20 @@ export default function SessionScreen({
   }, [sessionFinished, deckKey, index, sessionCards.length]);
 
   // ======================
-  // SESSION ABANDONED (IMPORTANT)
+  // SESSION ABANDONED
   // ======================
   useEffect(() => {
     return () => {
-      // اگر session تموم نشده و کاربر خارج شد
-      if (!sessionFinished && card) {
-        analytics.sessionAbandoned(
-          deckKey,
-          index,
-          card.id
-        );
-      }
+      if (shouldIgnoreAbandon.current) return;
+      if (!card) return;
+
+      analytics.sessionAbandoned(
+        deckKey,
+        index,
+        card.id
+      );
     };
-  }, [sessionFinished, deckKey, index, card]);
+  }, [deckKey, index, card]);
 
   // ======================
   // STATES
