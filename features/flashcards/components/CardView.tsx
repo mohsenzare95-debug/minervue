@@ -1,3 +1,4 @@
+//C:\Users\DOR CO\flashcards-app\features\flashcards\components\CardView.tsx
 "use client";
 
 import type { Card } from "@/shared/types/card";

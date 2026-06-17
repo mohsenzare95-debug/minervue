@@ -1,8 +1,10 @@
 import "./globals.css";
+import '@/features/analytics/posthog'
 import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
 
 export const metadata: Metadata = {
   title: "VisoSage",

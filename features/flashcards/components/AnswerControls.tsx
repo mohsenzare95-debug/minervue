@@ -1,10 +1,5 @@
-// features/flashcards/components/AnswerControls.tsx
-
 import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
-
-/// ======================
-/// TYPES
-/// ======================
+import { analytics } from "@/features/analytics/events";
 
 type AnswerValue = "Correct" | "Almost" | "Wrong";
 
@@ -13,11 +8,10 @@ type Props = {
   chooseAnswer: (value: AnswerValue) => void;
   canNext: boolean;
   handleNext: () => void;
-};
 
-/// ======================
-/// SINGLE BUTTON
-/// ======================
+  deckKey?: string;
+  cardId?: string;
+};
 
 function AnswerButton({
   icon: Icon,
@@ -46,45 +40,51 @@ function AnswerButton({
   );
 }
 
-/// ======================
-/// MAIN COMPONENT
-/// ======================
-
 export default function AnswerControls({
   selected,
   chooseAnswer,
   canNext,
   handleNext,
+  deckKey,
+  cardId,
 }: Props) {
+  const emitAnswer = (answer: AnswerValue) => {
+    analytics.cardAnswered(deckKey!, cardId!, answer);
+    chooseAnswer(answer);
+  };
+
+  const emitNext = () => {
+    analytics.cardNext(deckKey!, cardId!);
+    handleNext();
+  };
+
   return (
     <div style={styles.container}>
-      {/* ANSWER OPTIONS */}
       <div style={styles.rowButtons}>
         <AnswerButton
           icon={CheckCircle}
           label="Correct"
           active={selected === "Correct"}
-          onClick={() => chooseAnswer("Correct")}
+          onClick={() => emitAnswer("Correct")}
         />
 
         <AnswerButton
           icon={HelpCircle}
           label="Almost"
           active={selected === "Almost"}
-          onClick={() => chooseAnswer("Almost")}
+          onClick={() => emitAnswer("Almost")}
         />
 
         <AnswerButton
           icon={XCircle}
           label="Wrong"
           active={selected === "Wrong"}
-          onClick={() => chooseAnswer("Wrong")}
+          onClick={() => emitAnswer("Wrong")}
         />
       </div>
 
-      {/* NEXT BUTTON */}
       {canNext && (
-        <button style={styles.nextBtn} onClick={handleNext}>
+        <button style={styles.nextBtn} onClick={emitNext}>
           Next
         </button>
       )}
@@ -92,13 +92,9 @@ export default function AnswerControls({
   );
 }
 
-/// ======================
-/// STYLES
-/// ======================
-
 const styles = {
   container: {
-    width: "100%", // 🔴 FIX 1: ensure full layout width context
+    width: "100%",
     display: "flex",
     flexDirection: "column",
   },
@@ -107,7 +103,7 @@ const styles = {
     display: "flex",
     gap: 10,
     marginTop: 20,
-    width: "100%", // 🔴 FIX 2: prevents flex shrink behavior
+    width: "100%",
   },
 
   btn: {
@@ -122,7 +118,7 @@ const styles = {
 
   nextBtn: {
     marginTop: 14,
-    width: "100%", // already correct, kept for consistency
+    width: "100%",
     padding: 14,
     borderRadius: 12,
     background: "#111",
