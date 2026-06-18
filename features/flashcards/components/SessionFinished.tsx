@@ -1,8 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { analytics } from "@/features/analytics/events";
 
 // ======================
 // ICON
@@ -47,20 +45,14 @@ export default function SessionFinished({
 }: SessionFinishedProps) {
   const router = useRouter();
 
-  // ======================
-  // ANALYTICS
-  // ======================
-  useEffect(() => {
-    analytics.sessionCompleted(deckKey, totalSeen, totalCards);
-  }, []);
+  // ❌ REMOVED:
+  // analytics.sessionCompleted()
 
   return (
     <div style={styles.container}>
       <SessionIcon />
 
-      <h2 style={styles.title}>
-        Session Finished
-      </h2>
+      <h2 style={styles.title}>Session Finished</h2>
 
       <div style={styles.row}>
         <button

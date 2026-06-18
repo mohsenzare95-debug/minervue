@@ -1,7 +1,6 @@
-// features/flashcards/hooks/useSessionFlow.ts
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { selectCardsForSession } from "@/features/flashcards/lib/cardSelection";
 import { storageClient } from "@/shared/storage/core/storageClient";
@@ -13,6 +12,8 @@ import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 
 import { Progress } from "@/shared/supabase/progress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
+
+import { analytics } from "@/features/analytics/events";
 
 import type { Card } from "@/shared/types/card";
 import type { AnswerType } from "@/shared/types/review";
@@ -31,12 +32,14 @@ function buildSessionCards(cards: Card[], deckKey: string): Card[] {
 export function useSessionFlow({
   deckKey,
   cards,
-  userId, // برای outbox
+  userId,
 }: {
   deckKey: string;
   cards: Card[];
   userId: string | null;
 }) {
+  const { user } = useAuthSession();
+
   const [state, setState] = useState<SessionState>(() => ({
     index: 0,
     cards: buildSessionCards(cards, deckKey),
@@ -46,41 +49,65 @@ export function useSessionFlow({
   const [showAnswer, setShowAnswer] = useState(false);
   const [selected, setSelected] = useState<AnswerType | null>(null);
 
-  const { user } = useAuthSession();
-
-  function resetCardUI() {
-    setShowAnswer(false);
-    setSelected(null);
-  }
+  // ======================
+  // guards (CRITICAL)
+  // ======================
+  const sessionStartedRef = useRef(false);
+  const sessionCompletedRef = useRef(false);
+  const sessionAbandonedRef = useRef(false);
 
   const card = state.cards[state.index] ?? null;
   const canNext = selected !== null;
   const progress = storageClient.progress.getDeckProgress(deckKey);
   const allMastered = getDeckStatus(progress) === "MASTERED";
 
+  function resetCardUI() {
+    setShowAnswer(false);
+    setSelected(null);
+  }
+
+  // ======================
+  // SESSION START (SAFE)
+  // ======================
+  useEffect(() => {
+    if (sessionStartedRef.current) return;
+    if (!state.cards.length) return;
+
+    sessionStartedRef.current = true;
+
+    analytics.sessionStarted(deckKey, state.cards.length);
+  }, [deckKey, state.cards.length]);
+
+  // ======================
+  // ANSWER
+  // ======================
   const chooseAnswer = useCallback(
     (answer: AnswerType) => {
       if (!card) return;
 
       const timestamp = Date.now();
 
-      // 1️⃣ Update local progress
       const current = storageClient.progress.getDeckProgress(deckKey);
       const updated = applyAnswerScore(current, card.id, answer);
-      storageClient.progress.saveCardProgress(deckKey, card.id, updated[card.id]);
 
-      // 2️⃣ Async save to Supabase (user_progress)
+      storageClient.progress.saveCardProgress(
+        deckKey,
+        card.id,
+        updated[card.id]
+      );
+
       if (user?.id) {
-        // کل progress object شامل streak, seen, mastered
         Progress.save(deckKey, card.id, updated[card.id]).catch((err) =>
           console.error("Failed to save progress:", err)
         );
       }
 
-      // 3️⃣ Log review locally
-      reviewLogStorage.add(deckKey, { cardId: card.id, result: answer, timestamp });
+      reviewLogStorage.add(deckKey, {
+        cardId: card.id,
+        result: answer,
+        timestamp,
+      });
 
-      // 4️⃣ Outbox event for review_events
       if (userId) {
         outbox.add({
           user_id: userId,
@@ -90,32 +117,83 @@ export function useSessionFlow({
         });
       }
 
-      // 5️⃣ Update UI
       setSelected(answer);
       setShowAnswer(true);
     },
     [card, deckKey, userId, user]
   );
 
+  // ======================
+  // NEXT CARD
+  // ======================
   const handleNext = useCallback(() => {
     setState((prev) => {
       const nextIndex = prev.index + 1;
       const finished = nextIndex >= prev.cards.length;
+
       return {
         ...prev,
         index: finished ? prev.index : nextIndex,
         finished,
       };
     });
+
     resetCardUI();
   }, []);
 
+  // ======================
+  // SESSION COMPLETED (ROBUST)
+  // ======================
+  useEffect(() => {
+    if (!state.finished) return;
+    if (sessionCompletedRef.current) return;
+
+    sessionCompletedRef.current = true;
+
+    analytics.sessionCompleted(
+      deckKey,
+      state.cards.length,
+      state.cards.length
+    );
+  }, [state.finished, deckKey, state.cards.length]);
+
+  // ======================
+  // ABANDONED (STRICT FIX)
+  // ======================
+  useEffect(() => {
+    return () => {
+      // already completed → NO abandon
+      if (sessionCompletedRef.current) return;
+      if (sessionAbandonedRef.current) return;
+
+      const currentCard = state.cards[state.index];
+      if (!currentCard) return;
+
+      // if session already finished → NO abandon
+      if (state.finished) return;
+
+      sessionAbandonedRef.current = true;
+
+      analytics.sessionAbandoned(deckKey, state.index, currentCard.id);
+    };
+  }, [deckKey, state.index, state.cards, state.finished]);
+
+  // ======================
+  // RESTART
+  // ======================
   const startNewSession = useCallback(() => {
+    sessionStartedRef.current = false;
+    sessionCompletedRef.current = false;
+    sessionAbandonedRef.current = false;
+
+    const newCards = buildSessionCards(cards, deckKey);
+
     setState({
       index: 0,
-      cards: buildSessionCards(cards, deckKey),
+      cards: newCards,
       finished: false,
     });
+
     resetCardUI();
   }, [cards, deckKey]);
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import AnswerControls from "./AnswerControls";
 import SessionEnd from "./SessionFinished";
@@ -8,8 +7,6 @@ import CardView from "./CardView";
 import DeckMastered from "./DeckMastered";
 import { useSessionFlow } from "@/features/flashcards/hooks/useSessionFlow";
 import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
-
-import { analytics } from "@/features/analytics/events";
 
 type Props = {
   cards: any[];
@@ -46,69 +43,25 @@ export default function SessionScreen({
     userId: user?.id,
   });
 
-  const hasStarted = useRef(false);
-  const lastCardId = useRef<string | null>(null);
-
-  // مهم: جلوگیری از double-abandon و cleanup اشتباه
-  const shouldIgnoreAbandon = useRef(false);
-
   const handleStartOver = () => {
     resetDeckLifecycle(deckKey);
     startNewSession();
   };
 
   // ======================
-  // SESSION START
-  // ======================
-  useEffect(() => {
-    if (!card || hasStarted.current) return;
-
-    hasStarted.current = true;
-
-    analytics.sessionStarted(deckKey, sessionCards.length);
-  }, [card, deckKey, sessionCards.length]);
-
-  // ======================
-  // CARD VIEW
-  // ======================
-  useEffect(() => {
-    if (!card) return;
-    if (lastCardId.current === card.id) return;
-
-    lastCardId.current = card.id;
-
-    analytics.cardViewed(deckKey, card.id, index);
-  }, [card, deckKey, index]);
-
-  // ======================
-  // SESSION ABANDONED
-  // ======================
-  useEffect(() => {
-    return () => {
-      if (shouldIgnoreAbandon.current) return;
-      if (!card) return;
-
-      analytics.sessionAbandoned(
-        deckKey,
-        index,
-        card.id
-      );
-    };
-  }, [deckKey, index, card]);
-
-  // ======================
   // STATES
   // ======================
+
   if (sessionFinished) {
-  return (
-    <SessionEnd
-      onNewSession={startNewSession}
-      deckKey={deckKey}
-      totalSeen={index + 1}
-      totalCards={sessionCards.length}
-    />
-  );
-}
+    return (
+      <SessionEnd
+        onNewSession={startNewSession}
+        deckKey={deckKey}
+        totalSeen={index + 1}
+        totalCards={sessionCards.length}
+      />
+    );
+  }
 
   if (allMastered) {
     return <DeckMastered onReset={handleStartOver} />;
@@ -121,6 +74,7 @@ export default function SessionScreen({
   // ======================
   // UI
   // ======================
+
   return (
     <div style={styles.page}>
       <div style={styles.counter}>
@@ -138,15 +92,9 @@ export default function SessionScreen({
         <div style={styles.controls}>
           <AnswerControls
             selected={selected}
-            chooseAnswer={(answer) => {
-              analytics.cardAnswered(deckKey, card.id, answer);
-              chooseAnswer(answer);
-            }}
+            chooseAnswer={chooseAnswer}
             canNext={canNext}
-            handleNext={() => {
-              analytics.cardNext(deckKey, card.id);
-              handleNext();
-            }}
+            handleNext={handleNext}
           />
         </div>
       )}

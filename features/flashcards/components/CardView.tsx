@@ -1,27 +1,56 @@
-//C:\Users\DOR CO\flashcards-app\features\flashcards\components\CardView.tsx
 "use client";
 
 import type { Card } from "@/shared/types/card";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
+import { renderCardText } from "@/shared/icons/renderCardText";
 
 type Props = {
   card: Card;
   showAnswer: boolean;
 };
 
+/**
+ * مهم:
+ * ReactMarkdown children همیشه string نیست (گاهی array/ReactNode است)
+ * پس باید recursive handle شود
+ */
+function normalizeContent(children: ReactNode): ReactNode {
+  if (typeof children === "string") {
+    return renderCardText(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map((child, i) => (
+      <span key={i}>{normalizeContent(child)}</span>
+    ));
+  }
+
+  return children;
+}
+
+/**
+ * mdComponents = "hook into markdown AST"
+ * اینجا ما فقط UI را override می‌کنیم
+ * و icon injection را safe انجام می‌دهیم
+ */
 const mdComponents = {
   p: ({ children }: any) => (
-    <p style={{ margin: 0, lineHeight: 1.4 }}>{children}</p>
+    <p style={styles.p}>{normalizeContent(children)}</p>
   ),
+
   ul: ({ children }: any) => (
-    <ul style={{ margin: "6px 0", paddingLeft: 18 }}>{children}</ul>
+    <ul style={styles.ul}>{children}</ul>
   ),
+
   li: ({ children }: any) => (
-    <li style={{ margin: "2px 0", lineHeight: 1.4 }}>{children}</li>
+    <li style={styles.li}>{normalizeContent(children)}</li>
   ),
+
   strong: ({ children }: any) => (
-    <strong style={{ fontWeight: 600 }}>{children}</strong>
+    <strong style={styles.strong}>
+      {normalizeContent(children)}
+    </strong>
   ),
 };
 
@@ -86,17 +115,38 @@ const styles: Record<string, CSSProperties> = {
     border: "1px solid #eee",
     background: "#fff",
     userSelect: "none",
-    WebkitUserSelect: "none" as any,
-    WebkitTouchCallout: "none" as any,
+    WebkitUserSelect: "none",
+    WebkitTouchCallout: "none",
   },
 
   question: {
     fontSize: 18,
     fontWeight: 500,
+    lineHeight: 1.5,
   },
 
   answer: {
     marginTop: 14,
+    lineHeight: 1.5,
+  },
+
+  p: {
+    margin: 0,
+    lineHeight: 1.5,
+  },
+
+  ul: {
+    margin: "6px 0",
+    paddingLeft: 18,
+  },
+
+  li: {
+    margin: "2px 0",
+    lineHeight: 1.5,
+  },
+
+  strong: {
+    fontWeight: 600,
   },
 
   imageContainer: {
