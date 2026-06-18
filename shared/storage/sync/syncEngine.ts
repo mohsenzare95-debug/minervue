@@ -2,58 +2,13 @@ import { outbox } from "@/shared/storage/local/outbox";
 import { supabase } from "@/shared/supabase/client";
 import { storageClient } from "@/shared/storage/core/storageClient";
 import { clientState } from "@/shared/state/client/clientState";
-
+import { rebuildProgress } from "./rebuildProgress";
 // ======================
 // SYNC LOCK
 // ======================
 
 let isSyncing = false;
 let pendingSync: string | null = null;
-
-// ======================
-// INCREMENTAL PROJECTION
-// ======================
-
-function applyLogsIncrementally(logs: any[], currentState: any) {
-  const state = structuredClone(currentState);
-
-  for (const log of logs) {
-    const { deck_key, deckKey, card_id, cardId, result, timestamp } = log;
-
-    const dk = deckKey ?? deck_key;
-    const cid = cardId ?? card_id;
-
-    if (!state[dk]) state[dk] = {};
-
-    if (!state[dk][cid]) {
-      state[dk][cid] = {
-        cardId: cid,
-        streak: 0,
-        seen: false,
-        mastered: false,
-        updatedAt: 0,
-      };
-    }
-
-    const card = state[dk][cid];
-
-    card.seen = true;
-
-    if (result === "Correct") {
-      card.streak += 1;
-    } else {
-      card.streak = 0;
-    }
-
-    if (card.streak >= 5) {
-      card.mastered = true;
-    }
-
-    card.updatedAt = timestamp;
-  }
-
-  return state;
-}
 
 // ======================
 // ENGINE
@@ -125,46 +80,23 @@ export const syncEngine = {
   async _runSync(userId: string) {
     await this.flushOutbox();
 
-    // 1. load checkpoint
-    const { data: checkpoint } = await supabase
-      .from("user_sync_checkpoint")
-      .select("*")
-      .eq("user_id", userId)
-      .maybeSingle();
-
-    const lastTs = checkpoint?.last_event_timestamp ?? 0;
-
-    // 2. fetch only new logs
-    const { data: newLogs } = await supabase
+    const { data: logs } = await supabase
       .from("review_events")
       .select("*")
       .eq("user_id", userId)
-      .gt("timestamp", lastTs)
       .order("timestamp", { ascending: true });
 
-    const logs = newLogs ?? [];
+    const events = logs ?? [];
 
-    // 3. current local state
-    const current = storageClient.progress.getAll();
+    // 🔥 NEW: full rebuild
+    const progress = rebuildProgress(events);
 
-    // 4. incremental apply
-    const mergedProgress = applyLogsIncrementally(logs, current);
+    // cache local (optional but safe)
+    storageClient.progress.setAll(progress);
 
-    // 5. write cache
-    for (const deckKey in mergedProgress) {
-      for (const cardId in mergedProgress[deckKey]) {
-        storageClient.progress.saveCardProgress(
-          deckKey,
-          cardId,
-          mergedProgress[deckKey][cardId]
-        );
-      }
-    }
+    const last = events.at(-1);
 
-    // 6. update checkpoint
-    if (logs.length > 0) {
-      const last = logs[logs.length - 1];
-
+    if (last) {
       await supabase.from("user_sync_checkpoint").upsert({
         user_id: userId,
         last_event_timestamp: last.timestamp,
@@ -172,9 +104,8 @@ export const syncEngine = {
       });
     }
 
-    // 7. ATOMIC STATE UPDATE (IMPORTANT CHANGE)
     clientState.setState({
-      progress: mergedProgress,
+      progress,
       syncStatus: "idle",
       lastSyncAt: Date.now(),
     });
