@@ -1,3 +1,4 @@
+//features\auth\lib\SignInWithEmail.ts
 import { supabase } from "@/shared/supabase/client";
 
 export async function signInWithEmail(email: string, password: string) {

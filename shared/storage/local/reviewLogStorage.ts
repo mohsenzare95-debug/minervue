@@ -1,6 +1,8 @@
 // shared/storage/local/reviewLogStorage.ts
 // TOTAL ACTIVITY / STATS RESOURCE
 
+import { clientState } from "@/shared/state/client/clientState";
+
 export type Activitylog = {
   deckKey: string;
   cardId: string;
@@ -10,38 +12,36 @@ export type Activitylog = {
 
 const KEY = "review_logs";
 
-function getAll():
-Record<string, Activitylog[]> {
+// ======================
+// INTERNAL HELPERS
+// ======================
 
+function getAll(): Record<string, Activitylog[]> {
   if (typeof window === "undefined") {
     return {};
   }
 
   try {
-    return JSON.parse(
-      localStorage.getItem(KEY) || "{}"
-    );
+    return JSON.parse(localStorage.getItem(KEY) || "{}");
   } catch {
     return {};
   }
 }
 
-function saveAll(
-  data: Record<string, Activitylog[]>
-) {
+function saveAll(data: Record<string, Activitylog[]>) {
+  if (typeof window === "undefined") return;
 
-  localStorage.setItem(
-    KEY,
-    JSON.stringify(data)
-  );
+  localStorage.setItem(KEY, JSON.stringify(data));
 }
 
-export const reviewLogStorage = {
+// ======================
+// STORAGE API
+// ======================
 
+export const reviewLogStorage = {
   // ======================
   // GET ALL
   // ======================
-
   getAll() {
     return getAll();
   },
@@ -49,28 +49,15 @@ export const reviewLogStorage = {
   // ======================
   // GET SINGLE DECK
   // ======================
-
-  get(
-    deckKey: string
-  ): Activitylog[] {
-
+  get(deckKey: string): Activitylog[] {
     return getAll()[deckKey] || [];
   },
 
   // ======================
   // ADD EVENT
   // ======================
-
-  add(
-    deckKey: string,
-    event: Omit<
-      Activitylog,
-      "deckKey"
-    >
-  ) {
-
-    const all =
-      getAll();
+  add(deckKey: string, event: Omit<Activitylog, "deckKey">) {
+    const all = getAll();
 
     if (!all[deckKey]) {
       all[deckKey] = [];
@@ -82,30 +69,34 @@ export const reviewLogStorage = {
     });
 
     saveAll(all);
+
+    // 🔥 IMPORTANT: sync reactive state
+    clientState.setReviewLogs(all);
   },
 
   // ======================
   // CLEAR DECK
   // ======================
-
-  clear(
-    deckKey: string
-  ) {
-
-    const all =
-      getAll();
+  clear(deckKey: string) {
+    const all = getAll();
 
     delete all[deckKey];
 
     saveAll(all);
+
+    // 🔥 sync UI
+    clientState.setReviewLogs(all);
   },
 
   // ======================
   // CLEAR ALL
   // ======================
-
   clearAll() {
+    const empty: Record<string, Activitylog[]> = {};
 
-    saveAll({});
+    saveAll(empty);
+
+    // 🔥 sync UI
+    clientState.setReviewLogs(empty);
   },
 };

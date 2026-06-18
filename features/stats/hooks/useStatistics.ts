@@ -1,56 +1,65 @@
-//features\stats\hooks\useStatistics.ts
 "use client";
 
 import { useMemo, useState } from "react";
-import { storageClient } from "@/shared/storage/core/storageClient";
 import { calculateScore } from "../lib/scoreMath";
-import { progresscache } from "@/shared/storage/local/progresscache";
 import {
   getDailyActivity,
   getDeckDistribution,
+  getDailyActivityScale,
 } from "../lib/statsMath";
 
+import { clientState } from "@/shared/state/client/clientState";
+
 export function useStatistics() {
-  const [range, setRange] = useState<
-    "day" | "week" | "month" | "year"
-  >("month");
+  const [range, setRange] = useState<"day" | "week" | "month" | "year">(
+    "month"
+  );
+
+  const [monthOffset, setMonthOffset] = useState(0);
 
   // ======================
-  // LOAD LOGS
+  // STATE
   // ======================
+  const { progress, reviewLogs } = clientState.useStore();
 
-  const logsByDeck = storageClient.reviewLog.getAll();
-  const logs = Object.values(logsByDeck).flat();
-
-    // ======================
-  // STATS
   // ======================
+  // LOGS (FLATTENED)
+  // ======================
+  const logs = useMemo(() => {
+    return Object.values(reviewLogs).flat();
+  }, [reviewLogs]);
 
-  // یونیک کارت‌ها (seen unique)
-  const seenCards = new Set(logs.map(l => l.cardId)).size;
+  // ======================
+  // BASIC STATS
+  // ======================
+  const seenCards = useMemo(() => {
+    return new Set(logs.map((l) => l.cardId)).size;
+  }, [logs]);
 
-  // progress (بدون memo)
-  const allProgress = progresscache.getAll();
+  const masteredCards = useMemo(() => {
+    return Object.values(progress)
+      .flatMap((deck) => Object.values(deck))
+      .filter((card) => card?.mastered === true).length;
+  }, [progress]);
 
-  const masteredCards = Object.values(allProgress)
-    .flatMap(deck => Object.values(deck))
-    .filter(card => card?.mastered === true).length;
-
-  // score (بر اساس streak)
   const score = useMemo(() => {
-    return calculateScore(allProgress);
-  }, [allProgress]);
+    return calculateScore(progress);
+  }, [progress]);
 
   // ======================
   // DAILY ACTIVITY
   // ======================
-
-  const [monthOffset, setMonthOffset] = useState(0);
-
   const dailyActivity = useMemo(() => {
     return getDailyActivity(logs, monthOffset);
   }, [logs, monthOffset]);
 
+  const dailyActivityScale = useMemo(() => {
+    return getDailyActivityScale(dailyActivity);
+  }, [dailyActivity]);
+
+  // ======================
+  // LABEL
+  // ======================
   const monthLabel = useMemo(() => {
     const now = new Date();
 
@@ -69,19 +78,25 @@ export function useStatistics() {
   // ======================
   // DISTRIBUTION
   // ======================
-
   const distribution = useMemo(() => {
     return getDeckDistribution(logs, range);
   }, [logs, range]);
 
+  // ======================
+  // RETURN (CLEAN API SURFACE)
+  // ======================
   return {
+    // chart data
     dailyActivity,
-    distribution,
+    dailyActivityScale,
 
+    // other stats
+    distribution,
     seenCards,
     masteredCards,
     score,
 
+    // UI state
     range,
     setRange,
 

@@ -2,13 +2,13 @@ import { outbox } from "@/shared/storage/local/outbox";
 import { supabase } from "@/shared/supabase/client";
 import { storageClient } from "@/shared/storage/core/storageClient";
 import { Progress } from "@/shared/supabase/progress";
+import { clientState } from "@/shared/state/client/clientState";
 
 let timer: any;
 let isSyncing = false;
 
 export const syncEngine = {
   start(userId: string) {
-    // اجرای فوری هنگام لاگین
     this.sync(userId);
 
     timer = setInterval(() => {
@@ -26,8 +26,13 @@ export const syncEngine = {
     try {
       console.log("[SYNC] started");
 
-      // ===== 1. push review events =====
-      const pending = outbox.getPending().sort((a, b) => a.seq - b.seq).slice(0, 5);
+      // ======================================================
+      // 1. PUSH REVIEW EVENTS (outbox → server)
+      // ======================================================
+      const pending = outbox
+        .getPending()
+        .sort((a, b) => a.seq - b.seq)
+        .slice(0, 5);
 
       for (const event of pending) {
         try {
@@ -50,54 +55,72 @@ export const syncEngine = {
         }
       }
 
-      // ===== 2. push user progress =====
-      const allLocalProgress = storageClient.progress.getAll();
+      // ======================================================
+      // 2. PUSH LOCAL PROGRESS → server
+      // ======================================================
+      const localProgress = storageClient.progress.getAll();
 
-      for (const deckKey in allLocalProgress) {
-        const deckProgress = allLocalProgress[deckKey];
+      for (const deckKey in localProgress) {
+        const deck = localProgress[deckKey];
 
-        for (const cardId in deckProgress) {
-          const progress = deckProgress[cardId];
-
+        for (const cardId in deck) {
           try {
-            await Progress.save(deckKey, cardId, progress);
+            await Progress.save(deckKey, cardId, deck[cardId]);
           } catch (e) {
             console.error("[SYNC] progress push failed", e);
           }
         }
       }
 
-      // ===== 3. pull server progress & merge =====
-      try {
-        const serverProgress = await Progress.getAll();
-        console.log("[SYNC] SERVER PROGRESS", serverProgress);
+      // ======================================================
+      // 3. PULL SERVER PROGRESS → MERGE → STORAGE
+      // ======================================================
+      const serverProgress = await Progress.getAll();
 
-        for (const deckKey in serverProgress) {
-          const serverDeck = serverProgress[deckKey];
+      const mergedProgress = { ...localProgress };
 
-          for (const cardId in serverDeck) {
-            const serverCard = serverDeck[cardId];
+      for (const deckKey in serverProgress) {
+        const serverDeck = serverProgress[deckKey];
 
-            const localCard =
-              storageClient.progress.getDeckProgress(deckKey)?.[cardId];
-
-            const merged = {
-              streak: Math.max(localCard?.streak ?? 0, serverCard.streak ?? 0),
-              seen: localCard?.seen || serverCard.seen,
-              mastered: localCard?.mastered || serverCard.mastered,
-            };
-
-            storageClient.progress.saveCardProgress(deckKey, cardId, merged);
-          }
+        if (!mergedProgress[deckKey]) {
+          mergedProgress[deckKey] = {};
         }
 
-        console.log(
-          "[SYNC] LOCAL PROGRESS AFTER MERGE",
-          storageClient.progress.getAll()
-        );
-      } catch (e) {
-        console.error("[SYNC] pull failed", e);
+        for (const cardId in serverDeck) {
+          const serverCard = serverDeck[cardId];
+          const localCard = mergedProgress[deckKey]?.[cardId];
+
+          mergedProgress[deckKey][cardId] = {
+            streak: Math.max(
+              localCard?.streak ?? 0,
+              serverCard.streak ?? 0
+            ),
+            seen: localCard?.seen || serverCard.seen,
+            mastered: localCard?.mastered || serverCard.mastered,
+          };
+        }
       }
+
+      // write once (important optimization)
+      for (const deckKey in mergedProgress) {
+        for (const cardId in mergedProgress[deckKey]) {
+          storageClient.progress.saveCardProgress(
+            deckKey,
+            cardId,
+            mergedProgress[deckKey][cardId]
+          );
+        }
+      }
+
+      // ======================================================
+      // 4. SYNC UI STATE (ONLY HERE)
+      // ======================================================
+      clientState.setProgress(mergedProgress);
+      clientState.setReviewLogs(storageClient.reviewLog.getAll());
+
+      console.log("[SYNC] DONE");
+    } catch (e) {
+      console.error("[SYNC] fatal error", e);
     } finally {
       isSyncing = false;
     }

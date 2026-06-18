@@ -1,3 +1,4 @@
+import { Flame } from "lucide-react";
 export default function DeckHero({
   score,
   streak,
@@ -51,7 +52,7 @@ export default function DeckHero({
       {/* ===================== */}
       <div style={styles.bottomCard}>
         <div style={styles.streakLabel}>
-          Streak Days: {streak ?? 0} 🔥
+          Streak Days: {streak ?? 0}  <Flame size={16} />
         </div>
 
         <div style={styles.weekRow}>
@@ -91,7 +92,7 @@ const styles: any = {
     background: "#fff",
     border: "1px solid #eee",
     borderRadius: 18,
-    padding: 18,
+    padding: 10,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

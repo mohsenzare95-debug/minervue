@@ -1,14 +1,11 @@
 "use client";
 
 type Props = {
-  data: {
-    day: number;
-    value: number;
-  }[];
-
+  data: { day: number; value: number }[];
   monthLabel: string;
   onPrevMonth: () => void;
   onNextMonth: () => void;
+  scale?: { maxScale: number; ticks: number[] };
 };
 
 export default function DailyActivityChart({
@@ -16,69 +13,100 @@ export default function DailyActivityChart({
   monthLabel,
   onPrevMonth,
   onNextMonth,
+  scale,
 }: Props) {
-  const maxValue = Math.max(...data.map((d) => d.value), 1);
-  const step = Math.max(1, Math.ceil(maxValue / 4));
-  const yTicks = Array.from({ length: 5 }, (_, i) => step * (4 - i));
+  const CHART_HEIGHT = 220;
+
+  const maxScale = scale?.maxScale ?? 1;
+
+  let ticks = scale?.ticks ?? [maxScale];
+  if (!ticks.includes(maxScale)) {
+    ticks = [...ticks, maxScale];
+  }
+
+  const sortedTicks = [...ticks].sort((a, b) => a - b);
 
   return (
     <div style={styles.wrapper}>
-
-      {/* TOP TITLE */}
-      <div style={styles.topTitle}>
-        Daily Activity
-      </div>
-
-      {/* SUBTITLE */}
-      <div style={styles.subTitle}>
-        based on cards number
-      </div>
-
       {/* HEADER */}
       <div style={styles.header}>
-        <button onClick={onPrevMonth} style={styles.navBtn}>
-          ←
-        </button>
-
-        <div style={styles.monthTitle}>
-          {monthLabel}
+        <div style={styles.titleBlock}>
+          <div style={styles.topTitle}>Daily Activity</div>
+          <div style={styles.subTitle}>based on cards number</div>
         </div>
 
-        <button onClick={onNextMonth} style={styles.navBtn}>
-          →
-        </button>
+        <div style={styles.nav}>
+          <button onClick={onPrevMonth} style={styles.navBtn}>←</button>
+          <div style={styles.monthTitle}>{monthLabel}</div>
+          <button onClick={onNextMonth} style={styles.navBtn}>→</button>
+        </div>
       </div>
 
       {/* CHART */}
-      <div style={styles.chartArea}>
-
+      <div style={styles.chartContainer}>
         {/* Y AXIS */}
         <div style={styles.yAxis}>
-          {yTicks.map((y, i) => (
-            <div key={i} style={styles.yRow}>
-              <span style={styles.yText}>
-                {y === 0 ? "" : y}
-              </span>
-            </div>
-          ))}
+          {sortedTicks
+            .slice()
+            .reverse()
+            .map((tick, i) => {
+              const perc = (tick / maxScale) * 100;
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    ...styles.yTick,
+                    bottom: `${perc}%`,
+                  }}
+                >
+                  {tick}
+                </div>
+              );
+            })}
         </div>
 
-        {/* BARS */}
-        <div style={styles.bars}>
-          {data.map((d, i) => {
-            const height = (d.value / maxValue) * 180;
+        {/* BODY */}
+        <div style={styles.chartBody}>
+          {/* GRID */}
+          <div style={styles.grid}>
+            {sortedTicks.map((tick, i) => {
+              const perc = (tick / maxScale) * 100;
 
-            return (
-              <div key={i} style={styles.barWrap}>
-                <div style={{ ...styles.bar, height }} />
-                <div style={styles.xLabel}>
-  {d.day === 1 || d.day === 30 || d.day % 3 === 0 ? d.day : ""}
-</div>
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={i}
+                  style={{
+                    ...styles.gridLine,
+                    bottom: `${perc}%`,
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {/* BARS */}
+          <div style={styles.bars}>
+            {data.map((d, i) => {
+              const ratio = maxScale > 0 ? d.value / maxScale : 0;
+              const height = Math.max(6, ratio * CHART_HEIGHT);
+
+              return (
+                <div key={i} style={styles.barWrap}>
+                  <div
+                    style={{
+                      ...styles.bar,
+                      height,
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* X AXIS */}
+          <div style={styles.xAxis} />
         </div>
-
       </div>
     </div>
   );
@@ -87,30 +115,10 @@ export default function DailyActivityChart({
 const styles: Record<string, React.CSSProperties> = {
   wrapper: {
     width: "100%",
-    maxWidth: 520,
-    margin: "0 auto",
-    padding: 16,
+    padding: 12,
     borderRadius: 12,
     background: "var(--card)",
     border: "1px solid var(--border)",
-    position: "relative",
-  },
-
-  topTitle: {
-    textAlign: "center",
-    fontSize: 15,
-    fontWeight: 700,
-    marginBottom: 2,
-    color: "var(--text)",
-    letterSpacing: 0.3,
-  },
-
-  subTitle: {
-    textAlign: "center",
-    fontSize: 11.5,
-    fontStyle: "italic",
-    color: "#666",
-    marginBottom: 10,
   },
 
   header: {
@@ -120,68 +128,116 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: 12,
   },
 
+  titleBlock: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+  },
+
+  topTitle: {
+    fontSize: 16,
+    fontWeight: 700,
+  },
+
+  subTitle: {
+    fontSize: 12,
+    color: "#666",
+  },
+
+  nav: {
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
+  },
+
   monthTitle: {
     fontSize: 14,
     fontWeight: 600,
   },
 
   navBtn: {
-    width: 32,
-    height: 32,
+    width: 34,
+    height: 34,
     borderRadius: 8,
     border: "1px solid #ddd",
     background: "#fff",
     cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  chartArea: {
+  chartContainer: {
     display: "flex",
+    gap: 6,
+    alignItems: "stretch",
     height: 220,
   },
 
   yAxis: {
-    width: 40,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    width: 10,
+    position: "relative",
+    height: 220,
   },
 
-  yRow: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-
-  yText: {
-    fontSize: 10,
+  yTick: {
+    position: "absolute",
+    right: 0,
+    transform: "translateY(50%)",
+    fontSize: 11,
     color: "var(--muted)",
+    textAlign: "right",
+  },
+
+  chartBody: {
+    flex: 1,
+    position: "relative",
+    height: 220,
+  },
+
+  grid: {
+    position: "absolute",
+    inset: 0,
+    pointerEvents: "none",
+  },
+
+  gridLine: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    height: 1,
+    background: "rgba(0,0,0,0.08)",
   },
 
   bars: {
-    flex: 1,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: "100%",
     display: "flex",
     alignItems: "flex-end",
     gap: 3,
-    paddingLeft: 6,
-    overflowX: "hidden", // safety fix
   },
 
   barWrap: {
     flex: 1,
-    minWidth: 0, // 🔴 critical fix for mobile overflow
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-end",
   },
 
   bar: {
     width: "100%",
     background: "#000",
-    borderRadius: 6,
+    borderRadius: 3,
   },
 
-  xLabel: {
-    fontSize: 9,
-    marginTop: 6,
-    color: "var(--muted)",
+  xAxis: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 1,
+    background: "rgba(0,0,0,0.25)",
   },
 };

@@ -35,37 +35,21 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* =========================
-   LINKS
-   ========================= */
-
+/* links */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* =========================
-   BUTTON RESET (IMPORTANT FIX)
-   ========================= */
-
+/* buttons */
 button {
   font-family: inherit;
   cursor: pointer;
-
   border: none;
-  background: transparent;
-
-  color: var(--text);
-
-  -webkit-appearance: none;
-  appearance: none;
-
-  -webkit-tap-highlight-color: transparent;
 }
 
 /* =========================
@@ -87,7 +71,7 @@ button {
 }
 
 /* =========================
-   MEDIA / IMG
+   OPTIONAL UTILITIES
    ========================= */
 
 img {

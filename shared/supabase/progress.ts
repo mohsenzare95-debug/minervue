@@ -1,27 +1,27 @@
 import { supabase } from "@/shared/supabase/client";
-import { Auth } from "@/shared/supabase/auth";
 import type { AllProgress, CardProgress } from "@/shared/types/progress";
 
+// ======================
+// GET ALL USER PROGRESS
+// ======================
+
 export const Progress = {
-  // ======================
-  // GET ALL USER PROGRESS
-  // ======================
-  getAll: async (): Promise<AllProgress> => {
-    const auth = await Auth.getUser();
-    const user = auth?.user;
-    if (!user) return {};
+  async getAll(userId: string): Promise<AllProgress> {
+    if (!userId) return {};
 
     const { data, error } = await supabase
       .from("user_progress")
       .select("*")
-      .eq("user_id", user.id);
+      .eq("user_id", userId);
 
     if (error || !data) return {};
 
     const result: AllProgress = {};
 
-    data.forEach((item) => {
-      if (!result[item.deck_key]) result[item.deck_key] = {};
+    for (const item of data) {
+      if (!result[item.deck_key]) {
+        result[item.deck_key] = {};
+      }
 
       result[item.deck_key][item.card_id] = {
         cardId: item.card_id,
@@ -29,22 +29,18 @@ export const Progress = {
         seen: item.seen ?? false,
         mastered: item.mastered ?? false,
       };
-    });
+    }
 
     return result;
   },
 
-  // ======================
-  // SAVE OR UPDATE ONE CARD
-  // ======================
-  save: async (
+  async save(
+    userId: string,
     deckKey: string,
     cardId: string,
     progress: CardProgress
-  ) => {
-    const auth = await Auth.getUser();
-    const user = auth?.user;
-    if (!user) return;
+  ) {
+    if (!userId) return;
 
     const { streak, seen, mastered } = progress;
 
@@ -52,7 +48,7 @@ export const Progress = {
       .from("user_progress")
       .upsert(
         {
-          user_id: user.id,
+          user_id: userId,
           deck_key: deckKey,
           card_id: cardId,
           streak,
@@ -60,11 +56,13 @@ export const Progress = {
           mastered,
           updated_at: new Date().toISOString(),
         },
-        { onConflict: "user_id,deck_key,card_id" }
+        {
+          onConflict: "user_id,deck_key,card_id",
+        }
       );
 
     if (error) throw error;
 
-    return progress; // ✅ برمی‌گردد progress اصلی، نه کلید ترکیبی
+    return progress;
   },
 };

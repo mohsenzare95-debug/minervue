@@ -1,3 +1,4 @@
+//shared\supabase\auth.ts
 import { supabase } from "@/shared/supabase/client";
 
 let cachedUser: any = null;
