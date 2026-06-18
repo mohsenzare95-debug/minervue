@@ -1,3 +1,4 @@
+//features\stats\components\DailyActivityChart.tsx
 "use client";
 
 type Props = {

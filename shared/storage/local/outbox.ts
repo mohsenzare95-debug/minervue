@@ -1,5 +1,3 @@
-// shared/storage/local/outbox.ts
-
 const KEY = "outbox_v1";
 
 export type OutboxEvent = {
@@ -9,10 +7,13 @@ export type OutboxEvent = {
   seq: number;
 
   type: "REVIEW_EVENT" | "PROGRESS_UPDATE";
-
   payload: any;
 
   status: "pending" | "sent";
+
+  retryCount: number;
+  lastAttemptAt?: number;
+
   createdAt: number;
 };
 
@@ -41,7 +42,10 @@ function saveAll(data: OutboxEvent[]) {
 
 export const outbox = {
   add(
-    event: Omit<OutboxEvent, "id" | "seq" | "status" | "createdAt">
+    event: Omit<
+      OutboxEvent,
+      "id" | "seq" | "status" | "createdAt" | "retryCount" | "lastAttemptAt"
+    >
   ) {
     if (!event.user_id || !event.client_event_id) {
       console.error("[OUTBOX ADD] Missing user_id or client_event_id", event);
@@ -59,6 +63,10 @@ export const outbox = {
       type: event.type,
       payload: event.payload,
       status: "pending",
+
+      retryCount: 0,
+      lastAttemptAt: undefined,
+
       createdAt: Date.now(),
     };
 
@@ -68,15 +76,59 @@ export const outbox = {
     saveAll(all);
   },
 
+  // ======================
+  // RETRY-AWARE PENDING FETCH
+  // ======================
+
   getPending(): OutboxEvent[] {
-    return getAll().filter((e) => e.status === "pending");
+    const now = Date.now();
+
+    return getAll().filter((e) => {
+      if (e.status !== "pending") return false;
+
+      // 🔥 exponential backoff
+      const backoff = Math.min(30000, 1000 * Math.pow(2, e.retryCount));
+
+      if (e.lastAttemptAt && now - e.lastAttemptAt < backoff) {
+        return false;
+      }
+
+      return true;
+    });
   },
 
   markSent(id: string) {
     const all = getAll();
+
     const updated = all.map((e) =>
-      e.id === id ? { ...e, status: "sent" } : e
+      e.id === id
+        ? {
+            ...e,
+            status: "sent",
+          }
+        : e
     );
+
+    saveAll(updated);
+  },
+
+  // ======================
+  // RETRY TRACKING
+  // ======================
+
+  markRetry(id: string) {
+    const all = getAll();
+
+    const updated = all.map((e) => {
+      if (e.id !== id) return e;
+
+      return {
+        ...e,
+        retryCount: e.retryCount + 1,
+        lastAttemptAt: Date.now(),
+      };
+    });
+
     saveAll(updated);
   },
 

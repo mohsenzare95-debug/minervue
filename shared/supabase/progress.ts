@@ -28,11 +28,18 @@ export const Progress = {
         streak: item.streak ?? 0,
         seen: item.seen ?? false,
         mastered: item.mastered ?? false,
+        updatedAt: item.updated_at
+          ? new Date(item.updated_at).getTime()
+          : 0,
       };
     }
 
     return result;
   },
+
+  // ======================
+  // SAVE PROGRESS
+  // ======================
 
   async save(
     userId: string,
@@ -42,24 +49,22 @@ export const Progress = {
   ) {
     if (!userId) return;
 
-    const { streak, seen, mastered } = progress;
+    const { streak, seen, mastered, updatedAt } = progress;
 
-    const { error } = await supabase
-      .from("user_progress")
-      .upsert(
-        {
-          user_id: userId,
-          deck_key: deckKey,
-          card_id: cardId,
-          streak,
-          seen,
-          mastered,
-          updated_at: new Date().toISOString(),
-        },
-        {
-          onConflict: "user_id,deck_key,card_id",
-        }
-      );
+    const { error } = await supabase.from("user_progress").upsert(
+      {
+        user_id: userId,
+        deck_key: deckKey,
+        card_id: cardId,
+        streak,
+        seen,
+        mastered,
+        updated_at: new Date(updatedAt).toISOString(),
+      },
+      {
+        onConflict: "user_id,deck_key,card_id",
+      }
+    );
 
     if (error) throw error;
 

@@ -1,132 +1,182 @@
 import { outbox } from "@/shared/storage/local/outbox";
 import { supabase } from "@/shared/supabase/client";
 import { storageClient } from "@/shared/storage/core/storageClient";
-import { Progress } from "@/shared/supabase/progress";
 import { clientState } from "@/shared/state/client/clientState";
 
-let timer: any;
+// ======================
+// SYNC LOCK
+// ======================
+
 let isSyncing = false;
+let pendingSync: string | null = null;
+
+// ======================
+// INCREMENTAL PROJECTION
+// ======================
+
+function applyLogsIncrementally(logs: any[], currentState: any) {
+  const state = structuredClone(currentState);
+
+  for (const log of logs) {
+    const { deck_key, deckKey, card_id, cardId, result, timestamp } = log;
+
+    const dk = deckKey ?? deck_key;
+    const cid = cardId ?? card_id;
+
+    if (!state[dk]) state[dk] = {};
+
+    if (!state[dk][cid]) {
+      state[dk][cid] = {
+        cardId: cid,
+        streak: 0,
+        seen: false,
+        mastered: false,
+        updatedAt: 0,
+      };
+    }
+
+    const card = state[dk][cid];
+
+    card.seen = true;
+
+    if (result === "Correct") {
+      card.streak += 1;
+    } else {
+      card.streak = 0;
+    }
+
+    if (card.streak >= 5) {
+      card.mastered = true;
+    }
+
+    card.updatedAt = timestamp;
+  }
+
+  return state;
+}
+
+// ======================
+// ENGINE
+// ======================
 
 export const syncEngine = {
-  start(userId: string) {
-    this.sync(userId);
-
-    timer = setInterval(() => {
-      if (!document.hidden) {
-        this.sync(userId);
-      }
-    }, 300000);
-  },
-
   async sync(userId: string) {
-    if (isSyncing) return;
+    if (!navigator.onLine) return;
+
+    if (isSyncing) {
+      pendingSync = userId;
+      return;
+    }
 
     isSyncing = true;
 
     try {
-      console.log("[SYNC] started");
+      clientState.setState({ syncStatus: "syncing" });
 
-      // ======================================================
-      // 1. PUSH REVIEW EVENTS (outbox → server)
-      // ======================================================
-      const pending = outbox
-        .getPending()
-        .sort((a, b) => a.seq - b.seq)
-        .slice(0, 5);
+      await this._runSync(userId);
 
-      for (const event of pending) {
-        try {
-          await supabase.from("review_events").upsert(
-            {
-              user_id: event.user_id,
-              client_event_id: event.client_event_id,
-              deck_key: event.payload.deckKey,
-              card_id: event.payload.cardId,
-              result: event.payload.result,
-              timestamp: event.payload.timestamp,
-              seq: event.seq,
-            },
-            { onConflict: "user_id,client_event_id" }
-          );
-
-          outbox.markSent(event.id);
-        } catch (e) {
-          console.error("[SYNC] review event push failed", e);
-        }
-      }
-
-      // ======================================================
-      // 2. PUSH LOCAL PROGRESS → server
-      // ======================================================
-      const localProgress = storageClient.progress.getAll();
-
-      for (const deckKey in localProgress) {
-        const deck = localProgress[deckKey];
-
-        for (const cardId in deck) {
-          try {
-            await Progress.save(deckKey, cardId, deck[cardId]);
-          } catch (e) {
-            console.error("[SYNC] progress push failed", e);
-          }
-        }
-      }
-
-      // ======================================================
-      // 3. PULL SERVER PROGRESS → MERGE → STORAGE
-      // ======================================================
-      const serverProgress = await Progress.getAll();
-
-      const mergedProgress = { ...localProgress };
-
-      for (const deckKey in serverProgress) {
-        const serverDeck = serverProgress[deckKey];
-
-        if (!mergedProgress[deckKey]) {
-          mergedProgress[deckKey] = {};
-        }
-
-        for (const cardId in serverDeck) {
-          const serverCard = serverDeck[cardId];
-          const localCard = mergedProgress[deckKey]?.[cardId];
-
-          mergedProgress[deckKey][cardId] = {
-            streak: Math.max(
-              localCard?.streak ?? 0,
-              serverCard.streak ?? 0
-            ),
-            seen: localCard?.seen || serverCard.seen,
-            mastered: localCard?.mastered || serverCard.mastered,
-          };
-        }
-      }
-
-      // write once (important optimization)
-      for (const deckKey in mergedProgress) {
-        for (const cardId in mergedProgress[deckKey]) {
-          storageClient.progress.saveCardProgress(
-            deckKey,
-            cardId,
-            mergedProgress[deckKey][cardId]
-          );
-        }
-      }
-
-      // ======================================================
-      // 4. SYNC UI STATE (ONLY HERE)
-      // ======================================================
-      clientState.setProgress(mergedProgress);
-      clientState.setReviewLogs(storageClient.reviewLog.getAll());
-
-      console.log("[SYNC] DONE");
+      clientState.setState({
+        syncStatus: "idle",
+        lastSyncAt: Date.now(),
+      });
     } catch (e) {
-      console.error("[SYNC] fatal error", e);
+      clientState.setState({ syncStatus: "error" });
+      console.error("[SYNC]", e);
     } finally {
       isSyncing = false;
+
+      if (pendingSync) {
+        const nextUser = pendingSync;
+        pendingSync = null;
+        this.sync(nextUser);
+      }
     }
   },
 
-  stop() {
-    clearInterval(timer);
+  async flushOutbox() {
+    const pending = outbox
+      .getPending()
+      .sort((a, b) => a.seq - b.seq)
+      .slice(0, 10);
+
+    for (const event of pending) {
+      try {
+        await supabase.from("review_events").upsert(
+          {
+            user_id: event.user_id,
+            client_event_id: event.client_event_id,
+            deck_key: event.payload.deckKey,
+            card_id: event.payload.cardId,
+            result: event.payload.result,
+            timestamp: event.payload.timestamp,
+            seq: event.seq,
+          },
+          { onConflict: "user_id,client_event_id" }
+        );
+
+        outbox.markSent(event.id);
+      } catch (e) {
+        console.error("[OUTBOX FAIL]", e);
+        outbox.markRetry(event.id);
+      }
+    }
+  },
+
+  async _runSync(userId: string) {
+    await this.flushOutbox();
+
+    // 1. load checkpoint
+    const { data: checkpoint } = await supabase
+      .from("user_sync_checkpoint")
+      .select("*")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    const lastTs = checkpoint?.last_event_timestamp ?? 0;
+
+    // 2. fetch only new logs
+    const { data: newLogs } = await supabase
+      .from("review_events")
+      .select("*")
+      .eq("user_id", userId)
+      .gt("timestamp", lastTs)
+      .order("timestamp", { ascending: true });
+
+    const logs = newLogs ?? [];
+
+    // 3. current local state
+    const current = storageClient.progress.getAll();
+
+    // 4. incremental apply
+    const mergedProgress = applyLogsIncrementally(logs, current);
+
+    // 5. write cache
+    for (const deckKey in mergedProgress) {
+      for (const cardId in mergedProgress[deckKey]) {
+        storageClient.progress.saveCardProgress(
+          deckKey,
+          cardId,
+          mergedProgress[deckKey][cardId]
+        );
+      }
+    }
+
+    // 6. update checkpoint
+    if (logs.length > 0) {
+      const last = logs[logs.length - 1];
+
+      await supabase.from("user_sync_checkpoint").upsert({
+        user_id: userId,
+        last_event_timestamp: last.timestamp,
+        updated_at: new Date().toISOString(),
+      });
+    }
+
+    // 7. ATOMIC STATE UPDATE (IMPORTANT CHANGE)
+    clientState.setState({
+      progress: mergedProgress,
+      syncStatus: "idle",
+      lastSyncAt: Date.now(),
+    });
   },
 };

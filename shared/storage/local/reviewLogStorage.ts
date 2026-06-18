@@ -1,8 +1,6 @@
 // shared/storage/local/reviewLogStorage.ts
 // TOTAL ACTIVITY / STATS RESOURCE
 
-import { clientState } from "@/shared/state/client/clientState";
-
 export type Activitylog = {
   deckKey: string;
   cardId: string;
@@ -69,9 +67,6 @@ export const reviewLogStorage = {
     });
 
     saveAll(all);
-
-    // 🔥 IMPORTANT: sync reactive state
-    clientState.setReviewLogs(all);
   },
 
   // ======================
@@ -83,9 +78,6 @@ export const reviewLogStorage = {
     delete all[deckKey];
 
     saveAll(all);
-
-    // 🔥 sync UI
-    clientState.setReviewLogs(all);
   },
 
   // ======================
@@ -95,8 +87,5 @@ export const reviewLogStorage = {
     const empty: Record<string, Activitylog[]> = {};
 
     saveAll(empty);
-
-    // 🔥 sync UI
-    clientState.setReviewLogs(empty);
   },
 };

@@ -1,15 +1,16 @@
 "use client";
+
 import { useSyncExternalStore } from "react";
-import { storageClient } from "@/shared/storage/core/storageClient";
 
 type State = {
   progress: any;
-  reviewLogs: any;
+  syncStatus: "idle" | "syncing" | "error";
+  lastSyncAt?: number;
 };
 
 let state: State = {
   progress: {},
-  reviewLogs: {},
+  syncStatus: "idle",
 };
 
 const listeners = new Set<() => void>();
@@ -28,21 +29,29 @@ export const clientState = {
     return () => listeners.delete(fn);
   },
 
-  setProgress(next: any) {
-    state = { ...state, progress: next };
-    emit();
-  },
-
-  setReviewLogs(next: any) {
-    state = { ...state, reviewLogs: next };
-    emit();
-  },
-
-  hydrateFromStorage() {
+  setState(next: Partial<State>) {
     state = {
-      progress: storageClient.progress.getAll(),
-      reviewLogs: storageClient.reviewLog.getAll(),
+      ...state,
+      ...next,
     };
+    emit();
+  },
+
+  // ======================
+  // HYDRATE FROM LOCAL STORAGE
+  // ======================
+  hydrate() {
+    if (typeof window === "undefined") return;
+
+    const progress = JSON.parse(
+      localStorage.getItem("progress_v2") || "{}"
+    );
+
+    state = {
+      ...state,
+      progress,
+    };
+
     emit();
   },
 

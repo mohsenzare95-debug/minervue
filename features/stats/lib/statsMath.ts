@@ -15,6 +15,15 @@ const RANGE_DAYS = {
 type Range = keyof typeof RANGE_DAYS;
 
 // ======================
+// STEP 1 — NORMALIZE TIMESTAMP (UTC SAFE)
+// ======================
+
+function toUTCDate(ts: number) {
+  const d = new Date(ts);
+  return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+}
+
+// ======================
 // DAILY ACTIVITY (month-based timeline)
 // ======================
 
@@ -52,25 +61,18 @@ export function getDailyActivity(
 }
 
 // ======================
-// DAILY ACTIVITY SCALE (WITH SMART PADDING)
+// DAILY ACTIVITY SCALE (FIXED)
 // ======================
 
-export function getDailyActivityScale(
-  data: { value: number }[]
-) {
-  const values = data
-    .map(d => d.value)
-    .filter(v => typeof v === "number" && !isNaN(v));
+export function getDailyActivityScale(data: { value: number }[]) {
+  const values = data.map(d => d.value);
 
   const maxValue = Math.max(...values, 1);
 
-  // padding خیلی قوی‌تر + حداقل فاصله ثابت
-  let paddedMax = Math.ceil(maxValue * 1.35);     // 35% فضا
-  paddedMax = Math.max(paddedMax, maxValue + 5); // حداقل ۵ واحد فاصله
-
-  const normalize = (v: number) => {
-    return paddedMax === 0 ? 0 : v / paddedMax;
-  };
+  const paddedMax =
+    maxValue <= 5
+      ? maxValue + 2
+      : Math.ceil(maxValue * 1.2);
 
   const ticks = [1, 0.75, 0.5, 0.25].map(r =>
     Math.round(paddedMax * r)
@@ -79,11 +81,13 @@ export function getDailyActivityScale(
   return {
     maxScale: paddedMax,
     ticks,
-    normalize,
+    normalize: (v: number) =>
+      paddedMax === 0 ? 0 : Math.min(1, v / paddedMax),
   };
 }
+
 // ======================
-// DECK DISTRIBUTION (unchanged)
+// DECK DISTRIBUTION (SAFE VERSION)
 // ======================
 
 export function getDeckDistribution(
@@ -92,15 +96,36 @@ export function getDeckDistribution(
 ) {
   const filtered = filterLogsByRange(logs, range);
 
-  const map: Record<string, number> = {};
+  const map: Record<string, number> = Object.create(null);
 
   for (const log of filtered) {
-    const deck = log.deckKey || "etc";
-    map[deck] = (map[deck] || 0) + 1;
+    if (!log.deckKey) continue;
+
+    map[log.deckKey] = (map[log.deckKey] || 0) + 1;
   }
 
   return Object.entries(map).map(([name, value]) => ({
     name,
     value,
   }));
+}
+
+// ======================
+// SEEN CARDS (EVENT-BASED)
+// ======================
+
+export function getSeenCards(
+  logs: any[],
+  fromTs: number,
+  toTs: number
+) {
+  const set = new Set();
+
+  for (const log of logs) {
+    if (log.timestamp >= fromTs && log.timestamp <= toTs) {
+      set.add(log.cardId);
+    }
+  }
+
+  return set.size;
 }

@@ -1,3 +1,5 @@
+// shared/state/bootstrap.ts
+
 import { clientState } from "@/shared/state/client/clientState";
 import { syncEngine } from "@/shared/storage/sync/syncEngine";
 import { storageClient } from "@/shared/storage/core/storageClient";
@@ -5,15 +7,21 @@ import { storageClient } from "@/shared/storage/core/storageClient";
 export async function bootstrap(userId: string) {
   console.log("[BOOTSTRAP] start");
 
-  // 1. load local instantly
   const localProgress = storageClient.progress.getAll();
   const localLogs = storageClient.reviewLog.getAll();
 
-  clientState.setProgress(localProgress);
-  clientState.setReviewLogs(localLogs);
+  clientState.setState({
+    progress: localProgress,
+    reviewLogs: localLogs,
+    syncStatus: "syncing",
+  });
 
-  // 2. pull server via sync
   await syncEngine.sync(userId);
+
+  clientState.setState({
+    syncStatus: "idle",
+    lastSyncAt: Date.now(),
+  });
 
   console.log("[BOOTSTRAP] done");
 }

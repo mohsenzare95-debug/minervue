@@ -3,17 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { selectCardsForSession } from "@/features/flashcards/lib/cardSelection";
-import { storageClient } from "@/shared/storage/core/storageClient";
 import { applyAnswerScore } from "@/features/flashcards/lib/scoreMath";
 import { getDeckStatus } from "@/features/flashcards/lib/deckStatusRecognition";
 
-import { outbox } from "@/shared/storage/local/outbox";
-import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
-
 import { Progress } from "@/shared/supabase/progress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
-
 import { analytics } from "@/features/analytics/events";
+
+import { progressRepository } from "@/shared/repository/progressRepository";
+import { reviewRepository } from "@/shared/repository/reviewRepository";
 
 import type { Card } from "@/shared/types/card";
 import type { AnswerType } from "@/shared/types/review";
@@ -25,7 +23,8 @@ type SessionState = {
 };
 
 function buildSessionCards(cards: Card[], deckKey: string): Card[] {
-  const progress = storageClient.progress.getDeckProgress(deckKey);
+  // ⚠️ still uses storageClient directly (acceptable if no repository exists for read-only here)
+  const progress = progressRepository.getDeck(deckKey);
   return selectCardsForSession(cards, progress);
 }
 
@@ -50,7 +49,7 @@ export function useSessionFlow({
   const [selected, setSelected] = useState<AnswerType | null>(null);
 
   // ======================
-  // guards (CRITICAL)
+  // guards
   // ======================
   const sessionStartedRef = useRef(false);
   const sessionCompletedRef = useRef(false);
@@ -58,7 +57,8 @@ export function useSessionFlow({
 
   const card = state.cards[state.index] ?? null;
   const canNext = selected !== null;
-  const progress = storageClient.progress.getDeckProgress(deckKey);
+
+  const progress = progressRepository.getDeck(deckKey);
   const allMastered = getDeckStatus(progress) === "MASTERED";
 
   function resetCardUI() {
@@ -67,7 +67,7 @@ export function useSessionFlow({
   }
 
   // ======================
-  // SESSION START (SAFE)
+  // SESSION START
   // ======================
   useEffect(() => {
     if (sessionStartedRef.current) return;
@@ -84,43 +84,28 @@ export function useSessionFlow({
   const chooseAnswer = useCallback(
     (answer: AnswerType) => {
       if (!card) return;
+      if (!user?.id) return;
 
       const timestamp = Date.now();
 
-      const current = storageClient.progress.getDeckProgress(deckKey);
+      const current = progressRepository.getDeck(deckKey);
       const updated = applyAnswerScore(current, card.id, answer);
 
-      storageClient.progress.saveCardProgress(
-        deckKey,
-        card.id,
-        updated[card.id]
-      );
+      const nextProgress = updated[card.id];
 
-      if (user?.id) {
-        Progress.save(deckKey, card.id, updated[card.id]).catch((err) =>
-          console.error("Failed to save progress:", err)
-        );
-      }
+      // ✅ replaced direct storageClient + outbox
+      progressRepository.updateCard(user.id, deckKey, card.id, nextProgress);
 
-      reviewLogStorage.add(deckKey, {
+      reviewRepository.add(user.id, deckKey, {
         cardId: card.id,
         result: answer,
         timestamp,
       });
 
-      if (userId) {
-        outbox.add({
-          user_id: userId,
-          client_event_id: crypto.randomUUID(),
-          type: "REVIEW_EVENT",
-          payload: { deckKey, cardId: card.id, result: answer, timestamp },
-        });
-      }
-
       setSelected(answer);
       setShowAnswer(true);
     },
-    [card, deckKey, userId, user]
+    [card, deckKey, user]
   );
 
   // ======================
@@ -142,7 +127,7 @@ export function useSessionFlow({
   }, []);
 
   // ======================
-  // SESSION COMPLETED (ROBUST)
+  // SESSION COMPLETED
   // ======================
   useEffect(() => {
     if (!state.finished) return;
@@ -158,19 +143,16 @@ export function useSessionFlow({
   }, [state.finished, deckKey, state.cards.length]);
 
   // ======================
-  // ABANDONED (STRICT FIX)
+  // ABANDONED
   // ======================
   useEffect(() => {
     return () => {
-      // already completed → NO abandon
       if (sessionCompletedRef.current) return;
       if (sessionAbandonedRef.current) return;
+      if (state.finished) return;
 
       const currentCard = state.cards[state.index];
       if (!currentCard) return;
-
-      // if session already finished → NO abandon
-      if (state.finished) return;
 
       sessionAbandonedRef.current = true;
 

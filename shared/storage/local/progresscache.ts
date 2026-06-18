@@ -38,7 +38,7 @@ export const progresscache = {
   // GET CARD
   // ======================
 
-  getCardProgress(deckKey: string, cardId: string): CardProgress | null {
+  getCardProgress(deckKey: string, cardId: string): CardProgress | undefined {
     return this.getDeckProgress(deckKey)[cardId] || null;
   },
 
