@@ -1,23 +1,34 @@
-//features\deckDomain\deckLifecycle.ts
-import { storageClient } from "@/shared/storage/core/storageClient";
+// features/deckDomain/deckLifecycle.ts
 
-/// ======================
-/// RESET LIFECYCLE (SINGLE SOURCE OF TRUTH)
-/// ======================
+import { reviewRepository } from "@/shared/repository/reviewRepository";
 
-export function resetDeckLifecycle(deckKey: string) {
-  // ======================
-  // 1. RESET PROGRESS STATE (MUTABLE)
-  // ======================
-  storageClient.progress.resetDeck(deckKey);
-
-  // ======================
-  // 2. OPTIONAL: FUTURE HOOKS (DO NOT TOUCH REVIEW LOG)
-  // ======================
-  // review log preserved intentionally
+export function resetDeckLifecycle(deckKey: string, userId: string) {
+  if (!userId || !deckKey) {
+    console.error("[RESET_DECK] Missing userId or deckKey", {
+      userId,
+      deckKey,
+    });
+    return;
+  }
 
   // ======================
-  // 3. SYNC EVENT
+  // EVENT-SOURCED RESET
   // ======================
-  window.dispatchEvent(new Event("deck-reset"));
+  reviewRepository.add(userId, deckKey, {
+    cardId: "__deck__",
+    result: "Reset" as any,
+    timestamp: Date.now(),
+  });
+
+  // ======================
+  // UI NOTIFICATION ONLY
+  // ======================
+  window.dispatchEvent(
+    new CustomEvent("deck-reset", {
+      detail: {
+        deckKey,
+        timestamp: Date.now(),
+      },
+    })
+  );
 }

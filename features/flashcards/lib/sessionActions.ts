@@ -1,12 +1,19 @@
-import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
 import { selectCardsForSession } from "@/features/flashcards/lib/cardSelection";
+
+import { reviewRepository } from "@/shared/repository/reviewRepository";
+import { buildProgressFromEvents } from "@/shared/storage/projection/rebuildProgress";
+
 import type { Card } from "@/shared/types/card";
-import { storageClient } from "@/shared/storage/core/storageClient";
 
 export function resetAndStartSession(deckKey: string, cards: Card[]) {
-  resetDeckLifecycle(deckKey);
+  // ======================
+  // EVENT SOURCE (NOT LOCAL STORAGE)
+  // ======================
+  const events = reviewRepository.get(deckKey);
 
-  const progress = storageClient.progress.getDeckProgress(deckKey);
+  const progressMap = buildProgressFromEvents(events);
 
-  return selectCardsForSession(cards, progress);
+  const deckProgress = progressMap[deckKey] || {};
+
+  return selectCardsForSession(cards, deckProgress);
 }

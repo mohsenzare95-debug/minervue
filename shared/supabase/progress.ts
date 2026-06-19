@@ -1,73 +1,23 @@
 import { supabase } from "@/shared/supabase/client";
-import type { AllProgress, CardProgress } from "@/shared/types/progress";
-
-// ======================
-// GET ALL USER PROGRESS
-// ======================
+import { buildProgressFromEvents } from "@/shared/storage/projection/rebuildProgress";
+import type { Activitylog } from "@/shared/storage/local/reviewLogStorage";
 
 export const Progress = {
-  async getAll(userId: string): Promise<AllProgress> {
-    if (!userId) return {};
-
-    const { data, error } = await supabase
-      .from("user_progress")
+  async getFromEvents(userId: string) {
+    const { data } = await supabase
+      .from("review_events")
       .select("*")
       .eq("user_id", userId);
 
-    if (error || !data) return {};
+    if (!data) return {};
 
-    const result: AllProgress = {};
+    const events: Activitylog[] = data.map((e) => ({
+      deckKey: e.deck_key,
+      cardId: e.card_id,
+      result: e.result,
+      timestamp: e.timestamp,
+    }));
 
-    for (const item of data) {
-      if (!result[item.deck_key]) {
-        result[item.deck_key] = {};
-      }
-
-      result[item.deck_key][item.card_id] = {
-        cardId: item.card_id,
-        streak: item.streak ?? 0,
-        seen: item.seen ?? false,
-        mastered: item.mastered ?? false,
-        updatedAt: item.updated_at
-          ? new Date(item.updated_at).getTime()
-          : 0,
-      };
-    }
-
-    return result;
-  },
-
-  // ======================
-  // SAVE PROGRESS
-  // ======================
-
-  async save(
-    userId: string,
-    deckKey: string,
-    cardId: string,
-    progress: CardProgress
-  ) {
-    if (!userId) return;
-
-    const { streak, seen, mastered, updatedAt } = progress;
-
-    const { error } = await supabase.from("user_progress").upsert(
-      {
-        user_id: userId,
-        deck_key: deckKey,
-        card_id: cardId,
-        streak,
-        seen,
-        mastered,
-        updated_at: new Date(updatedAt).toISOString(),
-      },
-      {
-        onConflict: "user_id,deck_key,card_id",
-      }
-    );
-
-    if (error) throw error;
-
-    return progress;
+    return buildProgressFromEvents(events);
   },
 };

@@ -1,3 +1,4 @@
+// features/flashcards/components/SessionScreen.tsx
 "use client";
 
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
@@ -6,7 +7,6 @@ import SessionEnd from "./SessionFinished";
 import CardView from "./CardView";
 import DeckMastered from "./DeckMastered";
 import { useSessionFlow } from "@/features/flashcards/hooks/useSessionFlow";
-import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
 
 type Props = {
   cards: any[];
@@ -43,8 +43,10 @@ export default function SessionScreen({
     userId: user?.id,
   });
 
+  // ======================
+  // RESET / RESTART SESSION (UI-ONLY)
+  // ======================
   const handleStartOver = () => {
-    resetDeckLifecycle(deckKey);
     startNewSession();
   };
 

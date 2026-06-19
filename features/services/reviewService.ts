@@ -1,19 +1,23 @@
-//features\services\reviewService.ts
+//C:\Users\DOR CO\flashcards-app\features\services\reviewService.ts
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
-import { supabase } from "@/shared/supabase/client";
+import { outbox } from "@/shared/storage/local/outbox";
 
-export async function submitReview(event: any, userId: string | null) {
+export function submitReview(event: any, userId: string | null) {
   // local log (fast, always works)
   reviewLogStorage.add(event.deckKey, event);
 
-  // cloud sync (optional)
+  // cloud sync via outbox (NOT direct supabase)
   if (!userId) return;
 
-  await supabase.from("review_events").insert({
+  outbox.add({
     user_id: userId,
-    deck_key: event.deckKey,
-    card_id: event.cardId,
-    result: event.result,
-    timestamp: event.timestamp,
+    client_event_id: crypto.randomUUID(),
+    type: "REVIEW_EVENT",
+    payload: {
+      deckKey: event.deckKey,
+      cardId: event.cardId,
+      result: event.result,
+      timestamp: event.timestamp,
+    },
   });
 }

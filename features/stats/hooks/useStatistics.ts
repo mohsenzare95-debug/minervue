@@ -1,7 +1,8 @@
+// features/stats/hooks/useStatistics.ts
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { calculateScore } from "../lib/scoreMath";
+
 import {
   getDailyActivity,
   getDeckDistribution,
@@ -9,11 +10,14 @@ import {
   getSeenCards,
 } from "../lib/statsMath";
 
-import { clientState } from "@/shared/state/client/clientState";
-import { supabase } from "@/shared/supabase/client";
+import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
+import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
+import {
+  computeScore,
+} from "@/features/decks/lib/globalprogressMath";
 
 type ReviewEvent = {
-  user_id: string;
+  user_id: string | null;
   client_event_id: string;
   deck_key: string;
   card_id: string;
@@ -29,30 +33,36 @@ export function useStatistics() {
 
   const [monthOffset, setMonthOffset] = useState(0);
 
-  const { progress } = clientState.useStore();
-
   const [events, setEvents] = useState<ReviewEvent[]>([]);
 
+  // ======================
+  // LOAD FROM LOCAL STORAGE (SOURCE OF TRUTH)
+  // ======================
   useEffect(() => {
-    const load = async () => {
-      const { data, error } = await supabase
-        .from("review_events")
-        .select(
-          "user_id, client_event_id, deck_key, card_id, result, timestamp, seq"
-        )
-        .order("seq", { ascending: true });
+    const load = () => {
+      const local = reviewLogStorage.getAll();
 
-      if (error) {
-        console.error("review_events fetch error:", error);
-        return;
-      }
+      const logs: ReviewEvent[] = Object.values(local)
+        .flat()
+        .map((e: any) => ({
+          user_id: null,
+          client_event_id: "",
+          deck_key: e.deckKey,
+          card_id: e.cardId,
+          result: e.result,
+          timestamp: e.timestamp,
+          seq: 0,
+        }));
 
-      setEvents((data ?? []) as ReviewEvent[]);
+      setEvents(logs);
     };
 
     load();
   }, []);
 
+  // ======================
+  // DERIVED LOGS (UI FORMAT)
+  // ======================
   const logs = useMemo(() => {
     return events.map((e) => ({
       userId: e.user_id,
@@ -65,8 +75,32 @@ export function useStatistics() {
     }));
   }, [events]);
 
+  // ======================
+  // BUILD PROGRESS FROM EVENTS (NEW ARCHITECTURE)
+  // ======================
+  const progressFromEvents = useMemo(() => {
+    const grouped = reviewLogStorage.getAll();
+    const allLogs = Object.values(grouped).flat();
+
+    return buildProgressFromEvents(allLogs);
+  }, [events]);
+
+  const allCards = useMemo(() => {
+    return Object.values(progressFromEvents)
+      .flatMap((deck: any) => Object.values(deck || {}));
+  }, [progressFromEvents]);
+
+  // ======================
+  // SCORE (FIXED)
+  // ======================
+  const score = useMemo(() => {
+    return computeScore(allCards as any);
+  }, [allCards]);
+
+  // ======================
+  // SEEN CARDS
+  // ======================
   const seenCards = useMemo(() => {
-    const now = Date.now();
     const startOfMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() - monthOffset,
@@ -82,22 +116,24 @@ export function useStatistics() {
     return getSeenCards(logs, startOfMonth, endOfMonth);
   }, [logs, monthOffset]);
 
+  // ======================
+  // MASTERED CARDS (still from progress logic)
+  // ======================
   const masteredCards = useMemo(() => {
     let count = 0;
 
-    for (const deck of Object.values(progress)) {
+    for (const deck of Object.values(progressFromEvents)) {
       for (const card of Object.values(deck as any)) {
         if ((card as any)?.mastered) count++;
       }
     }
 
     return count;
-  }, [progress]);
+  }, [progressFromEvents]);
 
-  const score = useMemo(() => {
-    return calculateScore(progress ?? {});
-  }, [progress]);
-
+  // ======================
+  // DAILY ACTIVITY
+  // ======================
   const dailyActivity = useMemo(() => {
     return getDailyActivity(logs, monthOffset);
   }, [logs, monthOffset]);
@@ -106,6 +142,9 @@ export function useStatistics() {
     return getDailyActivityScale(dailyActivity);
   }, [dailyActivity]);
 
+  // ======================
+  // MONTH LABEL
+  // ======================
   const monthLabel = useMemo(() => {
     const now = new Date();
 
@@ -121,6 +160,9 @@ export function useStatistics() {
     });
   }, [monthOffset]);
 
+  // ======================
+  // DISTRIBUTION
+  // ======================
   const distribution = useMemo(() => {
     return getDeckDistribution(logs, range);
   }, [logs, range]);

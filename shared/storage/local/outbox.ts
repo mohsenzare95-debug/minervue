@@ -1,27 +1,58 @@
-const KEY = "outbox_v1";
+const KEY = "outbox_v2";
 
-export type OutboxEvent = {
-  id: string;
-  user_id: string;
-  client_event_id: string;
-  seq: number;
+// ======================
+// EVENT TYPES
+// ======================
 
-  type: "REVIEW_EVENT" | "PROGRESS_UPDATE";
-  payload: any;
+export type ReviewOutboxEvent =
+  | {
+      id: string;
+      user_id: string;
+      client_event_id: string;
+      seq: number;
 
-  status: "pending" | "sent";
+      type: "REVIEW_EVENT";
 
-  retryCount: number;
-  lastAttemptAt?: number;
+      payload: {
+        deckKey: string;
+        cardId: string;
+        result: "Correct" | "Wrong" | "Almost";
+        timestamp: number;
+      };
 
-  createdAt: number;
-};
+      status: "pending" | "sent";
+
+      retryCount: number;
+      lastAttemptAt?: number;
+
+      createdAt: number;
+    }
+  | {
+      id: string;
+      user_id: string;
+      client_event_id: string;
+      seq: number;
+
+      type: "RESET_DECK_EVENT";
+
+      payload: {
+        deckKey: string;
+        timestamp: number;
+      };
+
+      status: "pending" | "sent";
+
+      retryCount: number;
+      lastAttemptAt?: number;
+
+      createdAt: number;
+    };
 
 // ======================
 // INTERNAL HELPERS
 // ======================
 
-function getAll(): OutboxEvent[] {
+function getAll(): ReviewOutboxEvent[] {
   if (typeof window === "undefined") return [];
 
   try {
@@ -31,46 +62,43 @@ function getAll(): OutboxEvent[] {
   }
 }
 
-function saveAll(data: OutboxEvent[]) {
-  console.log("[OUTBOX SAVE]", data);
+function saveAll(data: ReviewOutboxEvent[]) {
   localStorage.setItem(KEY, JSON.stringify(data));
 }
 
 // ======================
-// API
+// OUTBOX CORE
 // ======================
 
 export const outbox = {
   add(
     event: Omit<
-      OutboxEvent,
+      ReviewOutboxEvent,
       "id" | "seq" | "status" | "createdAt" | "retryCount" | "lastAttemptAt"
     >
   ) {
     if (!event.user_id || !event.client_event_id) {
-      console.error("[OUTBOX ADD] Missing user_id or client_event_id", event);
+      console.error("[OUTBOX ADD] Missing required fields", event);
       return;
     }
 
     const all = getAll();
     const lastSeq = all.length > 0 ? Math.max(...all.map((e) => e.seq)) : 0;
 
-    const newEvent: OutboxEvent = {
+    const newEvent: ReviewOutboxEvent = {
       id: crypto.randomUUID(),
       user_id: event.user_id,
       client_event_id: event.client_event_id,
       seq: lastSeq + 1,
       type: event.type,
       payload: event.payload,
-      status: "pending",
 
+      status: "pending",
       retryCount: 0,
       lastAttemptAt: undefined,
 
       createdAt: Date.now(),
-    };
-
-    console.log("[OUTBOX ADD]", newEvent);
+    } as ReviewOutboxEvent;
 
     all.push(newEvent);
     saveAll(all);
@@ -80,13 +108,12 @@ export const outbox = {
   // RETRY-AWARE PENDING FETCH
   // ======================
 
-  getPending(): OutboxEvent[] {
+  getPending(): ReviewOutboxEvent[] {
     const now = Date.now();
 
     return getAll().filter((e) => {
       if (e.status !== "pending") return false;
 
-      // 🔥 exponential backoff
       const backoff = Math.min(30000, 1000 * Math.pow(2, e.retryCount));
 
       if (e.lastAttemptAt && now - e.lastAttemptAt < backoff) {
@@ -101,20 +128,11 @@ export const outbox = {
     const all = getAll();
 
     const updated = all.map((e) =>
-      e.id === id
-        ? {
-            ...e,
-            status: "sent",
-          }
-        : e
+      e.id === id ? { ...e, status: "sent" } : e
     );
 
     saveAll(updated);
   },
-
-  // ======================
-  // RETRY TRACKING
-  // ======================
 
   markRetry(id: string) {
     const all = getAll();

@@ -3,10 +3,8 @@
 
 import { useEffect, useState, useCallback } from "react";
 
-import { storageClient } from "@/shared/storage/core/storageClient";
-import type { CardProgress } from "@/shared/types/progress";
-
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
+import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 
 import {
   computeScore,
@@ -29,25 +27,32 @@ export function useGlobalProgress() {
   });
 
   const load = useCallback(() => {
-    const allDecks = storageClient.progress.getAll();
-
-    const allCards = Object.values(allDecks)
-      .flatMap((deck) => Object.values(deck || {})) as CardProgress[];
-
-    const scoreValue = computeScore(allCards as any);
-
-    setScore(scoreValue);
-
-    // 🔥 مهم: مستقیم از scoreValue استفاده کن (نه state)
-    const lp = getLevelProgress(scoreValue);
-
-    console.log("LP DEBUG:", lp);
-
-    setLevelProgress(lp);
-
+    // ======================
+    // SOURCE OF TRUTH (EVENTS)
+    // ======================
     const logsByDeck = reviewLogStorage.getAll();
     const allLogs = Object.values(logsByDeck).flat();
 
+    // ======================
+    // DERIVE PROGRESS FROM EVENTS
+    // ======================
+    const progress = buildProgressFromEvents(allLogs);
+
+    const allCards = Object.values(progress)
+      .flatMap((deck) => Object.values(deck || {}));
+
+    // ======================
+    // SCORE
+    // ======================
+    const scoreValue = computeScore(allCards as any);
+    setScore(scoreValue);
+
+    const lp = getLevelProgress(scoreValue);
+    setLevelProgress(lp);
+
+    // ======================
+    // ACTIVITY (from logs)
+    // ======================
     const days = extractActivityDaysFromLogs(allLogs);
 
     setStreak(computeStreak(days));

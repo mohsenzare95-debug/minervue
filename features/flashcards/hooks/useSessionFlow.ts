@@ -1,16 +1,14 @@
+//features\flashcards\hooks\useSessionFlow.ts
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { selectCardsForSession } from "@/features/flashcards/lib/cardSelection";
-import { applyAnswerScore } from "@/features/flashcards/lib/scoreMath";
 import { getDeckStatus } from "@/features/flashcards/lib/deckStatusRecognition";
 
-import { Progress } from "@/shared/supabase/progress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import { analytics } from "@/features/analytics/events";
 
-import { progressRepository } from "@/shared/repository/progressRepository";
 import { reviewRepository } from "@/shared/repository/reviewRepository";
 
 import type { Card } from "@/shared/types/card";
@@ -22,10 +20,8 @@ type SessionState = {
   finished: boolean;
 };
 
-function buildSessionCards(cards: Card[], deckKey: string): Card[] {
-  // ⚠️ still uses storageClient directly (acceptable if no repository exists for read-only here)
-  const progress = progressRepository.getDeck(deckKey);
-  return selectCardsForSession(cards, progress);
+function buildSessionCards(cards: Card[]) {
+  return cards;
 }
 
 export function useSessionFlow({
@@ -41,25 +37,19 @@ export function useSessionFlow({
 
   const [state, setState] = useState<SessionState>(() => ({
     index: 0,
-    cards: buildSessionCards(cards, deckKey),
+    cards: buildSessionCards(cards),
     finished: false,
   }));
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [selected, setSelected] = useState<AnswerType | null>(null);
 
-  // ======================
-  // guards
-  // ======================
   const sessionStartedRef = useRef(false);
   const sessionCompletedRef = useRef(false);
   const sessionAbandonedRef = useRef(false);
 
   const card = state.cards[state.index] ?? null;
   const canNext = selected !== null;
-
-  const progress = progressRepository.getDeck(deckKey);
-  const allMastered = getDeckStatus(progress) === "MASTERED";
 
   function resetCardUI() {
     setShowAnswer(false);
@@ -74,29 +64,20 @@ export function useSessionFlow({
     if (!state.cards.length) return;
 
     sessionStartedRef.current = true;
-
     analytics.sessionStarted(deckKey, state.cards.length);
   }, [deckKey, state.cards.length]);
 
   // ======================
-  // ANSWER
+  // ANSWER (EVENT ONLY WRITE)
   // ======================
   const chooseAnswer = useCallback(
     (answer: AnswerType) => {
       if (!card) return;
-      if (!user?.id) return;
 
       const timestamp = Date.now();
 
-      const current = progressRepository.getDeck(deckKey);
-      const updated = applyAnswerScore(current, card.id, answer);
-
-      const nextProgress = updated[card.id];
-
-      // ✅ replaced direct storageClient + outbox
-      progressRepository.updateCard(user.id, deckKey, card.id, nextProgress);
-
-      reviewRepository.add(user.id, deckKey, {
+      // ALWAYS write locally + optional sync
+      reviewRepository.add(user?.id ?? null, deckKey, {
         cardId: card.id,
         result: answer,
         timestamp,
@@ -105,7 +86,7 @@ export function useSessionFlow({
       setSelected(answer);
       setShowAnswer(true);
     },
-    [card, deckKey, user]
+    [card, deckKey, user?.id]
   );
 
   // ======================
@@ -168,16 +149,14 @@ export function useSessionFlow({
     sessionCompletedRef.current = false;
     sessionAbandonedRef.current = false;
 
-    const newCards = buildSessionCards(cards, deckKey);
-
     setState({
       index: 0,
-      cards: newCards,
+      cards: buildSessionCards(cards),
       finished: false,
     });
 
     resetCardUI();
-  }, [cards, deckKey]);
+  }, [cards]);
 
   return {
     index: state.index,
@@ -194,7 +173,6 @@ export function useSessionFlow({
     handleNext,
 
     sessionFinished: state.finished,
-    allMastered,
 
     startNewSession,
   };

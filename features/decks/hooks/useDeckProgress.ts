@@ -1,57 +1,45 @@
-//features\decks\hooks\useDeckProgress.ts
 "use client";
 
 import { useCallback } from "react";
-import { storageClient } from "@/shared/storage/core/storageClient";
+import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
+import { reviewRepository } from "@/shared/repository/reviewRepository";
 import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
 
 export function useDeckProgress() {
+  // ======================
+  // DERIVED DECK PROGRESS (FROM EVENTS)
+  // ======================
 
-  // ======================
-  // ONLY DECK PROGRESS
-  // ======================
   const getDeckProgress = useCallback((deck: any) => {
+    const events = reviewRepository.get(deck.key);
 
-    const memory =
-      storageClient.progress.getDeckProgress(deck.key);
+    const progressMap = buildProgressFromEvents(events);
+
+    const deckProgress = progressMap[deck.key] || {};
 
     const total = deck.cards.length;
 
-    // ======================
-    // SUM OF STREAKS
-    // ======================
-    const sumStreak = deck.cards.reduce(
-      (acc: number, c: any) => {
-        return acc + (memory[c.id]?.streak ?? 0);
-      },
-      0
-    );
+    const sumStreak = deck.cards.reduce((acc: number, c: any) => {
+      return acc + (deckProgress[c.id]?.streak ?? 0);
+    }, 0);
 
-    // ======================
-    // MAX POSSIBLE STREAK
-    // ======================
     const max = total * 3;
 
-    // ======================
-    // FINAL PERCENT
-    // ======================
-    const percent = max > 0
-      ? Math.round((sumStreak / max) * 100)
-      : 0;
+    const percent = max > 0 ? Math.round((sumStreak / max) * 100) : 0;
 
     return {
       total,
       percent,
       sumStreak,
     };
-
   }, []);
 
   // ======================
   // RESET DECK
   // ======================
-  const resetDeck = useCallback((deckKey: string) => {
-    resetDeckLifecycle(deckKey);
+
+  const resetDeck = useCallback((deckKey: string, userId: string) => {
+    resetDeckLifecycle(deckKey, userId);
   }, []);
 
   return {
