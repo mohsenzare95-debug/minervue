@@ -1,3 +1,4 @@
+//shared\repository\reviewRepository.ts
 import { outbox } from "@/shared/storage/local/outbox";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import type { AnswerType, AppEvent } from "@/shared/types/events";

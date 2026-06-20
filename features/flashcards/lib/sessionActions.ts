@@ -1,7 +1,8 @@
+//features\flashcards\lib\sessionActions.ts
 import { selectCardsForSession } from "@/features/flashcards/lib/cardSelection";
 
-import { reviewRepository } from "@/shared/repository/reviewRepository";
-import { buildProgressFromEvents } from "@/shared/storage/projection/rebuildProgress";
+import { storageClient } from "@/shared/storage/core/storageClient";
+import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 
 import type { Card } from "@/shared/types/card";
 
@@ -9,7 +10,7 @@ export function resetAndStartSession(deckKey: string, cards: Card[]) {
   // ======================
   // EVENT SOURCE (NOT LOCAL STORAGE)
   // ======================
-  const events = reviewRepository.get(deckKey);
+  const events = storageClient.reviewLog.get(deckKey);
 
   const progressMap = buildProgressFromEvents(events);
 

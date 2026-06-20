@@ -1,10 +1,16 @@
+// shared/storage/local/buildProgressFromEvents.ts
+
+import type { AppEvent } from "@/shared/types/events";
+import type { AllProgress } from "@/shared/types/progress";
+
 export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
   const state: AllProgress = {};
+
+  const clamp = (n: number) => Math.max(0, Math.min(3, n));
 
   const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
 
   for (const e of sorted) {
-
     if (e.type === "RESET") {
       if (!state[e.deckKey]) {
         state[e.deckKey] = {};
@@ -37,7 +43,7 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
 
       switch (payload.result) {
         case "Correct":
-          card.streak += 1;
+          card.streak = clamp(card.streak + 1);
           break;
 
         case "Wrong":
@@ -45,7 +51,7 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
           break;
 
         case "Almost":
-          card.streak = Math.max(0, card.streak - 1);
+          card.streak = clamp(card.streak - 1);
           break;
       }
 
