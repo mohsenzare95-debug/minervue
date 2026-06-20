@@ -1,3 +1,4 @@
+//shared\storage\sync\readSyncScheduler.ts
 import { fetchReviewEvents } from "./fetchReviewEvents";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
@@ -28,7 +29,7 @@ export function requestReadSync(id?: string) {
 
       // 3. rebuild projection
       const events = reviewLogStorage.getStream();
-      const progress = buildProgress(events);
+      const progress = buildProgressFromEvents(events);
 
       // 4. hydrate UI
       clientState.setState({

@@ -21,7 +21,7 @@ export async function bootstrap(userId: string) {
   console.log("[BOOTSTRAP] start");
 
   try {
-    // 1. UI loading
+    // 1. UI loading state
     clientState.setState({
       syncStatus: "syncing",
       lastSyncAt: undefined,
@@ -30,17 +30,20 @@ export async function bootstrap(userId: string) {
     // 2. flush local writes first
     await syncEngine.sync(userId);
 
-    // 3. READ: fetch events (NEW SOURCE OF TRUTH)
+    // 3. READ from server
     const serverEvents = await fetchReviewEvents(userId);
 
     // 4. replace local event store
     reviewLogStorage.setAll(serverEvents);
 
-    // 5. build state from events
-    const localEvents = reviewLogStorage.getAll();
-    const progress = buildProgress(localEvents);
+    // 5. normalize to flat event array (IMPORTANT FIX)
+    const localEventsMap = reviewLogStorage.getAll();
+    const localEvents = Object.values(localEventsMap).flat();
 
-    // 6. hydrate UI
+    // 6. build progress
+    const progress = buildProgressFromEvents(localEvents);
+
+    // 7. hydrate UI
     clientState.setState({
       ...progress,
       syncStatus: "idle",
