@@ -1,10 +1,7 @@
-// shared/storage/core/storageClient.ts
 import { settingsStorage } from "../local/settingsStorage";
 import { userStorage } from "../local/userStorage";
 import { unlockedDecksStorage } from "../local/unlockedDecksStorage";
 import { reviewLogStorage } from "../local/reviewLogStorage";
-
-export type { ActivityLog } from "../local/reviewLogStorage";
 
 export const storageClient = {
   settings: settingsStorage,

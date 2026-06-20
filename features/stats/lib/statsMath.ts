@@ -1,4 +1,6 @@
-import type { Activitylog } from "@/shared/storage/core/storageClient";
+// features/stats/lib/statsMath.ts
+
+import type { AppEvent } from "@/shared/types/events";
 import { filterLogsByRange } from "./timeRanges";
 
 // ======================
@@ -15,12 +17,15 @@ const RANGE_DAYS = {
 type Range = keyof typeof RANGE_DAYS;
 
 // ======================
-// STEP 1 — NORMALIZE TIMESTAMP (UTC SAFE)
+// INTERNAL NORMALIZER
 // ======================
 
-function toUTCDate(ts: number) {
-  const d = new Date(ts);
-  return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+function toStatsEvent(e: AppEvent) {
+  return {
+    timestamp: e.timestamp,
+    deckKey: e.deckKey,
+    cardId: e.cardId,
+  };
 }
 
 // ======================
@@ -28,9 +33,11 @@ function toUTCDate(ts: number) {
 // ======================
 
 export function getDailyActivity(
-  logs: Activitylog[],
+  logs: AppEvent[],
   monthOffset = 0
 ) {
+  const events = logs.map(toStatsEvent);
+
   const today = new Date();
 
   const target = new Date(
@@ -49,7 +56,7 @@ export function getDailyActivity(
     value: 0,
   }));
 
-  for (const log of logs) {
+  for (const log of events) {
     const d = new Date(log.timestamp);
 
     if (d.getFullYear() === year && d.getMonth() === month) {
@@ -61,7 +68,7 @@ export function getDailyActivity(
 }
 
 // ======================
-// DAILY ACTIVITY SCALE (FIXED)
+// DAILY ACTIVITY SCALE
 // ======================
 
 export function getDailyActivityScale(data: { value: number }[]) {
@@ -87,14 +94,16 @@ export function getDailyActivityScale(data: { value: number }[]) {
 }
 
 // ======================
-// DECK DISTRIBUTION (SAFE VERSION)
+// DECK DISTRIBUTION
 // ======================
 
 export function getDeckDistribution(
-  logs: Activitylog[],
+  logs: AppEvent[],
   range: Range
 ) {
-  const filtered = filterLogsByRange(logs, range);
+  const events = logs.map(toStatsEvent);
+
+  const filtered = filterLogsByRange(events as any, range);
 
   const map: Record<string, number> = Object.create(null);
 
@@ -111,17 +120,19 @@ export function getDeckDistribution(
 }
 
 // ======================
-// SEEN CARDS (EVENT-BASED)
+// SEEN CARDS
 // ======================
 
 export function getSeenCards(
-  logs: any[],
+  logs: AppEvent[],
   fromTs: number,
   toTs: number
 ) {
-  const set = new Set();
+  const events = logs.map(toStatsEvent);
 
-  for (const log of logs) {
+  const set = new Set<string>();
+
+  for (const log of events) {
     if (log.timestamp >= fromTs && log.timestamp <= toTs) {
       set.add(log.cardId);
     }
