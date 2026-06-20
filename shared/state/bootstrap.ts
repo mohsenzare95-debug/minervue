@@ -4,7 +4,7 @@ import { clientState } from "@/shared/state/client/clientState";
 import { syncEngine } from "@/shared/storage/sync/syncEngine";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import { supabase } from "@/shared/supabase/client";
-import { buildProgress } from "@/shared/storage/progress/buildProgress";
+import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 
 async function fetchReviewEvents(userId: string) {
   const { data, error } = await supabase
