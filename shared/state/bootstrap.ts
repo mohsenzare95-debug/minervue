@@ -33,12 +33,11 @@ export async function bootstrap(userId: string) {
     // 3. READ from server
     const serverEvents = await fetchReviewEvents(userId);
 
-    // 4. replace local event store
-    reviewLogStorage.setAll(serverEvents);
+    // 4. merge server events into local store (FIXED)
+    reviewLogStorage.replaceFromServer(serverEvents);
 
-    // 5. normalize to flat event array (IMPORTANT FIX)
-    const localEventsMap = reviewLogStorage.getAll();
-    const localEvents = Object.values(localEventsMap).flat();
+    // 5. single source of truth (NO REBUILD FROM MAP)
+    const localEvents = reviewLogStorage.getStream();
 
     // 6. build progress
     const progress = buildProgressFromEvents(localEvents);

@@ -22,5 +22,8 @@ export async function fetchReviewEvents(userId: string): Promise<ReviewEventRow[
 
   if (error) throw error;
 
-  return data ?? [];
+  return (data ?? []).map(e => ({
+  ...e,
+  timestamp: Number(e.timestamp),
+}));
 }

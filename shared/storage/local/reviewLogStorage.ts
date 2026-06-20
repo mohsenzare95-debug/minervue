@@ -59,19 +59,24 @@ export const reviewLogStorage = {
   },
 
   // ======================
-  // SERVER REPLACE (NOT MERGE ANYMORE)
+  // SERVER REPLACE (MERGE SAFE)
   // ======================
 
   replaceFromServer(events: AppEvent[]) {
-    const grouped: Record<string, AppEvent[]> = {};
+    const all = getAll();
 
     for (const e of events) {
-      if (!grouped[e.deckKey]) grouped[e.deckKey] = [];
+      if (!all[e.deckKey]) {
+        all[e.deckKey] = [];
+      }
 
-      grouped[e.deckKey].push(e);
+      const exists = all[e.deckKey].some((x) => x.id === e.id);
+      if (!exists) {
+        all[e.deckKey].push(e);
+      }
     }
 
-    saveAll(grouped);
+    saveAll(all);
   },
 
   clear(deckKey: string) {
