@@ -1,3 +1,4 @@
+//shared\storage\local\reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
 
 const KEY = "review_logs_v3";
@@ -37,7 +38,18 @@ function writeStream(stream: AppEvent[]) {
 export const reviewLogStorage = {
   // FULL STREAM
   getStream(): AppEvent[] {
-    return readStream();
+    return readStream().sort((a, b) => {
+      if (a.timestamp !== b.timestamp) {
+        return a.timestamp - b.timestamp;
+      }
+
+      // FIX: deterministic ordering
+      if (a.seq != null && b.seq != null) {
+        return a.seq - b.seq;
+      }
+
+      return a.id.localeCompare(b.id);
+    });
   },
 
   // DERIVED VIEW
@@ -73,13 +85,24 @@ export const reviewLogStorage = {
 
     const map = new Map<string, AppEvent>();
 
+    const key = (e: AppEvent) => `${e.userId ?? "null"}:${e.id}`;
+
     for (const e of combined) {
-      map.set(e.id, e);
+      map.set(key(e), e);
     }
 
-    const merged = Array.from(map.values()).sort(
-      (a, b) => a.timestamp - b.timestamp
-    );
+    const merged = Array.from(map.values()).sort((a, b) => {
+      if (a.timestamp !== b.timestamp) return a.timestamp - b.timestamp;
+
+      if (a.seq != null && b.seq != null) return a.seq - b.seq;
+
+      // FIX: tie-breaker stability
+      if (a.userId !== b.userId) {
+        return (a.userId || "").localeCompare(b.userId || "");
+      }
+
+      return a.id.localeCompare(b.id);
+    });
 
     writeStream(merged);
   },

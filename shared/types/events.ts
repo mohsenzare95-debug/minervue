@@ -1,3 +1,4 @@
+//shared\types\events.ts
 export type AnswerType = "Correct" | "Almost" | "Wrong";
 
 // ======================
@@ -10,6 +11,8 @@ export type BaseEvent = {
   deckKey: string;
   cardId: string;
   timestamp: number;
+
+  seq?: number; // ✅ ADD THIS
 };
 
 // ======================

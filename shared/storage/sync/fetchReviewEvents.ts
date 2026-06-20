@@ -18,7 +18,8 @@ export async function fetchReviewEvents(userId: string): Promise<ReviewEventRow[
     .from("review_events")
     .select("*")
     .eq("user_id", userId)
-    .order("timestamp", { ascending: true });
+    .order("timestamp", { ascending: true })
+    .order("seq", { ascending: true });
 
   if (error) throw error;
 

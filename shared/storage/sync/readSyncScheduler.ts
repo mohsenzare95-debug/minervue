@@ -24,14 +24,16 @@ export function requestReadSync(id?: string) {
       // 1. fetch server events
       const serverEvents = await fetchReviewEvents(uid);
 
-      // 2. replace local event store
-      reviewLogStorage.replaceFromServer(serverEvents);
+      // 2. LOCAL snapshot
+      const localEvents = reviewLogStorage.getStream();
 
-      // 3. rebuild projection
-      const events = reviewLogStorage.getStream();
-      const progress = buildProgressFromEvents(events);
+      // 3. merge ONLY in-memory (no storage mutation)
+      const mergedEvents = [...localEvents, ...serverEvents];
 
-      // 4. hydrate UI
+      // 4. build projection
+      const progress = buildProgressFromEvents(mergedEvents);
+
+      // 5. hydrate UI
       clientState.setState({
         ...progress,
         syncStatus: "idle",

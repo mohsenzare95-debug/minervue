@@ -34,6 +34,7 @@ export async function bootstrap(userId: string) {
           deckKey: e.deck_key,
           cardId: e.card_id,
           timestamp: e.timestamp,
+          seq: e.seq, // added
           payload: {
             reason: "user_action",
           },
@@ -47,6 +48,7 @@ export async function bootstrap(userId: string) {
         deckKey: e.deck_key,
         cardId: e.card_id,
         timestamp: e.timestamp,
+        seq: e.seq, // added
         payload: {
           result: e.result as "Correct" | "Wrong" | "Almost",
         },

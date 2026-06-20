@@ -1,5 +1,3 @@
-// shared/storage/local/buildProgressFromEvents.ts
-
 import type { AppEvent } from "@/shared/types/events";
 import type { AllProgress } from "@/shared/types/progress";
 
@@ -8,15 +6,23 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
 
   const clamp = (n: number) => Math.max(0, Math.min(3, n));
 
-  const sorted = [...events].sort((a, b) => a.timestamp - b.timestamp);
+  // FIX: deterministic ordering (critical for sync consistency)
+  const sorted = [...events].sort((a, b) => {
+    if (a.timestamp !== b.timestamp) {
+      return a.timestamp - b.timestamp;
+    }
+
+    // seq is optional but stronger than timestamp
+    if (a.seq != null && b.seq != null) {
+      return a.seq - b.seq;
+    }
+
+    return a.id.localeCompare(b.id);
+  });
 
   for (const e of sorted) {
     if (e.type === "RESET") {
-      if (!state[e.deckKey]) {
-        state[e.deckKey] = {};
-      }
-
-      // safer reset (not full wipe blindly)
+      // RESET = full deck wipe (this is correct per your model)
       state[e.deckKey] = {};
       continue;
     }
@@ -56,7 +62,12 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
       }
 
       card.mastered = card.streak >= 3;
+
+      // FIX: ensure monotonic update safety
       card.updatedAt = Math.max(card.updatedAt, timestamp);
+
+      // optional but useful for debugging drift
+      card.derivedFrom = e.userId ? "server" : "local";
     }
   }
 
