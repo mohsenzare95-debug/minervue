@@ -4,7 +4,7 @@ import { userStorage } from "../local/userStorage";
 import { unlockedDecksStorage } from "../local/unlockedDecksStorage";
 import { reviewLogStorage } from "../local/reviewLogStorage";
 
-export type { Activitylog } from "../local/reviewLogStorage";
+export type { ActivityLog } from "../local/reviewLogStorage";
 
 export const storageClient = {
   settings: settingsStorage,

@@ -1,5 +1,5 @@
 //features\flashcards\lib\cardMemoryEngine.ts
-import type { AnswerType } from "@/shared/types/review";
+import type { AnswerType } from "@/shared/types/events";
 
 export type CardMemory = {
   streak: number;

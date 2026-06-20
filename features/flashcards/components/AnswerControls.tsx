@@ -1,11 +1,11 @@
+//features\flashcards\components\AnswerControls.tsx
 import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
 import { analytics } from "@/features/analytics/events";
-
-type AnswerValue = "Correct" | "Almost" | "Wrong";
+import type { AnswerType } from "@/shared/types/events";
 
 type Props = {
-  selected: AnswerValue | null;
-  chooseAnswer: (value: AnswerValue) => void;
+  selected: AnswerType | null;
+  chooseAnswer: (value: AnswerType) => void;
   canNext: boolean;
   handleNext: () => void;
 
@@ -48,7 +48,7 @@ export default function AnswerControls({
   deckKey,
   cardId,
 }: Props) {
-  const emitAnswer = (answer: AnswerValue) => {
+  const emitAnswer = (answer: AnswerType) => {
     analytics.cardAnswered(deckKey!, cardId!, answer);
     chooseAnswer(answer);
   };

@@ -1,11 +1,12 @@
-// shared/repository/reviewRepository.ts
-
 import { outbox } from "@/shared/storage/local/outbox";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
-
-import type { AnswerType } from "@/shared/types/review";
+import type { AnswerType, AppEvent } from "@/shared/types/events";
 
 export const reviewRepository = {
+  // ======================
+  // READ
+  // ======================
+
   get(deckKey: string) {
     return reviewLogStorage.get(deckKey);
   },
@@ -14,8 +15,12 @@ export const reviewRepository = {
     return reviewLogStorage.getAll();
   },
 
+  // ======================
+  // WRITE REVIEW
+  // ======================
+
   add(
-    userId: string | null,
+    userId: string,
     deckKey: string,
     payload: {
       cardId: string;
@@ -23,36 +28,50 @@ export const reviewRepository = {
       timestamp: number;
     }
   ) {
-    // 1. ALWAYS local write (UI source of truth)
-    reviewLogStorage.add(deckKey, payload);
-
-    // 2. server sync only if logged in
-    if (!userId) return;
-
-    outbox.add({
-      user_id: userId,
-      client_event_id: crypto.randomUUID(),
-      type: "REVIEW_EVENT",
+    const event: AppEvent = {
+      id: crypto.randomUUID(),
+      type: "REVIEW",
+      userId,
+      deckKey,
+      cardId: payload.cardId,
+      timestamp: payload.timestamp,
       payload: {
-        deckKey,
-        ...payload,
+        result: payload.result,
       },
-    });
+    };
+
+    // 1. local log (cache / rebuild source)
+    reviewLogStorage.add(event);
+
+    // 2. sync queue
+    outbox.add(event);
   },
 
-  reset(userId: string | null, deckKey: string) {
-    reviewLogStorage.reset?.(deckKey);
+  // ======================
+  // WRITE RESET (PER CARD MODEL)
+  // ======================
 
-    if (!userId) return;
-
-    outbox.add({
-      user_id: userId,
-      client_event_id: crypto.randomUUID(),
-      type: "RESET_DECK_EVENT",
+  reset(
+    userId: string,
+    deckKey: string,
+    cardId: string
+  ) {
+    const event: AppEvent = {
+      id: crypto.randomUUID(),
+      type: "RESET",
+      userId,
+      deckKey,
+      cardId,
+      timestamp: Date.now(),
       payload: {
-        deckKey,
-        timestamp: Date.now(),
+        reason: "user_action",
       },
-    });
+    };
+
+    // 1. local log
+    reviewLogStorage.add(event);
+
+    // 2. sync queue
+    outbox.add(event);
   },
 };

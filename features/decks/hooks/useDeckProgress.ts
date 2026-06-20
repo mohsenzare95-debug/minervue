@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 import { reviewRepository } from "@/shared/repository/reviewRepository";
 import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
+import { clientState } from "@/shared/state/client/clientState";
 
 export function useDeckProgress() {
   // ======================
@@ -35,10 +36,12 @@ export function useDeckProgress() {
   }, []);
 
   // ======================
-  // RESET DECK
+  // RESET DECK (FIXED)
   // ======================
 
-  const resetDeck = useCallback((deckKey: string, userId: string) => {
+  const resetDeck = useCallback((deckKey: string) => {
+    const userId = clientState.getState().user?.id ?? null;
+
     resetDeckLifecycle(deckKey, userId);
   }, []);
 

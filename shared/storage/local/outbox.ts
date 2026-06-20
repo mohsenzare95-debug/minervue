@@ -1,58 +1,32 @@
+// shared/storage/local/outbox.ts
+
+import type { AppEvent } from "@/shared/types/events";
+
 const KEY = "outbox_v2";
 
 // ======================
-// EVENT TYPES
+// OUTBOX EVENT TYPE
 // ======================
 
-export type ReviewOutboxEvent =
-  | {
-      id: string;
-      user_id: string;
-      client_event_id: string;
-      seq: number;
+export type OutboxEvent = {
+  id: string;
+  seq: number;
 
-      type: "REVIEW_EVENT";
+  event: AppEvent;
 
-      payload: {
-        deckKey: string;
-        cardId: string;
-        result: "Correct" | "Wrong" | "Almost";
-        timestamp: number;
-      };
+  status: "pending" | "sent";
 
-      status: "pending" | "sent";
+  retryCount: number;
+  lastAttemptAt?: number;
 
-      retryCount: number;
-      lastAttemptAt?: number;
-
-      createdAt: number;
-    }
-  | {
-      id: string;
-      user_id: string;
-      client_event_id: string;
-      seq: number;
-
-      type: "RESET_DECK_EVENT";
-
-      payload: {
-        deckKey: string;
-        timestamp: number;
-      };
-
-      status: "pending" | "sent";
-
-      retryCount: number;
-      lastAttemptAt?: number;
-
-      createdAt: number;
-    };
+  createdAt: number;
+};
 
 // ======================
 // INTERNAL HELPERS
 // ======================
 
-function getAll(): ReviewOutboxEvent[] {
+function getAll(): OutboxEvent[] {
   if (typeof window === "undefined") return [];
 
   try {
@@ -62,7 +36,7 @@ function getAll(): ReviewOutboxEvent[] {
   }
 }
 
-function saveAll(data: ReviewOutboxEvent[]) {
+function saveAll(data: OutboxEvent[]) {
   localStorage.setItem(KEY, JSON.stringify(data));
 }
 
@@ -71,44 +45,38 @@ function saveAll(data: ReviewOutboxEvent[]) {
 // ======================
 
 export const outbox = {
-  add(
-    event: Omit<
-      ReviewOutboxEvent,
-      "id" | "seq" | "status" | "createdAt" | "retryCount" | "lastAttemptAt"
-    >
-  ) {
-    if (!event.user_id || !event.client_event_id) {
-      console.error("[OUTBOX ADD] Missing required fields", event);
-      return;
+  // ======================
+  // ADD EVENT (UNIFIED)
+  // ======================
+  add(event: AppEvent) {
+    if (!event.userId) {
+      throw new Error("INVALID EVENT: missing userId");
     }
 
     const all = getAll();
-    const lastSeq = all.length > 0 ? Math.max(...all.map((e) => e.seq)) : 0;
+    const lastSeq = all.length ? Math.max(...all.map((e) => e.seq)) : 0;
 
-    const newEvent: ReviewOutboxEvent = {
+    const newEvent: OutboxEvent = {
       id: crypto.randomUUID(),
-      user_id: event.user_id,
-      client_event_id: event.client_event_id,
       seq: lastSeq + 1,
-      type: event.type,
-      payload: event.payload,
+
+      event,
 
       status: "pending",
       retryCount: 0,
       lastAttemptAt: undefined,
 
       createdAt: Date.now(),
-    } as ReviewOutboxEvent;
+    };
 
     all.push(newEvent);
     saveAll(all);
   },
 
   // ======================
-  // RETRY-AWARE PENDING FETCH
+  // GET PENDING (SYNC QUEUE)
   // ======================
-
-  getPending(): ReviewOutboxEvent[] {
+  getPending(): OutboxEvent[] {
     const now = Date.now();
 
     return getAll().filter((e) => {
@@ -124,16 +92,22 @@ export const outbox = {
     });
   },
 
+  // ======================
+  // MARK SENT
+  // ======================
   markSent(id: string) {
     const all = getAll();
 
     const updated = all.map((e) =>
-      e.id === id ? { ...e, status: "sent" } : e
+      e.id === id ? { ...e, status: "sent" as const } : e
     );
 
     saveAll(updated);
   },
 
+  // ======================
+  // MARK RETRY
+  // ======================
   markRetry(id: string) {
     const all = getAll();
 
@@ -150,6 +124,9 @@ export const outbox = {
     saveAll(updated);
   },
 
+  // ======================
+  // CLEAR
+  // ======================
   clear() {
     saveAll([]);
   },

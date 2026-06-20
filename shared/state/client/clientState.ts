@@ -1,16 +1,16 @@
+// shared/state/client/clientState.ts
 "use client";
 
 import { useSyncExternalStore } from "react";
 
 type State = {
-  progress: any;
   syncStatus: "idle" | "syncing" | "error";
   lastSyncAt?: number;
 };
 
 let state: State = {
-  progress: {},
   syncStatus: "idle",
+  lastSyncAt: undefined,
 };
 
 const listeners = new Set<() => void>();
@@ -34,24 +34,6 @@ export const clientState = {
       ...state,
       ...next,
     };
-    emit();
-  },
-
-  // ======================
-  // HYDRATE FROM LOCAL STORAGE
-  // ======================
-  hydrate() {
-    if (typeof window === "undefined") return;
-
-    const progress = JSON.parse(
-      localStorage.getItem("progress_v2") || "{}"
-    );
-
-    state = {
-      ...state,
-      progress,
-    };
-
     emit();
   },
 

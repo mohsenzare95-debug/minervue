@@ -2,33 +2,47 @@
 
 import { clientState } from "@/shared/state/client/clientState";
 import { syncEngine } from "@/shared/storage/sync/syncEngine";
-import { Progress } from "@/shared/supabase/progress";
+import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
+import { supabase } from "@/shared/supabase/client";
+import { buildProgress } from "@/shared/storage/progress/buildProgress";
+
+async function fetchReviewEvents(userId: string) {
+  const { data, error } = await supabase
+    .from("review_events")
+    .select("*")
+    .eq("user_id", userId)
+    .order("timestamp", { ascending: true });
+
+  if (error) throw error;
+  return data ?? [];
+}
 
 export async function bootstrap(userId: string) {
   console.log("[BOOTSTRAP] start");
 
   try {
-    // 1. اول UI را وارد حالت loading کن
+    // 1. UI loading
     clientState.setState({
       syncStatus: "syncing",
-      progress: {},
+      lastSyncAt: undefined,
     });
 
-    // 2. مستقیم از سرور بگیر (SOURCE OF TRUTH)
-    const serverProgress = await Progress.getAll(userId);
-
-    // 3. ست اولیه UI از سرور (نه local)
-    clientState.setState({
-      progress: serverProgress,
-    });
-
-    // 4. sync (outbox + reconciliation)
+    // 2. flush local writes first
     await syncEngine.sync(userId);
 
-    // 5. بعد از sync دوباره state نهایی از clientState syncEngine
-    // (syncEngine خودش باید clientState.progress را آپدیت کند)
+    // 3. READ: fetch events (NEW SOURCE OF TRUTH)
+    const serverEvents = await fetchReviewEvents(userId);
 
+    // 4. replace local event store
+    reviewLogStorage.setAll(serverEvents);
+
+    // 5. build state from events
+    const localEvents = reviewLogStorage.getAll();
+    const progress = buildProgress(localEvents);
+
+    // 6. hydrate UI
     clientState.setState({
+      ...progress,
       syncStatus: "idle",
       lastSyncAt: Date.now(),
     });

@@ -1,11 +1,18 @@
+// shared/storage/sync/syncEngine.ts
+
 import { outbox } from "@/shared/storage/local/outbox";
 import { supabase } from "@/shared/supabase/client";
 import { clientState } from "@/shared/state/client/clientState";
+import type { AppEvent } from "@/shared/types/events";
 
 let isSyncing = false;
 let pendingSync: string | null = null;
 
 export const syncEngine = {
+  // ======================
+  // WRITE SYNC ONLY
+  // ======================
+
   async sync(userId: string) {
     if (!navigator.onLine) return;
 
@@ -20,7 +27,6 @@ export const syncEngine = {
       clientState.setState({ syncStatus: "syncing" });
 
       await this.flushOutbox();
-      await this.syncReviewCheckpoint(userId);
 
       clientState.setState({
         syncStatus: "idle",
@@ -41,54 +47,72 @@ export const syncEngine = {
   },
 
   // ======================
-  // OUTBOX FLUSH
+  // OUTBOX FLUSH (WRITE ONLY)
   // ======================
 
   async flushOutbox() {
-    const pending = outbox.getPending().sort((a, b) => a.seq - b.seq);
+    const pending = outbox
+      .getPending()
+      .sort((a, b) => a.seq - b.seq);
 
-    for (const event of pending) {
+    for (const item of pending) {
+      const event: AppEvent = item.event;
+
       try {
-        switch (event.type) {
-          case "REVIEW_EVENT":
-            await supabase.from("review_events").upsert(
-              {
-                user_id: event.user_id,
-                client_event_id: event.client_event_id,
-                deck_key: event.payload.deckKey,
-                card_id: event.payload.cardId,
-                result: event.payload.result,
-                timestamp: event.payload.timestamp,
-                seq: event.seq,
-              },
-              { onConflict: "user_id,client_event_id" }
-            );
-            break;
-
-          case "RESET_DECK_EVENT":
-            await supabase.from("deck_events").insert({
-              user_id: event.user_id,
-              client_event_id: event.client_event_id,
-              deck_key: event.payload.deckKey,
-              timestamp: event.payload.timestamp,
-              type: "RESET",
-            });
-            break;
-
-          default:
-            console.warn("[SYNC] Unknown event type:", event);
-            continue;
+        if (!event.userId) {
+          throw new Error("Missing userId in event");
         }
 
-        outbox.markSent(event.id);
+        if (event.type === "REVIEW") {
+          const { error } = await supabase.from("review_events").upsert(
+            {
+              user_id: event.userId,
+              client_event_id: item.id,
+              event_type: "REVIEW_EVENT",
+              deck_key: event.deckKey,
+              card_id: event.cardId,
+              result: event.payload.result,
+              timestamp: event.timestamp,
+              seq: item.seq,
+            },
+            {
+              onConflict: "user_id,client_event_id",
+            }
+          );
+
+          if (error) throw error;
+        }
+
+        else if (event.type === "RESET") {
+          const { error } = await supabase.from("review_events").upsert(
+            {
+              user_id: event.userId,
+              client_event_id: item.id,
+              event_type: "RESET_EVENT",
+              deck_key: event.deckKey,
+              card_id: event.cardId,
+              result: "Reset",
+              timestamp: event.timestamp,
+              seq: item.seq,
+            },
+            {
+              onConflict: "user_id,client_event_id",
+            }
+          );
+
+          if (error) throw error;
+        }
+
+        outbox.markSent(item.id);
       } catch (e) {
-        outbox.markRetry(event.id);
+        console.error("[OUTBOX SYNC ERROR]", e);
+        outbox.markRetry(item.id);
       }
     }
   },
 
   // ======================
-  // CHECKPOINT
+  // CHECKPOINT (WRITE META ONLY)
   // ======================
 
   async syncReviewCheckpoint(userId: string) {
@@ -98,7 +122,7 @@ export const syncEngine = {
       .eq("user_id", userId)
       .order("timestamp", { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (!last?.timestamp) return;
 
@@ -109,13 +133,17 @@ export const syncEngine = {
     });
   },
 
+  // ======================
+  // DEBUG
+  // ======================
+
   logPending() {
     const pending = outbox.getPending();
 
     console.log(
       "[OUTBOX SNAPSHOT]",
       pending.map((p) => ({
-        type: p.type,
+        type: p.event.type,
         seq: p.seq,
         retry: p.retryCount,
       }))

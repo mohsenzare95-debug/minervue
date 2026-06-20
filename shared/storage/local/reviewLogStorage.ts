@@ -1,23 +1,15 @@
 // shared/storage/local/reviewLogStorage.ts
-// TOTAL ACTIVITY / STATS RESOURCE
 
-export type Activitylog = {
-  deckKey: string;
-  cardId: string;
-  timestamp: number;
-  result: "Correct" | "Wrong" | "Almost";
-};
+import type { AppEvent } from "@/shared/types/events";
 
-const KEY = "review_logs";
+const KEY = "review_logs_v3";
 
 // ======================
 // INTERNAL HELPERS
 // ======================
 
-function getAll(): Record<string, Activitylog[]> {
-  if (typeof window === "undefined") {
-    return {};
-  }
+function getAll(): Record<string, AppEvent[]> {
+  if (typeof window === "undefined") return {};
 
   try {
     return JSON.parse(localStorage.getItem(KEY) || "{}");
@@ -26,66 +18,69 @@ function getAll(): Record<string, Activitylog[]> {
   }
 }
 
-function saveAll(data: Record<string, Activitylog[]>) {
+function saveAll(data: Record<string, AppEvent[]>) {
   if (typeof window === "undefined") return;
-
   localStorage.setItem(KEY, JSON.stringify(data));
 }
 
 // ======================
-// STORAGE API
+// EVENT STORE (SINGLE SOURCE)
 // ======================
 
 export const reviewLogStorage = {
-  // ======================
-  // GET ALL
-  // ======================
-  getAll() {
+  getAll(): Record<string, AppEvent[]> {
     return getAll();
   },
 
-  // ======================
-  // GET SINGLE DECK
-  // ======================
-  get(deckKey: string): Activitylog[] {
+  getStream(): AppEvent[] {
+    return Object.values(getAll()).flat();
+  },
+
+  get(deckKey: string): AppEvent[] {
     return getAll()[deckKey] || [];
   },
 
   // ======================
-  // ADD EVENT
+  // WRITE EVENT (ONLY PATH)
   // ======================
-  add(deckKey: string, event: Omit<Activitylog, "deckKey">) {
+
+  add(event: AppEvent) {
     const all = getAll();
 
-    if (!all[deckKey]) {
-      all[deckKey] = [];
+    if (!all[event.deckKey]) {
+      all[event.deckKey] = [];
     }
 
-    all[deckKey].push({
-      deckKey,
-      ...event,
-    });
+    const exists = all[event.deckKey].some((e) => e.id === event.id);
+    if (exists) return;
 
+    all[event.deckKey].push(event);
     saveAll(all);
   },
 
   // ======================
-  // CLEAR DECK
+  // SERVER REPLACE (NOT MERGE ANYMORE)
   // ======================
+
+  replaceFromServer(events: AppEvent[]) {
+    const grouped: Record<string, AppEvent[]> = {};
+
+    for (const e of events) {
+      if (!grouped[e.deckKey]) grouped[e.deckKey] = [];
+
+      grouped[e.deckKey].push(e);
+    }
+
+    saveAll(grouped);
+  },
+
   clear(deckKey: string) {
     const all = getAll();
-
     delete all[deckKey];
-
     saveAll(all);
   },
 
-  // ======================
-  // CLEAR ALL
-  // ======================
   clearAll() {
-    const empty: Record<string, Activitylog[]> = {};
-
-    saveAll(empty);
+    saveAll({});
   },
 };

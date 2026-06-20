@@ -1,23 +1,33 @@
-import { supabase } from "@/shared/supabase/client";
-import { buildProgressFromEvents } from "@/shared/storage/projection/rebuildProgress";
-import type { Activitylog } from "@/shared/storage/local/reviewLogStorage";
+// shared/supabase/progress.ts
 
-export const Progress = {
-  async getFromEvents(userId: string) {
-    const { data } = await supabase
-      .from("review_events")
-      .select("*")
-      .eq("user_id", userId);
+// shared/types/progress.ts
 
-    if (!data) return {};
+export type CardProgress = {
+  cardId: string;
 
-    const events: Activitylog[] = data.map((e) => ({
-      deckKey: e.deck_key,
-      cardId: e.card_id,
-      result: e.result,
-      timestamp: e.timestamp,
-    }));
+  streak: number;
+  seen: boolean;
+  mastered: boolean;
 
-    return buildProgressFromEvents(events);
-  },
+  updatedAt: number;
+
+  // فقط برای debug / reconciliation
+  derivedFrom?: "local" | "server";
+};
+
+export type DeckProgress = Record<string, CardProgress>;
+
+export type AllProgress = Record<string, DeckProgress>;
+
+/**
+ * ❌ مهم: این نوع را “projection boundary” نگه می‌داریم
+ * یعنی Supabase نباید اینجا entity مستقل بسازد
+ */
+export type SupabaseProgressRow = {
+  user_id: string;
+  deck_key: string;
+  card_id: string;
+
+  result: "Correct" | "Wrong" | "Almost" | "Reset";
+  timestamp: number;
 };

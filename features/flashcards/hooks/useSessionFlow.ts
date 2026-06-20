@@ -12,7 +12,7 @@ import { analytics } from "@/features/analytics/events";
 import { reviewRepository } from "@/shared/repository/reviewRepository";
 
 import type { Card } from "@/shared/types/card";
-import type { AnswerType } from "@/shared/types/review";
+import type { AnswerType } from "@/shared/types/events";
 
 type SessionState = {
   index: number;
