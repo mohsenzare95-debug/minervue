@@ -29,8 +29,10 @@ export const reviewRepository = {
       timestamp: number;
     }
   ) {
+    const id = crypto.randomUUID();
+
     const event: AppEvent = {
-      id: crypto.randomUUID(),
+      id,
       type: "REVIEW",
       userId,
       deckKey,
@@ -57,8 +59,10 @@ export const reviewRepository = {
     deckKey: string,
     cardId: string
   ) {
+    const id = crypto.randomUUID();
+
     const event: AppEvent = {
-      id: crypto.randomUUID(),
+      id,
       type: "RESET",
       userId,
       deckKey,

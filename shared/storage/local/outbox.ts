@@ -37,6 +37,7 @@ function getAll(): OutboxEvent[] {
 }
 
 function saveAll(data: OutboxEvent[]) {
+  if (typeof window === "undefined") return;
   localStorage.setItem(KEY, JSON.stringify(data));
 }
 
@@ -56,11 +57,16 @@ export const outbox = {
     const all = getAll();
     const lastSeq = all.length ? Math.max(...all.map((e) => e.seq)) : 0;
 
+    const id = crypto.randomUUID();
+
     const newEvent: OutboxEvent = {
-      id: crypto.randomUUID(),
+      id,
       seq: lastSeq + 1,
 
-      event,
+      event: {
+        ...event,
+        id, // ensure consistency between outbox id and event id
+      },
 
       status: "pending",
       retryCount: 0,

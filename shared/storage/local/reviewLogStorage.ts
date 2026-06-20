@@ -1,5 +1,6 @@
 //shared\storage\local\reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
+import { getEventId } from "@/shared/utils/getEventId";
 
 const KEY = "review_logs_v3";
 
@@ -39,16 +40,7 @@ export const reviewLogStorage = {
   // FULL STREAM
   getStream(): AppEvent[] {
     return readStream().sort((a, b) => {
-      if (a.timestamp !== b.timestamp) {
-        return a.timestamp - b.timestamp;
-      }
-
-      // FIX: deterministic ordering
-      if (a.seq != null && b.seq != null) {
-        return a.seq - b.seq;
-      }
-
-      return (a.id ?? "").localeCompare(b.id ?? "");
+      return getEventId(a).localeCompare(getEventId(b));
     });
   },
 
@@ -83,43 +75,30 @@ export const reviewLogStorage = {
 
     const combined = [...local, ...events];
 
-    const normalize = (e: any): AppEvent => {
-      if (e.id) return e;
-
-      return {
-        id: e.client_event_id,
-        type: e.event_type === "RESET_EVENT" ? "RESET" : "REVIEW",
-        userId: e.user_id ?? null,
-        deckKey: e.deck_key,
-        cardId: e.card_id,
-        timestamp: e.timestamp,
-        payload:
-          e.event_type === "RESET_EVENT"
-            ? { reason: "user_action" }
-            : { result: e.result },
-      } as AppEvent;
-    };
+    const normalize = (e: any): AppEvent => ({
+      id: e.client_event_id, // FIX: strict canonical server id
+      type: e.type ?? (e.event_type === "RESET_EVENT" ? "RESET" : "REVIEW"),
+      userId: e.userId ?? e.user_id ?? null,
+      deckKey: e.deckKey ?? e.deck_key,
+      cardId: e.cardId ?? e.card_id,
+      timestamp: e.timestamp,
+      payload: e.payload ?? {
+        result: e.result,
+      },
+    });
 
     const map = new Map<string, AppEvent>();
 
-    const key = (e: AppEvent) => `${e.userId ?? "null"}:${e.id}`;
+    const key = (e: any) =>
+      `${e.userId ?? e.user_id}:${getEventId(e)}`;
 
     for (const e of combined) {
-      const n = normalize(e);
-      map.set(key(n), n);
+      const ne = normalize(e);
+      map.set(getEventId(ne), ne);
     }
 
     const merged = Array.from(map.values()).sort((a, b) => {
-      if (a.timestamp !== b.timestamp) return a.timestamp - b.timestamp;
-
-      if (a.seq != null && b.seq != null) return a.seq - b.seq;
-
-      // FIX: tie-breaker stability
-      if (a.userId !== b.userId) {
-        return (a.userId || "").localeCompare(b.userId || "");
-      }
-
-      return a.id.localeCompare(b.id);
+      return getEventId(a).localeCompare(getEventId(b));
     });
 
     writeStream(merged);

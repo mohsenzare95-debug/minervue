@@ -67,7 +67,7 @@ export const syncEngine = {
           const { error } = await supabase.from("review_events").upsert(
             {
               user_id: event.userId,
-              client_event_id: item.id,
+              client_event_id: event.id, // FIX: canonical event id
               event_type: "REVIEW_EVENT",
               deck_key: event.deckKey,
               card_id: event.cardId,
@@ -81,13 +81,11 @@ export const syncEngine = {
           );
 
           if (error) throw error;
-        }
-
-        else if (event.type === "RESET") {
+        } else if (event.type === "RESET") {
           const { error } = await supabase.from("review_events").upsert(
             {
               user_id: event.userId,
-              client_event_id: item.id,
+              client_event_id: event.id, // FIX: canonical event id
               event_type: "RESET_EVENT",
               deck_key: event.deckKey,
               card_id: event.cardId,

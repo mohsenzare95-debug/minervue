@@ -24,16 +24,37 @@ export function requestReadSync(id?: string) {
       // 1. fetch server events
       const serverEvents = await fetchReviewEvents(uid);
 
+      console.log("[SYNC] serverEvents raw:", serverEvents);
+      console.log("[SYNC] serverEvents length:", serverEvents?.length);
+
       // 2. LOCAL snapshot
       const localEvents = reviewLogStorage.getStream();
+
+      console.log("[SYNC] localEvents length:", localEvents.length);
+      console.log("[SYNC] local sample:", localEvents.slice(0, 3));
+
+      console.log(
+        "[SYNC] server vs local overlap:",
+        serverEvents.filter((se) =>
+          localEvents.some((le) => le.id === se.id)
+        ).length
+      );
 
       // 3. merge ONLY in-memory (no storage mutation)
       const mergedEvents = [...localEvents, ...serverEvents];
 
-      // 4. build projection
+      // 4. duplicate check
+      const ids = mergedEvents.map((e) => e.id);
+      const uniqueIds = new Set(ids);
+
+      console.log("[SYNC] total:", ids.length);
+      console.log("[SYNC] unique:", uniqueIds.size);
+      console.log("[SYNC] duplicates:", ids.length - uniqueIds.size);
+
+      // 5. build projection
       const progress = buildProgressFromEvents(mergedEvents);
 
-      // 5. hydrate UI
+      // 6. hydrate UI
       clientState.setState({
         ...progress,
         syncStatus: "idle",
