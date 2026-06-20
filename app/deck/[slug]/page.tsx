@@ -11,9 +11,6 @@ export default async function DeckPage({
 }) {
   const { slug } = await params;
 
-  console.log("Slug received:", slug);
-  console.log("Available decks:", Object.keys(deckRegistry));
-
   const deckKey = slug;
 
   const isUnlocked =

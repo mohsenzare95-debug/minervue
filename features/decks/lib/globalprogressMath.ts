@@ -1,7 +1,7 @@
 //features/decks/lib/globalprogressMath.ts
 
 import type { CardProgress } from "@/shared/types/progress";
-import type { Activitylog } from "@/shared/storage/local/reviewLogStorage";
+import type { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 
 // ======================
 // SCORE

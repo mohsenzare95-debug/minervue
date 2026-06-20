@@ -1,6 +1,4 @@
-//shared\storage\local\reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
-import { getEventId } from "@/shared/utils/getEventId";
 
 const KEY = "review_logs_v3";
 
@@ -13,12 +11,9 @@ function readStream(): AppEvent[] {
 
   try {
     const raw = localStorage.getItem(KEY);
-
     if (!raw) return [];
 
     const parsed = JSON.parse(raw);
-
-    // safety guard
     if (!Array.isArray(parsed)) return [];
 
     return parsed;
@@ -37,14 +32,17 @@ function writeStream(stream: AppEvent[]) {
 // ======================
 
 export const reviewLogStorage = {
-  // FULL STREAM
+  // ======================
+  // READ (SORTED VIEW)
+  // ======================
   getStream(): AppEvent[] {
     return readStream().sort((a, b) => {
-      return getEventId(a).localeCompare(getEventId(b));
+      return (a.client_event_id ?? "").localeCompare(
+        b.client_event_id ?? ""
+      );
     });
   },
 
-  // DERIVED VIEW
   getAll(): Record<string, AppEvent[]> {
     const stream = readStream();
 
@@ -59,55 +57,94 @@ export const reviewLogStorage = {
     return readStream().filter((e) => e.deckKey === deckKey);
   },
 
-  // WRITE
+  // ======================
+  // WRITE (IDEMPOTENT)
+  // ======================
   add(event: AppEvent) {
     const stream = readStream();
 
-    const exists = stream.some((e) => e.id === event.id);
+    const eventId = event.client_event_id;
+    if (!eventId) return;
+
+    const exists = stream.some(
+      (e) => e.client_event_id === eventId
+    );
+
     if (exists) return;
 
     writeStream([...stream, event]);
   },
 
-  // SERVER SYNC (RECONCILIATION)
-  replaceFromServer(events: AppEvent[]) {
-    const local = readStream();
+  // ======================
+  // SYNC (RECONCILIATION)
+  // ======================
+  replaceFromServer(events: AppEvent[]): AppEvent[] {
+    console.log("🔥 Z_SYNC START");
+    console.log("[Z_SYNC] server input:", events.length);
 
-    const combined = [...local, ...events];
+    const localBefore = readStream();
+    console.log("[Z_SYNC] local BEFORE:", localBefore.length);
 
     const normalize = (e: any): AppEvent => ({
-      id: e.client_event_id, // FIX: strict canonical server id
-      type: e.type ?? (e.event_type === "RESET_EVENT" ? "RESET" : "REVIEW"),
-      userId: e.userId ?? e.user_id ?? null,
-      deckKey: e.deckKey ?? e.deck_key,
-      cardId: e.cardId ?? e.card_id,
-      timestamp: e.timestamp,
-      payload: e.payload ?? {
-        result: e.result,
+      id: e?.client_event_id ?? "",
+      client_event_id: e?.client_event_id ?? "",
+
+      type:
+        e?.type ??
+        (e?.event_type === "RESET_EVENT"
+          ? "RESET"
+          : "REVIEW"),
+
+      userId: e?.user_id ?? null,
+      deckKey: e?.deck_key ?? "",
+      cardId: e?.card_id ?? "",
+
+      timestamp: Number(e?.timestamp ?? Date.now()),
+
+      payload: e?.payload ?? {
+        result: e?.result,
       },
     });
 
     const map = new Map<string, AppEvent>();
 
-    const key = (e: any) =>
-      `${e.userId ?? e.user_id}:${getEventId(e)}`;
+    const combined = [...localBefore, ...events];
 
     for (const e of combined) {
       const ne = normalize(e);
-      map.set(getEventId(ne), ne);
+
+      const key = ne.client_event_id;
+      if (!key) continue;
+
+      map.set(key, ne);
     }
 
     const merged = Array.from(map.values()).sort((a, b) => {
-      return getEventId(a).localeCompare(getEventId(b));
+      return (a.client_event_id ?? "").localeCompare(
+        b.client_event_id ?? ""
+      );
     });
 
+    console.log("[Z_SYNC] merged:", merged.length);
+
     writeStream(merged);
+
+    const localAfter = readStream();
+    console.log("[Z_SYNC] local AFTER:", localAfter.length);
+
+    console.log("🔥 Z_SYNC END");
+
+    return merged;
   },
 
-  // DELETE SCOPE
+  // ======================
+  // CLEAR
+  // ======================
   clear(deckKey: string) {
     const stream = readStream();
-    writeStream(stream.filter((e) => e.deckKey !== deckKey));
+    writeStream(
+      stream.filter((e) => e.deckKey !== deckKey)
+    );
   },
 
   clearAll() {

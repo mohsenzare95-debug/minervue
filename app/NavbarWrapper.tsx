@@ -10,10 +10,10 @@ import { syncEngine } from "@/shared/storage/sync/syncEngine";
 import { initSyncTriggers } from "@/shared/storage/sync/syncTriggers";
 import { initSyncScheduler } from "@/shared/storage/sync/syncScheduler";
 
-// READ side (new layer)
-import { initReadSyncTriggers } from "@/shared/storage/sync/readSyncTriggers";
-import { initReadSyncScheduler } from "@/shared/storage/sync/readSyncScheduler";
+// READ side (NEW SINGLE ENTRY)
+import { hydrateRead } from "@/shared/storage/sync/hydrateRead";
 
+// UI hydration
 import { hydrateClientState } from "@/shared/state/hydrateClientState";
 
 export default function NavbarWrapper() {
@@ -27,7 +27,7 @@ export default function NavbarWrapper() {
 
     const userId = user.id;
 
-    // prevent duplicate init (strict)
+    // prevent duplicate init per user
     if (initializedRef.current && lastUserIdRef.current === userId) return;
 
     initializedRef.current = true;
@@ -43,17 +43,13 @@ export default function NavbarWrapper() {
     // ======================
     initSyncScheduler(userId);
     initSyncTriggers(userId);
-
-    // ======================
-    // 3. READ SYNC SYSTEM
-    // ======================
-    initReadSyncScheduler(userId);
-    initReadSyncTriggers(userId);
-
-    // ======================
-    // 4. INITIAL RECONCILIATION (BOOTSTRAP SYNC)
-    // ======================
     syncEngine.sync(userId);
+
+    // ======================
+    // 3. READ SYNC (SINGLE ENTRY ONLY)
+    // ======================
+    hydrateRead(userId);
+
   }, [loading, user?.id]);
 
   return <Navbar />;

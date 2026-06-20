@@ -1,4 +1,3 @@
-//shared\types\events.ts
 export type AnswerType = "Correct" | "Almost" | "Wrong";
 
 // ======================
@@ -6,13 +5,16 @@ export type AnswerType = "Correct" | "Almost" | "Wrong";
 // ======================
 
 export type BaseEvent = {
-  id: string;
+  id: string; // = client_event_id (canonical identity)
+
+  client_event_id: string; // 👈 فقط برای clarity / DB mapping
+
   userId: string | null;
   deckKey: string;
   cardId: string;
   timestamp: number;
 
-  seq?: number; // ✅ ADD THIS
+  seq?: number;
 };
 
 // ======================
@@ -27,7 +29,7 @@ export type ReviewEvent = BaseEvent & {
 };
 
 // ======================
-// RESET EVENT (PER CARD MODEL)
+// RESET EVENT
 // ======================
 
 export type ResetEvent = BaseEvent & {

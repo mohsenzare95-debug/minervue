@@ -1,6 +1,5 @@
 //shared\storage\sync\fetchReviewEvents.ts
 import { supabase } from "@/shared/supabase/client";
-import type { ReviewEvent, ResetEvent } from "@/shared/types/events";
 
 export type ReviewEventRow = {
   user_id: string;
@@ -23,7 +22,7 @@ export async function fetchReviewEvents(userId: string): Promise<ReviewEventRow[
 
   if (error) throw error;
 
-  return (data ?? []).map((e) => ({
+  return (data ?? []).map((e: any) => ({
     user_id: e.user_id,
     client_event_id: e.client_event_id,
     event_type: e.event_type,
