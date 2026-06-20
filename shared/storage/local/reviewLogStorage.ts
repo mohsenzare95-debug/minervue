@@ -48,7 +48,7 @@ export const reviewLogStorage = {
         return a.seq - b.seq;
       }
 
-      return a.id.localeCompare(b.id);
+      return (a.id ?? "").localeCompare(b.id ?? "");
     });
   },
 
