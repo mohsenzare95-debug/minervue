@@ -59,24 +59,48 @@ export const reviewLogStorage = {
   },
 
   // ======================
-  // SERVER REPLACE (MERGE SAFE)
+  // SERVER REPLACE (FULL RECONCILIATION)
   // ======================
 
   replaceFromServer(events: AppEvent[]) {
-    const all = getAll();
+    const grouped: Record<string, AppEvent[]> = {};
 
+    // 1. group server events by deck
     for (const e of events) {
-      if (!all[e.deckKey]) {
-        all[e.deckKey] = [];
+      if (!grouped[e.deckKey]) {
+        grouped[e.deckKey] = [];
       }
-
-      const exists = all[e.deckKey].some((x) => x.id === e.id);
-      if (!exists) {
-        all[e.deckKey].push(e);
-      }
+      grouped[e.deckKey].push(e);
     }
 
-    saveAll(all);
+    // 2. load local snapshot
+    const local = getAll();
+
+    // 3. merge per deck with FULL REBUILD
+    for (const deckKey of Object.keys(grouped)) {
+      const serverDeckEvents = grouped[deckKey] ?? [];
+      const localDeckEvents = local[deckKey] ?? [];
+
+      // 4. combine
+      const combined = [...localDeckEvents, ...serverDeckEvents];
+
+      // 5. deduplicate by event.id
+      const map = new Map<string, AppEvent>();
+
+      for (const e of combined) {
+        map.set(e.id, e);
+      }
+
+      // 6. rebuild ordered stream
+      const merged = Array.from(map.values()).sort(
+        (a, b) => a.timestamp - b.timestamp
+      );
+
+      local[deckKey] = merged;
+    }
+
+    // 7. write snapshot
+    saveAll(local);
   },
 
   clear(deckKey: string) {

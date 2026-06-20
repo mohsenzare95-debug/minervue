@@ -56,11 +56,11 @@ export async function bootstrap(userId: string) {
     // 5. merge into local event store
     reviewLogStorage.replaceFromServer(serverEvents);
 
-    // 6. single source of truth
-    const localEvents = reviewLogStorage.getStream();
+    // 6. re-read merged snapshot (FIXED)
+    const mergedEvents = reviewLogStorage.getStream();
 
     // 7. build projection
-    const progress = buildProgressFromEvents(localEvents);
+    const progress = buildProgressFromEvents(mergedEvents);
 
     // 8. hydrate UI
     clientState.setState({
