@@ -103,7 +103,7 @@ export function getDeckDistribution(
 ) {
   const events = logs.map(toStatsEvent);
 
-  const filtered = filterLogsByRange(events as any, range);
+  const filtered = filterLogsByRange(events, range);
 
   const map: Record<string, number> = Object.create(null);
 

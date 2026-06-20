@@ -10,11 +10,9 @@ import {
   getSeenCards,
 } from "../lib/statsMath";
 
-import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
+import { storageClient } from "@/shared/storage/core/storageClient";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
-import {
-  computeScore,
-} from "@/features/decks/lib/globalprogressMath";
+import { computeScore } from "@/features/decks/lib/globalprogressMath";
 
 type ReviewEvent = {
   user_id: string | null;
@@ -40,16 +38,16 @@ export function useStatistics() {
   // ======================
   useEffect(() => {
     const load = () => {
-      const local = reviewLogStorage.getAll();
+      const local = storageClient.reviewLog.getAll();
 
       const logs: ReviewEvent[] = Object.values(local)
         .flat()
         .map((e: any) => ({
-          user_id: null,
-          client_event_id: "",
+          user_id: e.userId ?? null,
+          client_event_id: e.id,
           deck_key: e.deckKey,
           card_id: e.cardId,
-          result: e.result,
+          result: e.payload?.result,
           timestamp: e.timestamp,
           seq: 0,
         }));
@@ -79,7 +77,7 @@ export function useStatistics() {
   // BUILD PROGRESS FROM EVENTS (NEW ARCHITECTURE)
   // ======================
   const progressFromEvents = useMemo(() => {
-    const grouped = reviewLogStorage.getAll();
+    const grouped = storageClient.reviewLog.getAll();
     const allLogs = Object.values(grouped).flat();
 
     return buildProgressFromEvents(allLogs);
