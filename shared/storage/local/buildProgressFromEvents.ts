@@ -17,7 +17,7 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
       return a.seq - b.seq;
     }
 
-    return a.id.localeCompare(b.id);
+    return (a.id ?? "").localeCompare(b.id ?? "");
   });
 
   for (const e of sorted) {

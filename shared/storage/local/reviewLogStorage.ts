@@ -83,12 +83,30 @@ export const reviewLogStorage = {
 
     const combined = [...local, ...events];
 
+    const normalize = (e: any): AppEvent => {
+      if (e.id) return e;
+
+      return {
+        id: e.client_event_id,
+        type: e.event_type === "RESET_EVENT" ? "RESET" : "REVIEW",
+        userId: e.user_id ?? null,
+        deckKey: e.deck_key,
+        cardId: e.card_id,
+        timestamp: e.timestamp,
+        payload:
+          e.event_type === "RESET_EVENT"
+            ? { reason: "user_action" }
+            : { result: e.result },
+      } as AppEvent;
+    };
+
     const map = new Map<string, AppEvent>();
 
     const key = (e: AppEvent) => `${e.userId ?? "null"}:${e.id}`;
 
     for (const e of combined) {
-      map.set(key(e), e);
+      const n = normalize(e);
+      map.set(key(n), n);
     }
 
     const merged = Array.from(map.values()).sort((a, b) => {
