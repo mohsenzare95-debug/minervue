@@ -117,7 +117,7 @@ const styles: Record<string, React.CSSProperties> = {
   wrapper: {
     width: "100%",
     padding: 12,
-    borderRadius: 12,
+    borderRadius: 8,
     background: "var(--card)",
     border: "1px solid var(--border)",
   },

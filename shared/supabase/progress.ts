@@ -1,7 +1,5 @@
 // shared/supabase/progress.ts
 
-// shared/types/progress.ts
-
 export type CardProgress = {
   cardId: string;
 

@@ -1,19 +1,21 @@
+// app\deck\page.tsx
 "use client";
 
 import DeckHero from "@/features/decks/components/DeckHero";
 import DeckList from "@/features/decks/components/DeckList";
 import { useGlobalProgress } from "@/features/decks/hooks/useGlobalProgress";
 import { useDeckProgress } from "@/features/decks/hooks/useDeckProgress";
+import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 
 import { decks } from "@/data/decks";
 
 export default function DeckPage() {
   const global = useGlobalProgress();
   const { getDeckProgress } = useDeckProgress();
+  const { user } = useAuthSession();
 
   return (
     <div style={styles.page}>
-
       {/* HERO DIRECT (no wrapper card) */}
       <DeckHero
         score={global.score}
@@ -35,6 +37,7 @@ export default function DeckPage() {
     </div>
   );
 }
+
 const styles: Record<string, React.CSSProperties> = {
   page: {
     display: "flex",

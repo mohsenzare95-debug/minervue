@@ -1,75 +1,186 @@
+// shared/storage/local/buildProgressFromEvents.ts
+
 import type { AppEvent } from "@/shared/types/events";
 import type { AllProgress } from "@/shared/types/progress";
 
 export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
+  console.group("🔥 BUILD_PROGRESS TRACE");
+
+  console.log("EVENT COUNT:", events.length);
+  console.log("SAMPLE EVENT:", events[0]);
+
+  console.trace("CALL STACK");
+
+  const badEvents = events.filter(
+    e => !e.deckKey || !e.userId
+  );
+
+  if (badEvents.length) {
+    console.warn("🚨 BAD EVENTS DETECTED:", badEvents.slice(0, 10));
+  }
+
+  console.groupEnd();
+
+  console.log(
+    "[TRACE buildProgress INPUT SAMPLE]",
+    events.slice(0, 5)
+  );
+
+  console.trace("[TRACE buildProgress CALLED FROM]");
+
+  console.log("🚀 [buildProgress] START");
+  console.log("[buildProgress] input events:", events.length);
+
   const state: AllProgress = {};
 
   const clamp = (n: number) => Math.max(0, Math.min(3, n));
 
-  // FIX: deterministic ordering (critical for sync consistency)
+  // ======================
+  // 1. TYPE DISTRIBUTION
+  // ======================
+  const typeStats = events.reduce((acc, e) => {
+    acc[e.type] = (acc[e.type] ?? 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  console.log("[buildProgress] type distribution:", typeStats);
+
+  // ======================
+  // 2. SORT STABILITY CHECK
+  // ======================
   const sorted = [...events].sort((a, b) => {
-    if (a.timestamp !== b.timestamp) {
-      return a.timestamp - b.timestamp;
-    }
+  if (a.timestamp !== b.timestamp) {
+    return a.timestamp - b.timestamp;
+  }
 
-    // seq is optional but stronger than timestamp
-    if (a.seq != null && b.seq != null) {
-      return a.seq - b.seq;
-    }
+  // HARD TIE BREAKER: RESET always first if same timestamp
+  if (a.type !== b.type) {
+    if (a.type === "RESET") return -1;
+    if (b.type === "RESET") return 1;
+  }
 
-    return (a.id ?? "").localeCompare(b.id ?? "");
-  });
+  return a.client_event_id.localeCompare(b.client_event_id);
+});
+
+  console.log("[buildProgress] after sort:", sorted.length);
+
+  // ======================
+  // 3. PROCESS EVENTS (STRICT FILTERING)
+  // ======================
+  let resetCount = 0;
+  let reviewCount = 0;
+  let skipped = 0;
+  let cardsTouched = 0;
 
   for (const e of sorted) {
-    if (e.type === "RESET") {
-      // RESET = full deck wipe (this is correct per your model)
-      state[e.deckKey] = {};
+    // ❌ HARD FILTER: only REVIEW affects progress
+    if (e.type !== "REVIEW" && e.type !== "RESET") {
+      skipped++;
       continue;
     }
 
-    if (e.type === "REVIEW") {
-      const { deckKey, cardId, timestamp, payload } = e;
+    // ======================
+    // RESET HANDLING (ISOLATED)
+    // ======================
+    if (e.type === "RESET") {
+      resetCount++;
 
-      if (!state[deckKey]) state[deckKey] = {};
+      const deckKey = e.deckKey;
 
-      if (!state[deckKey][cardId]) {
-        state[deckKey][cardId] = {
-          cardId,
-          streak: 0,
-          seen: false,
-          mastered: false,
-          updatedAt: 0,
-          derivedFrom: "local",
-        };
+      if (!deckKey) {
+        console.warn("[buildProgress] SKIP RESET (missing deckKey):", e);
+        skipped++;
+        continue;
       }
 
-      const card = state[deckKey][cardId];
+      console.log("[buildProgress] RESET deck:", deckKey);
 
-      card.seen = true;
-
-      switch (payload.result) {
-        case "Correct":
-          card.streak = clamp(card.streak + 1);
-          break;
-
-        case "Wrong":
-          card.streak = 0;
-          break;
-
-        case "Almost":
-          card.streak = clamp(card.streak - 1);
-          break;
-      }
-
-      card.mastered = card.streak >= 3;
-
-      // FIX: ensure monotonic update safety
-      card.updatedAt = Math.max(card.updatedAt, timestamp);
-
-      // optional but useful for debugging drift
-      card.derivedFrom = e.userId ? "server" : "local";
+      state[deckKey] = {};
+      continue;
     }
+
+    // ======================
+    // REVIEW HANDLING
+    // ======================
+    reviewCount++;
+
+    const { deckKey, cardId, timestamp, payload } = e;
+
+    // ❌ STRICT VALIDATION
+    if (!deckKey || !cardId) {
+      console.warn("[buildProgress] SKIP invalid REVIEW event:", e);
+      skipped++;
+      continue;
+    }
+
+    if (!state[deckKey]) {
+      state[deckKey] = {};
+    }
+
+    if (!state[deckKey][cardId]) {
+      state[deckKey][cardId] = {
+        cardId,
+        streak: 0,
+        seen: false,
+        mastered: false,
+        updatedAt: 0,
+        derivedFrom: "local",
+      };
+
+      cardsTouched++;
+    }
+
+    const card = state[deckKey][cardId];
+
+    card.seen = true;
+
+    switch (payload.result) {
+      case "Correct":
+        card.streak = clamp(card.streak + 1);
+        break;
+
+      case "Wrong":
+        card.streak = 0;
+        break;
+
+      case "Almost":
+        card.streak = clamp(card.streak - 1);
+        break;
+
+      default:
+        console.warn("[buildProgress] UNKNOWN result:", payload?.result);
+    }
+
+    card.mastered = card.streak >= 3;
+    card.updatedAt = timestamp;
+    card.derivedFrom = e.userId ? "server" : "local";
   }
 
-  return state;
+  // ======================
+  // 4. FINAL STATE SUMMARY
+  // ======================
+  const decks = Object.keys(state).length;
+
+  let cards = 0;
+  for (const d of Object.values(state)) {
+    cards += Object.keys(d).length;
+  }
+
+  console.log("🔥 [buildProgress] DONE");
+  console.log({
+    resetCount,
+    reviewCount,
+    skipped,
+    decks,
+    cards,
+    cardsTouched,
+  });
+
+  console.log("🧪 [BUILD OUTPUT SAMPLE]", {
+    decks: Object.keys(state).length,
+    firstDeck: Object.keys(state)[0],
+    sampleDeckState: Object.values(state)[0],
+  });
+
+  return structuredClone(state);
 }

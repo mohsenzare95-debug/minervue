@@ -27,5 +27,8 @@ export default async function DeckPage({
     return notFound();
   }
 
+  // لاگ اندازه دک اینجا قرار می‌گیرد
+  console.log("DECK SIZE", cards.length);
+
   return <SessionScreen cards={cards} deckKey={deckKey} />;
 }

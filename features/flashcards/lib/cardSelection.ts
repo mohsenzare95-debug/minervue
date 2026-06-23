@@ -202,6 +202,11 @@ export function selectCardsForSession(
   progress: DeckProgress
 ): Card[] {
 
+  console.log("🎯 SELECT SESSION CALLED", {
+    totalCards: cards.length,
+    progressCards: Object.keys(progress).length,
+  });
+
   // ======================
   // GROUP CARDS
   // ======================
@@ -262,8 +267,72 @@ export function selectCardsForSession(
   );
 
   // ======================
-  // FINAL SHUFFLE
+  // DEBUG SESSION CONTENT (قبل از shuffle نهایی)
   // ======================
 
-  return shuffle(session);
+  const stats = {
+    newCards: 0,
+    streak0: 0,
+    streak1: 0,
+    streak2: 0,
+    mastered: 0,
+  };
+
+  for (const card of session) {
+    const p = progress[card.id];
+
+    if (!p?.seen) {
+      stats.newCards++;
+      continue;
+    }
+
+    if (p.mastered) {
+      stats.mastered++;
+      continue;
+    }
+
+    switch (p.streak) {
+      case 0:
+        stats.streak0++;
+        break;
+      case 1:
+        stats.streak1++;
+        break;
+      case 2:
+        stats.streak2++;
+        break;
+    }
+  }
+
+  console.log("🎯 SESSION COMPOSITION", {
+    sessionSize: session.length,
+    ...stats,
+  });
+
+  // جدول دقیق کارت‌ها (بسیار مفید برای دیباگ)
+  console.table(
+    session.map((card) => {
+      const p = progress[card.id];
+
+      return {
+        id: card.id,
+        seen: p?.seen ?? false,
+        streak: p?.streak ?? "NEW",
+        mastered: p?.mastered ?? false,
+      };
+    })
+  );
+
+  // ======================
+  // FINAL SHUFFLE + LOG
+  // ======================
+
+  const finalSession = shuffle(session);
+
+  console.log("🎯 SESSION CREATED", {
+    totalCards: cards.length,
+    sessionSize: finalSession.length,
+  });
+
+  return finalSession;
 }

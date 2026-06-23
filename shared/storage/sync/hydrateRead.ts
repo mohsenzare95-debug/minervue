@@ -1,28 +1,57 @@
+// shared/storage/sync/hydrateRead.ts
+
 import { fetchReviewEvents } from "./fetchReviewEvents";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 import { clientState } from "@/shared/state/client/clientState";
 
 export async function hydrateRead(userId: string) {
-  clientState.setState({ syncStatus: "syncing" });
+  console.log("🔥 [HYDRATE] START", { userId });
 
-  const serverRows = await fetchReviewEvents(userId);
+  try {
+    clientState.setState({ syncStatus: "syncing" });
 
-  // deterministic merge inside storage
-  const merged = reviewLogStorage.replaceFromServer(serverRows as any);
+    // ======================
+    // 1. FETCH SERVER EVENTS
+    // ======================
+    const serverRows = await fetchReviewEvents(userId);
 
-  // safety check (important)
-  if (!merged || !Array.isArray(merged)) {
-    console.error("[HYDRATE] invalid merge result");
-    clientState.setState({ syncStatus: "error" });
-    return;
+    console.log("🔥 [HYDRATE] server rows:", serverRows.length);
+
+    // ======================
+    // 2. MERGE (LOCAL + SERVER) PURE
+    // ======================
+    const merged = reviewLogStorage.mergeServerEvents(serverRows);
+
+    console.log("🔥 [HYDRATE] merged events:", merged.length);
+
+    // ======================
+    // 3. BUILD PROGRESS (PURE REDUCTION)
+    // ======================
+    const nextProgress = buildProgressFromEvents(merged);
+
+    console.log("🔥 [HYDRATE] progress built");
+
+    // ======================
+    // 4. PERSIST MERGED STREAM LOCALLY
+    // ======================
+    reviewLogStorage.replaceLocalOnly(merged);
+
+    // ======================
+    // 5. UPDATE CLIENT STATE
+    // ======================
+    clientState.setState({
+      progress: structuredClone(nextProgress),
+      lastSyncAt: Date.now(),
+      syncStatus: "idle",
+    });
+
+    console.log("🔥 [HYDRATE] DONE SUCCESS");
+  } catch (err) {
+    console.error("🔥 [HYDRATE] ERROR", err);
+
+    clientState.setState({
+      syncStatus: "error",
+    });
   }
-
-  const progress = buildProgressFromEvents(merged);
-
-  clientState.setState({
-    ...progress,
-    syncStatus: "idle",
-    lastSyncAt: Date.now(),
-  });
 }

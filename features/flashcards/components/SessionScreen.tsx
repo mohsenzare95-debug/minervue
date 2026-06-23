@@ -1,4 +1,3 @@
-// features/flashcards/components/SessionScreen.tsx
 "use client";
 
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
@@ -43,16 +42,14 @@ export default function SessionScreen({
     userId: user?.id,
   });
 
-  // ======================
-  // RESET / RESTART SESSION (UI-ONLY)
-  // ======================
+  // 🚨 HARD GUARD: prevent broken state rendering
+  if (!deckKey || !card || !card.id) {
+    return <div>Loading session...</div>;
+  }
+
   const handleStartOver = () => {
     startNewSession();
   };
-
-  // ======================
-  // STATES
-  // ======================
 
   if (sessionFinished) {
     return (
@@ -68,14 +65,6 @@ export default function SessionScreen({
   if (allMastered) {
     return <DeckMastered onReset={handleStartOver} />;
   }
-
-  if (!card) {
-    return <div>Loading cards...</div>;
-  }
-
-  // ======================
-  // UI
-  // ======================
 
   return (
     <div style={styles.page}>
@@ -97,6 +86,8 @@ export default function SessionScreen({
             chooseAnswer={chooseAnswer}
             canNext={canNext}
             handleNext={handleNext}
+            deckKey={deckKey}
+            cardId={card.id}   // ONLY valid source
           />
         </div>
       )}

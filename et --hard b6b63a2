@@ -1,0 +1,75 @@
+[33m091b557[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to origin/main
+[33m091b557[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: commit: READ Supa Rebuil
+[33mb6b63a2[m HEAD@{2}: commit: READ Supa Rebuil
+[33m3419db2[m HEAD@{3}: commit: READ Supa Rebuil
+[33m1288de8[m HEAD@{4}: commit: READ Supa Rebuil
+[33m8d39d67[m HEAD@{5}: commit: READ Supa Rebuil
+[33mc0a8dca[m HEAD@{6}: commit: READ Supa Rebuil
+[33m8a8eb93[m HEAD@{7}: commit: READ Supa Rebuil
+[33m1c47fe9[m HEAD@{8}: commit: READ Supa Rebuil
+[33m18020e5[m HEAD@{9}: commit: READ Supa Rebuil
+[33maad0439[m HEAD@{10}: commit: READ Supa Rebuil
+[33m79d9ae6[m HEAD@{11}: commit: READ Supa Rebuil
+[33mbbb2d65[m HEAD@{12}: commit: READ Supa Rebuil
+[33m9693d4a[m HEAD@{13}: commit: READ Supa Rebuil
+[33m5d16d1d[m HEAD@{14}: commit: READ Supa Rebuil
+[33m8da6bba[m HEAD@{15}: commit: READ Supa Rebuil
+[33mf0c8fd0[m HEAD@{16}: commit: READ Supa Rebuil
+[33m229cb42[m HEAD@{17}: commit: READ Supa Rebuil
+[33mbcc273a[m HEAD@{18}: commit: ُStorage Rebuil
+[33m5e19d8e[m HEAD@{19}: reset: moving to origin/main
+[33m5e19d8e[m HEAD@{20}: reset: moving to HEAD
+[33m5e19d8e[m HEAD@{21}: commit: ُStorage Rebuil
+[33m63e7429[m HEAD@{22}: commit: ُStorage Rebuil
+[33m415231e[m HEAD@{23}: commit: DailyActivityChart Update
+[33m40ab16c[m HEAD@{24}: commit: Blue Font Fixed
+[33mf95a792[m HEAD@{25}: commit: New OG
+[33m2da51a0[m HEAD@{26}: commit: posthog instal
+[33m8e483e5[m HEAD@{27}: commit: posthog instal
+[33maac88c6[m HEAD@{28}: commit: posthog instal
+[33m033e9ab[m HEAD@{29}: commit: posthog instal
+[33m4531af4[m HEAD@{30}: commit: posthog instal
+[33m56650cc[m HEAD@{31}: commit: glaucoma cards add
+[33m4e8953d[m HEAD@{32}: commit: og fixed
+[33m7d9730e[m HEAD@{33}: commit: og fixed
+[33m6161fd7[m HEAD@{34}: commit: Vercel ُSpeed
+[33m95cf7d7[m HEAD@{35}: commit: Vercel Analytics
+[33me3733cd[m HEAD@{36}: commit: Uveitis Deck Update
+[33me22f1e1[m HEAD@{37}: commit: Uveitis Deck Update
+[33m0d06743[m HEAD@{38}: commit: new name
+[33me9d3efd[m HEAD@{39}: commit: new name
+[33m16b9fef[m HEAD@{40}: commit: new name
+[33m0475772[m HEAD@{41}: commit: cataract deck update + sync overload fix
+[33m0a35830[m HEAD@{42}: commit: cataract deck update
+[33m396e3e8[m HEAD@{43}: commit: synchEngine fixed
+[33mef75746[m HEAD@{44}: commit: synchEngine fixed
+[33m1754f9e[m HEAD@{45}: commit: synchEngine fixed
+[33mc14f2e1[m HEAD@{46}: commit: synchEngine fixed
+[33mc09dd13[m HEAD@{47}: commit: synchEngine fixed
+[33m31909a8[m HEAD@{48}: commit: synchEngine fixed
+[33m6088e50[m HEAD@{49}: commit: supabase pull fixed
+[33m626362e[m HEAD@{50}: commit: Zoom in fixed
+[33m68294b7[m HEAD@{51}: commit: New Roadmap - Complete Redo!!
+[33m89d77a6[m HEAD@{52}: commit: New Roadmap - Complete Redo!!
+[33m85b298c[m HEAD@{53}: commit: New Roadmap - Complete Redo!!
+[33m048b560[m HEAD@{54}: commit: New Roadmap - Complete Redo!!
+[33mac3ff4b[m HEAD@{55}: commit: New Roadmap - Complete Redo!!
+[33m81e21e8[m HEAD@{56}: commit: New Roadmap - Complete Redo!!
+[33m63a449e[m HEAD@{57}: commit: New Roadmap - Higher Quality!!
+[33m12872f4[m HEAD@{58}: commit: New Roadmap!
+[33m1ecb41d[m HEAD@{59}: commit: Streak Card Missing Fixed!
+[33m3d89a73[m HEAD@{60}: commit: level bar update
+[33mdfba3d9[m HEAD@{61}: commit: refactor DeckHero layout structure
+[33mc229dad[m HEAD@{62}: commit: refactor DeckHero layout structure
+[33me66c19c[m HEAD@{63}: commit: refactor DeckHero layout structure
+[33me34d49e[m HEAD@{64}: commit: refactor DeckHero layout structure
+[33m8472593[m HEAD@{65}: commit: fix roadmap image path
+[33mf9cceb9[m HEAD@{66}: commit: fix supabase client SSR safety
+[33mccda906[m HEAD@{67}: commit: fix build config for vercel deploy
+[33m42ddcf1[m HEAD@{68}: commit: fix DeckList TS strict build issue
+[33ma7a7b1f[m HEAD@{69}: commit: fix DeckList TS strict styles
+[33m1256ada[m HEAD@{70}: commit: fix forget password hook casing
+[33m39981f5[m HEAD@{71}: Branch: renamed refs/heads/main to refs/heads/main
+[33m39981f5[m HEAD@{73}: commit: fix casing mismatch in useForgetPassword imports
+[33m2bdbc64[m HEAD@{74}: Branch: renamed refs/heads/master to refs/heads/main
+[33m2bdbc64[m HEAD@{76}: commit (initial): init

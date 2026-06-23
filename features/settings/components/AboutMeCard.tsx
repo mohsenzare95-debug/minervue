@@ -42,7 +42,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 16,
     padding: 14,
     border: "1px solid #eee",
-    borderRadius: 12,
+    borderRadius: 8,
     background: "#fff",
   },
 
@@ -58,7 +58,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   image: {
-    borderRadius: 12,
+    borderRadius: 8,
     objectFit: "cover",
   },
 

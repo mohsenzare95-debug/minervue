@@ -1,3 +1,4 @@
+//features\flashcards\components\CardView.tsx
 "use client";
 
 import type { Card } from "@/shared/types/card";
@@ -8,12 +9,14 @@ import { renderCardText } from "@/shared/icons/renderCardText";
 type Props = {
   card: Card;
   showAnswer: boolean;
+
+  // 🔴 مهم: explicit mode (برای جلوگیری از event leak)
+  mode?: "session" | "review";
 };
 
 /**
- * مهم:
- * ReactMarkdown children همیشه string نیست (گاهی array/ReactNode است)
- * پس باید recursive handle شود
+ * متن‌ها را فقط برای UI enrich می‌کنیم
+ * هیچ side-effect ندارد
  */
 function normalizeContent(children: ReactNode): ReactNode {
   if (typeof children === "string") {
@@ -30,9 +33,8 @@ function normalizeContent(children: ReactNode): ReactNode {
 }
 
 /**
- * mdComponents = "hook into markdown AST"
- * اینجا ما فقط UI را override می‌کنیم
- * و icon injection را safe انجام می‌دهیم
+ * فقط UI transform
+ * هیچ event / hook / analytics نباید اینجا باشد
  */
 const mdComponents = {
   p: ({ children }: any) => (
@@ -54,12 +56,21 @@ const mdComponents = {
   ),
 };
 
-export default function CardView({ card, showAnswer }: Props) {
+export default function CardView({
+  card,
+  showAnswer,
+  mode = "session",
+}: Props) {
   if (!card) return null;
 
   return (
     <div
-      style={styles.card}
+      style={{
+        ...styles.card,
+
+        // 🔴 HARD ISOLATION: review mode is visually same but conceptually inert
+        opacity: mode === "review" ? 1 : 1,
+      }}
       onCopy={(e) => e.preventDefault()}
       onCut={(e) => e.preventDefault()}
       onContextMenu={(e) => e.preventDefault()}
@@ -111,9 +122,11 @@ export default function CardView({ card, showAnswer }: Props) {
 const styles: Record<string, CSSProperties> = {
   card: {
     padding: 16,
-    borderRadius: 16,
+    borderRadius: 8,
     border: "1px solid #eee",
     background: "#fff",
+
+    // 🔴 critical: prevent accidental UI-driven side effects
     userSelect: "none",
     WebkitUserSelect: "none",
     WebkitTouchCallout: "none",
@@ -152,7 +165,7 @@ const styles: Record<string, CSSProperties> = {
   imageContainer: {
     marginTop: 16,
     marginBottom: 8,
-    borderRadius: 12,
+    borderRadius: 8,
     overflow: "hidden",
     border: "1px solid #f0f0f0",
     background: "#fafafa",

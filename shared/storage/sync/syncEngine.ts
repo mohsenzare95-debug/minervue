@@ -1,8 +1,5 @@
-// shared/storage/sync/syncEngine.ts
-
 import { outbox } from "@/shared/storage/local/outbox";
 import { supabase } from "@/shared/supabase/client";
-import { clientState } from "@/shared/state/client/clientState";
 import type { AppEvent } from "@/shared/types/events";
 
 let isSyncing = false;
@@ -12,8 +9,10 @@ export const syncEngine = {
   // ======================
   // WRITE SYNC ONLY
   // ======================
-
   async sync(userId: string) {
+    console.log("🚀 [SYNC ENGINE] ENTRY", { userId });
+
+    if (!userId) return;
     if (!navigator.onLine) return;
 
     if (isSyncing) {
@@ -24,17 +23,11 @@ export const syncEngine = {
     isSyncing = true;
 
     try {
-      clientState.setState({ syncStatus: "syncing" });
-
       await this.flushOutbox();
 
-      clientState.setState({
-        syncStatus: "idle",
-        lastSyncAt: Date.now(),
-      });
+      console.log("🔥 [SYNC ENGINE] SYNC SUCCESS");
     } catch (e) {
-      console.error("[SYNC ERROR]", e);
-      clientState.setState({ syncStatus: "error" });
+      console.error("❌ [SYNC ENGINE] ERROR", e);
     } finally {
       isSyncing = false;
 
@@ -49,103 +42,83 @@ export const syncEngine = {
   // ======================
   // OUTBOX FLUSH (WRITE ONLY)
   // ======================
-
   async flushOutbox() {
-    const pending = outbox
-      .getPending()
-      .sort((a, b) => a.seq - b.seq);
+    const pending = outbox.getPending().sort((a, b) => a.seq - b.seq);
 
-    for (const item of pending) {
-      const event: AppEvent = item.event;
+    console.log("📦 [OUTBOX] pending:", pending.length);
 
-      try {
-        if (!event.userId) {
-          throw new Error("Missing userId in event");
+    await Promise.all(
+      pending.map(async (item) => {
+        try {
+          const event: AppEvent = item.event;
+
+          if (!event.userId) throw new Error("Missing userId");
+
+          // ======================
+          // REVIEW EVENT
+          // ======================
+          if (event.type === "REVIEW") {
+            const { error } = await supabase.from("review_events").upsert(
+              {
+                user_id: event.userId,
+                client_event_id: event.client_event_id,
+                event_type: "REVIEW_EVENT",
+                deck_key: event.deckKey,
+                card_id: event.cardId,
+                result: event.payload.result,
+                timestamp: event.timestamp,
+                seq: item.seq,
+              },
+              { onConflict: "user_id,client_event_id" }
+            );
+
+            if (error) throw error;
+          }
+
+          // ======================
+          // RESET EVENT
+          // ======================
+          if (event.type === "RESET") {
+            const { error } = await supabase.from("review_events").upsert(
+              {
+                user_id: event.userId,
+                client_event_id: event.client_event_id,
+                event_type: "RESET_EVENT",
+                deck_key: event.deckKey,
+                card_id: event.cardId,
+                result: "Reset",
+                timestamp: event.timestamp,
+                seq: item.seq,
+              },
+              { onConflict: "user_id,client_event_id" }
+            );
+
+            if (error) throw error;
+          }
+
+          outbox.markSent(item.id);
+        } catch (e) {
+          outbox.markRetry(item.id);
+          console.error("❌ OUTBOX FAIL DETAIL:", e);
         }
-
-        if (event.type === "REVIEW") {
-          const { error } = await supabase.from("review_events").upsert(
-            {
-              user_id: event.userId,
-              client_event_id: event.id, // FIX: canonical event id
-              event_type: "REVIEW_EVENT",
-              deck_key: event.deckKey,
-              card_id: event.cardId,
-              result: event.payload.result,
-              timestamp: event.timestamp,
-              seq: item.seq,
-            },
-            {
-              onConflict: "user_id,client_event_id",
-            }
-          );
-
-          if (error) throw error;
-        } else if (event.type === "RESET") {
-          const { error } = await supabase.from("review_events").upsert(
-            {
-              user_id: event.userId,
-              client_event_id: event.id, // FIX: canonical event id
-              event_type: "RESET_EVENT",
-              deck_key: event.deckKey,
-              card_id: event.cardId,
-              result: "Reset",
-              timestamp: event.timestamp,
-              seq: item.seq,
-            },
-            {
-              onConflict: "user_id,client_event_id",
-            }
-          );
-
-          if (error) throw error;
-        }
-
-        outbox.markSent(item.id);
-      } catch (e) {
-        console.error("[OUTBOX SYNC ERROR]", e);
-        outbox.markRetry(item.id);
-      }
-    }
+      })
+    );
   },
 
   // ======================
-  // CHECKPOINT (WRITE META ONLY)
+  // DEBUG HELPERS
   // ======================
-
-  async syncReviewCheckpoint(userId: string) {
-    const { data: last } = await supabase
-      .from("review_events")
-      .select("timestamp")
-      .eq("user_id", userId)
-      .order("timestamp", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (!last?.timestamp) return;
-
-    await supabase.from("user_sync_checkpoint").upsert({
-      user_id: userId,
-      last_event_timestamp: last.timestamp,
-      updated_at: new Date().toISOString(),
-    });
-  },
-
-  // ======================
-  // DEBUG
-  // ======================
-
   logPending() {
     const pending = outbox.getPending();
 
-    console.log(
-      "[OUTBOX SNAPSHOT]",
-      pending.map((p) => ({
+    console.log("📦 OUTBOX SNAPSHOT", {
+      total: pending.length,
+      items: pending.map((p) => ({
         type: p.event.type,
         seq: p.seq,
-        retry: p.retryCount,
-      }))
-    );
+        id: p.id,
+      })),
+    });
 
     return pending;
   },

@@ -57,21 +57,17 @@ export const outbox = {
     const all = getAll();
     const lastSeq = all.length ? Math.max(...all.map((e) => e.seq)) : 0;
 
-    const id = crypto.randomUUID();
-
     const newEvent: OutboxEvent = {
-      id,
+      id: event.client_event_id, // IMPORTANT
+
       seq: lastSeq + 1,
 
       event: {
         ...event,
-        id, // ensure consistency between outbox id and event id
       },
 
       status: "pending",
       retryCount: 0,
-      lastAttemptAt: undefined,
-
       createdAt: Date.now(),
     };
 
@@ -105,7 +101,14 @@ export const outbox = {
     const all = getAll();
 
     const updated = all.map((e) =>
-      e.id === id ? { ...e, status: "sent" as const } : e
+      e.id === id
+        ? {
+            ...e,
+            status: "sent" as const,
+            retryCount: 0,
+            lastAttemptAt: Date.now(),
+          }
+        : e
     );
 
     saveAll(updated);
@@ -118,7 +121,7 @@ export const outbox = {
     const all = getAll();
 
     const updated = all.map((e) => {
-      if (e.id !== id) return e;
+      if (e.event.client_event_id !== id) return e;
 
       return {
         ...e,

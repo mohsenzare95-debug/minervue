@@ -1,11 +1,59 @@
+//shared\storage\local\reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
 
 const KEY = "review_logs_v3";
 
 // ======================
-// INTERNAL HELPERS
+// NORMALIZATION LAYER (CANONICAL BOUNDARY)
 // ======================
+function normalizeEvent(e: any): AppEvent | null {
+  if (!e) return null;
 
+  const id = e.client_event_id;
+  if (!id) {
+    console.warn("[NORMALIZE DROP] missing id", e);
+    return null;
+  }
+
+  const deckKey = e.deckKey ?? e.deck_key;
+  const cardId = e.cardId ?? e.card_id;
+
+  if (!deckKey) {
+    console.warn("[NORMALIZE DROP] missing deckKey", e);
+    return null;
+  }
+
+  const event: AppEvent = {
+    client_event_id: id,
+
+    type: e.type ?? "REVIEW",
+
+    userId: e.userId ?? e.user_id ?? null,
+
+    deckKey,
+    cardId: cardId ?? "",
+
+    timestamp: Number(e.timestamp ?? Date.now()),
+
+    seq: e.seq,
+
+    payload: e.payload ?? {
+      result: e.result,
+    },
+  };
+
+  // REVIEW must be valid
+  if (event.type === "REVIEW" && !event.cardId) {
+    console.warn("[NORMALIZE DROP] invalid REVIEW missing cardId", e);
+    return null;
+  }
+
+  return event;
+}
+
+// ======================
+// LOW LEVEL IO
+// ======================
 function readStream(): AppEvent[] {
   if (typeof window === "undefined") return [];
 
@@ -17,137 +65,135 @@ function readStream(): AppEvent[] {
     if (!Array.isArray(parsed)) return [];
 
     return parsed;
-  } catch {
+  } catch (e) {
+    console.error("[reviewLogStorage] readStream ERROR:", e);
     return [];
   }
 }
 
 function writeStream(stream: AppEvent[]) {
   if (typeof window === "undefined") return;
+
+  console.log("💾 [LOCAL WRITE]", {
+    count: stream.length,
+    sample: stream[stream.length - 1],
+  });
+
   localStorage.setItem(KEY, JSON.stringify(stream));
 }
 
 // ======================
 // STORE
 // ======================
-
 export const reviewLogStorage = {
-  // ======================
-  // READ (SORTED VIEW)
-  // ======================
   getStream(): AppEvent[] {
-    return readStream().sort((a, b) => {
-      return (a.client_event_id ?? "").localeCompare(
-        b.client_event_id ?? ""
-      );
-    });
+    const stream = readStream();
+
+    return stream
+      .map(normalizeEvent)
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (a.timestamp !== b.timestamp) {
+          return a.timestamp - b.timestamp;
+        }
+        return a.client_event_id.localeCompare(b.client_event_id);
+      }) as AppEvent[];
   },
 
   getAll(): Record<string, AppEvent[]> {
     const stream = readStream();
 
-    return stream.reduce<Record<string, AppEvent[]>>((acc, e) => {
-      if (!acc[e.deckKey]) acc[e.deckKey] = [];
-      acc[e.deckKey].push(e);
-      return acc;
-    }, {});
+    return stream
+      .map(normalizeEvent)
+      .filter(Boolean)
+      .reduce<Record<string, AppEvent[]>>((acc, e) => {
+        if (!acc[e.deckKey]) acc[e.deckKey] = [];
+        acc[e.deckKey].push(e);
+        return acc;
+      }, {});
   },
 
   get(deckKey: string): AppEvent[] {
-    return readStream().filter((e) => e.deckKey === deckKey);
+    const stream = readStream();
+
+    return stream
+      .map(normalizeEvent)
+      .filter((e): e is AppEvent => !!e)
+      .filter((e) => e.deckKey === deckKey);
   },
 
-  // ======================
-  // WRITE (IDEMPOTENT)
-  // ======================
   add(event: AppEvent) {
     const stream = readStream();
 
-    const eventId = event.client_event_id;
-    if (!eventId) return;
+    const normalized = normalizeEvent(event);
+    if (!normalized) return;
 
     const exists = stream.some(
-      (e) => e.client_event_id === eventId
+      (e) => e.client_event_id === normalized.client_event_id
     );
 
-    if (exists) return;
+    if (exists) {
+      console.log("[ADD SKIP DUPLICATE]", normalized.client_event_id);
+      return;
+    }
 
-    writeStream([...stream, event]);
+    const next = [...stream, normalized];
+
+    writeStream(next);
+
+    console.log("✅ [LOCAL ADD]", {
+      id: normalized.client_event_id,
+      deckKey: normalized.deckKey,
+    });
   },
 
   // ======================
-  // SYNC (RECONCILIATION)
+  // SYNC PIPELINE (PURE MERGE)
   // ======================
-  replaceFromServer(events: AppEvent[]): AppEvent[] {
-    console.log("🔥 Z_SYNC START");
-    console.log("[Z_SYNC] server input:", events.length);
+  mergeServerEvents(serverEvents: any[]): AppEvent[] {
+    const local = readStream();
 
-    const localBefore = readStream();
-    console.log("[Z_SYNC] local BEFORE:", localBefore.length);
+    const safeLocal = local
+      .map(normalizeEvent)
+      .filter(Boolean) as AppEvent[];
 
-    const normalize = (e: any): AppEvent => ({
-      id: e?.client_event_id ?? "",
-      client_event_id: e?.client_event_id ?? "",
-
-      type:
-        e?.type ??
-        (e?.event_type === "RESET_EVENT"
-          ? "RESET"
-          : "REVIEW"),
-
-      userId: e?.user_id ?? null,
-      deckKey: e?.deck_key ?? "",
-      cardId: e?.card_id ?? "",
-
-      timestamp: Number(e?.timestamp ?? Date.now()),
-
-      payload: e?.payload ?? {
-        result: e?.result,
-      },
-    });
+    const safeServer = serverEvents
+      .map(normalizeEvent)
+      .filter(Boolean) as AppEvent[];
 
     const map = new Map<string, AppEvent>();
 
-    const combined = [...localBefore, ...events];
-
-    for (const e of combined) {
-      const ne = normalize(e);
-
-      const key = ne.client_event_id;
-      if (!key) continue;
-
-      map.set(key, ne);
+    for (const e of safeLocal) {
+      map.set(e.client_event_id, e);
     }
 
-    const merged = Array.from(map.values()).sort((a, b) => {
-      return (a.client_event_id ?? "").localeCompare(
-        b.client_event_id ?? ""
-      );
-    });
+    for (const e of safeServer) {
+      map.set(e.client_event_id, e);
+    }
 
-    console.log("[Z_SYNC] merged:", merged.length);
-
-    writeStream(merged);
-
-    const localAfter = readStream();
-    console.log("[Z_SYNC] local AFTER:", localAfter.length);
-
-    console.log("🔥 Z_SYNC END");
-
-    return merged;
+    return Array.from(map.values());
   },
 
-  // ======================
-  // CLEAR
-  // ======================
+  replaceLocalOnly(events: AppEvent[]) {
+    console.log("💾 [LOCAL REPLACE ONLY]");
+
+    const normalized = events
+      .map(normalizeEvent)
+      .filter(Boolean);
+
+    writeStream(normalized as AppEvent[]);
+  },
+
   clear(deckKey: string) {
     const stream = readStream();
-    writeStream(
-      stream.filter((e) => e.deckKey !== deckKey)
-    );
+
+    const next = stream.filter((e) => e.deckKey !== deckKey);
+
+    writeStream(next);
   },
 
   clearAll() {
+    console.log("[reviewLogStorage] CLEAR ALL");
     writeStream([]);
   },
 };

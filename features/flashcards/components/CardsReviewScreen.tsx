@@ -45,7 +45,7 @@ const styles = {
 
   heroCard: {
     border: "1px solid #eee",
-    borderRadius: 16,
+    borderRadius: 8,
     background: "#fff",
     padding: 16,
   },

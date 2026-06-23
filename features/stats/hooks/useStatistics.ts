@@ -12,7 +12,7 @@ import {
 
 import { storageClient } from "@/shared/storage/core/storageClient";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
-import { computeScore } from "@/features/decks/lib/globalprogressMath";
+import { computeScore } from "@/features/lib/globalprogressCore";
 
 type ReviewEvent = {
   user_id: string | null;

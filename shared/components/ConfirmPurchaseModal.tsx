@@ -75,7 +75,7 @@ const styles: Record<string, React.CSSProperties> = {
   modal: {
     background: "#fff",
     padding: 20,
-    borderRadius: 12,
+    borderRadius: 8,
     width: 320,
   },
 

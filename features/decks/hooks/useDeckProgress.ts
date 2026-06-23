@@ -1,50 +1,81 @@
-//features\decks\hooks\useDeckProgress.ts
 "use client";
 
-import { useCallback } from "react";
-import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
-import { reviewRepository } from "@/shared/repository/reviewRepository";
-import { resetDeckLifecycle } from "@/features/deckDomain/deckLifecycle";
+import { useCallback, useEffect, useRef } from "react";
 import { clientState } from "@/shared/state/client/clientState";
 
 export function useDeckProgress() {
-  // ======================
-  // DERIVED DECK PROGRESS (FROM EVENTS)
-  // ======================
+  // 🔥 reactive global state
+  const state = clientState.useStore();
 
-  const getDeckProgress = useCallback((deck: any) => {
-    const events = reviewRepository.get(deck.key);
+  const prevRef = useRef<any>(null);
 
-    const progressMap = buildProgressFromEvents(events);
+  useEffect(() => {
+    console.log("📊 [STATE CHANGE DETECTED]", {
+      prev: prevRef.current,
+      next: state,
+    });
 
-    const deckProgress = progressMap[deck.key] || {};
+    prevRef.current = state;
+  }, [state]);
 
-    const total = deck.cards.length;
+  useEffect(() => {
+    console.log("🔁 [UI RE-RENDER]");
+  }, [state]);
 
-    const sumStreak = deck.cards.reduce((acc: number, c: any) => {
-      return acc + (deckProgress[c.id]?.streak ?? 0);
-    }, 0);
+  /**
+   * SINGLE SOURCE OF TRUTH:
+   * derived directly from clientState.progress
+   */
+  const getDeckProgress = useCallback(
+    (deck: { key: string; cards: { id: string }[] }) => {
+      const deckProgress = state.progress?.[deck.key] || {};
 
-    const max = total * 3;
+      const total = deck.cards.length;
 
-    const percent = max > 0 ? Math.round((sumStreak / max) * 100) : 0;
+      if (total === 0) {
+        return {
+          total: 0,
+          percent: 0,
+          sumStreak: 0,
+        };
+      }
 
-    return {
-      total,
-      percent,
-      sumStreak,
-    };
-  }, []);
+      let sumStreak = 0;
 
-  // ======================
-  // RESET DECK (FIXED)
-  // ======================
+      for (const card of deck.cards) {
+        sumStreak += deckProgress[card.id]?.streak ?? 0;
+      }
 
-  const resetDeck = useCallback((deckKey: string) => {
-    const userId = clientState.getState().user?.id ?? null;
+      const max = total * 3;
 
-    resetDeckLifecycle(deckKey, userId);
-  }, []);
+      const percent = max > 0 ? Math.round((sumStreak / max) * 100) : 0;
+
+      return {
+        total,
+        percent,
+        sumStreak,
+      };
+    },
+    [state.progress]
+  );
+
+  /**
+   * Reset deck lifecycle (server + local sync)
+   */
+  const resetDeck = useCallback(
+    (deckKey: string) => {
+      const userId = (state as any)?.user?.id ?? null;
+
+      if (!deckKey) return;
+
+      import("@/features/deckDomain/deckLifecycle").then(
+        ({ resetDeckLifecycle }) => {
+          resetDeckLifecycle(deckKey, userId);
+        }
+      );
+    },
+    [state]
+  );
 
   return {
     getDeckProgress,

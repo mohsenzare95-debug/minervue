@@ -1,3 +1,4 @@
+//shared\types\events.ts
 export type AnswerType = "Correct" | "Almost" | "Wrong";
 
 // ======================
@@ -5,10 +6,7 @@ export type AnswerType = "Correct" | "Almost" | "Wrong";
 // ======================
 
 export type BaseEvent = {
-  id: string; // = client_event_id (canonical identity)
-
-  client_event_id: string; // 👈 فقط برای clarity / DB mapping
-
+  client_event_id: string;
   userId: string | null;
   deckKey: string;
   cardId: string;

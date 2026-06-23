@@ -1,3 +1,4 @@
+//features\decks\components\DeckHero.tsx
 import { Flame } from "lucide-react";
 export default function DeckHero({
   score,
@@ -91,7 +92,7 @@ const styles: any = {
     flex: 1,
     background: "#fff",
     border: "1px solid #eee",
-    borderRadius: 18,
+    borderRadius: 8,
     padding: 10,
     display: "flex",
     flexDirection: "column",
@@ -140,7 +141,7 @@ const styles: any = {
 
   bottomCard: {
     padding: 18,
-    borderRadius: 18,
+    borderRadius: 8,
     background: "#fff",
     border: "1px solid #eee",
     textAlign: "center",

@@ -1,6 +1,6 @@
-//features\flashcards\components\AnswerControls.tsx
+// features/flashcards/components/AnswerControls.tsx
+
 import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
-import { analytics } from "@/features/analytics/events";
 import type { AnswerType } from "@/shared/types/events";
 
 type Props = {
@@ -8,9 +8,6 @@ type Props = {
   chooseAnswer: (value: AnswerType) => void;
   canNext: boolean;
   handleNext: () => void;
-
-  deckKey?: string;
-  cardId?: string;
 };
 
 function AnswerButton({
@@ -45,16 +42,14 @@ export default function AnswerControls({
   chooseAnswer,
   canNext,
   handleNext,
-  deckKey,
-  cardId,
 }: Props) {
+  // فقط intent → هیچ validation / event / analytics نداریم
+
   const emitAnswer = (answer: AnswerType) => {
-    analytics.cardAnswered(deckKey!, cardId!, answer);
     chooseAnswer(answer);
   };
 
   const emitNext = () => {
-    analytics.cardNext(deckKey!, cardId!);
     handleNext();
   };
 
@@ -109,7 +104,7 @@ const styles = {
   btn: {
     flex: 1,
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 8,
     display: "flex",
     alignItems: "center",
     gap: 8,
@@ -120,7 +115,7 @@ const styles = {
     marginTop: 14,
     width: "100%",
     padding: 14,
-    borderRadius: 12,
+    borderRadius: 8,
     background: "#111",
     color: "#fff",
     border: "none",

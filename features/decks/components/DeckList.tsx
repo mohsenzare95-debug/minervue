@@ -12,6 +12,7 @@ import ConfirmPurchaseModal from "@/shared/components/ConfirmPurchaseModal";
 
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import { useSubscription } from "@/features/subscription/hook/useSubscription";
+import { clientState } from "@/shared/state/client/clientState";
 
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
 
@@ -32,6 +33,11 @@ export default function DeckList({
   const router = useRouter();
   const { user } = useAuthSession();
   const subscription = useSubscription(user?.id ?? null);
+
+  // ✅ FORCE SUBSCRIPTION (IMPORTANT)
+  const state = clientState.useStore();
+
+  console.log("RERENDER CHECK", Math.random());
 
   useEffect(() => {
     setMounted(true);
@@ -202,7 +208,7 @@ const styles = {
 
   card: {
     padding: 16,
-    borderRadius: 16,
+    borderRadius: 8,
     background: "#fff",
     border: "1px solid #eee",
   },
@@ -294,7 +300,7 @@ const modalStyles = {
   box: {
     background: "#fff",
     padding: 20,
-    borderRadius: 12,
+    borderRadius: 8,
     width: 300,
   },
 };

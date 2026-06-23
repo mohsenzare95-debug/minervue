@@ -19,7 +19,7 @@ export function FutureRoadmap({ imageUrl }: Props) {
 const styles: Record<string, React.CSSProperties> = {
   card: {
     border: "1px solid #eee",
-    borderRadius: 12,
+    borderRadius: 8,
     padding: 12,
     background: "#fff",
   },

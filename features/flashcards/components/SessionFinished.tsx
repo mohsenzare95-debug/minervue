@@ -99,7 +99,7 @@ const styles = {
     padding: "10px 14px",
     background: "#111",
     color: "#fff",
-    borderRadius: 10,
+    borderRadius: 8,
     border: "none",
     cursor: "pointer",
   },
@@ -108,7 +108,7 @@ const styles = {
     padding: "10px 14px",
     background: "#fff",
     border: "1px solid #ddd",
-    borderRadius: 10,
+    borderRadius: 8,
     cursor: "pointer",
   },
 };

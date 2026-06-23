@@ -35,7 +35,7 @@ export function GuestAuthCard({
 const styles: Record<string, React.CSSProperties> = {
   card: {
     border: "1px solid #eee",
-    borderRadius: 16,
+    borderRadius: 8,
     padding: 20,
     background: "#fff",
   },
@@ -62,7 +62,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#fff",
     border: "none",
     padding: "10px 14px",
-    borderRadius: 10,
+    borderRadius: 8,
     cursor: "pointer",
     fontWeight: 600,
   },
@@ -72,7 +72,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#111",
     border: "none",
     padding: "10px 14px",
-    borderRadius: 10,
+    borderRadius: 8,
     cursor: "pointer",
     fontWeight: 600,
   },

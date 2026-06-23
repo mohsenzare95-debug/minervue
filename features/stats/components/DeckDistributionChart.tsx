@@ -244,7 +244,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     padding: 16,
-    borderRadius: 16,
+    borderRadius: 8,
     background: "var(--card)",
     border: "1px solid var(--border)",
   },

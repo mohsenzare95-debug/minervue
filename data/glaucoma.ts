@@ -95,7 +95,7 @@ export const glaucomaCards: Card[] = [
 
 
   {
-    id: "5",
+    id: "glaucoma_5",
     q: `What are the gene loci, gene mutations, and inheritance patterns associated with primary congenital glaucoma (PCG)?`,
     a: `
 **Pattern 1**
@@ -123,7 +123,7 @@ export const glaucomaCards: Card[] = [
   },
 
    {
-    id: "6",
+    id: "glaucoma_6",
     q: `What diseases are associated with LTBP2 mutation?`,
     a: `
 • Primary congenital glaucoma (PCG) *(Locus: GLC3D)*
@@ -140,7 +140,7 @@ export const glaucomaCards: Card[] = [
   },
 
    {
-    id: "7",
+    id: "glaucoma_7",
     q: `What are the gene locus, gene mutation, and inheritance pattern of nail-patella syndrome?`,
     a: `
 **Gene Locus:** NPS
@@ -156,7 +156,7 @@ export const glaucomaCards: Card[] = [
   },
 
    {
-    id: "8",
+    id: "glaucoma_8",
     q: `What are the gene locus, gene mutation, and inheritance pattern of aniridia?`,
     a: `
 **Locus:** 11p13
@@ -172,7 +172,7 @@ export const glaucomaCards: Card[] = [
   },
 
    {
-    id: "9",
+    id: "glaucoma_9",
     q: `What is the common mutation in pseudoexfoliation (PXF), what is its function, and how frequently is it found in normal individuals?`,
     a: `
 LOXL1 *(Elastin mutation)*
@@ -184,7 +184,7 @@ PXF: 99%, Control: 80%
   },
 
    {
-    id: "10",
+    id: "glaucoma_10",
     q: `What are environmental factors associated with glaucoma?`,
     a: `
 1. Sunlight exposure

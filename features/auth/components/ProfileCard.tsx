@@ -37,7 +37,7 @@ export function ProfileCard({
 const styles: Record<string, React.CSSProperties> = {
   card: {
     border: "1px solid #eee",
-    borderRadius: 16,
+    borderRadius: 8,
     padding: 20,
     background: "#fff",
   },
@@ -80,7 +80,7 @@ const styles: Record<string, React.CSSProperties> = {
     border: "none",
     background: "#f3f3f3",
     padding: "10px 14px",
-    borderRadius: 10,
+    borderRadius: 8,
     cursor: "pointer",
     fontWeight: 600,
   },

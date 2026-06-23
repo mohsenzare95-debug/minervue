@@ -60,7 +60,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 12,
     padding: 14,
     border: "1px solid #eee",
-    borderRadius: 12,
+    borderRadius: 8,
     background: "#fff",
   },
 

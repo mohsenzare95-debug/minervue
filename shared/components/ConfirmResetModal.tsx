@@ -48,7 +48,7 @@ const styles = {
   modal: {
     background: "#fff",
     padding: 20,
-    borderRadius: 12,
+    borderRadius: 8,
     width: 300,
   },
 
