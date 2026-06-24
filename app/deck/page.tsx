@@ -6,17 +6,19 @@ import DeckList from "@/features/decks/components/DeckList";
 import { useGlobalProgress } from "@/features/decks/hooks/useGlobalProgress";
 import { useDeckProgress } from "@/features/decks/hooks/useDeckProgress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
+import { useProfile } from "@/features/auth/hooks/useProfile";
 
 import { decks } from "@/data/decks";
 
 export default function DeckPage() {
   const global = useGlobalProgress();
   const { getDeckProgress } = useDeckProgress();
+
   const { user } = useAuthSession();
+  const profile = useProfile(user);
 
   return (
     <div style={styles.page}>
-      {/* HERO DIRECT (no wrapper card) */}
       <DeckHero
         score={global.score}
         streak={global.streak}
@@ -24,6 +26,8 @@ export default function DeckPage() {
         scoreLevel={global.scoreLevel}
         levelProgress={global.levelProgress}
         scoreDots={global.scoreDots}
+        userName={profile?.username}
+        avatar={profile?.avatar}
       />
 
       <div style={styles.titleBlock}>

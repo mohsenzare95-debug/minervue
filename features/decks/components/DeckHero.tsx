@@ -1,77 +1,129 @@
 //features\decks\components\DeckHero.tsx
-import { Flame } from "lucide-react";
+import {
+  Flame,
+  Target,
+  TrendingUp,
+} from "lucide-react";
+
+type Props = {
+  score?: number;
+  streak?: number;
+  week?: any[];
+  scoreLevel?: number;
+  levelProgress?: {
+    progress?: number;
+  };
+  userName?: string;
+  avatar?: string;
+};
+
 export default function DeckHero({
   score,
   streak,
   week = [],
   scoreLevel,
   levelProgress,
-}: any) {
+  userName,
+  avatar,
+}: Props) {
   const progress = levelProgress?.progress ?? 0;
+
+  const markerPosition =
+    Math.max(0.03, Math.min(progress, 0.97)) * 100;
 
   return (
     <div style={styles.hero}>
-
-      {/* ===================== */}
-      {/* TOP ROW */}
-      {/* ===================== */}
-      <div style={styles.topRow}>
-
-        {/* SCORE CARD */}
-        <div style={styles.card}>
-          <div style={styles.label}>Score</div>
-          <div style={styles.score}>{score ?? 0}</div>
-        </div>
-
-        {/* LEVEL CARD */}
-        <div style={styles.card}>
-          <div style={styles.label}>Level</div>
-
-          {/* LEVEL NUMBER */}
-          <div style={styles.level}>
-            {scoreLevel ?? 1}
+      <div style={styles.statsCard}>
+        {/* HEADER */}
+        <div style={styles.header}>
+          <div style={styles.avatar}>
+            {avatar || "👤"}
           </div>
 
-          {/* PROGRESS BAR */}
-          <div style={styles.progressWrap}>
-            <div style={styles.progressBar}>
+          <div style={styles.userInfo}>
+            <div style={styles.greeting}>
+              Hey
+            </div>
+
+            <div style={styles.userName}>
+              {userName || "Guest"}
+            </div>
+          </div>
+
+          <div style={styles.levelSide}>
+            <div style={styles.levelLabels}>
+              <span>
+                Level {scoreLevel ?? 1}
+              </span>
+
+              <span>
+                Level {(scoreLevel ?? 1) + 1}
+              </span>
+            </div>
+
+            <div style={styles.headerProgress}>
               <div
                 style={{
                   ...styles.progressFill,
                   width: `${progress * 100}%`,
                 }}
               />
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* ===================== */}
-      {/* BOTTOM CARD */}
-      {/* ===================== */}
-      <div style={styles.bottomCard}>
-        <div style={styles.streakLabel}>
-          Streak Days: {streak ?? 0}  <Flame size={16} />
-        </div>
-
-        <div style={styles.weekRow}>
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d, i) => (
-            <div key={d} style={styles.day}>
-              <div style={styles.dayName}>{d}</div>
 
               <div
                 style={{
-                  ...styles.weekDot,
-                  background: week?.[i] ? "#111" : "transparent",
+                  ...styles.progressXP,
+                  left: `${markerPosition}%`,
+                }}
+              >
+                {score ?? 0} XP
+              </div>
+
+              <div
+                style={{
+                  ...styles.markerDot,
+                  left: `${markerPosition}%`,
                 }}
               />
             </div>
-          ))}
+          </div>
+        </div>
+
+        <div style={styles.horizontalDivider} />
+
+        {/* KPI ROW */}
+        <div style={styles.kpiRow}>
+          {/* SCORE */}
+          <div style={styles.statBlock}>
+            <Target size={18} style={styles.icon} />
+            <div style={styles.statLabel}>Score</div>
+            <div style={styles.statValue}>
+              {score ?? 0}
+            </div>
+          </div>
+
+          <div style={styles.divider} />
+
+          {/* LEVEL */}
+          <div style={styles.statBlock}>
+            <TrendingUp size={18} style={styles.icon} />
+            <div style={styles.statLabel}>Level</div>
+            <div style={styles.statValue}>
+              {scoreLevel ?? 1}
+            </div>
+          </div>
+
+          <div style={styles.divider} />
+
+          {/* STREAK */}
+          <div style={styles.statBlock}>
+            <Flame size={18} style={styles.icon} />
+            <div style={styles.statLabel}>Streak</div>
+            <div style={styles.statValue}>
+              {streak ?? 0}
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
   );
 }
@@ -83,96 +135,142 @@ const styles: any = {
     gap: 14,
   },
 
-  topRow: {
-    display: "flex",
-    gap: 12,
-  },
-
-  card: {
-    flex: 1,
+  statsCard: {
     background: "#fff",
     border: "1px solid #eee",
-    borderRadius: 8,
-    padding: 10,
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+
+  header: {
+    display: "flex",
+    alignItems: "center",
+    padding: "16px 18px",
+  },
+
+  avatar: {
+    width: 42,
+    height: 42,
+    borderRadius: "50%",
+    background: "#f5f5f5",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 20,
+    flexShrink: 0,
+  },
+
+  userInfo: {
+    marginLeft: 12,
+  },
+
+  greeting: {
+    fontSize: 11,
+    color: "#999",
+    fontWeight: 500,
+  },
+
+  userName: {
+    fontSize: 16,
+    fontWeight: 700,
+    color: "#222",
+  },
+
+  levelSide: {
+    flex: 1,
+    marginLeft: 20,
+  },
+
+  levelLabels: {
+    display: "flex",
+    justifyContent: "space-between",
+    fontSize: 12,
+    color: "#666",
+    marginBottom: 12,
+  },
+
+  headerProgress: {
+    position: "relative",
+    width: "100%",
+    height: 8,
+    background: "#ececec",
+    borderRadius: 999,
+  },
+
+  horizontalDivider: {
+    height: 1,
+    background: "#f2f2f2",
+  },
+
+  kpiRow: {
+    display: "flex",
+    alignItems: "stretch",
+    padding: "16px 0",
+  },
+
+  statBlock: {
+    flex: 1,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "center",
+    gap: 6,
   },
 
-  label: {
-    fontSize: 12,
-    color: "#666",
+  icon: {
+    color: "#222",
+    marginBottom: 2,
+  },
+
+  statLabel: {
+    fontSize: 11,
+    fontWeight: 500,
+    color: "#555",
+  },
+
+  statValue: {
+    fontSize: 22,
+    fontWeight: 700,
+    color: "#222",
+    lineHeight: 1,
+  },
+
+  divider: {
+    width: 1,
+    background: "#f1f1f1",
+    marginTop: 6,
     marginBottom: 6,
   },
 
-  score: {
-    fontSize: 44,
-    fontWeight: 800,
-    lineHeight: 1,
-  },
-
-  level: {
-    fontSize: 26,
-    fontWeight: 900,   // مهم: بولد واقعی
-    lineHeight: 1,
-    marginBottom: 8,
-  },
-
-  progressWrap: {
-    width: "100%",
-  },
-
-  progressBar: {
-    height: 6,
-    width: "100%",
-    background: "#eee",
-    borderRadius: 999,
-    overflow: "hidden",
-  },
-
   progressFill: {
+    position: "absolute",
+    left: 0,
+    top: 0,
     height: "100%",
     background: "#111",
     borderRadius: 999,
     transition: "width 0.3s ease",
   },
 
-  bottomCard: {
-    padding: 18,
-    borderRadius: 8,
-    background: "#fff",
-    border: "1px solid #eee",
-    textAlign: "center",
+  progressXP: {
+    position: "absolute",
+    top: -26,
+    transform: "translateX(-50%)",
+    fontSize: 11,
+    fontWeight: 600,
+    color: "#111",
+    whiteSpace: "nowrap",
   },
 
-  streakLabel: {
-    fontSize: 16,
-    fontWeight: 700,
-    marginBottom: 10,
-  },
-
-  weekRow: {
-    display: "flex",
-    justifyContent: "center",
-    gap: 14,
-  },
-
-  day: {
-    textAlign: "center",
-  },
-
-  dayName: {
-    fontSize: 10,
-    color: "#888",
-  },
-
-  weekDot: {
-    width: 10,
-    height: 10,
+  markerDot: {
+    position: "absolute",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 12,
+    height: 12,
     borderRadius: "50%",
-    border: "1px solid #111",
-    marginTop: 2,
+    background: "#111",
+    border: "2px solid white",
+    boxShadow: "0 0 0 1px #ddd",
   },
 };

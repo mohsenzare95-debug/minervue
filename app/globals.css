@@ -64,7 +64,7 @@ button {
   margin: 0 auto;
 
   padding: var(--container-padding);
-  padding-bottom: 90px;
+  padding-bottom: 110px;
 
   display: flex;
   flex-direction: column;

@@ -1,3 +1,4 @@
+//features\auth\components\ProfileCard.tsx
 import { useSignOut } from "../hooks/useSignOut";
 
 export function ProfileCard({

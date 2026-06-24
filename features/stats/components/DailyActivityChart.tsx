@@ -33,13 +33,29 @@ export default function DailyActivityChart({
       <div style={styles.header}>
         <div style={styles.titleBlock}>
           <div style={styles.topTitle}>Daily Activity</div>
-          <div style={styles.subTitle}>based on cards number</div>
+          <div style={styles.subTitle}>
+            based on cards number
+          </div>
         </div>
 
         <div style={styles.nav}>
-          <button onClick={onPrevMonth} style={styles.navBtn}>←</button>
-          <div style={styles.monthTitle}>{monthLabel}</div>
-          <button onClick={onNextMonth} style={styles.navBtn}>→</button>
+          <button
+            onClick={onPrevMonth}
+            style={styles.navBtn}
+          >
+            ←
+          </button>
+
+          <div style={styles.monthTitle}>
+            {monthLabel}
+          </div>
+
+          <button
+            onClick={onNextMonth}
+            style={styles.navBtn}
+          >
+            →
+          </button>
         </div>
       </div>
 
@@ -51,7 +67,8 @@ export default function DailyActivityChart({
             .slice()
             .reverse()
             .map((tick, i) => {
-              const perc = (tick / maxScale) * 100;
+              const perc =
+                (tick / maxScale) * 100;
 
               return (
                 <div
@@ -72,7 +89,8 @@ export default function DailyActivityChart({
           {/* GRID */}
           <div style={styles.grid}>
             {sortedTicks.map((tick, i) => {
-              const perc = (tick / maxScale) * 100;
+              const perc =
+                (tick / maxScale) * 100;
 
               return (
                 <div
@@ -89,11 +107,21 @@ export default function DailyActivityChart({
           {/* BARS */}
           <div style={styles.bars}>
             {data.map((d, i) => {
-              const ratio = maxScale > 0 ? d.value / maxScale : 0;
-              const height = Math.max(6, ratio * CHART_HEIGHT);
+              const ratio =
+                maxScale > 0
+                  ? d.value / maxScale
+                  : 0;
+
+              const height = Math.max(
+                6,
+                ratio * CHART_HEIGHT
+              );
 
               return (
-                <div key={i} style={styles.barWrap}>
+                <div
+                  key={i}
+                  style={styles.barWrap}
+                >
                   <div
                     style={{
                       ...styles.bar,
@@ -113,10 +141,13 @@ export default function DailyActivityChart({
   );
 }
 
-const styles: Record<string, React.CSSProperties> = {
+const styles: Record<
+  string,
+  React.CSSProperties
+> = {
   wrapper: {
     width: "100%",
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
     background: "var(--card)",
     border: "1px solid var(--border)",
@@ -206,8 +237,8 @@ const styles: Record<string, React.CSSProperties> = {
     position: "absolute",
     left: 0,
     right: 0,
-    height: 1,
-    background: "rgba(0,0,0,0.08)",
+    height: 0,
+    borderTop: "1px dashed rgba(0,0,0,0.12)",
   },
 
   bars: {

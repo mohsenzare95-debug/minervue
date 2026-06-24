@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, BarChart3, Settings } from "lucide-react";
 
+const CONTAINER_WIDTH = 480;
+
 export default function Navbar() {
   const pathname = usePathname();
 
@@ -26,7 +28,6 @@ export default function Navbar() {
         return (
           <Link key={tab.href} href={tab.href} style={styles.link}>
             <div style={styles.item}>
-              
               {/* ICON (no size change at all) */}
               <div style={styles.iconWrap}>
                 <Icon size={26} color={isActive ? "#000" : "#999"} />
@@ -61,15 +62,34 @@ export default function Navbar() {
 const styles = {
   wrapper: {
     position: "fixed",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 76,
-    background: "#fff",
-    borderTop: "1px solid #eee",
+
+    left: "50%",
+    transform: "translateX(-50%)",
+
+    bottom: 16,
+
+    width: "calc(100% - 32px)",
+    maxWidth: CONTAINER_WIDTH - 32,
+
+    height: 72,
+
     display: "flex",
+
     padding: "0 12px",
+
     zIndex: 1000,
+
+    background: "rgba(255,255,255,0.75)",
+
+    backdropFilter: "blur(20px) saturate(180%)",
+    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+
+    border: "1px solid rgba(255,255,255,0.4)",
+
+    borderRadius: 24,
+
+    boxShadow:
+      "0 8px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
   },
 
   link: {
