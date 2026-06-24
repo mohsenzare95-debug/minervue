@@ -1,3 +1,4 @@
+//features\auth\components\SignInForm.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,8 +7,12 @@ import { useForgetPassword } from "../hooks/useForgetPassword";
 
 export function SignInForm({
   onClose,
+  onSwitchToSignup,
+  message,
 }: {
   onClose: () => void;
+  onSwitchToSignup: () => void;
+  message?: string;
 }) {
   const { signIn, loading, error } = useSignIn();
 
@@ -44,24 +49,23 @@ export function SignInForm({
   }, [onClose]);
 
   async function handleSubmit() {
-  if (!email || !password) return;
+    if (!email || !password) return;
 
-  const success = await signIn(
-    email.trim(),
-    password
-  );
+    const success = await signIn(
+      email.trim(),
+      password
+    );
 
-  // close modal after successful login
-  if (success) {
-    onClose();
+    if (success) {
+      onClose();
+    }
   }
-}
 
-async function handleResetPassword() {
-  if (!email) return;
+  async function handleResetPassword() {
+    if (!email) return;
 
-  await sendReset(email.trim());
-}
+    await sendReset(email.trim());
+  }
 
   function handleKeyDown(
     e: React.KeyboardEvent<HTMLInputElement>
@@ -80,6 +84,15 @@ async function handleResetPassword() {
         style={styles.modal}
         onClick={(e) => e.stopPropagation()}
       >
+        {message && (
+          <>
+            <div style={styles.message}>
+              {message}
+            </div>
+            <div style={styles.messageDivider} />
+          </>
+        )}
+
         <h3 style={styles.title}>Sign In</h3>
 
         <input
@@ -105,15 +118,24 @@ async function handleResetPassword() {
         />
 
         <button
-  type="button"
-  style={styles.forgotBtn}
-  onClick={handleResetPassword}
-  disabled={resetLoading}
->
-  {resetLoading
-    ? "Sending..."
-    : "Forgot password?"}
-</button>
+          type="button"
+          style={styles.forgotBtn}
+          onClick={handleResetPassword}
+          disabled={resetLoading}
+        >
+          {resetLoading
+            ? "Sending..."
+            : "Forgot password?"}
+        </button>
+
+        {/* New switch button */}
+        <button
+          type="button"
+          style={styles.switchBtn}
+          onClick={onSwitchToSignup}
+        >
+          New here? Create an account
+        </button>
 
         {error && (
           <p style={styles.error}>
@@ -122,16 +144,16 @@ async function handleResetPassword() {
         )}
 
         {resetError && (
-  <p style={styles.error}>
-    {resetError}
-  </p>
-)}
+          <p style={styles.error}>
+            {resetError}
+          </p>
+        )}
 
-{resetSuccess && (
-  <p style={styles.success}>
-    Password reset email sent
-  </p>
-)}
+        {resetSuccess && (
+          <p style={styles.success}>
+            Password reset email sent
+          </p>
+        )}
 
         <div style={styles.actions}>
           <button
@@ -187,6 +209,20 @@ const styles: Record<
       "0 10px 40px rgba(0,0,0,0.25)",
   },
 
+  message: {
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: 500,
+    color: "#000000",
+    marginBottom: 10,
+  },
+
+  messageDivider: {
+    height: 1,
+    background: "#eee",
+    marginBottom: 16,
+  },
+
   title: {
     fontSize: 18,
     fontWeight: 700,
@@ -206,7 +242,7 @@ const styles: Record<
 
   actions: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     gap: 10,
     marginTop: 12,
   },
@@ -237,19 +273,32 @@ const styles: Record<
   },
 
   forgotBtn: {
-  background: "transparent",
-  border: "none",
-  padding: 0,
-  marginBottom: 12,
-  color: "#555",
-  fontSize: 13,
-  cursor: "pointer",
-},
+    background: "transparent",
+    border: "none",
+    padding: 0,
+    marginBottom: 12,
+    width: "100%",
+    textAlign: "center",
+    color: "#555",
+    fontSize: 13,
+    cursor: "pointer",
+  },
 
-success: {
-  color: "#188038",
-  fontSize: 13,
-  marginBottom: 10,
-},
+  switchBtn: {
+    background: "transparent",
+    border: "none",
+    padding: 0,
+    marginBottom: 12,
+    width: "100%",
+    textAlign: "center",
+    color: "#555",
+    fontSize: 13,
+    cursor: "pointer",
+  },
 
+  success: {
+    color: "#188038",
+    fontSize: 13,
+    marginBottom: 10,
+  },
 };

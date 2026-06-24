@@ -1,3 +1,4 @@
+//app\settings\page.tsx
 "use client";
 
 import { useState } from "react";
@@ -64,12 +65,24 @@ Rather than isolated theoretical facts, it is built around structured clinical r
 
       {/* MODALS */}
       {showLogin && (
-        <SignInForm onClose={() => setShowLogin(false)} />
-      )}
+  <SignInForm
+    onClose={() => setShowLogin(false)}
+    onSwitchToSignup={() => {
+      setShowLogin(false);
+      setShowSignup(true);
+    }}
+  />
+)}
 
-      {showSignup && (
-        <SignUpForm onClose={() => setShowSignup(false)} />
-      )}
+{showSignup && (
+  <SignUpForm
+    onClose={() => setShowSignup(false)}
+    onSwitchToSignin={() => {
+      setShowSignup(false);
+      setShowLogin(true);
+    }}
+  />
+)}
     </div>
   );
 }

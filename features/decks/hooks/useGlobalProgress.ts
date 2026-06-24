@@ -3,7 +3,11 @@
 import { useEffect, useState, useCallback } from "react";
 
 import { clientState } from "@/shared/state/client/clientState";
-import { computeScore } from "@/features/lib/globalprogressCore";
+import {
+  computeScore,
+  computeDayStreak,
+} from "@/features/lib/globalprogressCore";
+
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import { buildProgressFromEvents } from "@/shared/storage/local/buildProgressFromEvents";
 
@@ -78,29 +82,24 @@ export function useGlobalProgress() {
 
     console.log("🃏 [ALL CARDS]", allCards);
 
-    console.log(
-      "🃏 [CARD STREAKS]",
-      allCards.map((c: any) => ({
-        cardId: c.cardId,
-        streak: c.streak,
-      }))
-    );
-
+    // ======================
+    // SCORE (CARD-BASED)
+    // ======================
     const scoreValue = computeScore(allCards as any);
 
-    console.log("🎯 [SCORE CALC]", scoreValue);
+    // ======================
+    // STREAK (DAY-BASED)
+    // ======================
+    const streakValue = computeDayStreak(allCards as any);
 
-    setScore(scoreValue);
-    setLevelProgress(getLevelProgress(scoreValue));
-
-    let streakSum = 0;
+    // ======================
+    // WEEK CALC (activity days)
+    // ======================
     const days = new Set<string>();
 
     for (const deck of Object.values(progress)) {
       for (const card of Object.values(deck || {})) {
         const c = card as any;
-
-        streakSum += c?.streak ?? 0;
 
         if (c?.updatedAt) {
           days.add(new Date(c.updatedAt).toDateString());
@@ -108,12 +107,17 @@ export function useGlobalProgress() {
       }
     }
 
-    setStreak(streakSum);
+    // ======================
+    // STATE UPDATES
+    // ======================
+    setScore(scoreValue);
+    setStreak(streakValue);
     setWeek(computeWeek(days));
+    setLevelProgress(getLevelProgress(scoreValue));
 
     console.log("📊 [FINAL GLOBAL PROGRESS]", {
       score: scoreValue,
-      streak: streakSum,
+      streak: streakValue,
       week: Array.from(days),
     });
   }, [state.progress]);
@@ -146,7 +150,7 @@ export function useGlobalProgress() {
   }, []);
 
   // ======================
-  // DEBUG STATE (TEMP ONLY)
+  // DEBUG STATE
   // ======================
   const debug = {
     rawProgress: state.progress,
@@ -161,7 +165,7 @@ export function useGlobalProgress() {
   // ======================
   return {
     score,
-    streak,
+    streak, // now: day streak (NOT card sum)
     week,
     scoreLevel: levelProgress.level,
     levelProgress,

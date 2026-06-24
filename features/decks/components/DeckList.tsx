@@ -15,6 +15,8 @@ import { useSubscription } from "@/features/subscription/hook/useSubscription";
 import { clientState } from "@/shared/state/client/clientState";
 
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
+import { SignInForm } from "@/features/auth/components/SignInForm";
+import { SignUpForm } from "@/features/auth/components/SignUpForm";
 
 type Deck = any;
 
@@ -29,15 +31,14 @@ export default function DeckList({
   const [targetDeck, setTargetDeck] = useState<Deck | null>(null);
   const [buyDeck, setBuyDeck] = useState<Deck | null>(null);
   const [purchaseDeck, setPurchaseDeck] = useState<Deck | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);   // ← اضافه شد
 
   const router = useRouter();
   const { user } = useAuthSession();
   const subscription = useSubscription(user?.id ?? null);
 
-  // ✅ FORCE SUBSCRIPTION (IMPORTANT)
-  const state = clientState.useStore();
-
-  console.log("RERENDER CHECK", Math.random());
+  clientState.useStore();
 
   useEffect(() => {
     setMounted(true);
@@ -66,6 +67,15 @@ export default function DeckList({
                 opacity: isUnlocked ? 1 : 0.4,
               }}
               onClick={(e) => {
+                // 🔴 NOT LOGGED IN → show modal
+                if (!user) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowLogin(true);
+                  return;
+                }
+
+                // 🔴 LOCKED DECK → buy flow
                 if (!isUnlocked) {
                   e.preventDefault();
                   e.stopPropagation();
@@ -135,6 +145,7 @@ export default function DeckList({
         );
       })}
 
+      {/* RESET MODAL */}
       <ConfirmResetModal
         open={!!targetDeck}
         onCancel={() => setTargetDeck(null)}
@@ -146,6 +157,7 @@ export default function DeckList({
         }}
       />
 
+      {/* BUY MODAL */}
       {buyDeck && (
         <div style={modalStyles.backdrop}>
           <div style={modalStyles.box}>
@@ -182,6 +194,7 @@ export default function DeckList({
         </div>
       )}
 
+      {/* PURCHASE CONFIRM */}
       <ConfirmPurchaseModal
         open={!!purchaseDeck}
         deck={purchaseDeck}
@@ -190,15 +203,36 @@ export default function DeckList({
           router.push(`/purchase/${purchaseDeck?.key}`);
         }}
       />
+
+      {/* LOGIN MODAL */}
+      {showLogin && (
+        <SignInForm
+          message="For reviewing flashcards, you need to sign in."
+          onClose={() => setShowLogin(false)}
+          onSwitchToSignup={() => {
+            setShowLogin(false);
+            setShowSignup(true);
+          }}
+        />
+      )}
+
+      {/* SIGNUP MODAL */}
+      {showSignup && (
+        <SignUpForm
+          message="Create an account to continue."
+          onClose={() => setShowSignup(false)}
+          onSwitchToSignin={() => {
+            setShowSignup(false);
+            setShowLogin(true);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-/**
- * ✅ IMPORTANT:
- * Using inline object without explicit CSSProperties typing
- * prevents Next.js/Vercel TS strict widening issues.
- */
+/* ====================== */
+
 const styles = {
   list: {
     display: "flex",

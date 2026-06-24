@@ -1,13 +1,17 @@
+//features\auth\components\SignUpForm.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
 
-
 export function SignUpForm({
   onClose,
+  onSwitchToSignin,
+  message,
 }: {
   onClose: () => void;
+  onSwitchToSignin: () => void;
+  message?: string;
 }) {
   const { signUp, loading, error } = useSignUp();
 
@@ -33,18 +37,18 @@ export function SignUpForm({
   }, [onClose]);
 
   async function handleSubmit() {
-  if (!username || !email || !password) return;
+    if (!username || !email || !password) return;
 
-const success = await signUp(
-  username.trim(),
-  email.trim(),
-  password
-);
+    const success = await signUp(
+      username.trim(),
+      email.trim(),
+      password
+    );
 
-  if (success === true) {
-    onClose();
+    if (success === true) {
+      onClose();
+    }
   }
-}
 
   function handleKeyDown(
     e: React.KeyboardEvent<HTMLInputElement>
@@ -60,15 +64,25 @@ const success = await signUp(
         style={styles.modal}
         onClick={(e) => e.stopPropagation()}
       >
+
+         {message && (
+          <>
+            <div style={styles.message}>
+              {message}
+            </div>
+            <div style={styles.messageDivider} />
+          </>
+        )}
+        
         <h3 style={styles.title}>Sign Up</h3>
 
-        <input
-  style={styles.input}
-  placeholder="Username"
-  value={username}
-  onChange={(e) => setUsername(e.target.value)}
-  onKeyDown={handleKeyDown}
-/>
+               <input
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
 
         <input
           style={styles.input}
@@ -87,6 +101,14 @@ const success = await signUp(
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleKeyDown}
         />
+
+        <button
+          type="button"
+          style={styles.switchBtn}
+          onClick={onSwitchToSignin}
+        >
+          Already have an account?
+        </button>
 
         {error && (
           <p style={styles.error}>{error}</p>
@@ -157,7 +179,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   actions: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     gap: 10,
     marginTop: 12,
   },
@@ -184,5 +206,32 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#d11a2a",
     fontSize: 13,
     marginBottom: 10,
+  },
+
+  switchBtn: {
+    background: "transparent",
+    border: "none",
+    padding: 0,
+    marginBottom: 12,
+    width: "100%",
+    textAlign: "center",
+    color: "#555",
+    fontSize: 13,
+    cursor: "pointer",
+  },
+
+  // New styles for message
+  message: {
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: 500,
+    color: "#000000",
+    marginBottom: 10,
+  },
+
+  messageDivider: {
+    height: 1,
+    background: "#eee",
+    marginBottom: 16,
   },
 };
