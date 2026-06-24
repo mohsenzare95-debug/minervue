@@ -6,6 +6,8 @@ import { useSyncExternalStore } from "react";
 import type { AllProgress } from "@/shared/types/progress";
 import type { AppEvent } from "@/shared/types/events";
 
+const PROGRESS_CACHE_KEY = "progress_cache_v1";
+
 type SyncStatus = "idle" | "syncing" | "error";
 
 type State = {
@@ -16,10 +18,22 @@ type State = {
   progress: AllProgress;
 };
 
+function loadProgress(): AllProgress {
+  if (typeof window === "undefined") return {};
+
+  try {
+    return JSON.parse(
+      localStorage.getItem(PROGRESS_CACHE_KEY) || "{}"
+    );
+  } catch {
+    return {};
+  }
+}
+
 let state: State = {
   syncStatus: "idle",
   lastSyncAt: undefined,
-  progress: {},
+  progress: loadProgress(),
 };
 
 const listeners = new Set<() => void>();
@@ -81,6 +95,14 @@ export const clientState = {
         ? Object.freeze(structuredClone(next.progress))
         : Object.freeze(structuredClone(state.progress)),
     };
+
+    // Persist progress to localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        PROGRESS_CACHE_KEY,
+        JSON.stringify(state.progress)
+      );
+    }
 
     console.log("📤 [SET STATE OUTPUT]", {
       decks: Object.keys(state.progress || {}).length,
@@ -144,6 +166,14 @@ export const clientState = {
       ...state,
       progress,
     };
+
+    // Persist progress to localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        PROGRESS_CACHE_KEY,
+        JSON.stringify(progress)
+      );
+    }
 
     emit();
   },
