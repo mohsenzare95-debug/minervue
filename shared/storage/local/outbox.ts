@@ -95,6 +95,13 @@ export const outbox = {
   },
 
   // ======================
+  // GET PENDING EVENTS (CONVENIENCE)
+  // ======================
+  getPendingEvents(): AppEvent[] {
+    return this.getPending().map((e) => e.event);
+  },
+
+  // ======================
   // MARK SENT
   // ======================
   markSent(id: string) {

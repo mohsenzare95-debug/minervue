@@ -1,5 +1,6 @@
 //shared\storage\local\reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
+import { outbox } from "@/shared/storage/local/outbox";
 
 const KEY = "review_logs_v3";
 
@@ -151,9 +152,8 @@ export const reviewLogStorage = {
   // SYNC PIPELINE (PURE MERGE)
   // ======================
   mergeServerEvents(serverEvents: any[]): AppEvent[] {
-    const local = readStream();
-
-    const safeLocal = local
+    const safeLocal = outbox
+      .getPendingEvents()
       .map(normalizeEvent)
       .filter(Boolean) as AppEvent[];
 
