@@ -113,7 +113,7 @@ const styles: any = {
   position: "relative",
   zIndex: 20,
 
-  fontSize: 38,
+  fontSize: 18,
   fontWeight: 400,
   letterSpacing: "-1px",
   lineHeight: 1.1,

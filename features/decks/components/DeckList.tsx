@@ -276,7 +276,7 @@ cardShadow: {
 
   height: 24,
 
-  background: "#0000009c",
+  background: "#1e4d559c",
 
   borderRadius: 7,
 
@@ -322,7 +322,7 @@ miniDivider: {
   width: 26,
   height: 4,
   borderRadius: 999,
-  background: "#000000",
+  background: "#12444bdf",
   margin: "0 auto 18px",
 },
 
@@ -353,7 +353,7 @@ footerBtn: {
   gap: 6,
   alignItems: "center",
   cursor: "pointer",
-  color: "#000000",
+  color: "#12444bdf",
 
   fontSize: 13,
 },
@@ -363,7 +363,7 @@ addCard: {
 
   borderRadius: 8,
 
-  border: "2px dashed #000000",
+  border: "2px dashed #1e4d559c",
 
   display: "flex",
 
@@ -392,7 +392,7 @@ plus: {
 
   bar: {
     height: 9,
-    background: "#eee",
+    background: "#1e4d559c",
     borderRadius: 9999,
     marginTop: 10,
     overflow: "hidden",
@@ -400,7 +400,7 @@ plus: {
 
   fill: {
     height: "100%",
-    background: "#000000",
+    background: "#12444bdf",
     borderRadius: 9999,
     transition: "width 0.3s ease",
   },

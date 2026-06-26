@@ -198,13 +198,13 @@ const styles: any = {
     position: "relative",
     width: "100%",
     height: 8,
-    background: "#ececec",
+    background: "#1e4d559c",
     borderRadius: 999,
   },
 
   horizontalDivider: {
     height: 1,
-    background: "#f2f2f2",
+    background: "#1e4d559c",
   },
 
   kpiRow: {
@@ -242,7 +242,7 @@ const styles: any = {
 
   divider: {
     width: 1,
-    background: "#f1f1f1",
+    background: "#1e4d559c",
     marginTop: 6,
     marginBottom: 6,
   },
@@ -252,7 +252,7 @@ const styles: any = {
     left: 0,
     top: 0,
     height: "100%",
-    background: "#111",
+    background: "#12444bdf",
     borderRadius: 999,
     transition: "width 0.3s ease",
   },
@@ -274,7 +274,7 @@ const styles: any = {
     width: 12,
     height: 12,
     borderRadius: "50%",
-    background: "#111",
+    background: "#12444bdf",
     border: "2px solid white",
     boxShadow: "0 0 0 1px #ddd",
   },
