@@ -1,4 +1,4 @@
-//features/decks/components/DeckList.tsx
+// features/decks/components/DeckList.tsx
 "use client";
 
 import Link from "next/link";
@@ -20,28 +20,32 @@ import { SignUpForm } from "@/features/auth/components/SignUpForm";
 import { Hourglass } from "lucide-react";
 import Image from "next/image";
 
-
 type Deck = any;
 
 export default function DeckList({
   decks,
-  getDeckProgress, }: {decks: Deck[]; getDeckProgress: (deck: Deck) => { percent: number };}) {
+  getDeckProgress,
+}: {
+  decks: Deck[];
+  getDeckProgress: (deck: Deck) => { percent: number };
+}) {
   const [mounted, setMounted] = useState(false);
   const [targetDeck, setTargetDeck] = useState<Deck | null>(null);
   const [buyDeck, setBuyDeck] = useState<Deck | null>(null);
   const [purchaseDeck, setPurchaseDeck] = useState<Deck | null>(null);
   const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);   // ← اضافه شد
+  const [showSignup, setShowSignup] = useState(false);
+  
   const router = useRouter();
   const { user } = useAuthSession();
   const subscription = useSubscription(user?.id ?? null);
-  const deckImages: Record<string, string> = {
-  cataract: "/deck-icons/cataract3.png",
-  uveitis: "/deck-icons/uveitis2.png",
-  glaucoma: "/deck-icons/glaucoma2.png",
-};
 
-  
+  const deckImages: Record<string, string> = {
+    cataract: "/deck-icons/cataract3.png",
+    uveitis: "/deck-icons/uveitis2.png",
+    glaucoma: "/deck-icons/glaucoma2.png",
+  };
+
   clientState.useStore();
 
   useEffect(() => {
@@ -51,6 +55,9 @@ export default function DeckList({
   if (!mounted) {
     return <div style={{ padding: 16 }}>Loading decks...</div>;
   }
+
+  // دیباگ کاربر (قبل از رندر اصلی)
+  console.log("👤 DeckList user", user);
 
   return (
     <div style={styles.list}>
@@ -64,107 +71,104 @@ export default function DeckList({
 
         return (
           <div key={deck.key} style={styles.cardWrapper}>
-  <div style={styles.cardShadow} />
+            <div style={styles.cardShadow} />
 
-  <div style={styles.card}>
-    <Link
-      href={isUnlocked ? `/deck/${deck.key}` : "#"}
-      style={{
-        ...styles.link,
-        opacity: isUnlocked ? 1 : 0.4,
-      }}
-      onClick={(e) => {
-        if (!user) {
-          e.preventDefault();
-          e.stopPropagation();
-          setShowLogin(true);
-          return;
-        }
+            <div style={styles.card}>
+              <Link
+                href={isUnlocked ? `/deck/${deck.key}` : "#"}
+                style={{
+                  ...styles.link,
+                  opacity: isUnlocked ? 1 : 0.4,
+                }}
+                onClick={(e) => {
+                  if (!user) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setShowLogin(true);
+                    return;
+                  }
 
-        if (!isUnlocked) {
-          e.preventDefault();
-          e.stopPropagation();
-          setBuyDeck(deck);
-        }
-      }}
-    >
-      {/* icon */}
-      <div style={styles.iconWrap}>
-  <Image
-    src={deckImages[deck.key]}
-    alt={deck.name}
-    width={72}
-    height={72}
-    style={{
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      borderRadius: "50%",
-    }}
-  />
-</div>
+                  if (!isUnlocked) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setBuyDeck(deck);
+                  }
+                }}
+              >
+                {/* icon */}
+                <div style={styles.iconWrap}>
+                  <Image
+                    src={deckImages[deck.key]}
+                    alt={deck.name}
+                    width={72}
+                    height={72}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
 
-      {/* title */}
-      <div style={styles.deckTitle}
-  >
-  {deck.name}
-</div>
+                {/* title */}
+                <div style={styles.deckTitle}>{deck.name}</div>
 
-      {/* divider */}
-      <div style={styles.miniDivider} />
+                {/* divider */}
+                <div style={styles.miniDivider} />
 
-      {/* cards + percent */}
-      <div style={styles.metaRow}>
-        <span>{deck.cards.length} cards</span>
-        <span>{percent}%</span>
-      </div>
+                {/* cards + percent */}
+                <div style={styles.metaRow}>
+                  <span>{deck.cards.length} cards</span>
+                  <span>{percent}%</span>
+                </div>
 
-      {/* progress */}
-      <div style={styles.bar}>
-        <div
-          style={{
-            ...styles.fill,
-            width: `${percent}%`,
-          }}
-        />
-      </div>
+                {/* progress */}
+                <div style={styles.bar}>
+                  <div
+                    style={{
+                      ...styles.fill,
+                      width: `${percent}%`,
+                    }}
+                  />
+                </div>
 
-      {/* footer */}
-      <div style={styles.footer}>
-        <button
-          style={styles.footerBtn}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            router.push(`/deck/${deck.key}/review`);
-          }}
-        >
-          <Eye size={14} />
-          View
-        </button>
+                {/* footer */}
+                <div style={styles.footer}>
+                  <button
+                    style={styles.footerBtn}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      router.push(`/deck/${deck.key}/review`);
+                    }}
+                  >
+                    <Eye size={14} />
+                    View
+                  </button>
 
-        <button
-          style={styles.footerBtn}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setTargetDeck(deck);
-          }}
-        >
-          <RefreshCw size={14} />
-          Reset
-        </button>
-      </div>
-    </Link>
-  </div>
-</div>
+                  <button
+                    style={styles.footerBtn}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setTargetDeck(deck);
+                    }}
+                  >
+                    <RefreshCw size={14} />
+                    Reset
+                  </button>
+                </div>
+              </Link>
+            </div>
+          </div>
         );
       })}
 
       <div style={styles.addCard}>
-  <Hourglass size={24} />
-  <div>New Decks Coming Soon</div>
-</div>
+        <Hourglass size={24} />
+        <div>New Decks Coming Soon</div>
+      </div>
 
       {/* RESET MODAL */}
       <ConfirmResetModal
@@ -172,7 +176,7 @@ export default function DeckList({
         onCancel={() => setTargetDeck(null)}
         onConfirm={() => {
           if (targetDeck) {
-            resetDeckLifecycle(targetDeck.key);
+            resetDeckLifecycle(targetDeck.key, user?.id ?? null);
             setTargetDeck(null);
           }
         }}
@@ -256,136 +260,111 @@ export default function DeckList({
 
 const styles = {
   list: {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: 16,
-},
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 16,
+  },
 
-cardWrapper: {
-  position: "relative",
-},
+  cardWrapper: {
+    position: "relative",
+  },
 
-cardShadow: {
-  position: "absolute",
+  cardShadow: {
+    position: "absolute",
+    top: -11,
+    left: "4%",
+    width: "92%",
+    height: 24,
+    background: "#1e4d559c",
+    borderRadius: 7,
+    transform: "rotate(-1deg)",
+    transformOrigin: "center",
+    zIndex: 0,
+  },
 
-  top: -11,
+  card: {
+    position: "relative",
+    background: "#fefefe",
+    borderRadius: 8,
+    border: "1px solid #F3F3F3",
+    minHeight: 250,
+    padding: 20,
+    zIndex: 1,
+  },
 
-  left: "4%",
+  iconWrap: {
+    width: 92,
+    height: 92,
+    overflow: "hidden",
+    borderRadius: "50%",
+    margin: "0 auto 18px",
+  },
 
-  width: "92%",
+  deckTitle: {
+    textAlign: "center",
+    fontSize: 18,
+    marginBottom: 10,
+  },
 
-  height: 24,
+  miniDivider: {
+    width: 26,
+    height: 4,
+    borderRadius: 999,
+    background: "#12444bdf",
+    margin: "0 auto 18px",
+  },
 
-  background: "#1e4d559c",
+  metaRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    fontSize: 13,
+    color: "#666",
+    marginBottom: 10,
+  },
 
-  borderRadius: 7,
+  footer: {
+    marginTop: 18,
+    paddingTop: 14,
+    borderTop: "1px solid #EEE",
+    display: "flex",
+    justifyContent: "space-around",
+  },
 
-  transform: "rotate(-1deg)",
+  footerBtn: {
+    border: "none",
+    background: "transparent",
+    display: "flex",
+    gap: 6,
+    alignItems: "center",
+    cursor: "pointer",
+    color: "#12444bdf",
+    fontSize: 13,
+  },
 
-  transformOrigin: "center",
-
-  zIndex: 0,
-},
-
-card: {
-  position: "relative",
-
-  background: "#fefefe",
-
-  borderRadius: 8,
-
-  border: "1px solid #F3F3F3",
-
-  minHeight: 250,
-
-  padding: 20,
-
-  zIndex: 1,
-},
-
-iconWrap: {
-  width: 92,
-  height: 92,
-  overflow: "hidden",
-  borderRadius: "50%",
-  margin: "0 auto 18px",
-},
-
-deckTitle: {
-  textAlign: "center",
-
-  fontSize: 18,
-  marginBottom: 10,
-},
-
-miniDivider: {
-  width: 26,
-  height: 4,
-  borderRadius: 999,
-  background: "#12444bdf",
-  margin: "0 auto 18px",
-},
-
-metaRow: {
-  display: "flex",
-  justifyContent: "space-between",
-  fontSize: 13,
-  color: "#666",
-  marginBottom: 10,
-},
-
-footer: {
-  marginTop: 18,
-
-  paddingTop: 14,
-
-  borderTop: "1px solid #EEE",
-
-  display: "flex",
-
-  justifyContent: "space-around",
-},
-
-footerBtn: {
-  border: "none",
-  background: "transparent",
-  display: "flex",
-  gap: 6,
-  alignItems: "center",
-  cursor: "pointer",
-  color: "#12444bdf",
-
-  fontSize: 13,
-},
-
-addCard: {
-  minHeight: 250,
-  borderRadius: 8,
-  border: "2px dashed #1e4d559c",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#1e4d559c",
-  gap: 12,
-  textAlign: "center",
-fontSize: 14,
-padding: "0 10px",
-lineHeight: 1.3,
-fontWeight: 600,
-},
-
-plus: {
-  fontSize: 42,
-},
+  addCard: {
+    minHeight: 250,
+    borderRadius: 8,
+    border: "2px dashed #1e4d559c",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#1e4d559c",
+    gap: 12,
+    textAlign: "center",
+    fontSize: 14,
+    padding: "0 10px",
+    lineHeight: 1.3,
+    fontWeight: 600,
+  },
 
   link: {
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-  textDecoration: "none",
-  color: "#111",
-},
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    textDecoration: "none",
+    color: "#111",
+  },
 
   bar: {
     height: 9,

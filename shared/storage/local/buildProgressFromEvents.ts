@@ -65,6 +65,30 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
   console.log("[buildProgress] after sort:", sorted.length);
 
   // ======================
+// LAST RESET OF EACH DECK
+// ======================
+const lastReset = new Map<string, number>();
+
+for (const e of sorted) {
+  if (e.type !== "RESET") continue;
+
+  lastReset.set(e.deckKey, e.timestamp);
+}
+
+console.log("LAST RESET MAP", Object.fromEntries(lastReset));
+
+console.log(
+  "ALL RESET EVENTS",
+  sorted
+    .filter(e => e.type === "RESET")
+    .map(e => ({
+      deck: e.deckKey,
+      ts: e.timestamp,
+      card: e.cardId,
+    }))
+);
+
+  // ======================
   // 3. PROCESS EVENTS (STRICT FILTERING)
   // ======================
   let resetCount = 0;
@@ -83,21 +107,9 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
     // RESET HANDLING (ISOLATED)
     // ======================
     if (e.type === "RESET") {
-      resetCount++;
-
-      const deckKey = e.deckKey;
-
-      if (!deckKey) {
-        console.warn("[buildProgress] SKIP RESET (missing deckKey):", e);
-        skipped++;
-        continue;
-      }
-
-      console.log("[buildProgress] RESET deck:", deckKey);
-
-      state[deckKey] = {};
-      continue;
-    }
+  resetCount++;
+  continue;
+}
 
     // ======================
     // REVIEW HANDLING
@@ -105,6 +117,20 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
     reviewCount++;
 
     const { deckKey, cardId, timestamp, payload } = e;
+
+    const resetAt = lastReset.get(deckKey);
+
+    console.log("REVIEW VS RESET", {
+  deck: deckKey,
+  card: cardId,
+  review: timestamp,
+  reset: resetAt,
+  ignored: !!resetAt && timestamp < resetAt,
+});
+
+if (resetAt && timestamp < resetAt) {
+  continue;
+}
 
     // ❌ STRICT VALIDATION
     if (!deckKey || !cardId) {
@@ -181,6 +207,11 @@ export function buildProgressFromEvents(events: AppEvent[]): AllProgress {
     firstDeck: Object.keys(state)[0],
     sampleDeckState: Object.values(state)[0],
   });
+
+  console.log(
+  "FINAL BUILD STATE",
+  JSON.parse(JSON.stringify(state))
+);
 
   return structuredClone(state);
 }

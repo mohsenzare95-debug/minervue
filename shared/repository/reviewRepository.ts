@@ -126,17 +126,25 @@ export const reviewRepository = {
 
     console.log("🧱 [REPO RESET EVENT BUILT]", event);
 
+    // 🔥 DEBUG: بررسی وضعیت event قبل از اعتبارسنجی
+    console.log("EVENT BEFORE VALIDATION", event);
+
     if (!event.deckKey || !event.cardId || !event.userId) {
       console.error("[REVIEW REJECTED INVALID EVENT]", event);
       return;
     }
 
     reviewLogStorage.add(event);
+    console.log("1");
 
     // ✅ PATCH LOCAL PROGRESS IMMEDIATELY
     clientState.applyReviewEvent(event);
+    console.log("2");
 
     outbox.add(event);
+    console.log("3");
+
+    console.log("4");
 
     console.log("✅ [REPO RESET DONE]", {
       client_event_id: event.client_event_id,

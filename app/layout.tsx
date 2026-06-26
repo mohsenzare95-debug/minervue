@@ -9,6 +9,8 @@ import AppLoader from "./AppLoader";
 export const metadata: Metadata = {
   metadataBase: new URL("https://visosage.com"),
 
+  manifest: "/manifest.json",
+
   title: {
     default: "VisoSage – Ophthalmology Flashcards",
     template: "%s | VisoSage",

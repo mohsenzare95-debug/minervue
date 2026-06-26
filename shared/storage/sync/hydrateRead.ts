@@ -23,6 +23,20 @@ export async function hydrateRead(userId: string) {
     // ======================
     const merged = reviewLogStorage.mergeServerEvents(serverRows);
 
+    // 🔥 DEBUG: جزئیات دقیق از merged events
+    console.log(
+      "MERGED TYPES",
+      merged.reduce((acc, e) => {
+        acc[e.type] = (acc[e.type] ?? 0) + 1;
+        return acc;
+      }, {} as Record<string, number>)
+    );
+
+    console.log(
+      "MERGED RESETS",
+      merged.filter(e => e.type === "RESET")
+    );
+
     console.log("🔥 [HYDRATE] merged events:", merged.length);
 
     // ======================

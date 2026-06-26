@@ -1,4 +1,4 @@
-//shared\storage\local\reviewLogStorage.ts
+// shared/storage/local/reviewLogStorage.ts
 import type { AppEvent } from "@/shared/types/events";
 import { outbox } from "@/shared/storage/local/outbox";
 
@@ -23,6 +23,13 @@ function normalizeEvent(e: any): AppEvent | null {
     console.warn("[NORMALIZE DROP] missing deckKey", e);
     return null;
   }
+
+  // 🔥 DEBUG: بررسی نوع رویداد قبل از نرمال‌سازی
+  console.log("NORMALIZE TYPE", {
+    rawType: e.type,
+    rawEventType: e.event_type,
+    fullRaw: e,
+  });
 
   const event: AppEvent = {
     client_event_id: id,
@@ -90,6 +97,11 @@ export const reviewLogStorage = {
   getStream(): AppEvent[] {
     const stream = readStream();
 
+    console.log(
+      "RAW RESETS IN STORAGE",
+      stream.filter((e: any) => e.type === "RESET")
+    );
+
     return stream
       .map(normalizeEvent)
       .filter(Boolean)
@@ -140,7 +152,17 @@ export const reviewLogStorage = {
 
     const next = [...stream, normalized];
 
-    writeStream(next);
+writeStream(next);
+
+console.log(
+  "RESETS AFTER WRITE",
+  next.filter(e => e.type === "RESET")
+);
+
+    console.log(
+      "RESETS AFTER WRITE",
+      next.filter(e => e.type === "RESET")
+    );
 
     console.log("✅ [LOCAL ADD]", {
       id: normalized.client_event_id,
@@ -180,6 +202,15 @@ export const reviewLogStorage = {
     const normalized = events
       .map(normalizeEvent)
       .filter(Boolean);
+
+    console.log(
+      "RESET EVENTS IN REPLACE:",
+      normalized.filter(e => e.type === "RESET").length
+    );
+
+    console.log(
+      normalized.filter(e => e.type === "RESET")
+    );
 
     writeStream(normalized as AppEvent[]);
   },

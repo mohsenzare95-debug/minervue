@@ -1,7 +1,6 @@
 // shared/state/client/clientState.ts
 
 "use client";
-
 import { useSyncExternalStore } from "react";
 import type { AllProgress } from "@/shared/types/progress";
 import type { AppEvent } from "@/shared/types/events";
