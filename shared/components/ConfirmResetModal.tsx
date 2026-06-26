@@ -37,20 +37,24 @@ export default function ConfirmResetModal({
 
 const styles = {
   overlay: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(0,0,0,0.4)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  position: "fixed",
+  inset: 0,
+  background: "rgba(0,0,0,0.4)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 9999,
+  padding: 16,
+},
 
   modal: {
-    background: "#fff",
-    padding: 20,
-    borderRadius: 8,
-    width: 300,
-  },
+  width: "100%",
+  maxWidth: 380,
+  background: "#fff",
+  padding: 20,
+  borderRadius: 8,
+  boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
+},
 
   title: {
     textAlign: "center",
@@ -60,11 +64,11 @@ const styles = {
   },
 
   actions: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: 16,
-    gap: 10,
-  },
+  display: "flex",
+  justifyContent: "center",
+  marginTop: 16,
+  gap: 10,
+},
 
   cancelBtn: {
     flex: 1,
@@ -86,5 +90,6 @@ const styles = {
     color: "#fff",
     cursor: "pointer",
     fontWeight: 600,
+    
   },
 };
