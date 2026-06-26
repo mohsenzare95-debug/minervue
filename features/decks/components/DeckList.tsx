@@ -360,22 +360,19 @@ footerBtn: {
 
 addCard: {
   minHeight: 250,
-
   borderRadius: 8,
-
   border: "2px dashed #1e4d559c",
-
   display: "flex",
-
   flexDirection: "column",
-
   alignItems: "center",
-
   justifyContent: "center",
-
-  color: "#000000",
-
+  color: "#1e4d559c",
   gap: 12,
+  textAlign: "center",
+fontSize: 14,
+padding: "0 10px",
+lineHeight: 1.3,
+fontWeight: 600,
 },
 
 plus: {
