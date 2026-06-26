@@ -1,3 +1,4 @@
+// app/AppLoader.tsx
 "use client";
 
 import { useState } from "react";
@@ -10,9 +11,15 @@ export default function AppLoader({
 }) {
   const [showSplash, setShowSplash] = useState(true);
 
-  return showSplash ? (
-    <SplashScreen onFinish={() => setShowSplash(false)} />
-  ) : (
-    <>{children}</>
+  return (
+    <>
+      {/* محتوای اصلی همیشه رندر می‌شود (برای انیمیشن باز شدن پلک روی صفحه واقعی) */}
+      {children}
+
+      {/* اسپلش به صورت Overlay نمایش داده می‌شود */}
+      {showSplash && (
+        <SplashScreen onFinish={() => setShowSplash(false)} />
+      )}
+    </>
   );
 }
