@@ -1,10 +1,11 @@
+//app\layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import NavbarWrapper from "./NavbarWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import PostHogProvider from "@/features/analytics/PostHogProvider";
-
+import AppLoader from "./AppLoader";
 export const metadata: Metadata = {
   metadataBase: new URL("https://visosage.com"),
 
@@ -85,13 +86,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <PostHogProvider>
-          <main className="app">{children}</main>
-
-          <NavbarWrapper />
-
-          <Analytics />
-          <SpeedInsights />
-        </PostHogProvider>
+  <AppLoader>
+    <main className="app">{children}</main>
+    <NavbarWrapper />
+    <Analytics />
+    <SpeedInsights />
+  </AppLoader>
+</PostHogProvider>
       </body>
     </html>
   );

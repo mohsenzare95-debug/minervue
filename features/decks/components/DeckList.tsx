@@ -17,27 +17,31 @@ import { clientState } from "@/shared/state/client/clientState";
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
 import { SignInForm } from "@/features/auth/components/SignInForm";
 import { SignUpForm } from "@/features/auth/components/SignUpForm";
+import { Hourglass } from "lucide-react";
+import Image from "next/image";
+
 
 type Deck = any;
 
 export default function DeckList({
   decks,
-  getDeckProgress,
-}: {
-  decks: Deck[];
-  getDeckProgress: (deck: Deck) => { percent: number };
-}) {
+  getDeckProgress, }: {decks: Deck[]; getDeckProgress: (deck: Deck) => { percent: number };}) {
   const [mounted, setMounted] = useState(false);
   const [targetDeck, setTargetDeck] = useState<Deck | null>(null);
   const [buyDeck, setBuyDeck] = useState<Deck | null>(null);
   const [purchaseDeck, setPurchaseDeck] = useState<Deck | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);   // ← اضافه شد
-
   const router = useRouter();
   const { user } = useAuthSession();
   const subscription = useSubscription(user?.id ?? null);
+  const deckImages: Record<string, string> = {
+  cataract: "/deck-icons/cataract3.png",
+  uveitis: "/deck-icons/uveitis2.png",
+  glaucoma: "/deck-icons/glaucoma2.png",
+};
 
+  
   clientState.useStore();
 
   useEffect(() => {
@@ -59,91 +63,108 @@ export default function DeckList({
           unlockedDecksStorage.isUnlocked(deck.key);
 
         return (
-          <div key={deck.key} style={styles.card}>
-            <Link
-              href={isUnlocked ? `/deck/${deck.key}` : "#"}
-              style={{
-                ...styles.link,
-                opacity: isUnlocked ? 1 : 0.4,
-              }}
-              onClick={(e) => {
-                // 🔴 NOT LOGGED IN → show modal
-                if (!user) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setShowLogin(true);
-                  return;
-                }
+          <div key={deck.key} style={styles.cardWrapper}>
+  <div style={styles.cardShadow} />
 
-                // 🔴 LOCKED DECK → buy flow
-                if (!isUnlocked) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setBuyDeck(deck);
-                }
-              }}
-            >
-              <div style={styles.top}>
-                <div style={styles.titleRow}>
-                  <div>{deck.name}</div>
+  <div style={styles.card}>
+    <Link
+      href={isUnlocked ? `/deck/${deck.key}` : "#"}
+      style={{
+        ...styles.link,
+        opacity: isUnlocked ? 1 : 0.4,
+      }}
+      onClick={(e) => {
+        if (!user) {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowLogin(true);
+          return;
+        }
 
-                  {!isUnlocked && (
-                    <span
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setPurchaseDeck(deck);
-                      }}
-                      style={{ cursor: "pointer" }}
-                    >
-                      🔐
-                    </span>
-                  )}
+        if (!isUnlocked) {
+          e.preventDefault();
+          e.stopPropagation();
+          setBuyDeck(deck);
+        }
+      }}
+    >
+      {/* icon */}
+      <div style={styles.iconWrap}>
+  <Image
+    src={deckImages[deck.key]}
+    alt={deck.name}
+    width={72}
+    height={72}
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "50%",
+    }}
+  />
+</div>
 
-                  <span style={styles.count}>
-                    ({deck.cards.length} cards)
-                  </span>
-                </div>
+      {/* title */}
+      <div style={styles.deckTitle}
+  >
+  {deck.name}
+</div>
 
-                <div style={styles.right}>
-                  <button
-                    style={styles.eyeBtn}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      router.push(`/deck/${deck.key}/review`);
-                    }}
-                  >
-                    <Eye size={16} />
-                  </button>
+      {/* divider */}
+      <div style={styles.miniDivider} />
 
-                  <button
-                    style={styles.trashBtn}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setTargetDeck(deck);
-                    }}
-                  >
-                    <RefreshCw size={16} />
-                  </button>
+      {/* cards + percent */}
+      <div style={styles.metaRow}>
+        <span>{deck.cards.length} cards</span>
+        <span>{percent}%</span>
+      </div>
 
-                  <span style={styles.percent}>{percent}%</span>
-                </div>
-              </div>
+      {/* progress */}
+      <div style={styles.bar}>
+        <div
+          style={{
+            ...styles.fill,
+            width: `${percent}%`,
+          }}
+        />
+      </div>
 
-              <div style={styles.bar}>
-                <div
-                  style={{
-                    ...styles.fill,
-                    width: `${percent}%`,
-                  }}
-                />
-              </div>
-            </Link>
-          </div>
+      {/* footer */}
+      <div style={styles.footer}>
+        <button
+          style={styles.footerBtn}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.push(`/deck/${deck.key}/review`);
+          }}
+        >
+          <Eye size={14} />
+          View
+        </button>
+
+        <button
+          style={styles.footerBtn}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setTargetDeck(deck);
+          }}
+        >
+          <RefreshCw size={14} />
+          Reset
+        </button>
+      </div>
+    </Link>
+  </div>
+</div>
         );
       })}
+
+      <div style={styles.addCard}>
+  <Hourglass size={24} />
+  <div>New Decks Coming Soon</div>
+</div>
 
       {/* RESET MODAL */}
       <ConfirmResetModal
@@ -235,72 +256,139 @@ export default function DeckList({
 
 const styles = {
   list: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 12,
-  },
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gap: 16,
+},
 
-  card: {
-    padding: 16,
-    borderRadius: 8,
-    background: "#fff",
-    border: "1px solid #eee",
-  },
+cardWrapper: {
+  position: "relative",
+},
+
+cardShadow: {
+  position: "absolute",
+
+  top: -11,
+
+  left: "4%",
+
+  width: "92%",
+
+  height: 24,
+
+  background: "#0000009c",
+
+  borderRadius: 7,
+
+  transform: "rotate(-1deg)",
+
+  transformOrigin: "center",
+
+  zIndex: 0,
+},
+
+card: {
+  position: "relative",
+
+  background: "#fefefe",
+
+  borderRadius: 8,
+
+  border: "1px solid #F3F3F3",
+
+  minHeight: 250,
+
+  padding: 20,
+
+  zIndex: 1,
+},
+
+iconWrap: {
+  width: 92,
+  height: 92,
+  overflow: "hidden",
+  borderRadius: "50%",
+  margin: "0 auto 18px",
+},
+
+deckTitle: {
+  textAlign: "center",
+
+  fontSize: 18,
+  marginBottom: 10,
+},
+
+miniDivider: {
+  width: 26,
+  height: 4,
+  borderRadius: 999,
+  background: "#000000",
+  margin: "0 auto 18px",
+},
+
+metaRow: {
+  display: "flex",
+  justifyContent: "space-between",
+  fontSize: 13,
+  color: "#666",
+  marginBottom: 10,
+},
+
+footer: {
+  marginTop: 18,
+
+  paddingTop: 14,
+
+  borderTop: "1px solid #EEE",
+
+  display: "flex",
+
+  justifyContent: "space-around",
+},
+
+footerBtn: {
+  border: "none",
+  background: "transparent",
+  display: "flex",
+  gap: 6,
+  alignItems: "center",
+  cursor: "pointer",
+  color: "#000000",
+
+  fontSize: 13,
+},
+
+addCard: {
+  minHeight: 250,
+
+  borderRadius: 8,
+
+  border: "2px dashed #000000",
+
+  display: "flex",
+
+  flexDirection: "column",
+
+  alignItems: "center",
+
+  justifyContent: "center",
+
+  color: "#000000",
+
+  gap: 12,
+},
+
+plus: {
+  fontSize: 42,
+},
 
   link: {
-    textDecoration: "none",
-    color: "#111",
-    display: "block",
-  },
-
-  top: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontWeight: 600,
-  },
-
-  titleRow: {
-    display: "flex",
-    alignItems: "baseline",
-    gap: 6,
-  },
-
-  count: {
-    fontSize: 12,
-    color: "#888",
-  },
-
-  right: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    minWidth: 70,
-    justifyContent: "flex-end",
-  },
-
-  percent: {
-    width: 42,
-    textAlign: "right",
-  },
-
-  trashBtn: {
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    color: "#444",
-    display: "flex",
-    alignItems: "center",
-  },
-
-  eyeBtn: {
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    color: "#444",
-    display: "flex",
-    alignItems: "center",
-  },
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  textDecoration: "none",
+  color: "#111",
+},
 
   bar: {
     height: 9,
@@ -312,7 +400,7 @@ const styles = {
 
   fill: {
     height: "100%",
-    background: "#111",
+    background: "#000000",
     borderRadius: 9999,
     transition: "width 0.3s ease",
   },

@@ -37,8 +37,12 @@ export default function DeckHero({
         {/* HEADER */}
         <div style={styles.header}>
           <div style={styles.avatar}>
-            {avatar || "👤"}
-          </div>
+  <img
+    src="/avatars/default-avatar.png"
+    alt="avatar"
+    style={styles.avatarImg}
+  />
+</div>
 
           <div style={styles.userInfo}>
             <div style={styles.greeting}>
@@ -51,16 +55,7 @@ export default function DeckHero({
           </div>
 
           <div style={styles.levelSide}>
-            <div style={styles.levelLabels}>
-              <span>
-                Level {scoreLevel ?? 1}
-              </span>
-
-              <span>
-                Level {(scoreLevel ?? 1) + 1}
-              </span>
-            </div>
-
+            
             <div style={styles.headerProgress}>
               <div
                 style={{
@@ -75,7 +70,7 @@ export default function DeckHero({
                   left: `${markerPosition}%`,
                 }}
               >
-                {score ?? 0} XP
+              {score ?? 0} XP
               </div>
 
               <div
@@ -84,6 +79,9 @@ export default function DeckHero({
                   left: `${markerPosition}%`,
                 }}
               />
+              <div style={styles.nextLevel}>
+  Level {(scoreLevel ?? 1) + 1}
+</div>
             </div>
           </div>
         </div>
@@ -177,17 +175,24 @@ const styles: any = {
   },
 
   levelSide: {
-    flex: 1,
-    marginLeft: 20,
-  },
+  flex: 1,
+  marginLeft: 20,
+  paddingRight: 50,
+  paddingTop: 11
+},
 
-  levelLabels: {
-    display: "flex",
-    justifyContent: "space-between",
-    fontSize: 12,
-    color: "#666",
-    marginBottom: 12,
-  },
+  nextLevel: {
+  position: "absolute",
+  left: "calc(100% + 10px)",
+  top: "50%",
+  transform: "translateY(-50%)",
+
+  fontSize: 12,
+  fontWeight: 600,
+  color: "#666",
+
+  whiteSpace: "nowrap",
+},
 
   headerProgress: {
     position: "relative",

@@ -224,24 +224,26 @@ export default function DeckDistributionChart({
   style={styles.legendItem}
 >
   <svg
-    width="28"
-    height="42"
-    viewBox="0 0 28 42"
-    style={{
-      flexShrink: 0,
-    }}
-  >
-    <rect
-      x="1"
-      y="1"
-      width="26"
-      height="40"
-      fill={s.pattern}
-      stroke="#111"
-      strokeWidth="1.5"
-      rx="4"
-    />
-  </svg>
+  width="36"
+  height="42"
+  viewBox="0 0 36 42"
+  style={{
+    flexShrink: 0,
+    transform: "rotate(135deg)",
+  }}
+>
+  <path
+    d="
+      M 18 4
+      L 32 34
+      A 20 20 0 0 1 4 34
+      Z
+    "
+    fill={s.pattern}
+    stroke="#111"
+    strokeWidth="1.5"
+  />
+</svg>
 
   <div style={styles.legendContent}>
     <div style={styles.legendText}>
@@ -298,7 +300,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: 16,
+    padding: 17,
     borderRadius: 8,
     background: "var(--card)",
     border: "1px solid var(--border)",
@@ -310,11 +312,11 @@ const styles = {
   },
 
   titleDivider: {
-    width: 42,
+    width: 150,
     height: 2,
     background: "#111",
     borderRadius: 999,
-    marginBottom: 18,
+    marginBottom: 1,
   },
 
   empty: {

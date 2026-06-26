@@ -11,8 +11,12 @@ export function ProfileCard({
     <div style={styles.card}>
       <div style={styles.header}>
         <div style={styles.avatar}>
-          {profile?.avatar || "👨‍⚕️"}
-        </div>
+  <img
+    src="/avatars/default-avatar.png"
+    alt="avatar"
+    style={styles.avatarImg}
+  />
+</div>
 
         <div style={styles.info}>
           <div style={styles.username}>

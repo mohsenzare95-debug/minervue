@@ -9,7 +9,6 @@ import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import { useProfile } from "@/features/auth/hooks/useProfile";
 
 import { decks } from "@/data/decks";
-
 export default function DeckPage() {
   const global = useGlobalProgress();
   const { getDeckProgress } = useDeckProgress();
@@ -31,7 +30,12 @@ export default function DeckPage() {
       />
 
       <div style={styles.titleBlock}>
-        <div style={styles.title}>Decks</div>
+        <div
+  style={styles.title}
+  
+>
+  Decks
+</div>
       </div>
 
       <DeckList
@@ -57,7 +61,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   title: {
     fontSize: 38,
-    fontWeight: 700,
+    fontWeight: 400,
     letterSpacing: "-1px",
     color: "#111",
     lineHeight: 1.1,
