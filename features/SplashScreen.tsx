@@ -110,17 +110,21 @@ const styles: any = {
   },
 
   text: {
-    position: "relative",
-    zIndex: 20,
-    fontSize: 34,
-    fontWeight: 650,
-    letterSpacing: "-0.04em",
-    lineHeight: 1.35,
-    textAlign: "center",
-    color: "#111",
-    fontFamily:
-      '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif',
-  },
+  position: "relative",
+  zIndex: 20,
+
+  fontSize: 38,
+  fontWeight: 400,
+  letterSpacing: "-1px",
+  lineHeight: 1.1,
+
+  textAlign: "center",
+
+  color: "#111",
+
+  fontFamily:
+    '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif',
+},
 
   upperLid: {
     position: "absolute",
