@@ -340,9 +340,8 @@ const styles = {
   display: "flex",
   alignItems: "center",
 
-  gap: 12,
-
-  padding: 10,
+  gap: 6,
+  padding: "10px 8px",
 
   border: "1px solid #eee",
   borderRadius: 10,
