@@ -21,7 +21,7 @@ export async function hydrateRead(userId: string) {
     // ======================
     // 2. MERGE (LOCAL + SERVER) PURE
     // ======================
-    const merged = reviewLogStorage.mergeServerEvents(serverRows);
+    const merged = reviewLogStorage.getStream();
 
     // 🔥 DEBUG: جزئیات دقیق از merged events
     console.log(

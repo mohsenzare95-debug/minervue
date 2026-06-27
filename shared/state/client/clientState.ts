@@ -123,6 +123,19 @@ export const clientState = {
   // LOCAL PROGRESS PATCH
   // ----------------------
   applyReviewEvent(event: AppEvent) {
+    if (event.type === "RESET") {
+      state = {
+        ...state,
+        progress: {
+          ...state.progress,
+          [event.deckKey]: {},
+        },
+      };
+
+      emit();
+      return;
+    }
+
     const progress = structuredClone(state.progress);
 
     if (!progress[event.deckKey]) {

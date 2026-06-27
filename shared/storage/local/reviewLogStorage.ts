@@ -31,10 +31,23 @@ function normalizeEvent(e: any): AppEvent | null {
     fullRaw: e,
   });
 
+  const type =
+    e.type ??
+    (e.event_type === "RESET" ? "RESET" : "REVIEW");
+
+  const payload =
+    type === "RESET"
+      ? {
+          reason: "user_action",
+        }
+      : e.payload ?? {
+          result: e.result,
+        };
+
   const event: AppEvent = {
     client_event_id: id,
 
-    type: e.type ?? "REVIEW",
+    type,
 
     userId: e.userId ?? e.user_id ?? null,
 
@@ -45,9 +58,7 @@ function normalizeEvent(e: any): AppEvent | null {
 
     seq: e.seq,
 
-    payload: e.payload ?? {
-      result: e.result,
-    },
+    payload,
   };
 
   // REVIEW must be valid
@@ -152,12 +163,7 @@ export const reviewLogStorage = {
 
     const next = [...stream, normalized];
 
-writeStream(next);
-
-console.log(
-  "RESETS AFTER WRITE",
-  next.filter(e => e.type === "RESET")
-);
+    writeStream(next);
 
     console.log(
       "RESETS AFTER WRITE",
@@ -174,7 +180,12 @@ console.log(
   // SYNC PIPELINE (PURE MERGE)
   // ======================
   mergeServerEvents(serverEvents: any[]): AppEvent[] {
-    const safeLocal = outbox
+
+    const safeLocal = readStream()
+      .map(normalizeEvent)
+      .filter(Boolean) as AppEvent[];
+
+    const safePending = outbox
       .getPendingEvents()
       .map(normalizeEvent)
       .filter(Boolean) as AppEvent[];
@@ -189,11 +200,21 @@ console.log(
       map.set(e.client_event_id, e);
     }
 
+    for (const e of safePending) {
+      map.set(e.client_event_id, e);
+    }
+
     for (const e of safeServer) {
       map.set(e.client_event_id, e);
     }
 
-    return Array.from(map.values());
+    return [...map.values()].sort((a, b) => {
+      if (a.timestamp !== b.timestamp) {
+        return a.timestamp - b.timestamp;
+      }
+
+      return a.client_event_id.localeCompare(b.client_event_id);
+    });
   },
 
   replaceLocalOnly(events: AppEvent[]) {
