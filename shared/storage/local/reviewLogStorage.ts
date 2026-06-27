@@ -181,18 +181,16 @@ export const reviewLogStorage = {
   // ======================
   mergeServerEvents(serverEvents: any[]): AppEvent[] {
 
-    const safeLocal = readStream()
-      .map(normalizeEvent)
-      .filter(Boolean) as AppEvent[];
+    const safeLocal = this.getStream();
 
-    const safePending = outbox
-      .getPendingEvents()
-      .map(normalizeEvent)
-      .filter(Boolean) as AppEvent[];
+const safePending = outbox
+  .getPendingEvents()
+  .map(normalizeEvent)
+  .filter(Boolean) as AppEvent[];
 
-    const safeServer = serverEvents
-      .map(normalizeEvent)
-      .filter(Boolean) as AppEvent[];
+const safeServer = serverEvents
+  .map(normalizeEvent)
+  .filter(Boolean) as AppEvent[];
 
     const map = new Map<string, AppEvent>();
 
@@ -209,12 +207,16 @@ export const reviewLogStorage = {
     }
 
     return [...map.values()].sort((a, b) => {
-      if (a.timestamp !== b.timestamp) {
-        return a.timestamp - b.timestamp;
-      }
+  if (a.timestamp !== b.timestamp) {
+    return a.timestamp - b.timestamp;
+  }
 
-      return a.client_event_id.localeCompare(b.client_event_id);
-    });
+  if ((a.seq ?? 0) !== (b.seq ?? 0)) {
+    return (a.seq ?? 0) - (b.seq ?? 0);
+  }
+
+  return a.client_event_id.localeCompare(b.client_event_id);
+});
   },
 
   replaceLocalOnly(events: AppEvent[]) {
