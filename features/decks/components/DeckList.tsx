@@ -259,14 +259,16 @@ export default function DeckList({
 /* ====================== */
 
 const styles = {
-  list: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 16,
-  },
+ list: {
+  display: "grid",
+  gridTemplateColumns: "repeat(2,minmax(0,1fr))",
+  gap: 14,
+  width: "100%",
+},
 
   cardWrapper: {
     position: "relative",
+     minWidth:0
   },
 
   cardShadow: {
@@ -290,6 +292,8 @@ const styles = {
     minHeight: 250,
     padding: 20,
     zIndex: 1,
+    width:"100%",
+    boxSizing:"border-box"
   },
 
   iconWrap: {
