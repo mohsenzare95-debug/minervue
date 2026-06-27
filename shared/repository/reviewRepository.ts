@@ -4,7 +4,7 @@ import { outbox } from "@/shared/storage/local/outbox";
 import { reviewLogStorage } from "@/shared/storage/local/reviewLogStorage";
 import { clientState } from "@/shared/state/client/clientState";
 import type { AnswerType, AppEvent } from "@/shared/types/events";
-
+import { requestSync } from "@/shared/storage/sync/syncScheduler";
 export const reviewRepository = {
   get(deckKey: string) {
     return reviewLogStorage.get(deckKey);
@@ -88,6 +88,8 @@ export const reviewRepository = {
     clientState.applyReviewEvent(event);
 
     outbox.add(event);
+    requestSync();
+    
 
     console.log("✅ [REPO WRITE DONE]", {
       client_event_id: event.client_event_id,
@@ -142,6 +144,7 @@ export const reviewRepository = {
     console.log("2");
 
     outbox.add(event);
+    requestSync();
     console.log("3");
 
     console.log("4");

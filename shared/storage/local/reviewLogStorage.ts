@@ -31,9 +31,29 @@ function normalizeEvent(e: any): AppEvent | null {
     fullRaw: e,
   });
 
-  const type =
-    e.type ??
-    (e.event_type === "RESET" ? "RESET" : "REVIEW");
+  const rawType = (
+  e.type ??
+  e.event_type ??
+  ""
+).toString().toUpperCase();
+
+let type: AppEvent["type"];
+
+switch (rawType) {
+  case "REVIEW":
+  case "REVIEW_EVENT":
+    type = "REVIEW";
+    break;
+
+  case "RESET":
+  case "RESET_EVENT":
+    type = "RESET";
+    break;
+
+  default:
+    console.warn("[NORMALIZE DROP] unknown event type", rawType, e);
+    return null;
+}
 
   const payload =
     type === "RESET"

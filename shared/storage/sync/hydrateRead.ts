@@ -18,10 +18,14 @@ export async function hydrateRead(userId: string) {
 
     console.log("🔥 [HYDRATE] server rows:", serverRows.length);
 
+    console.log(serverRows.length);
+    console.log(reviewLogStorage.getStream().length);
     // ======================
     // 2. MERGE (LOCAL + SERVER) PURE
     // ======================
     const merged = reviewLogStorage.mergeServerEvents(serverRows);
+
+    console.log(merged.length);
 
     // 🔥 DEBUG: جزئیات دقیق از merged events
     console.log(
