@@ -83,6 +83,10 @@ export default function DeckList({
                 }}
                 onClick={(e) => {
   analytics.deckSelected();
+  analytics.authVerified({
+  context: "session_gate",
+  user_id: user?.id ?? null,
+});
 
   if (!user) {
     e.preventDefault();

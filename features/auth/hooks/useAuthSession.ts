@@ -3,7 +3,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/shared/supabase/client";
-import { analytics } from "@/features/analytics/events";
 
 export function useAuthSession() {
   const [user, setUser] = useState<any>(null);
@@ -23,8 +22,7 @@ export function useAuthSession() {
       setReady(true);
 
       if (data.session?.user && !authTracked.current) {
-        analytics.authVerified();
-        authTracked.current = true;
+          authTracked.current = true;
       }
     };
 
@@ -38,7 +36,6 @@ export function useAuthSession() {
       setReady(true);
 
       if (session?.user && !authTracked.current) {
-        analytics.authVerified();
         authTracked.current = true;
       }
     });

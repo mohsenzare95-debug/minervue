@@ -11,8 +11,11 @@ export const analytics = {
   posthog.capture("deck_selected");
 },
 
-  authVerified: () => {
-  posthog.capture("auth_verified");
+  authVerified: (data?: { user_id?: string | null; context?: "session_gate" | "background" }) => {
+  posthog.capture("auth_verified", {
+    user_id: data?.user_id ?? null,
+    context: data?.context ?? "background",
+  });
 },
 
   sessionStarted: (deckKey: string, totalCards: number) => {
