@@ -7,6 +7,7 @@ import { clientState } from "@/shared/state/client/clientState";
 import { selectCardsForSession } from "../lib/cardSelection";
 import type { Card } from "@/shared/types/card";
 import type { AnswerType } from "@/shared/types/events";
+import { analytics } from "@/features/analytics/events";
 
 let debugCounter = 0;
 
@@ -88,6 +89,13 @@ export function useSessionFlow({
     console.log("🟢 SESSION STARTED");
     sessionStartedRef.current = true;
   }, [deckKey, state.cards.length, state.index, state.finished]);
+
+  // Card Viewed Analytics
+  useEffect(() => {
+    if (!card) return;
+
+    analytics.cardViewed();
+  }, [card]);
 
   // ======================
   // ANSWER (فقط UI)

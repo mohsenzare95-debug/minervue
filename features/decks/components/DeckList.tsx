@@ -17,6 +17,7 @@ import { clientState } from "@/shared/state/client/clientState";
 import { unlockedDecksStorage } from "@/shared/storage/local/unlockedDecksStorage";
 import { SignInForm } from "@/features/auth/components/SignInForm";
 import { SignUpForm } from "@/features/auth/components/SignUpForm";
+import { analytics } from "@/features/analytics/events";
 import { Hourglass } from "lucide-react";
 import Image from "next/image";
 
@@ -81,19 +82,21 @@ export default function DeckList({
                   opacity: isUnlocked ? 1 : 0.4,
                 }}
                 onClick={(e) => {
-                  if (!user) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setShowLogin(true);
-                    return;
-                  }
+  analytics.deckSelected();
 
-                  if (!isUnlocked) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setBuyDeck(deck);
-                  }
-                }}
+  if (!user) {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowLogin(true);
+    return;
+  }
+
+  if (!isUnlocked) {
+    e.preventDefault();
+    e.stopPropagation();
+    setBuyDeck(deck);
+  }
+}}
               >
                 {/* icon */}
                 <div style={styles.iconWrap}>

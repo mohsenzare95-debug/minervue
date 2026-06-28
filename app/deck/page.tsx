@@ -7,14 +7,20 @@ import { useGlobalProgress } from "@/features/decks/hooks/useGlobalProgress";
 import { useDeckProgress } from "@/features/decks/hooks/useDeckProgress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import { useProfile } from "@/features/auth/hooks/useProfile";
-
 import { decks } from "@/data/decks";
+import { useEffect } from "react";
+import { analytics } from "@/features/analytics/events";
+
 export default function DeckPage() {
   const global = useGlobalProgress();
   const { getDeckProgress } = useDeckProgress();
 
   const { user } = useAuthSession();
   const profile = useProfile(user);
+
+  useEffect(() => {
+  analytics.pageViewed();
+}, []);
 
   return (
     <div style={styles.page}>

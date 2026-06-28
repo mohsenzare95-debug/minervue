@@ -18,6 +18,7 @@ export function SignUpForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [success, setSuccess] = useState(false);
 
   // ESC close + body scroll lock
   useEffect(() => {
@@ -46,8 +47,8 @@ export function SignUpForm({
     );
 
     if (success === true) {
-      onClose();
-    }
+  setSuccess(true);
+}
   }
 
   function handleKeyDown(
@@ -64,6 +65,32 @@ export function SignUpForm({
         style={styles.modal}
         onClick={(e) => e.stopPropagation()}
       >
+
+      {success ? (
+  <>
+    <h3 style={styles.title}>Almost done!</h3>
+
+    <p style={styles.successMessage}>
+      We've sent a confirmation email.
+      <br />
+      <br />
+      Please click the link in your inbox to activate your account.
+      <br />
+      <br />
+      If you don't see it, check your Spam folder.
+    </p>
+
+    <div style={styles.actions}>
+      <button
+        style={styles.primaryBtn}
+        onClick={onClose}
+      >
+        OK
+      </button>
+    </div>
+  </>
+) : (
+  <>
 
          {message && (
           <>
@@ -133,7 +160,12 @@ export function SignUpForm({
           >
             {loading ? "Loading..." : "Sign Up"}
           </button>
+          
         </div>
+
+        </>
+)}
+        
       </div>
     </div>
   );
@@ -234,4 +266,12 @@ const styles: Record<string, React.CSSProperties> = {
     background: "#eee",
     marginBottom: 16,
   },
+
+  successMessage: {
+  textAlign: "center",
+  fontSize: 14,
+  lineHeight: 1.6,
+  color: "#444",
+  marginBottom: 20,
+},
 };

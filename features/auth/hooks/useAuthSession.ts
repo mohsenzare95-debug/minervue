@@ -1,12 +1,15 @@
+//features\auth\hooks\useAuthSession.ts
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/shared/supabase/client";
+import { analytics } from "@/features/analytics/events";
 
 export function useAuthSession() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [ready, setReady] = useState(false);
+  const authTracked = useRef(false);
 
   useEffect(() => {
     let mounted = true;
@@ -18,6 +21,11 @@ export function useAuthSession() {
       setUser(data.session?.user ?? null);
       setLoading(false);
       setReady(true);
+
+      if (data.session?.user && !authTracked.current) {
+        analytics.authVerified();
+        authTracked.current = true;
+      }
     };
 
     init();
@@ -28,6 +36,11 @@ export function useAuthSession() {
       setUser(session?.user ?? null);
       setLoading(false);
       setReady(true);
+
+      if (session?.user && !authTracked.current) {
+        analytics.authVerified();
+        authTracked.current = true;
+      }
     });
 
     return () => {
