@@ -1,3 +1,4 @@
+//app\deck\[slug]\review\page.tsx
 import { deckRegistry } from "@/data/decks";
 import { notFound } from "next/navigation";
 import CardView from "@/features/flashcards/components/CardView";

@@ -82,7 +82,7 @@ export const uveitisCards: Card[] = [
     a: `
 **Cyclooxygenase (COX) pathway:**
 Thromboxanes (TX)
-Prostacyclins (PGI)
+Prostacyclins (PGI 2)
 Prostaglandins (PG)
 
 ---
@@ -533,6 +533,7 @@ Characteristic **macular granular pigment change** (pathognomonic finding)`,
     q: `What is the frequency of anterior and posterior uveitis in ocular sarcoidosis?`,
     a: `
 **Anterior uveitis:** ~2/3 of cases
+
 **Posterior uveitis:** ~20%`,
   },
 
@@ -634,6 +635,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
 -----
 
 **Prevalence:** 10% of patients
+
 *To date, IRU has not been described in association with ocular infections other than CMV retinitis.*
     `,
   },
@@ -902,11 +904,22 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
     id: "uveitis_49",
     q: `What are the posterior segment manifestations of ocular tuberculosis (TB)?`,
     a: `
-**1. Choroidal tubercles:** discrete deep yellow lesions *(0.5–3 mm)* in the posterior pole ± disc edema + macular hemorrhage + vitritis + anterior uveitis
+**1. Disseminated Choroiditis**
+
+**Multiple tubercles:** discrete deep yellow lesions *(0.5–3 mm)* in the posterior pole ± disc edema + macular hemorrhage + vitritis + anterior uveitis
+
+
+
+**A Single Tuberculoma:** large lesion *(4–14 mm)*, often associated with RD and a macular star.
+    
+---
+
+
+**2. Multifocal Choroiditis**
 
 ---
 
-**2. Choroidal tuberculoma:** large lesion *(4–14 mm)*, often associated with RD and a macular star.
+**3. Sepiginous like Choroiditis**
     `,
   },
 

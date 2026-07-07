@@ -8,6 +8,7 @@ import { selectCardsForSession } from "../lib/cardSelection";
 import type { Card } from "@/shared/types/card";
 import type { AnswerType } from "@/shared/types/events";
 import { analytics } from "@/features/analytics/events";
+import { getDeckStatus } from "@/features/flashcards/lib/deckStatusRecognition";
 
 let debugCounter = 0;
 
@@ -67,6 +68,8 @@ export function useSessionFlow({
 
   const card = state.cards[state.index] ?? null;
   const canNext = selected !== null;
+  const progress = clientState.selectors.getDeckProgress(deckKey);
+  const allMastered = getDeckStatus(progress) === "MASTERED";
 
   function resetCardUI() {
     setShowAnswer(false);
@@ -89,13 +92,6 @@ export function useSessionFlow({
     console.log("🟢 SESSION STARTED");
     sessionStartedRef.current = true;
   }, [deckKey, state.cards.length, state.index, state.finished]);
-
-  // Card Viewed Analytics
-  useEffect(() => {
-    if (!card) return;
-
-    analytics.cardViewed();
-  }, [card]);
 
   // ======================
   // ANSWER (فقط UI)
@@ -172,6 +168,10 @@ export function useSessionFlow({
   // ======================
   useEffect(() => {
     if (!state.finished) return;
+
+    const progress = clientState.selectors.getDeckProgress(deckKey);
+    const status = getDeckStatus(progress);
+
     if (sessionCompletedRef.current) return;
     console.log("🏁 SESSION COMPLETED");
     sessionCompletedRef.current = true;
@@ -214,6 +214,17 @@ export function useSessionFlow({
     resetCardUI();
   }, [cards, deckKey]);
 
+  const resetAndStartSession = useCallback(() => {
+  if (!deckKey) return;
+
+  reviewRepository.reset(
+    user?.id ?? null,
+    deckKey,
+    "__deck__"
+  );
+  startNewSession();
+}, [deckKey, user?.id, startNewSession]);
+
   return {
     index: state.index,
     card,
@@ -225,6 +236,8 @@ export function useSessionFlow({
     chooseAnswer,
     handleNext,
     sessionFinished: state.finished,
+    allMastered,
     startNewSession,
-  };
+    resetAndStartSession,
+    };
 }

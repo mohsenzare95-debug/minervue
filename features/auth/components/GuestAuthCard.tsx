@@ -1,3 +1,4 @@
+//features\auth\components\GuestAuthCard.tsx
 export function GuestAuthCard({
   onLogin,
   onSignup,

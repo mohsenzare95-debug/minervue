@@ -1,3 +1,4 @@
+//features\analytics\PostHogProvider.tsx
 'use client'
 
 import { useEffect } from 'react'

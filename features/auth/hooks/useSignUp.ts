@@ -1,3 +1,4 @@
+//features\auth\hooks\useSignUp.ts
 import { useState } from "react";
 import { Auth } from "@/shared/supabase/auth";
 

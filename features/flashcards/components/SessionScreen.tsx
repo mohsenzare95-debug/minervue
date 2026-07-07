@@ -1,3 +1,4 @@
+//features\flashcards\components\SessionScreen.tsx
 "use client";
 
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
@@ -36,6 +37,7 @@ export default function SessionScreen({
     allMastered,
 
     startNewSession,
+    resetAndStartSession,
   } = useSessionFlow({
     cards,
     deckKey,
@@ -43,13 +45,17 @@ export default function SessionScreen({
   });
 
   // 🚨 HARD GUARD: prevent broken state rendering
-  if (!deckKey || !card || !card.id) {
+  if (!deckKey) {
     return <div>Loading session...</div>;
   }
 
   const handleStartOver = () => {
-    startNewSession();
+    resetAndStartSession();
   };
+
+  if (allMastered) {
+    return <DeckMastered onReset={handleStartOver} />;
+  }
 
   if (sessionFinished) {
     return (
@@ -62,9 +68,9 @@ export default function SessionScreen({
     );
   }
 
-  if (allMastered) {
-    return <DeckMastered onReset={handleStartOver} />;
-  }
+  if (!card || !card.id) {
+  return <div>Loading session...</div>;
+}
 
   return (
     <div style={styles.page}>

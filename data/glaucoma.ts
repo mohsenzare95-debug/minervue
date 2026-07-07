@@ -36,7 +36,7 @@ export const glaucomaCards: Card[] = [
 .
 
 
-**Mnemonic code:** *“Juveniles are all Alpha and Dominant — they listen to music and become Tigers”*
+**Code:** *“Juveniles are all Alpha and Dominant — they listen to music and become Tigers”*
 → JOAG = AD + MYOC (GLC1A) + TIGR
 `,
 
@@ -61,7 +61,7 @@ export const glaucomaCards: Card[] = [
 
 .
 
-**Mnemonic code:** *NTG is a mysterious politician with two dominant routes to power: either through autophagy tricks (OPTN) or by conquering with a TANK (TBK1).”
+**Code:** *“NTG is a mysterious politician with two dominant routes to power: either through autophagy tricks (OPTN) or by conquering with a TANK (TBK1).”
 → NTG = AD inheritance via OPTN (GLC1E) or TBK1 (GLC1P).*
 
 
@@ -88,7 +88,7 @@ export const glaucomaCards: Card[] = [
 
 .
 
-**Mnemonic code:** *“The fox was dominaant and two Peters were defeated in the CAMP”
+**Code:** *“The fox was dominaant and two Peters were defeated in the CAMP”
 → FOXC1 = AD, PITX2, CPAMD8 = AR*
 `,
   },
@@ -196,5 +196,4 @@ PXF: 99%, Control: 80%
 `,
   },
 
- 
 ];

@@ -1,3 +1,4 @@
+//shared\storage\core\storageClient.ts
 import { settingsStorage } from "../local/settingsStorage";
 import { userStorage } from "../local/userStorage";
 import { unlockedDecksStorage } from "../local/unlockedDecksStorage";

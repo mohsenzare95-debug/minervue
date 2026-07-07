@@ -217,6 +217,8 @@ Failure of normal separation of **lens vesicle** from **surface ectoderm** (arou
     q: `Which mutations are involved in Peters anomaly?`,
     a: `
 PAX6, PITX2, FOXC1
+
+**Code**: *“One fox can mute two Peters carrying six backpacks“*
     `,
   },
 
@@ -558,7 +560,7 @@ More common in: **Males**
 
 ---
 
-*Usually not visually significantl*
+*Usually not visually significant*
 `,
   },
 

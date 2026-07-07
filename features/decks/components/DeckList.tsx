@@ -284,7 +284,7 @@ const styles = {
     left: "4%",
     width: "92%",
     height: 24,
-    background: "#1e4d559c",
+    background: "#12444bdf",
     borderRadius: 7,
     transform: "rotate(-1deg)",
     transformOrigin: "center",
