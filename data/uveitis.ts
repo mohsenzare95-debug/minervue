@@ -28,7 +28,7 @@ export const uveitisCards: Card[] = [
 
 -----
 
-**Not present in:** Conjunctival epithelium, Cornea`,
+[WARNING]**Not present in:** Conjunctival epithelium, Cornea`,
   },
 
   /// Question 27 ///
@@ -234,13 +234,13 @@ Eoxins (EX)
 • Behçet Disease (BD)`,
 
 
-    a: `•	**SLE**: ~50% 
+    a: `•	**SLE**: 50% 
 
-•	**Sarcoidosis**: ~50% 
+•	**Sarcoidosis**: 50% 
 
-•	**GPA**: ~15% *at presentation*; >50% *during the disease course* 
+•	**GPA**: 15% *at presentation* → >50% *during the disease course* 
 
-•	**BD**: ~70%`,
+•	**BD**: 70%`,
     
   },
 
@@ -258,11 +258,11 @@ Hospitalized: ~29%`,
     id: "uveitis_3",
    q: `What are the three most common vascular manifestations of SLE in the posterior segment, and what is the underlying mechanism of each?`,
     a: `    
-**1. IRH ± CWS:** microangiopathy, *not HTN-related*
+**1. IRH ± CWS:** microangiopathy, [WARNING]*not HTN-related*
 
 ------
 
-**2. RAO, RVO:** autoantibody-mediated thrombosis and hypercoagulable state, *not vasculitis*
+**2. RAO, RVO:** autoantibody-mediated thrombosis and hypercoagulable state, [WARNING]*not vasculitis*
 
 ------
 
@@ -447,7 +447,7 @@ With progression: evolve into punched-out chorioretinal scars
 
 -----
 
-Associated AC **inflammation** and vitritis *(important in differential diagnosis with OHS and PIC)*`,
+Associated AC **inflammation** and vitritis ([SIREN]*important in differential diagnosis with OHS and PIC*)`,
   },
 
   /// Question 12 ///
@@ -510,7 +510,7 @@ Usually centered at the **perifovea**, with possible extension to mid-periphery 
 
 -----
 
-Characteristic **macular granular pigment change** (pathognomonic finding)`,
+Characteristic **macular granular pigment change** ([SIREN]pathognomonic finding)`,
   },
 
   /// Question 14 ///
@@ -524,7 +524,7 @@ Characteristic **macular granular pigment change** (pathognomonic finding)`,
 
 3.Band keratopathy
 
-*All three manifestations are rare.*`,
+[BRAIN]*All three manifestations are rare.*`,
   },
 
   /// Question 15 ///
@@ -664,7 +664,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
 
   -----
 
-  **Take Care:** Intravitreal corticosteroids are contraindicated and should be avoided.
+  [WARNING]**Take Care:** Intravitreal corticosteroids are contraindicated and should be avoided.
     `,
   },
 
@@ -721,9 +721,9 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
 
 ---
 
-• *Rarely reported in patients with PCP pneumonia*
+[SIREN] *Rarely reported in patients with PCP pneumonia*
 
-• *Choroidal infiltrates contain the organism itself*
+[SIREN] *Choroidal infiltrates contain the organism itself*
     `,
   },
 
@@ -763,9 +763,9 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
     id: "uveitis_38",
     q: `What is the bidirectional statistical association between primary vitreoretinal lymphoma (PVRL) and primary CNS lymphoma (PCNSL)?`,
     a: `
-•PVRL -> 1/4 risk of PCNSL
+•PVRL -> 2/3 risk of PCNSL
 
-•PCNSL ->2/3 risk of PVRL
+•PCNSL ->1/4 risk of PVRL
     `,
   },
 
@@ -827,7 +827,7 @@ IS/OS + RPE-Bruch membrane irregularity
 
 **Toxoplasmosis:** 3rd trimester
 
-*In toxoplasmosis, the gestational age at transmission is inversely related to disease severity: earlier fetal infection → more severe neonatal disease.*
+[SIREN]*In toxoplasmosis, the gestational age at transmission is inversely related to disease severity: earlier fetal infection → more severe neonatal disease.*
     `,
   },
 
@@ -895,7 +895,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
 
 .
 
-*Systemic **corticosteroids** are associated with an increased risk of **treatment failure**.*
+[WARNING]*Systemic **corticosteroids** are associated with an increased risk of **treatment failure**.*
     `,
   },
 
@@ -974,7 +974,7 @@ INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
     id: "uveitis_54",
     q: `How is Whipple disease diagnosed?`,
     a: `
-**Duodenal biopsy** *(gold standard)*: PAS-positive macrophages containing bacilli
+**Duodenal biopsy**[SIREN] (*gold standard*): PAS-positive macrophages containing bacilli
 
 ---
 
@@ -986,13 +986,4 @@ INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
     `,
   },
 
-  /// Chapt. 6 ///
-  /// Question 55 ///
-  {
-    id: "uveitis_55",
-    q: `q`,
-    a: `
-a
-    `,
-  },
 ];

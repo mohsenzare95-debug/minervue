@@ -14,8 +14,8 @@ NS + PSC
 
 ---
 
-•*The association with nuclear sclerosis is dose-dependent*
-•*Some smoking-induced lens changes may be partially reversible after smoking cessation*
+[SIREN]*The association with nuclear sclerosis is dose-dependent*
+[SIREN]*Some smoking-induced lens changes may be partially reversible after smoking cessation*
 
     `,
   },
@@ -50,7 +50,7 @@ Associated with:
     id: "cataract_4",
     q: `What is the effect of lutein and zeaxanthin supplementation on cataract risk?`,
     a: `
-reduced risk of cataract **only** in individuals who are deficient in these carotenoids
+[WARNING]reduced risk of cataract **only** in individuals who are deficient in these carotenoids
     `,
   },
 
@@ -181,7 +181,8 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
     q: `With which vascular structure does the Tunica Vasculosa Lentis (TVL) anastomose anteriorly?`,
     a: `
 cilliray veins (anterior pupillary membrane vascular network)
-    `,
+    
+[WARNING]not cilliary arteries!`,
   },
 
   /// Chapt. 4 ///
@@ -196,7 +197,7 @@ cilliray veins (anterior pupillary membrane vascular network)
 
 **Posterior lenticonus:** usually unilateral - associated with posterior polar cataract
 
-*more common than anterior type, may progress over time* 
+[SIREN]*more common than anterior type, may progress over time* 
     `,
   },
 
@@ -218,7 +219,7 @@ Failure of normal separation of **lens vesicle** from **surface ectoderm** (arou
     a: `
 PAX6, PITX2, FOXC1
 
-**Code**: *“One fox can mute two Peters carrying six backpacks“*
+[DUMBBELL]**Code**: *“One fox can mute two Peters carrying six backpacks“*
     `,
   },
 
@@ -252,9 +253,9 @@ PAX6
     id: "cataract_20",
     q: `What are the ocular findings associated with aniridia?`,
     a: `
-• Corneal pannus *(due to limbal stem cell deficiency)*
+• Corneal pannus →[BRAIN]*due to limbal stem cell deficiency*
 
-• Glaucoma *(due to AC angle agenesis and PAS formation)*
+• Glaucoma →[BRAIN]*due to AC angle agenesis and PAS formation*
 
 • Foveal hypoplasia
 
@@ -274,7 +275,7 @@ PAX6
 
 ---
 
-1/3 **sporadic** cases: associated with WAGR syndrome (R/O **Wilms tumor**)
+1/3 **sporadic** cases: [SIREN]associated with WAGR syndrome (R/O **Wilms tumor**)
     `,
   },
 
@@ -342,7 +343,7 @@ Sporadic or autosomal dominant
 
 • **Progression:** often stable
 
-• **Visual impairment:** more severe than anterior polar cataract
+• **Visual impairment:** more severe than anterior polar cataract[SIREN]
 `,
   },
 
@@ -406,7 +407,7 @@ By detecting **urinary disulfides**
 
 ---
 
-Reduces both systemic complications + ectopia lentis in infants when treatment is started early
+[SIREN]Reduces both systemic complications + ectopia lentis in infants when treatment is started early
 `,
   },
 
@@ -418,9 +419,9 @@ Reduces both systemic complications + ectopia lentis in infants when treatment i
     a: `
 • **Cortical thickness:** increases 
 
-• **Lens curvature:** increases, *leading to increased refractive power*
+• **Lens curvature:** increases →[BRAIN]*leading to increased refractive power*
 
-• **Refractive index:** decreases *due to accumulation of insoluble protein particles*
+• **Refractive index:** decreases →[BRAIN]*due to accumulation of insoluble protein particles*
 
 • **Anterior capsule thickness:** increases 
 `,
@@ -556,11 +557,11 @@ More common in: **Males**
     id: "cataract_42",
     q: `What is the examination appearance of cataract in Wilson disease?`,
     a: `
-**Sunflower cataract:** red–brown *(copper oxide)* pigment deposition in the **anterior capsule** and **subcapsular cortex**, forming a sunflower pattern
+**Sunflower cataract:** red–brown *(copper oxide)* pigment deposition in the **anterior capsule** and **subcapsular cortex** → forming a **sunflower pattern**
 
 ---
 
-*Usually not visually significant*
+[WARNING]*Usually not visually significant*
 `,
   },
 
@@ -576,7 +577,7 @@ More common in: **Males**
 
 ---
 
-*Histologically composed of **whorl-like plasma membrane changes** of lens fibers*
+[SIREN]*Histologically composed of **whorl-like plasma membrane changes** of lens fibers*
 `,
   },
 
@@ -673,7 +674,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
 
 ---
 
-**Atkinson block:** between the trunk and terminal branches *(Betweenson!)*
+**Atkinson block:** between the trunk and terminal branches ([DUMBBELL]*Betweenson!*)
 
 ---
 
@@ -706,11 +707,11 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
     id: "cataract_54",
     q: `Name and describe the four physical properties of OVDs.`,
     a: `
-• **Viscosity:** resistance to flow; *higher viscosity allows better retention in place and greater ability to displace tissues*.
+• **Viscosity:** resistance to flow →[BRAIN]*higher viscosity allows better retention in place and greater ability to displace tissues*.
 
 ---
 
-• **Elasticity:** ability to return to the original shape after deformation; *important for maintaining intraocular space.*
+• **Elasticity:** ability to return to the original shape after deformation →[BRAIN]*important for maintaining intraocular space.*
 
 ---
 
@@ -718,7 +719,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
 
 ---
 
-• **Surface tension:** material adherence to surfaces; *lower surface tension results in better coating ability but more difficult removal.*
+• **Surface tension:** material adherence to surfaces →[BRAIN]*lower surface tension results in better coating ability but more difficult removal.*
 `,
   },
 
@@ -774,7 +775,7 @@ Both are higher
     id: "cataract_58",
     q: `What is venting?`,
     a: `
-_Exposure to air_; venting reduces **surge** by allowing the **negative vacuum pressure** to quickly return to **atmospheric pressure**.
+_Exposure to air_ → venting reduces **surge** by allowing the **negative vacuum pressure** to quickly return to **atmospheric pressure**.
 `,
   },
 
@@ -806,11 +807,11 @@ Gentle posterior pressure on the lens + OVD injection
 
 → Mannitol infusion + wait 20 minutes 
 
-→ Vitreous tap *(after ruling out suprachoroidal effusion)*  with 20–23 gauge needle or vitrectomy probe through 3.5 mm limbus.
+→ Vitreous tap ([WARNING]*after ruling out suprachoroidal effusion*)  with 20–23 gauge needle or vitrectomy probe through 3.5 mm limbus.
 
 ---
 
-**Note:** Do not raise the bottle height.
+[WARNING]**Note:** Do not raise the bottle height.
 `,
   },
 
@@ -825,7 +826,7 @@ Low vacuum, low flow, minimal power
 
 ---
 
-*Also maintain full occlusion of the aspiration port*
+[SIREN]*Also maintain full occlusion of the aspiration port*
 `,
   },
 
@@ -851,7 +852,7 @@ Low vacuum, low flow, minimal power
 •Chronic uveitis
 
 ---
-*DM is not mentioned in the list!*
+[WARNING]*DM is not mentioned in the list!*
 `,
   },
 
@@ -895,7 +896,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
 
 ---
 
-**Surgery is rarely required**; IOL exchange is needed only in severe cases.
+[SIREN]**Surgery is rarely required**; IOL exchange is needed only in severe cases.
 `,
   },
 
@@ -911,7 +912,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
 
 ---
 
-Usually causes **significant visual symptoms** > Often requires **IOL exchange** for visual rehabilitation.
+[SIREN]Usually causes **significant visual symptoms** > Often requires **IOL exchange** for visual rehabilitation.
 `,
   },
 
@@ -928,7 +929,7 @@ Usually causes **significant visual symptoms** > Often requires **IOL exchange**
 3.IOL optic diameter smaller than the scotopic pupil diameter
 
 ---
-*Glare and halos are more common with **multifocal IOLs** and **square-edge IOLs** than aspheric IOLs*
+[SIREN]*Glare and halos are more common with **multifocal IOLs** and **square-edge IOLs** than aspheric IOLs*
 `,
   },
 
@@ -990,7 +991,7 @@ a dark or dim curved shadow/arc, typically in the **temporal visual field**
 
 ---
 
-***Mechanism:** the anterior capsulorhexis edge overlapping the optic in-the-bag PCIOL creates an optical shadow from **temporal light rays** at the **nasal optic edge/anterior capsule**, which is projected onto the **nasal retina***
+[BRAIN]***Mechanism:** the anterior capsulorhexis edge overlapping the optic in-the-bag PCIOL → creates an optical shadow from **temporal light rays** at the **nasal optic edge/anterior capsule** → which is projected onto the **nasal retina***
 `,
   },
 
@@ -1024,7 +1025,7 @@ a dark or dim curved shadow/arc, typically in the **temporal visual field**
 
 Observation + Cycloplegics + Blocking temporal light rays
 
-*• majority of patients become asymptomatic within 1 year*
+[SIREN]*majority of patients become asymptomatic within 1 year*
 
 ---
 

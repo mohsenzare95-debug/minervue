@@ -42,3 +42,17 @@ export type ResetEvent = BaseEvent & {
 // ======================
 
 export type AppEvent = ReviewEvent | ResetEvent;
+
+// ======================
+// TRACKING HELPERS
+// ======================
+
+export const deckSelected = () => {
+  console.count("deck_selected called");
+  posthog.capture("deck_selected");
+};
+
+export const pageViewed = () => {
+  console.count("page_viewed called");
+  posthog.capture("page_viewed");
+};
