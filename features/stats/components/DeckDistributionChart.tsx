@@ -224,7 +224,7 @@ export default function DeckDistributionChart({
   style={styles.legendItem}
 >
   <svg
-  width="36"
+  width="35"
   height="42"
   viewBox="0 0 36 42"
   style={{
@@ -340,7 +340,7 @@ const styles = {
   display: "flex",
   alignItems: "center",
 
-  gap: 6,
+  gap: 2,
   padding: "10px 8px",
 
   border: "1px solid #eee",
@@ -409,9 +409,8 @@ legendPercent: {
   fontSize: 13,
   fontWeight: 600,
   color: "#111",
-
   flexShrink: 0,
-
   marginLeft: 12,
+  marginRight: 4,
 },
 };
