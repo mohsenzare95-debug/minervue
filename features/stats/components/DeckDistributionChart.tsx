@@ -406,12 +406,11 @@ const styles = {
 },
 
 legendPercent: {
-  width: 42,
-  textAlign: "right",
   fontSize: 13,
   fontWeight: 600,
   color: "#111",
   flexShrink: 0,
   marginLeft: 12,
+  marginRight: 4,
 },
 };
