@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og.png",
+        url: "/og1.png",
         width: 1200,
         height: 630,
         alt: "VisoSage ophthalmology flashcards",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "VisoSage – Ophthalmology Flashcards",
     description:
       "Structured ophthalmology flashcards for residents and board exam preparation.",
-    images: ["/og.png"],
+    images: ["/og1.png"],
   },
 
   appleWebApp: {
