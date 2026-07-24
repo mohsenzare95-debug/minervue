@@ -179,7 +179,7 @@ export const glaucomaCards: Card[] = [
 
 ---
 
-[WARNING] *Sporadic aniridia is associated with WT1 deletion (**Wilms tumor** risk).*
+[WARNING] *Sporadic aniridia (1/3 of cases) is associated with WT1 deletion (**Wilms tumor** risk).*
 `,
   },
 
@@ -286,7 +286,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
     a: `
 **Carbonic anhydrase inhibitors:** ↓ HCO₃⁻ and H⁺ providing
 
-**β₂-receptor blockers:** ↓ Na⁺/K⁺-ATPase activity
+**β₂-receptor blockers:** ↓ Na⁺/K⁺-ATPase activity ([BRAIN] *Also c-AMP inhibition + ↓ Outflow Facility have been mentioned.*)
 
 **α₂-receptor agonists:** ↓ cAMP → ↓ ciliary body blood flow
 `,
@@ -423,6 +423,16 @@ answerImage: "/images/glaucoma/22.png",
     a: `
 `,
 answerImage: "/images/glaucoma/23.png",
+  },
+
+
+   /// Question 42 ///
+  {
+    id: "glaucoma_42",
+    q: `Describe the technique, advantage, and disadvantage of the Rebound Tonometer.`,
+    a: `
+`,
+answerImage: "/images/glaucoma/25.png",
   },
 
   /// Question 24 ///
@@ -563,7 +573,780 @@ Grade 0: 0° → *Present angle closure*
     id: "glaucoma_30",
     q: `What are the specific characteristics of angle vessels in Fuchs uveitis?`,
     a: `
-Thin + Branching + Unsheathed + Meandering (tortuous)
+* Thin + Branching + Unsheathed + Meandering (tortuous)
+
+* Crosses the TM
+
+* Usually no PAS
+
+* Rarely progressive ([WARNING]may progress!)
+
+* Spontaneous hyphema is possible
 `,
   },
+
+  /// Question 31 ///
+  {
+    id: "glaucoma_31",
+    q: `Gonioscopic appearance of post-traumatic angle recession?`,
+    a: `
+
+[DOT]Wide ciliary body band
+
+[DOT]White glistening of the scleral spur
+
+[DOT]Torn iris processes
+
+[DOT]Marked variation in ciliary face width and angle between different quadrants
+
+[DOT]PAS at the border of recession`,
+  },
+
+  /// Question 32 ///
+  {
+    id: "glaucoma_32",
+    q: `Name and describe the types of anterior chamber injuries following blunt trauma.`,
+    a: `
+1. **Angle Recession:** a tear between the longitudinal and circular muscles of the CB.
+
+2. **Cyclodialysis:** separation of the CB from the SS + widening of the suprachoroidal space and a deepened angle recess.
+
+3. **Iridodialysis:** a tear at the iris root.
+
+4. **TM Damage:** a tear in the anterior portion of the TM → creating a flap hinged at the scleral spur.
+
+
+---
+**CB:** Ciliary body, **SS:** Scleral spur
+`,
+  },
+
+  /// Question 33 ///
+  {
+    id: "glaucoma_33",
+    q: `How is Ocular Perfusion Pressure (OPP) calculated?`,
+    a: `
+**OPP = DBP + 1/3 SBP − IOP**
+
+---
+
+**DBP:** Diastolic Blood Pressure, **SBP:** Systolic Blood Pressure, **IOP:** Intraocular Pressure
+`,
+  },
+
+  /// Question 34 ///
+  {
+    id: "glaucoma_34",
+    q: `Name two inappropriate treatments in patients with NTG (Normal-Tension Glaucoma)`,
+    a: `
+[DOT]Topical β-blockers
+
+[DOT]ALT *(Argon Laser Trabeculoplasty)*
+
+---
+[SIREN]Particularly when IOP ≤ 15 mmHg
+`,
+  },
+
+  /// Chapter 7 ///
+  /// Question 35 ///
+  {
+    id: "glaucoma_35",
+    q: `Name five risk factors in the OHTS study associated with an increased risk of progression from ocular hypertension to POAG.`,
+    a: `
+
+
+
+
+* **Age:** ↑ 22% per 10-year increase
+
+* **CDR:** Vertical: ↑ 32% per 0.1; Horizontal: ↑ 27% per 0.1
+
+* **Baseline IOP:** ↑ 10% per 1 mmHg
+
+* **VF PSD:** ↑ 22% per 0.2 dB
+
+* **CCT:** ↑ 81% per 40 μm
+
+---
+
+[SIREN]**Notice:** In the OHTS study, no association was found between OAG and DM or myopia, contrary to similar studies →[BRAIN]*possibly due to the exclusion of patients with diabetic retinopathy.*
+
+
+
+**VF PSD:** Visual Field Pattern Standard Deviation
+`,
+  },
+
+  /// Chapter 8 ///
+  /// Question 36 ///
+  {
+    id: "glaucoma_36",
+    q: `What is the risk of progression to glaucoma or ocular hypertension in the following conditions:
+
+
+PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieger, Peters Anomaly, SWS?`,
+    a: `
+* **PXF:** 40% *(in 10 years)*
+
+* **PDS:** 15%
+
+* **Fuchs Uveitis:** 15%
+
+* **Hyphema Rebleeding:** 50%, **ICE:** 50%, **Axenfeld-Rieger:** 50%, **Peters Anomaly:** 50%
+
+* **Angle Recession:** 50% *(including the contralateral eye)* →[SIREN]decreases with time
+
+* **SWS:** 70%
+    
+    
+
+---
+**PXF:** Pseudoexfoliation, **PDS:** Pigment Dispersion Syndrome, **ICE:** Iridocorneal Endothelial Syndrome, **SWS:** Sturge-Weber Syndrome
+`,
+  },
+
+  /// Question 37 ///
+  {
+    id: "glaucoma_37",
+    q: `What is the general treatment approach for patients with Pigment Dispersion Glaucoma?`,
+    a: `
+* During exercise, **miotics** have a prophylactic effect.
+
+* **Medical treatment**, **LTP**, and **Trabx** are all effective, *but with certain considerations.*
+
+[WARNING]**Note:** The efficacy of LPI has not been established.
+
+---
+
+[SIREN]**LTP:** Short-lived effect; paradoxical ↑ IOP → [WARNING]low-energy settings
+
+[SIREN]**Trabx:** Successful, but with a higher risk of hypotonic maculopathy → especially in young myopic men.
+
+---
+
+**LTP:** Laser Trabeculoplasty, **LPI:** Laser Peripheral Iridotomy, **Trabx:** Trabeculectomy
+    `,
+  },
+
+  /// Question 38 ///
+  {
+    id: "glaucoma_38",
+    q: `What are the distinguishing features of phacolytic and phacoantigenic glaucoma?
+`,
+    a: `
+* **Phacolytic:** Occurs in the setting of a mature/ hypermature cataract + without KPs.
+
+* **Phacoantigenic:** Occurs following surgery/ trauma + with KPs.`,
+  },
+
+  /// Question 39 ///
+  {
+    id: "glaucoma_39",
+    q: `By what mechanisms can intraocular tumors cause glaucoma? Give examples.
+`,
+    a: `
+* **Secondary Angle-Closure Glaucoma (Pushing):** Choroidal and retinal tumors
+
+* **Neovascularization of the angle:** Choroidal melanoma, RB, Medulloepithelioma
+
+* **Direct invasion of the angle:** Primary or Metastatic CB Tumors → Uveal Melanoma, Melanocytoma
+
+---
+
+**RB**: Retinoblastoma, **CB**: Ciliary Body
+    `,
+  },
+
+  /// Question 40 ///
+  {
+    id: "glaucoma_40",
+    q: `Name the tumors that can cause glaucoma according to age group (adults vs. children).
+`,
+    a: `
+**Adults:** Uveal melanoma, melanocytoma, metastatic carcinoma, lymphoma, leukemia
+
+
+
+**Children:** RB, JXG, medulloepithelioma
+
+---
+
+**RB:** Retinoblastoma, **JXG:** Juvenile Xanthogranuloma
+`,
+  },
+
+  /// Question 41 ///
+  {
+    id: "glaucoma_41",
+    q: `**Yes or No!**
+
+
+
+Is there a relationship between the degree of inflammation and IOP in Fuchs Uveitis Syndrome?
+`,
+    a: `
+**No!**
+
+---
+
+[WARNING]**Notice:** Corticosteroids are generally ineffective in controlling the chronic low-grade inflammation and may only lead to a rise in IOP.`,
+  },
+
+  /// Question 43 ///
+  {
+    id: "glaucoma_43",
+    q: `Describe the treatment options for Posner-Schlossman syndrome.`,
+    a: `
+* Topical ± Oral Hypotensive
+
+
+
+* **Short-term** topical corticosteroid ± topical ± oral NSAIDs: *Indomethacin*
+
+
+
+* Filtering Surgery → [SIREN]*In frequent attacks or advanced optic nerve damage*`,
+  },
+
+   /// Question 44 ///
+  {
+    id: "glaucoma_44",
+    q: `**Name three contraindicated treatment options in patients with sickle cell anemia (SCA) + Hyphema.**`,
+    a: `
+* Carbonic Anhydrase Inhibitors [WARNING]
+
+* Hyperosmotic Agents
+
+* Adrenergic Agonists with significant α1 effect → Apraclonidine, Epinephrine, Dipivefrine → [BRAIN]*Due to vasoconstriction*`,
+  },
+
+   /// Question 45 ///
+  {
+    id: "glaucoma_45",
+    q: `**Name two prognostic factors for the development of secondary open-angle glaucoma (SOAG) following angle recession.**
+`,
+    a: `
+
+
+
+
+* ↑ Angle recession extension → ↑ Risk of SOAG
+
+* Passage of time → ↓ Risk of SOAG *(never reaches zero!)*`,
+  },
+
+   /// Question 46 ///
+  {
+    id: "glaucoma_46",
+    q: `**Name six risk factors for corticosteroid-induced glaucoma.**
+`,
+    a: `
+* History of POAG
+
+* First-degree family history of POAG
+
+* Age < 6 Y/O
+
+* Connective Tissue Disorder
+
+* Diabetes ([WARNING]Type 1)
+
+* Myopia`,
+  },
+
+   /// Question 47 ///
+  {
+    id: "glaucoma_47",
+    q: `**Name four risk factors for cycloplegic-induced IOP elevation.**
+`,
+    a: `
+* POAG
+
+* Receiving Miotic Treatment
+
+* PXF 
+
+* PDS (Pigment Dispersion Syndrome)`,
+  },
+  
+
+  /// Chapter 9 /// 
+  /// Question 48 ///
+  {
+    id: "glaucoma_48",
+    q: `What are the indications for performing laser PI in PACS?`,
+    a: `
+* Presence of PAS → *equals PAC*
+
+* Segmental Pigmentation of the TM → *documentation of iridotrabecular contact*
+
+* History of AAC
+
+* Positive Family History
+
+* AC Depth < 2 mm
+
+---
+
+**AAC**: Acute Angle Closure
+
+[BRAIN]Reminder: **ACD < 2.5 mm**: PAC Predisposition, **ACD < 2.1 mm**: More usual in PAC, **ACD < 2.4 mm**: Strong Association with PAS
+`,
+  },
+
+   /// Question 49 ///
+
+  {
+
+    id: "glaucoma_49",
+
+    q: `What is the role of miotics in AAC, and at what dose can they be used?`,
+
+    a: `
+
+In cases of **Pupillary Block**, Pilocarpine **1–2%** may be effective. 
+
+
+
+
+
+[WARNING]Without Pupillary Block, it may worsen the condition: [BRAIN] *shifting the iris–lens diaphragm anteriorly → worsening Angle Closure*
+
+`,
+
+  },
+
+  /// Question 50 ///
+  {
+    id: "glaucoma_50",
+    q: `How does the pattern of PAS differ between Plateau Iris and Pupillary Block?`,
+    a: `
+The direction of PAS is opposite in the two conditions.
+
+**Plateau Iris**: Schwalbe Line → Angle Recession *(Anterior to Posterior)*
+
+**Pupillary Block**: Angle Recession → Schwalbe Line *(Posterior to Anterior)*
+`,
+  },
+
+   /// Question 51 ///
+  {
+    id: "glaucoma_51",
+    q: `What treatment options are available for Plateau Iris Syndrome?`,
+    a: `
+* LPI
+
+* ECP + Lensectomy
+
+* Long-term Miotic Therapy
+
+* Laser Iridoplasty
+
+---
+
+**LPI**: Laser PI, **ECP**: Endoscopic Cyclophotocoagulation
+`,
+  },
+
+  /// Chapter 11 ///
+   /// Question 52 ///
+
+  {
+
+    id: "glaucoma_52",
+
+    q: `What are the normal cutoff values for horizontal corneal diameter according to age, including both the upper and lower limits?`,
+
+    a: `
+
+**Upper Limit**: 
+
+* 11 mm in newborns 
+
+* 12 mm in < 1 Y/O 
+
+* 13 mm at any age 
+
+---
+
+**Lower Limit**: 
+
+* 9.5–10.5 mm in newborns 
+
+* 12 mm in adults 
+
+`,
+
+  },
+
+   /// Question 53 ///
+  {
+    id: "glaucoma_53",
+    q: `According to the definition, in which age groups do late-onset congenital glaucoma and juvenile open-angle glaucoma (JOAG) occur?`,
+    a: `
+**Late-Onset Congenital Glaucoma**: ≥ 24 M/O
+
+---
+
+**JOAG**: 4–40 Y/O
+`,
+  },
+
+   /// Question 54 ///
+  {
+    id: "glaucoma_54",
+    q: `Name three risk factors for blindness in patients with Primary Congenital Glaucoma (PCG).`,
+    a: `
+* Newborn PCG
+
+* Diagnosis after 1 Y/O
+
+* Corneal Diameter > 14 mm at diagnosis
+
+---
+
+
+[SIREN]The **best prognostic age** at diagnosis is between **3–12 months**.
+`,
+  },
+
+   /// Question 55 ///
+
+  {
+
+    id: "glaucoma_55",
+
+    q: `What gonioscopic finding is associated with glaucoma progression in patients with Axenfeld-Rieger Syndrome?`,
+
+    a: `
+
+* Higher **iris insertion height** 
+
+[WARNING] It is not associated with the number of **iris processes** or the severity of **iris abnormalities**. 
+
+`,
+
+  },
+
+   /// Question 56 ///
+  {
+    id: "glaucoma_56",
+    q: `In which subgroup of patients with Peters Anomaly is glaucoma more common?`,
+    a: `
+Corneolenticular Adhesion > Iridocorneal
+`,
+  },
+
+   /// Question 57 ///
+  {
+    id: "glaucoma_57",
+    q: `What is the ocular and systemic significance of the Peters Anomaly subtype?`,
+    a: `
+The **Corneolenticular type** is more commonly associated with ocular and systemic abnormalities.
+
+---
+
+* **Ocular Associations**: Microcornea, Aniridia
+
+* **Systemic Abnormalities**: Cardiac, Genitourinary, Musculoskeletal, Ear, Palatal, and Spinal Abnormalities
+`,
+  },
+
+   /// Question 58 ///
+
+  {
+
+    id: "glaucoma_58",
+
+    q: `What is the association between Neurofibromatosis and Glaucoma?`,
+
+    a: `
+
+**NF1**: Associated with glaucoma → 50% of cases are Autosomal Dominant, while 50% are Sporadic.
+
+**NF2**: Not associated with glaucoma. 
+
+---
+
+[BRAIN] **Note**: NF1-associated glaucoma is generally **unilateral** and occurs in association with a **neurofibroma**. 
+
+`,
+
+  },
+
+   /// Question 59 ///
+
+  {
+
+    id: "glaucoma_59",
+
+    q: `Name the risk factors for Glaucoma Following Cataract Surgery (GFCS) in patients with congenital cataract.`,
+
+    a: `
+
+* Surgery during the first year of life *(especially within the first 6 weeks)*
+
+* Postoperative Complications
+
+* Small Corneal Diameter
+
+* NS Cataract
+
+---
+
+[WARNING] **Note**: Aphakia or Pseudophakia does not alter the risk of developing GFCS. 
+
+[SIREN] Overall, the risk of Glaucoma is approximately ≤ 50% in patients with Congenital Cataract. 
+
+`,
+
+  },
+
+  /// Chapter 12 /// 
+  /// Question 60 ///
+  {
+    id: "glaucoma_60",
+    q: `Define Mild, Moderate, and Severe Glaucoma and state the target IOP for each. Also, state the target IOP for OHTN.`,
+    a: `
+**Mild Glaucoma**: Disc Damage + Normal VF
+
+**Moderate Glaucoma**: VF Scotoma in 1 Hemi-Field, Outside the Central Area
+
+**Severe Glaucoma**: VF Scotomas in 2 Hemi-Fields ± Central 10°
+
+---
+Target IOP:
+
+**OHTN**: < 25 mmHg + 20% Below Baseline
+
+**Mild**: < 21 mmHg + 25% Below Baseline
+
+**Moderate**: < 18 mmHg + 30% Below Baseline
+
+**Severe**: < 15 mmHg + 30% Below Baseline
+`,
+  },
+
+   /// Question 61 ///
+
+  {
+
+    id: "glaucoma_61",
+
+    q: `What is the mechanism of IOP lowering by PG Agonists?`,
+
+    a: `
+
+**F2α Binding** → MMP Activation → Remodelling of the CB, TM, and Scleral Extracellular Matrix 
+
+**↑ Space Between CB Muscle Fibers**
+
+---
+
+**Final Result**: ↑ Uveoscleral + Conventional Outflow 
+
+[SIREN] *PG Analogues are activated by Corneal Esterases.*
+`,
+  },
+
+   /// Question 62 ///
+  {
+    id: "glaucoma_62",
+    q: `Describe the pigmentation-related adverse effects associated with PG Analogues.`,
+    a: `
+**Skin Darkening (Irreversible)**: *Hazel > Green >>> Blue Irides*
+
+**Hyperemia, Hypertrichosis, Trichiasis, and Distichiasis (Reversible)** → [SIREN] *More Common with **Bimatoprost** and **Travoprost***
+`,
+  },
+
+   /// Question 63 ///
+  {
+    id: "glaucoma_63",
+    q: `Name two antiglaucoma medications that may be associated with Uveitis and state the type of Uveitis associated with each.`,
+    a: `
+**PG Analogues** → Nongranulomatous Anterior Uveitis (1%)
+
+**Brimonidine** → Granulomatous Anterior Uveitis (Rare)
+`,
+  },
+
+   /// Question 64 ///
+  {
+    id: "glaucoma_64",
+    q: `Which patients are at higher risk of developing CME following the use of PG Analogues?`,
+    a: `
+* Aphakia
+
+* Pseudophakia + Open Posterior Capsule
+
+* Uveitis
+`,
+  },
+
+   /// Question 65 ///
+
+  {
+
+    id: "glaucoma_65",
+
+    q: `What is the mechanism of IOP lowering by α2 Agonists?`,
+
+    a: `
+
+↓ Aqueous Humor Production
+
+[SIREN] **Long-term Brimonidine** Use is also associated with **↑Uveoscleral Outflow**.
+`,
+  },
+
+   /// Question 66 ///
+  {
+    id: "glaucoma_66",
+    q: `What are the pregnancy categories of four major antiglaucoma medication classes: Prostaglandin Analogues, β-Blockers, α2 Agonists, and Carbonic Anhydrase Inhibitors?`,
+    a: `
+* **PG Analogues** → Category C
+
+* **β-Blockers** → Category C ([WARNING]*×Breastfeeding×*)
+
+* **α2 Agonists** → Category B ([WARNING]*×Breastfeeding×*) → [SIREN] *The drug of choice during pregnancy, but should be discontinued before delivery.*
+
+* **CAI** → Category C *(Forelimb Deformity)*
+
+---
+
+**CAI**: Carbonic Anhydrase Inhibitors
+`,
+  },
+
+   /// Question 67 ///
+  {
+    id: "glaucoma_67",
+    q: `What are the washout periods for PG Analogues, β-Blockers, α2 Agonists, Pilocarpine, and Dorzolamide?`,
+    a: `
+* **PG Analogues**: 4–6 weeks
+
+* **β-Blockers**: 4 weeks
+
+* **α2 Agonists**: 1–2 weeks
+
+* **Pilocarpine** & **Dorzolamide**: 48 hours
+`,
+  },
+
+   /// Question 68 ///
+  {
+    id: "glaucoma_68",
+    q: `What effects do Apraclonidine and Brimonidine have on pupil dilation?`,
+    a: `
+* **Apraclonidine** → Mydriasis
+
+* **Brimonidine** → Miosis
+`,
+  },
+
+   /// Question 69 ///
+
+  {
+
+    id: "glaucoma_69",
+
+    q: `Which of Apraclonidine and Brimonidine is more commonly associated with allergic reactions?`,
+
+    a: `
+
+Apraclonidine > Brimonidine
+
+[WARNING]*However, **Cross-Reactivity** between the two is **rare***.
+`,
+
+  },
+
+   /// Question 70 ///
+  {
+    id: "glaucoma_70",
+    q: `In which cases of Glaucoma is LTP indicated?`,
+    a: `
+* PXF
+
+* PDS
+
+* Advanced Age
+
+* POAG
+
+[WARNING] **Notice**: *LTP is only performed in OAG or OHTN.*
+
+---
+
+**LTP**: Laser Trabeculoplasty, **PDS**: Pigment Dispersion Syndrome, **OHTN**: Ocular Hypertension
+`,
+  },
+
+  /// Question 71 ///
+  {
+    id: "glaucoma_71",
+    q: `What are the contraindications to LTP?`,
+    a: `
+* CAG
+
+* Advanced Glaucoma or Highly Elevated IOP
+
+* Anterior Uveitis
+
+* Abnormal Angle: *Angle Recess*
+
+---
+**CAG**: Closed Angle Glaucoma
+`,
+  },
+
+   /// Question 72 ///
+
+  {
+
+    id: "glaucoma_72",
+
+    q: `Name the risk factors for Bleb-Related Infections.`,
+
+    a: `
+
+* Untreated Blepharitis 
+
+* Inferior Bleb 
+
+* Bleb Leakage  
+
+* Thin-Walled Blebs → *More Common in Localized Blebs* 
+
+* MMC / 5-FU Application 
+
+* Fornix-Based Trabx [SIREN]
+`,
+  },
+
+/// Question 73 ///
+  {
+    id: "glaucoma_73",
+    q: `What are the stages of Bleb-Related Infection (Blebitis), and how is each stage treated?`,
+    a: `
+**Stage I**: Erythema / Infiltration Around the Bleb
+
+**Stage II**: AC Inflammation
+
+**Stage III**: Hypopyon ± Vitritis
+
+---
+
+Treatment:
+
+**Stage I, Stage II**: Topical Fluoroquinolone or Fortified Drops ± Subconjunctival Antibiotics
+
+**Stage III**: Vitreous Tap + AB Injection / Vitrectomy
+`,
+  },
+
+
+ 
 ];

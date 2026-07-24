@@ -605,7 +605,7 @@ More common in: **Males**
     id: "cataract_46",
     q: `What is the relative severity of glare in nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC)?`,
     a: `
-SC > CC > NS
+PSC > CC > NS
 `,
   },
 
