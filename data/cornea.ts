@@ -398,7 +398,15 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 * ↑Refractive index
 
-* ↑Thickness of Descemet membrane [SIREN]*(posterior nonbanded zone)*.`,
+* ↑Thickness of Descemet membrane [SIREN]*(posterior nonbanded zone)*.
+
+---
+[BRAIN]*age-related changes of the cornea and lens are opposite* 
+
+[WARNING]cornea with ↑age → flatter + ↑refractive index
+
+[WARNING]lens with ↑age → steeper + ↓refractive index
+  `,
 },
 
 /// Question 22 ///
@@ -593,6 +601,84 @@ Chalky white crystalline deposits within epithelial defects.`,
 ---
 
 * **Location**: Descemet membrane`,
+},
+
+/// Chapter 8 ///
+/// Question 37 ///
+
+{
+  id: "cornea_37",
+  q: `Compare the severity of RCE in Reis-Bücklers corneal dystrophy and Thiel-Behnke corneal dystrophy.`,
+  a: `
+  
+* **RBCD**: more common + more severe RCE → ↓severity with ↑age
+
+* **TBCD**: Less common + milder RCE
+
+---
+***RBCD**: Reis-Bücklers Corneal Dystrophy), **TBCD**: Thiel-Behnke Corneal Dystrophy*
+`,
+},
+
+/// Question 38 ///
+
+{
+  id: "cornea_38",
+  q: `Compare the corneal opacity features of RBCD and TBCD.`,
+  a: `
+  
+* **RBCD**: Coarse, irregular, geographic opacities
+
+* **TBCD**: Regular, delicate honeycomb opacities
+
+---
+***RBCD**: Reis-Bücklers Corneal Dystrophy), **TBCD**: Thiel-Behnke Corneal Dystrophy*
+`,
+},
+
+/// Question 39 ///
+
+{
+  id: "cornea_39",
+  q: `Which of RBCD and TBCD demonstrates a saw-tooth pattern on AS-OCT?`,
+  a: `
+  
+TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
+},
+
+/// Question 40 ///
+
+{
+  id: "cornea_40",
+  q: `Describe the confocal microscopy findings of TBCD and RBCD.`,
+  a: `
+  
+* **RBCD**: Highly reflective material without shadow
+
+* **TBCD**: Moderately reflective material with shadow
+
+---
+
+***RBCD**: Reis-Bücklers Corneal Dystrophy), **TBCD**: Thiel-Behnke Corneal Dystrophy*
+
+  `,
+},
+
+/// Question 41 ///
+
+{
+  id: "cornea_41",
+  q: `Describe the transmission electron microscopy findings of TBCD and RBCD.`,
+  a: `
+  
+* **RBCD**: Rod-shaped bodies for TGFβ1 protein
+
+* **TBCD**: Curly fibers
+
+---
+
+***RBCD**: Reis-Bücklers Corneal Dystrophy), **TBCD**: Thiel-Behnke Corneal Dystrophy*
+`,
 },
   
 ];
