@@ -41,8 +41,9 @@ export default function DeckList({
   const subscription = useSubscription(user?.id ?? null);
   const deckImages: Record<string, string> = {
     cataract: "/deck-icons/cataract4.png",
-    uveitis: "/deck-icons/uveitis7.png",
+    uveitis: "/deck-icons/uveitis2.png",
     glaucoma: "/deck-icons/glaucoma3.png",
+    cornea: "/deck-icons/cornea.png",
   };
 
   clientState.useStore();

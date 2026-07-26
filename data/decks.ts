@@ -5,6 +5,8 @@ import { cataractCards } from "./cataract";
 import { retinaCards } from "./retina";
 import { uveitisCards } from "./uveitis";
 import { glaucomaCards } from "./glaucoma";
+import { corneaCards } from "./cornea";
+
 
 export const decks = [
   
@@ -27,6 +29,13 @@ export const decks = [
     name: "Uveitis",
     isFree: false,
     cards: uveitisCards,
+  },
+
+  {
+    key: "cornea",
+    name: "Cornea",
+    isFree: false,
+    cards: corneaCards,
   },
 ] as const;
 
