@@ -728,5 +728,84 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 **Effect of Treatment**: Hyperlipidemia improves, but the existing corneal dystrophy remains unchanged.`,
 },
+
+/// Question 45 ///
+
+{
+  id: "cornea_45",
+  q: `Describe the clinical features of posterior amorphous corneal dystrophy (PACD) on examination.`,
+  a: `
+  
+**Sheetlike gray-white corneal opacities** despite VA ≥ 20/40.
+
+---
+
+**Corneal thinning** and **flattening** with **anterior segment abnormalities**:
+
+- Iridocorneal adhesion (ICA)
+- Corectopia
+- Pseudopolycoria
+- Prominent Schwalbe line
+- Pupillary remnants
+- Fine iris processes
+
+[WARNING] *Not associated with glaucoma*`,
+},
+
+/// Question 46 ///
+
+{
+  id: "cornea_46",
+  q: `Describe the histopathologic features of posterior amorphous corneal dystrophy (PACD).`,
+  a: `
+  
+a fibrillar membrane layer interrupts Descemet membrane.
+
+---
+
+**Additional findings**: 
+* Endothelial cells focal attenuation
+
+* Stromal architecture irregularity, anterior to Descemet membrane
+
+* Posterior stromal lamellae degeneration`,
+},
+
+/// Question 47 ///
+
+{
+  id: "cornea_47",
+  q: `Describe the confocal biomicroscopy findings of posterior amorphous corneal dystrophy (PACD).`,
+  a: `
+  
+Microfolds + Hyperreflective layers in the posterior stroma`,
+},
+
+/// Question 48 ///
+
+{
+  id: "cornea_48",
+  q: `Describe the clinical features of posterior polymorphous corneal dystrophy (PPCD) on examination.`,
+  a: `
+  
+* Grouped isolated endothelial vesicles
+  
+* Distinct gray geographic lesions
+  
+* Endothelial bands with scalloped edges
+
+---
+**Additional findings**:
+
+* Stromal edema
+
+* Corectopia
+
+* Broad + fine iridocorneal adhesions.
+
+[WARNING] 14% risk of ↑IOP → Chronic Angle-Closure Glaucoma (CACG)/ Open Angle Glaucoma (OAG)`,
+},
+
+/// Chapter 13 ///
   
 ];
