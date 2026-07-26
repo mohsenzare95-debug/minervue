@@ -54,7 +54,7 @@ const imageSize = 2560;
 const viewerSize = 280;
 
 const maxMovement =
-((imageSize * zoom) - viewerSize) / 2;
+((imageSize * zoom) - viewerSize) /10;
 
 
 
@@ -293,9 +293,9 @@ const moveJoystick = (
 
   velocity.current={
 
-    x:-x/(12 * zoom),
+    x:-x/(4 * zoom),
 
-    y:-y/(12 * zoom),
+    y:-y/(4 * zoom),
 
   };
 
