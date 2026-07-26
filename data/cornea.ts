@@ -680,5 +680,53 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 ***RBCD**: Reis-Bücklers Corneal Dystrophy), **TBCD**: Thiel-Behnke Corneal Dystrophy*
 `,
 },
+
+/// Question 42 ///
+
+{
+  id: "cornea_42",
+  q: `Describe the histologic features of TBCD.`,
+  a: `
+  
+* Epithelium irregular thickening & thinning 
+
+* Ridges and furrows in the underlying stroma
+
+* Epithelial basement membrane focal absence
+  
+* Bowman's layer replacement by fibrovascular material in a waxy and saw-tooth pattern
+  
+---
+
+***TBCD**: Thiel-Behnke Corneal Dystrophy*`,
+},
+
+/// Question 43 ///
+
+{
+  id: "cornea_43",
+  q: `Name three corneal dystrophies associated with ↓ corneal sensation.`,
+  a: `
+  
+* Schnyder Corneal Dystrophy (SCD)
+
+* Meesmann Corneal Dystrophy
+
+* Macular Corneal Dystrophy (MCD)`,
+},
+
+/// Question 44 ///
+
+{
+  id: "cornea_44",
+  q: `What percentage of patients with SCD are associated with hypercholesterolemia, and what is the effect of medical/dietary treatment?`,
+  a: `
+  
+**Association**: 2/3 of patients have hypercholesterolemia.
+
+---
+
+**Effect of Treatment**: Hyperlipidemia improves, but the existing corneal dystrophy remains unchanged.`,
+},
   
 ];

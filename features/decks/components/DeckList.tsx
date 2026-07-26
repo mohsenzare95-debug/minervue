@@ -42,7 +42,7 @@ export default function DeckList({
   const deckImages: Record<string, string> = {
     cataract: "/deck-icons/cataract4.png",
     uveitis: "/deck-icons/uveitis2.png",
-    glaucoma: "/deck-icons/glaucoma3.png",
+    glaucoma: "/deck-icons/glaucoma1.png",
     cornea: "/deck-icons/cornea.png",
   };
 
