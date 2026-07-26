@@ -190,5 +190,409 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 [WARNING]Polymorphism: hexagonality < 50%`,
 },
+
+/// Chapter 3 ///
+/// Question 9 ///
+
+{
+  id: "cornea_9",
+  q: `Name the causes of aqueous deficient dry eye.`,
+  a: `
+  
+**Sjogren**: primary or secondary.
+
+**Non-Sjogren**: Lacrimal deficiency, lacrimal gland obstruction, reflux block, and systemic drugs.`,
+},
+
+/// Question 10 ///
+
+{
+  id: "cornea_10",
+  q: `Name the causes of evaporative dry eye.`,
+  a: `
+  
+* **Intrinsic**: MGD, eyelid disorders, ↓blinking rate, and drug action *(e.g., Accutane)*.
+
+* **Extrinsic**: Vitamin A deficiency, topical preservatives, CL wear, and OSD *(e.g., allergy)*.
+
+---
+***OSD**: Ocular Surface Disorders*`,
+},
+
+/// Question 11 ///
+
+{
+  id: "cornea_11",
+  q: `Describe the clinical classification of MGD.`,
+  a: `
+  
+**Stage 1**: minimally altered expressibility and secretion; no symptoms and no corneal staining.
+
+---
+
+**Stage 2**: mild alteration; minimal to mild symptoms and staining.
+
+---
+
+**Stage 3**: moderate alteration; moderate symptoms and staining ***(mainly peripheral)***.
+
+---
+
+**Stage 4**: severe alteration; marked symptoms and staining ***(peripheral + central)***.
+
+---
+
+[SIREN]**Plus Disease**: MGD + Ocular Surface Disorders/Eyelid Disorder.
+`,
+},
+
+/// Question 12 ///
+
+{
+  id: "cornea_12",
+  q: `Name the treatment options for MGD according to its severity.`,
+  a: `
+  
+**Mild**: Artificial Tear q6h, Lubrication Oint qhs, Lid Massage.
+
+---
+
+**Moderate**: Artificial Tear q1-6h *(Preservative Free)*, Lubrication Oint qhs, **Topical Anti-inflammatory** *(Cyclosporine A 0.05 or 0.09 BD/Lifitegrast 5% BD)*, Omega3, **Reversible** Lower Punctal Occlusion.
+
+[WARNING]If inflammatory disorders *(connective tissue)* → Systemic Immunosuppression.
+
+---
+
+**Severe**: Above treatments + **Permanent** Upper + Lower Punctal Occlusion, Autologous Serum (20-50%) q3-6h, **Topical Steroids** *(Preservative Free, Short Term)*, Humidifier, Moisture Chamber Glasses, Tarsorrhaphy, BCL (Rarely), Scleral CL, Systemic Cholinergic Agonists *(Rare, Pilocarpine)*.
+
+[BRAIN]***Note**: In patients with dry eye, contact lenses with **low water content** are better tolerated.*`,
+},
+
+/// Question 13 ///
+
+{
+  id: "cornea_13",
+  q: `Describe the pathology associated with Superior limbic keratoconjunctivitis (SLK).`,
+  a: `
+  
+Hyperproliferation + acanthosis + loss of goblet cells + keratinization.
+
+---
+
+[SIREN]**Impression Cytology/Scraping**: Nuclear pyknosis with snake nuclei and ↑ nucleus/cytoplasm ratio. [DUMBBELL]**S**LK ~ **Snake**`,
+},
+
+/// Chapter 4 ///
+/// Question 14 ///
+
+{
+  id: "cornea_14",
+  q: `Name the surgical treatment options for conjchalazia.`,
+  a: `
+  
+* **Cauterization**: at 4 mm from the limbus, *using increasing voltage, with 5–10 points until whitening of the cauterized area*.
+
+* **Fixation (Plication)**: at 8–10 mm from the limbus, *using interrupted sutures*.
+
+* **Resection (Excision)**: at 5 mm from the limbus, *crescent-shaped excision*.
+
+* **AMT**
+
+---
+
+[WARNING]***Note**: surgical treatments should not be concentrated in the fornix or limbus.*`,
+},
+
+/// Question 15 ///
+{
+  id: "cornea_15",
+  q: `Name the causes of toxic reactions to topical medications presenting as keratoconjunctivitis.`,
+  a: `
+  
+* **Aminoglycosides**: Gentamicin, Neomycin, Tobramycin
+
+* **Antivirals**: TFT
+
+* **Antineoplastic Agents**: MMC
+
+* **Topical Anesthetics**: Proparacaine, Tetracaine
+
+* **Preservatives**: BAK, Thimerosal`,
+},
+
+/// Question 16 ///
+
+{
+  id: "cornea_16",
+  q: `Name three topical medications associated with toxic keratoconjunctivitis with a pattern of epithelial toxicity, anterior stromal peripheral infiltration, and clear limbal zone.`,
+  a: `
+  
+Aminoglycosides, Antivirals *(TFT)*, Preservatives *(BAK, Thimerosal)*.`,
+},
+
+/// Question 17 ///
+
+{
+  id: "cornea_17",
+  q: `Name two topical medications associated with toxic keratoconjunctivitis with the pattern of vortex keratopathy, inferior/central CED, stromal opacity, and neovascularization.`,
+  a: `
+  
+Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
+},
+
+/// Question 18 ///
+
+{
+  id: "cornea_18",
+  q: `Which topical medications have been reported to cause toxic follicular conjunctivitis?`,
+  a: `
+  
+* **Miotics**: Carbachol, Pilocarpine
+
+* **α-Adrenergic Agonists**: Apraclonidine, Brimonidine, Dipivefrine, Epinephrine
+
+* **Cycloplegics**: Atropine, HMT`,
+},
+
+/// Question 19 ///
+
+{
+  id: "cornea_19",
+  q: `What are the specific features of follicular conjunctivitis due to toxicity from miotics and β-blockers?`,
+  a: `
+  
+**Progressive Subconjunctival Scarring** → Forniceal Shortening, Symblepharon, Punctal Stenosis, and Pannus.`,
+},
+
+/// Chapter 7 ///
+/// Question 20 ///
+
+{
+  id: "cornea_20",
+  q: `Name the age-related changes of the conjunctiva.`,
+  a: `
+  
+* Loss of transparency
+
+* Thinning
+
+* ↓Elasticity of substantia propria
+
+* Prominent conjunctival vessels`,
+},
+
+/// Question 21 ///
+
+{
+  id: "cornea_21",
+  q: `Name the age-related changes of the cornea.`,
+  a: `
+  
+* Vertical meridian flattening
+  
+* Corneal thinning
+  
+* ↑Rigidity, 
+  
+* ↓Transparency
+
+* ↑Refractive index
+
+* ↑Thickness of Descemet membrane [SIREN]*(posterior nonbanded zone)*.`,
+},
+
+/// Question 22 ///
+
+{
+  id: "cornea_22",
+  q: `Describe the histologic changes of Salzmann nodular degeneration.`,
+  a: `
+  
+Replacement of Bowman's layer with hyaline + fibrillar material → similar to spheroidal degeneration.`,
+},
+
+/// Question 23 ///
+
+{
+  id: "cornea_23",
+  q: `Describe the three features of Salzmann nodular degeneration on confocal biomicroscopy.`,
+  a: `
+  
+* Elongated **Basal Epithelial** Cells
+
+* Active Keratocytes in **Anterior** Stroma
+
+* Sub-basal Nerves and Nerve Bundle Tortuosity in Stroma`,
+},
+
+/// Question 24 ///
+
+{
+  id: "cornea_24",
+  q: `Describe the slit-lamp features of polymorphic amyloid degeneration (PAD).`,
+  a: `
+**Appearance**: husky white, partially refractile opacities
+
+[SIREN]appearing crystalline on retroillumination
+
+---
+
+**Location**: mid to deep stroma, with indentation of Descemet membrane`,
+},
+
+/// Question 25 ///
+
+{
+  id: "cornea_25",
+  q: `What is Fuchs superficial marginal keratitis?`,
+  a: `
+  
+A part of TMD spectrum, inflammatory, occurring in children and teenagers.
+
+***TMD**: Terrien Marginal Degeneration*`,
+},
+
+/// Question 26 ///
+
+{
+  id: "cornea_26",
+  q: `Describe the features of corneal drug toxicity associated with clofazimine.`,
+  a: `
+  
+**anterior stromal** opacities with crystalline deposits.`,
+},
+
+/// Question 27 ///
+
+{
+  id: "cornea_27",
+  q: `Describe the features of corneal drug toxicity associated with isotretinoin.`,
+  a: `
+  
+Fine, diffuse, gray deposits in the **central and peripheral cornea**.`,
+},
+
+/// Question 28 ///
+
+{
+  id: "cornea_28",
+  q: `Describe the features of corneal drug toxicity associated with gold salts.`,
+  a: `
+  
+**Posterior stromal** deposits without involvement of Descemet membrane or endothelium.
+
+[SIREN]*common with a cumulative dose > 1 gram.*`,
+},
+
+/// Question 29 ///
+
+{
+  id: "cornea_29",
+  q: `Describe the features of corneal drug toxicity associated with rifabutin.`,
+  a: `
+  
+Refractile, stellate **endothelial deposits** in the peripheral cornea → central extension over time.`,
+},
+
+/// Question 30 ///
+
+{
+  id: "cornea_30",
+  q: `Describe the features of corneal drug toxicity associated with ciprofloxacin.`,
+  a: `
+  
+Chalky white crystalline deposits within epithelial defects.`,
+},
+
+/// Question 31 ///
+{
+  id: "cornea_31",
+  q: `What is the composition of corneal deposits in ochronosis, in which disease are they seen, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Alkapton deposits *(similar to melanin)*
+
+---
+
+* **Associated Disease**: Alkaptonuria
+
+---
+
+* **Location**: Peripheral epithelium and superficial stroma`,
+},
+
+/// Question 32 ///
+
+{
+  id: "cornea_32",
+  q: `What is the composition of corneal adrenochrome deposits, in which conditions are they seen, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Oxidized epinephrine deposits *(similar to melanin)*
+
+---
+
+* **Associated Conditions**: Chronic use of topical epinephrine or oral minocycline/tetracycline
+
+---
+
+* **Location**:  Between Bowman's layer and the basement membrane, or in the conjunctiva`,
+},
+
+/// Question 33 ///
+
+{
+  id: "cornea_33",
+  q: `What is the composition of corneal deposits in siderosis, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Iron deposits*
+
+---
+
+* **Location**: Stroma ± epithelium`,
+},
+
+/// Question 34 ///
+
+{
+  id: "cornea_34",
+  q: `What is the composition of chrysiasis corneal deposits, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Gold deposits
+
+---
+
+* **Location**: Stroma, *mainly in the peripheral cornea*`,
+},
+
+/// Question 35 ///
+
+{
+  id: "cornea_35",
+  q: `What is the composition of corneal deposits in argyrosis, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Silver deposits
+
+---
+
+* **Location**: Descemet membrane ± deep stroma`,
+},
+
+/// Question 36 ///
+
+{
+  id: "cornea_36",
+  q: `What is the composition of chalcosis corneal deposits, and where do they accumulate?`,
+  a: `
+  
+* **Composition**: Copper-containing foreign body deposits
+
+---
+
+* **Location**: Descemet membrane`,
+},
   
 ];
