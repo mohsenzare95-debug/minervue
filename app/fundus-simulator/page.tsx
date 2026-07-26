@@ -20,11 +20,18 @@ export default function FundusSimulatorPage() {
 const styles: Record<string, React.CSSProperties> = {
 
   page:{
-    display:"flex",
-    flexDirection:"column",
-    gap:24,
-    fontFamily:"sans-serif",
-  },
+  display:"flex",
+  flexDirection:"column",
+  gap:4,
+  fontFamily:"sans-serif",
+
+  overflow:"hidden",
+  height:"100vh",
+  touchAction:"none",
+
+  userSelect:"none",
+WebkitUserSelect:"none",
+},
 
   titleBlock:{
     textAlign:"center",

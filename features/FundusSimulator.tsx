@@ -129,6 +129,7 @@ const startBeam = (
 )=>{
 
   e.preventDefault();
+  e.currentTarget.setPointerCapture(e.pointerId);
 
 
   beamActive.current=true;
@@ -427,7 +428,11 @@ const stopJoystick = ()=>{
 
   return (
 
-    <div style={styles.page}>
+<div
+  style={styles.page}
+  onContextMenu={(e)=>e.preventDefault()}
+>
+    
 
 
       {/* FUNDUS VIEW */}
@@ -638,36 +643,25 @@ Record<string,React.CSSProperties>
 
 page:{
 
-
-  minHeight:
-
-  "calc(100vh - 80px)",
-
-
+  minHeight:"calc(100vh - 80px)",
 
   display:"flex",
 
-
   flexDirection:"column",
-
 
   alignItems:"center",
 
-
-
   gap:50,
-
-
 
   paddingTop:30,
 
-
-
   fontFamily:"sans-serif",
 
-
-
   userSelect:"none",
+
+  WebkitUserSelect:"none",
+
+  touchAction:"none",
 
 },
 
@@ -872,7 +866,7 @@ beamControl:{
 
   left:"-45px",
 
-  top:"20px",
+  top:"-60px",
 
   width:80,
 
