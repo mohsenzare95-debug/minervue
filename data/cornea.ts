@@ -145,8 +145,26 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_7",
-  q: `q`,
-  a: `a`,
+  q: `Describe the Basic Secretion Test, Schirmer I, and Schirmer II for evaluation of tear production.`,
+  a: `
+  
+**Basic Secretion Test**: with topical anesthesia | basic tear production
+
+**Result (5 min)**: < 3 mm wetting → ATD, 3–10 mm wetting → Equivocal
+
+---
+
+**Schirmer I**: without topical anesthesia | basic + reflex tear production.
+
+**Result (5 min)**: < 5 mm wetting → Diagnostic
+
+[SIREN]*relatively specific but not sensitive.*
+
+---
+
+**Schirmer II**: with topical anesthesia by stimulating the nasal mucosa with a cotton applicator | reflex tear secretion
+
+**Result (2 min)**: < 15 mm → ATD`,
 },
 
 /// Question 8 ///
