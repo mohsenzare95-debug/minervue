@@ -171,184 +171,24 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_8",
-  q: `q`,
-  a: `a`,
-},
+q: `Name and describe the three parameters used for interpretation of specular microscopy results, including their cutoff values and associated risk of post-surgical corneal decompensation[WARNING].`,  a: `
+  **Cell Density**: 1500–3500 cells/mm² *(+cell size of 150–350 µm²)*
 
-/// Question 9 ///
+[WARNING] < 1000 cells/mm² 
 
-{
-  id: "cornea_9",
-  q: `q`,
-  a: `a`,
-},
+---
 
-/// Question 10 ///
+**Coefficient of Variation (CV)**: < 0.30
 
-{
-  id: "cornea_10",
-  q: `q`,
-  a: `a`,
-},
+*CV = standard deviation of the mean cell area divided by the mean cell area.*
 
-/// Question 11 ///
+[WARNING]Polymegathism: CV > 0.40 *(e.g., CL usage)*
 
-{
-  id: "cornea_11",
-  q: `q`,
-  a: `a`,
-},
+---
 
-/// Question 12 ///
+**Hexagonality**: ~ 100%.
 
-{
-  id: "cornea_12",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 13 ///
-
-{
-  id: "cornea_13",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 14 ///
-
-{
-  id: "cornea_14",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 15 ///
-
-{
-  id: "cornea_15",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 16 ///
-
-{
-  id: "cornea_16",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 17 ///
-
-{
-  id: "cornea_17",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 18 ///
-
-{
-  id: "cornea_18",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 19 ///
-
-{
-  id: "cornea_19",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 20 ///
-
-{
-  id: "cornea_20",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 21 ///
-
-{
-  id: "cornea_21",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 22 ///
-
-{
-  id: "cornea_22",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 23 ///
-
-{
-  id: "cornea_23",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 24 ///
-
-{
-  id: "cornea_24",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 25 ///
-
-{
-  id: "cornea_25",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 26 ///
-
-{
-  id: "cornea_26",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 27 ///
-
-{
-  id: "cornea_27",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 28 ///
-
-{
-  id: "cornea_28",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 29 ///
-
-{
-  id: "cornea_29",
-  q: `q`,
-  a: `a`,
-},
-
-/// Question 30 ///
-
-{
-  id: "cornea_30",
-  q: `q`,
-  a: `a`,
+[WARNING]Polymorphism: hexagonality < 50%`,
 },
   
 ];
