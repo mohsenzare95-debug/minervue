@@ -1,3 +1,5 @@
+// app/fundus-simulator/page.tsx
+
 "use client";
 
 import {
@@ -14,55 +16,141 @@ export default function FundusSimulatorPage() {
     useState("Normal");
 
 
-
   return (
-    <div style={styles.page}>
+
+    <div
+      style={styles.page}
+    >
 
 
-      <div style={styles.titleBlock}>
+      {/* =====================================================
+          HEADER
+      ====================================================== */}
 
 
-        <div style={styles.title}>
+      <div
+        style={styles.titleBlock}
+      >
+
+
+        {/* =================================================
+            TITLE
+        ================================================== */}
+
+
+        <div
+          style={styles.title}
+        >
+
           Fundus Simulator
+
         </div>
 
 
+        {/* =================================================
+            DISEASE NAVIGATION
+        ================================================== */}
 
-        <div style={styles.carousel}>
 
-          {["Normal", "RRD", "Melanoma"].map((item)=>(
+        <div
+          style={styles.carousel}
+        >
 
-            <div
 
-              key={item}
+          {[
+            "Normal",
+            "RRD",
+            "Melanoma",
+          ].map((item) => {
 
-              onClick={()=>
-                setSelectedDisease(item)
-              }
 
-              style={{
+            const isActive =
+              selectedDisease === item;
 
-                ...styles.option,
 
-                background:
-                  selectedDisease === item
-                  ? "#12444b"
-                  : "#eee",
+            return (
 
-                color:
-                  selectedDisease === item
-                  ? "#fff"
-                  : "#333",
+              <div
 
-              }}
+                key={item}
 
-            >
+                onClick={() =>
+                  setSelectedDisease(item)
+                }
 
-              {item}
+                style={styles.link}
 
-            </div>
+              >
 
-          ))}
+
+                <div
+                  style={styles.item}
+                >
+
+
+                  {/* LABEL */}
+
+
+                  <div
+
+                    style={{
+
+                      ...styles.label,
+
+                      color:
+                        isActive
+                          ? "#000"
+                          : "#999",
+
+                    }}
+
+                  >
+
+                    {item}
+
+                  </div>
+
+
+                  {/* ACTIVE INDICATOR */}
+
+
+                  <div
+
+                    style={{
+
+                      ...styles.indicator,
+
+                      opacity:
+                        isActive
+                          ? 1
+                          : 0,
+
+                      transform:
+
+                        "translateX(-50%) scale(" +
+
+                        (
+                          isActive
+                            ? 1
+                            : 0.7
+                        ) +
+
+                        ")",
+
+                    }}
+
+                  />
+
+
+                </div>
+
+
+              </div>
+
+            );
+
+          })}
+
 
         </div>
 
@@ -70,122 +158,278 @@ export default function FundusSimulatorPage() {
       </div>
 
 
+      {/* =====================================================
+          FUNDUS SIMULATOR
+      ====================================================== */}
+
 
       <FundusSimulator />
 
 
     </div>
+
   );
+
 }
 
 
+// ============================================================
+// STYLES
+// ============================================================
 
 
-
-const styles: Record<string, React.CSSProperties> = {
-
-
-
-  page:{
-
-
-    display:"flex",
-
-    flexDirection:"column",
-
-    alignItems:"center",
-
-    gap:0,
+const styles:
+  Record<
+    string,
+    React.CSSProperties
+  >
+= {
 
 
-    fontFamily:"sans-serif",
+  // ==========================================================
+  // PAGE
+  // ==========================================================
 
 
-    overflow:"hidden",
+  page: {
 
-    height:"100vh",
+    display:
+      "flex",
 
+    flexDirection:
+      "column",
 
-    touchAction:"none",
+    alignItems:
+      "center",
 
+    gap:
+      0,
 
-    userSelect:"none",
+    fontFamily:
+      "sans-serif",
 
-    WebkitUserSelect:"none",
+    overflow:
+      "hidden",
 
-  },
+    height:
+      "100vh",
 
+    touchAction:
+      "none",
 
+    userSelect:
+      "none",
 
-
-
-  titleBlock:{
-
-
-    textAlign:"center",
-
-    marginBottom:8,
-
-
-  },
-
-
-
-
-
-  title:{
-
-
-    fontSize:38,
-
-    fontWeight:400,
-
-    letterSpacing:"-1px",
-
-    color:"#111",
-
-    lineHeight:1.1,
-
+    WebkitUserSelect:
+      "none",
 
   },
 
 
+  // ==========================================================
+  // TITLE BLOCK
+  // ==========================================================
 
 
+  titleBlock: {
 
-  carousel:{
+    textAlign:
+      "center",
 
-
-    display:"flex",
-
-    justifyContent:"center",
-
-    gap:10,
-
-    marginTop:12,
-
+    marginBottom:
+      8,
 
   },
 
 
+  // ==========================================================
+  // TITLE
+  // ==========================================================
 
 
+  title: {
 
-  option:{
+    fontSize:
+      38,
 
+    fontWeight:
+      400,
 
-    padding:"6px 16px",
+    letterSpacing:
+      "-1px",
 
-    borderRadius:20,
+    color:
+      "#111",
 
-    cursor:"pointer",
-
-    fontSize:14,
-
-    userSelect:"none",
-
+    lineHeight:
+      1.1,
 
   },
 
+
+  // ==========================================================
+  // DISEASE NAVIGATION
+  // ==========================================================
+
+
+  carousel: {
+
+    display:
+      "flex",
+
+    alignItems:
+      "center",
+
+    justifyContent:
+      "center",
+
+    marginTop:
+      12,
+
+    padding:
+      "0 12px",
+
+    height:
+      52,
+
+    background:
+      "rgba(255,255,255,0.75)",
+
+    backdropFilter:
+      "blur(20px) saturate(180%)",
+
+    WebkitBackdropFilter:
+      "blur(20px) saturate(180%)",
+
+    border:
+      "1px solid rgba(255,255,255,0.4)",
+
+    borderRadius:
+      24,
+
+    boxShadow:
+
+      "0 8px 30px rgba(0,0,0,0.08), " +
+
+      "inset 0 1px 0 rgba(255,255,255,0.6)",
+
+  },
+
+
+  // ==========================================================
+  // NAVIGATION LINK
+  // ==========================================================
+
+
+  link: {
+
+    flex:
+      1,
+
+    textDecoration:
+      "none",
+
+    cursor:
+      "pointer",
+
+  },
+
+
+  // ==========================================================
+  // NAVIGATION ITEM
+  // ==========================================================
+
+
+  item: {
+
+    height:
+      "100%",
+
+    minWidth:
+      82,
+
+    display:
+      "flex",
+
+    alignItems:
+      "center",
+
+    justifyContent:
+      "center",
+
+    position:
+      "relative",
+
+    flexShrink:
+      0,
+
+    /*
+      کمی متن را بالاتر می‌بریم
+      تا indicator کاملاً زیر آن قرار بگیرد.
+    */
+
+    paddingBottom:
+      6,
+
+  },
+
+
+  // ==========================================================
+  // LABEL
+  // ==========================================================
+
+
+  label: {
+
+    fontSize:
+      13,
+
+    fontWeight:
+      500,
+
+    height:
+      16,
+
+    lineHeight:
+      "16px",
+
+    transition:
+      "color 0.2s ease",
+
+  },
+
+
+  // ==========================================================
+  // ACTIVE INDICATOR
+  // ==========================================================
+
+
+  indicator: {
+
+    position:
+      "absolute",
+
+    bottom:
+      4,
+
+    left:
+      "50%",
+
+    width:
+      16,
+
+    height:
+      2,
+
+    borderRadius:
+      2,
+
+    background:
+      "#000",
+
+    transition:
+      "all 0.2s ease",
+
+  },
 
 };
