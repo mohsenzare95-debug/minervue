@@ -25,7 +25,7 @@ export function SocialLinks() {
 
       {/* TELEGRAM */}
       <a
-        href="https://t.me/visosage"
+        href="https://t.me/iceburgins"
         target="_blank"
         rel="noreferrer"
         style={styles.iconBtn}
