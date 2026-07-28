@@ -806,6 +806,634 @@ Microfolds + Hyperreflective layers in the posterior stroma`,
 [WARNING] 14% risk of ↑IOP → Chronic Angle-Closure Glaucoma (CACG)/ Open Angle Glaucoma (OAG)`,
 },
 
+/// Question 49 ///
+
+{
+  id: "cornea_49",
+  q: `Describe the histopathologic features of posterior polymorphous corneal dystrophy (PPCD).`,
+  a: `
+  
+Epithelial metaplasia/fibroblastic transformation of endothelial cells:
+
+* Microvilli
+* Multilayer growth in cell culture
+* Positive keratin staining
+* Intercellular tight junctions
+* Tendency toward proliferation`,
+},
+
 /// Chapter 13 ///
+/// Question 50 ///
+
+{
+  id: "cornea_50",
+  q: `Describe the mechanisms underlying contact dermatoblepharitis.`,
+  a: `
+  
+**Type I Hypersensitivity**: Immediate reaction *(within a few minutes)*, mediated by IgE
+
+* Itching, erythema, swelling, chemosis, and injection
+
+---
+
+**Type IV Hypersensitivity**: Delayed reaction *(24–72 hours after exposure,  occasionally weeks to months later)*, cell-mediated
+
+* Eczema and erythema, edema and scaling, papillary reaction, mucoid or mucopurulent discharge, and inferior PEE`,
+},
+
+/// Question 51 ///
+
+{
+  id: "cornea_51",
+  q: `Name the medications commonly associated with contact dermatoblepharitis.`,
+  a: `
+  
+* **Cycloplegics**: HMT, Atropine
+
+* **AGs**
+
+* **Antivirals**
+
+* **Antiglaucoma**: α-adrenergics, β-blockers
+
+* **Preservatives**: Thimerosal, BAK, EDTA`,
+},
+
+/// Question 52 ///
+
+
+
+{
+
+  id: "cornea_52",
+
+  q: `Name the treatment options for contact dermatoblepharitis.`,
+
+  a: `
+
+**Main Step**: Identify and eliminate the offending agent. 
+
+[WARNING] A challenge test should never be performed in patients with a **known allergy**.
+
+---
+
+**Type I Hypersensitivity**: 
+
+* Cold compresses + lubrication
+
+* Topical antihistamines + mast cell stabilizers
+
+* Topical vasoconstrictors
+
+
+**Type IV Hypersensitivity**: *In severe cases, a short course of:*
+
+* Tpical steroids, tacrolimus, or pimecrolimus`,
+
+},
+
+/// Question 53 ///
+
+{
+  id: "cornea_53",
+  q: `What conditions are associated with seasonal allergic conjunctivitis (SAC)?`,
+  a: `
+  
+* Allergic rhinitis
+
+* Asthma
+
+* Eczema/Atopic dermatitis`,
+},
+
+/// Question 54 ///
+
+{
+  id: "cornea_54",
+  q: `Describe the mechanism underlying seasonal allergic conjunctivitis (SAC).`,
+  a: `
+  
+**IgE-Mediated**
+
+* Early Phase: Mast cells
+
+* Late Phase: Eosinophils + inflammatory cells`,
+},
+
+/// Question 55 ///
+
+{
+  id: "cornea_55",
+  q: `What measures are recommended in the management of patients with seasonal allergic conjunctivitis (SAC)?`,
+  a: `
+  
+* Discontinue contact lens use + treat dry eye
+  
+* Shower + change clothes after exposure to the allergen
+  
+* Cold compresses + lubrication
+
+---
+
+**Topical Medications**: 
+
+* Antihistamines/ Mast cell stabilizers
+
+* Vasoconstrictors [WARNING] → < 5–7 days
+
+* NSAIDs
+
+* Steroids [WARNING] → cautiously, *in treatment-resistant cases*
+
+**Systemic Medications**: 
+
+* Oral antihistamines
+
+* Desensitization injections
+
+[SIREN] *Tacrolimus is not recommended*
+
+[BRAIN] *In children, oral antihistamines seems superior to topical therapy*`,
+},
+
+/// Question 56 ///
+
+{
+  id: "cornea_56",
+  q: `In which age group and sex is VKC more prevalent?`,
+  a: `
+  
+Children and young adults
+
+♂ = ♀ × 2`,
+},
+
+/// Question 57 ///
+
+{
+  id: "cornea_57",
+  q: `Name the types of VKC and describe the clinical manifestations of each.`,
+  a: `
+  
+**Palpebral VKC**: Diffuse papillary reaction + Bulbar hyperemia + Chemosis
+
+**Limbal VKC**: Trantas dots → *may occur alone or in association with palpebral VKC*
+
+---
+
+**Shared Corneal Manifestations**: PEE, Pannus, Shield ulcer, Limbal stem cell deficiency (LSCD)`,
+},
+
+/// Question 58 ///
+
+{
+  id: "cornea_58",
+  q: `What are the pathophysiologic mechanisms underlying Trantas dots and shield ulcers in VKC?`,
+  a: `
+  
+**Trantas Dots**: ↑eosinophils + ↑lymphocytes
+
+---
+
+**Shield Ulcer**: ↑eosinophil activity + mechanical abrasion from giant papillae`,
+},
+
+/// Question 59 ///
+
+{
+  id: "cornea_59",
+  q: `What types of hypersensitivity reactions occur in VKC?`,
+  a: `
+  
+IgE-mediated + Cell-mediated`,
+},
+
+/// Question 60 ///
+
+{
+  id: "cornea_60",
+  q: `Describe the treatment options for VKC according to disease severity.`,
+  a: `
+  
+**Mild**: Topical antihistamines
+
+---
+
+**Moderate**: Topical mast cell stabilizers
+
+---
+
+**Severe**:
+1. Topical steroids *q2h for 5–7 days → taper to 2–3 times/day*
+
+2. Supratarsal steroid injection *(Dexa/Triamcinolone)*
+
+[SIREN]**More Severe Cases**: Pulse oral prednisolone
+
+---
+
+**Refractory**: Tacrolimus 1–2 times/day or cyclosporine 2–4 times/day
+
+---
+
+[SIREN]**Nonhealing Shield Ulcer**: Plaque wiping + topical steroids ± BCL ± AMT`,
+},
+
+/// Question 61 ///
+
+{
+  id: "cornea_61",
+  q: `Compare VKC and AKC by age group.`,
+  a: `
+  
+**VKC**: 2–22 years old
+
+**AKC**: 20–50 years old
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 62 ///
+
+{
+  id: "cornea_62",
+  q: `What are the eyelid findings on clinical examination in VKC and AKC?`,
+  a: `
+  
+**VKC**: Upper eyelid swelling + ptosis
+
+**AKC**: Scaling, inflammation, and keratinization
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 63 ///
+
+{
+  id: "cornea_63",
+  q: `Compare the discharge characteristics of VKC and AKC.`,
+  a: `
+  
+**VKC**: Copious, ropy, mucoid
+
+**AKC**: Watery, clear
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 64 ///
+
+{
+  id: "cornea_64",
+  q: `Compare the conjunctival papillary characteristics of VKC and AKC.`,
+  a: `
+  
+**VKC**
+
+* Giant papillae
+
+* Upper tarsal conjunctiva
+
+---
+
+**AKC**
+
+* Small to medium papillae
+
+* Upper + lower tarsal conjunctiva
+
+* Subepithelial fibrosis + symblepharon
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 65 ///
+
+{
+  id: "cornea_65",
+  q: `What are the corneal examination findings in patients with VKC and AKC?`,
+  a: `
+  
+**VKC**: Shield ulcer ± KCN
+
+**AKC**: ↑Staphylococcal & HSV infections [SIREN] ± KCN or PMD
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 66 ///
+
+{
+  id: "cornea_66",
+  q: `Which of VKC and AKC is associated with cataract, and what type of cataract is more common?`,
+  a: `
+  
+**AKC**: associated with ASC & PSC
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 67 ///
+
+{
+  id: "cornea_67",
+  q: `Which of VKC and AKC is associated with less eosinophil density?`,
+  a: `
+  
+Eosinophils are **less numerous** and **less degranulated** in the conjunctiva of patients with **AKC**.
+
+---
+
+***VKC**: Vernal Keratoconjunctivitis, **AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 68 ///
+
+{
+  id: "cornea_68",
+  q: `What types of hypersensitivity reactions are associated with AKC?`,
+  a: `
+  
+IgE-mediated + lymphocyte-mediated
+
+---
+
+AKC: Atopic Keratoconjunctivitis`,
+},
+
+/// Question 69 ///
+
+{
+  id: "cornea_69",
+  q: `What systemic disease is associated with AKC? Name two important clinical features of this disease.`,
+  a: `
+  
+Atopic dermatitis *(in 1/3 of patients)*
+
+---
+
+**Clinical Features**:
+1. ↓Cell-mediated immunity → ***↑HSV** + **Staph** infections*
+
+2. Dermatitis involving the **flexural surfaces in adults** and the **extensor surfaces in children**
+
+---
+
+***AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 70 ///
+
+{
+  id: "cornea_70",
+  q: `What are the indications for systemic treatment in AKC?`,
+  a: `
+  
+1. Failed response to topical treatment
+2. Ocular discomfort
+3. Progressive cicatrization
+4. PUK
+
+[BRAIN]**Systemic Treatment Effect**: ↓IL-2 → ↓lymphocyte proliferation
+
+---
+
+***AKC**: Atopic Keratoconjunctivitis*`,
+},
+
+/// Question 71 ///
+
+{
+  id: "cornea_71",
+  q: `What is the inheritance pattern of ligneous conjunctivitis, which gene mutation is associated with it, and what is its pathogenesis and resulting clinical presentation?`,
+  a: `
+  
+**Inheritance**: Autosomal recessive (PLG gene) → *bilateral; can occur at any age*
+
+---
+
+**Pathogenesis**: ↓Type I plasminogen → ↓Fibrinolysis
+
+---
+
+**Clinical Manifestations**: 
+
+* Firm, woodlike, yellowish fibrinous membrane over the conjunctival surface
+
+* Yellowish, platelike masses on one or more palpebral surfaces
+
+[SIREN] *The membrane in ligneous conjunctivitis is a pseudomembrane*`,
+},
+
+/// Question 72 ///
+
+{
+  id: "cornea_72",
+  q: `What are the histologic contents of ligneous conjunctivitis?`,
+  a: `
+  
+* Fibrin
+  
+* tPA
+  
+* Epithelial and inflammatory cells
+  
+* ↑MMP-9`,
+},
+
+/// Question 73 ///
+
+{
+  id: "cornea_73",
+  q: `How is ligneous conjunctivitis treated?`,
+  a: `
+  
+* **Complete excision** 
+
+* **Topical Treatment**: Plasminogen, FFP, Heparin, Steroids, Cyclosporine
+
+* **Systemic Treatment**: FFP, lys-plasminogen
+
+* ± **AMT**`,
+},
+
+/// Question 74 ///
+
+{
+  id: "cornea_74",
+  q: `What is the prognosis of patients with ligneous conjunctivitis?`,
+  a: `
+  
+**Recurrence** is common, but **spontaneous improvement** is also common *(over several months to several years)*`,
+},
+
+/// Question 75 ///
+
+{
+  id: "cornea_75",
+  q: `Describe the ocular manifestations of TEN and SJS.`,
+  a: `
+  
+* Mucopurulent conjunctivitis + Episcleritis → Symblepharon + Forniceal shortening
+
+* ±Keratinization + Scarring of the eyelid margins 
+  
+→[WARNING]Poorer Prognosis`,
+},
+
+/// Question 76 ///
+
+{
+  id: "cornea_76",
+  q: `What is the mechanism of SJS and TEN?`,
+  a: `
+  
+Delayed hypersensitivity reaction, *4–28 days after exposure*`,
+},
+
+/// Question 77 ///
+
+{
+  id: "cornea_77",
+  q: `Name the etiologies and risk factors for SJS and TEN.`,
+  a: `
+  
+**Drug-Related**: Sulfonamides, Anticonvulsants, NSAIDs, Allopurinol
+
+**Infections**: Mycoplasma, HSV, Adenovirus, Streptococcus
+
+---
+
+**Risk Factors**: ↑Age, HIV infection[WARNING]`,
+},
+
+/// Question 78 ///
+
+{
+  id: "cornea_78",
+  q: `Name the treatment options for SJS and TEN.`,
+  a: `
+  
+**Systemic Treatment** *(controversial)*: IVIG, IMT
+
+---
+
+**Ocular Treatment**: Antibiotics + Topical corticosteroids
+
+[WARNING]**Conjunctival/Corneal/Eyelid Margin Epithelial Defect**: above + AMT 
+
+[SIREN] *Extensive AMT within the first 3–7 days is associated with long-term benefits.*`,
+},
+
+/// Question 79 ///
+
+{
+  id: "cornea_79",
+  q: `What is the typical clinical scenario of patients with MMP?`,
+  a: `
+  
+A patient >60 years old with a history of **recurrent**, mild, nonspecific episodes of conjunctivitis with mucopurulent discharge.
+
+---
+[SIREN] *Need for **repeated epilation** is a diagnostic clue.*
+
+[SIREN]***Note**: Dysphagia may also be an important early symptom*`,
+},
+
+/// Question 80 ///
+
+{
+  id: "cornea_80",
+  q: `Name the four stages of MMP.`,
+  a: `
+  
+**Stage I**: Chronic conjunctivitis + Subepithelial fibrosis
+
+**Stage II**: Fornix shortening [DUMBBELL]*Shor**TWO**ning*
+
+**Stage III**: Symblepharon formation
+
+**Stage IV**: Ankyloblepharon + Frozen globe`,
+},
+
+/// Question 81 ///
+
+{
+  id: "cornea_81",
+  q: `Name the causes of pseudopemphigoid and state the key distinguishing feature from true pemphigoid.`,
+  a: `
+  
+**Drug-induced**, following **long-term** use of topical medications such as:
+
+* Pilocarpine
+
+* Idoxuridine
+
+* Timolol
+
+* Epinephrine
+
+---
+
+[SIREN] *Pseudopemphigoid improves after discontinuation of the offending drug*`,
+},
+
+/// Question 82 ///
+
+{
+  id: "cornea_82",
+  q: `Explain the pathogenesis of MMP.`,
+  a: `
+  
+autoantibody against adhesion molecules in the hemidesmosome–epithelial basement membrane complex 
+
+---
+
+→ complement activation + ↑inflammatory cytokines 
+
+---
+
+→ ↑fibroblast activity + ↑collagen deposition`,
+},
+
+/// Question 83 ///
+
+{
+  id: "cornea_83",
+  q: `What are the treatment options for MMP?`,
+  a: `
+  
+**Topical Treatment**: *symptomatic relief only, does not prevent disease progression*
+
+* Steroids
+
+* Cyclosporine
+
+* Tacrolimus
+
+---
+
+**Systemic Treatment**: *according to the severity* 
+
+- **Mild**: MTX, MMF
+
+- **Sight-Threatening**: Cyclophosphamide + Prednisolone
+
+- **Resistant**: IVIG, Anti-TNF-α agents, Rituximab
+
+[SIREN] *Punctal occlusion with **cauterization** is recommended*`,
+},
   
 ];

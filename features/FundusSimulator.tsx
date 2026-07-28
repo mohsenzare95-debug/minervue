@@ -8,10 +8,10 @@ import {
 
 export default function FundusSimulator() {
 
-    const [knobGroove,setKnobGroove] = useState(0);
+const [knobGroove,setKnobGroove] = useState(0);
 
 
-  const [offset,setOffset] = useState({
+const [offset,setOffset] = useState({
     x:0,
     y:0,
   });

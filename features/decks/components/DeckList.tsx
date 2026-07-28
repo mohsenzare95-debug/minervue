@@ -44,6 +44,7 @@ export default function DeckList({
     uveitis: "/deck-icons/uveitis2.png",
     glaucoma: "/deck-icons/glaucoma1.png",
     cornea: "/deck-icons/cornea.png",
+    funda: "/deck-icons/fundamentals2.png",
   };
 
   clientState.useStore();
