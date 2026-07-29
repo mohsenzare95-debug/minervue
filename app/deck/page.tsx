@@ -1,4 +1,3 @@
-// app\deck\page.tsx
 "use client";
 
 import DeckHero from "@/features/decks/components/DeckHero";
@@ -7,9 +6,13 @@ import { useGlobalProgress } from "@/features/decks/hooks/useGlobalProgress";
 import { useDeckProgress } from "@/features/decks/hooks/useDeckProgress";
 import { useAuthSession } from "@/features/auth/hooks/useAuthSession";
 import { useProfile } from "@/features/auth/hooks/useProfile";
+import { SignInForm } from "@/features/auth/components/SignInForm";
+import { SignUpForm } from "@/features/auth/components/SignUpForm";
 import { decks } from "@/data/decks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { analytics } from "@/features/analytics/events";
+import { Eye } from "lucide-react";
 
 export default function DeckPage() {
   const global = useGlobalProgress();
@@ -18,9 +21,23 @@ export default function DeckPage() {
   const { user } = useAuthSession();
   const profile = useProfile(user);
 
+  const router = useRouter();
+
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+
   useEffect(() => {
-  analytics.pageViewed();
-}, []);
+    analytics.pageViewed();
+  }, []);
+
+  const handleFundusClick = () => {
+    if (!user) {
+      setShowLogin(true);
+      return;
+    }
+
+    router.push("/fundus-simulator");
+  };
 
   return (
     <div style={styles.page}>
@@ -36,29 +53,81 @@ export default function DeckPage() {
       />
 
       <div style={styles.titleBlock}>
-        <div
-  style={styles.title}
-  
->
-  Decks
-</div>
+        <div style={styles.title}>
+          Decks
+        </div>
       </div>
 
       <DeckList
         decks={decks}
         getDeckProgress={getDeckProgress}
       />
+
+      {/* ====================================================
+          FLOATING FUNDUS SIMULATOR BUTTON
+      ===================================================== */}
+
+      <button
+        type="button"
+        onClick={handleFundusClick}
+        aria-label="Open Fundus Simulator"
+        style={styles.fundusFloatingButton}
+      >
+        <Eye
+          size={24}
+          strokeWidth={1.7}
+        />
+      </button>
+
+      {/* ====================================================
+          LOGIN MODAL
+      ===================================================== */}
+
+      {showLogin && (
+        <SignInForm
+          message="To use the Fundus Simulator, you need to sign in."
+          onClose={() => setShowLogin(false)}
+          onSwitchToSignup={() => {
+            setShowLogin(false);
+            setShowSignup(true);
+          }}
+        />
+      )}
+
+      {/* ====================================================
+          SIGNUP MODAL
+      ===================================================== */}
+
+      {showSignup && (
+        <SignUpForm
+          message="Create an account to use the Fundus Simulator."
+          onClose={() => setShowSignup(false)}
+          onSwitchToSignin={() => {
+            setShowSignup(false);
+            setShowLogin(true);
+          }}
+        />
+      )}
     </div>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
+  // ==========================================================
+  // PAGE
+  // ==========================================================
+
   page: {
     display: "flex",
     flexDirection: "column",
     gap: 24,
     fontFamily: "sans-serif",
+    position: "relative",
   },
+
+  // ==========================================================
+  // TITLE
+  // ==========================================================
 
   titleBlock: {
     textAlign: "center",
@@ -72,4 +141,41 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#111",
     lineHeight: 1.1,
   },
-};
+
+  // ==========================================================
+  // FLOATING FUNDUS BUTTON
+  // ==========================================================
+fundusFloatingButton: {
+  position: "fixed",
+
+  right: "max(22px, calc((100vw - 480px) / 2 + 16px))",
+  bottom: 108,
+
+  width: 58,
+  height: 58,
+
+  borderRadius: "50%",
+
+  border: "1px solid rgba(18,68,75,.18)",
+
+  background: "linear-gradient(145deg, #ffffff, #f2f5f5)",
+
+  color: "#12444b",
+
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+  cursor: "pointer",
+  padding: 0,
+
+  zIndex: 1100,
+
+  boxShadow:
+    "0 8px 24px rgba(0,0,0,.16), " +
+    "0 2px 6px rgba(0,0,0,.08), " +
+    "inset 0 1px 0 rgba(255,255,255,.95)",
+
+  transition: "transform .18s ease, box-shadow .18s ease",
+},
+}
