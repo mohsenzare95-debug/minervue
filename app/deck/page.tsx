@@ -12,7 +12,6 @@ import { decks } from "@/data/decks";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { analytics } from "@/features/analytics/events";
-import { Eye } from "lucide-react";
 
 export default function DeckPage() {
   const global = useGlobalProgress();
@@ -73,10 +72,17 @@ export default function DeckPage() {
         aria-label="Open Fundus Simulator"
         style={styles.fundusFloatingButton}
       >
-        <Eye
-          size={24}
-          strokeWidth={1.7}
-        />
+        <img
+  src="/fundus-simulator-icon.png"
+  alt=""
+  draggable={false}
+  style={{
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "50%",
+  }}
+/>
       </button>
 
       {/* ====================================================
@@ -158,9 +164,7 @@ fundusFloatingButton: {
 
   border: "1px solid rgba(18,68,75,.18)",
 
-  background: "linear-gradient(145deg, #ffffff, #f2f5f5)",
-
-  color: "#12444b",
+  background: "#fff",
 
   display: "flex",
   alignItems: "center",
@@ -169,12 +173,13 @@ fundusFloatingButton: {
   cursor: "pointer",
   padding: 0,
 
+  overflow: "hidden",
+
   zIndex: 1100,
 
   boxShadow:
     "0 8px 24px rgba(0,0,0,.16), " +
-    "0 2px 6px rgba(0,0,0,.08), " +
-    "inset 0 1px 0 rgba(255,255,255,.95)",
+    "0 2px 6px rgba(0,0,0,.08)",
 
   transition: "transform .18s ease, box-shadow .18s ease",
 },

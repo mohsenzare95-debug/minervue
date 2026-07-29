@@ -11,15 +11,13 @@ import {
 // ============================================================
 
 type Pathology =
-  "Severe NPDR"| 
-  "ERM"
-  "Choroidal Rupture"
-   "CNV"
+  | "Severe NPDR"
+  | "ERM"
+  | "Choroidal Rupture"
+  | "CNV"
   | "Retinitis Pigmentosa"
   | "Best Disease"
-    "CACD";
- 
-  
+  | "CACD";
 
 // ============================================================
 // PATHOLOGIES
@@ -33,13 +31,11 @@ const PATHOLOGIES: Pathology[] = [
   "Retinitis Pigmentosa",
   "Best Disease",
   "CACD",
-   
 ];
 
 // ============================================================
 // Sources
 // ============================================================
-
 
 const PATHOLOGY_IMAGES: Record<Pathology, string> = {
   "Choroidal Rupture": "/Choroidal_Rupture.png",
@@ -66,11 +62,18 @@ export default function FundusSimulator() {
   const pathologyIndex =
     PATHOLOGIES.indexOf(selectedPathology);
 
-  const pathologyTouchStart =
+  // ==========================================================
+  // PATHOLOGY CAROUSEL DRAG / SWIPE
+  // ==========================================================
+
+  const pathologyDragStart =
     useRef<number | null>(null);
 
-  const pathologyTouchEnd =
+  const pathologyDragEnd =
     useRef<number | null>(null);
+
+  const pathologyDragging =
+    useRef(false);
 
   const previousPathology = () => {
     const currentIndex =
@@ -100,46 +103,108 @@ export default function FundusSimulator() {
     );
   };
 
-  const handlePathologyTouchStart = (
-    e: React.TouchEvent<HTMLDivElement>
+  const handlePathologyPointerDown = (
+    e: React.PointerEvent<HTMLDivElement>
   ) => {
-    pathologyTouchStart.current =
-      e.touches[0].clientX;
+    if (e.pointerType === "mouse" && e.button !== 0) {
+      return;
+    }
+
+    pathologyDragStart.current =
+      e.clientX;
+
+    pathologyDragEnd.current =
+      e.clientX;
+
+    pathologyDragging.current =
+      true;
+
+    e.currentTarget.setPointerCapture(
+      e.pointerId
+    );
   };
 
-  const handlePathologyTouchMove = (
-    e: React.TouchEvent<HTMLDivElement>
+  const handlePathologyPointerMove = (
+    e: React.PointerEvent<HTMLDivElement>
   ) => {
-    pathologyTouchEnd.current =
-      e.touches[0].clientX;
+    if (!pathologyDragging.current) {
+      return;
+    }
+
+    pathologyDragEnd.current =
+      e.clientX;
   };
 
-  const handlePathologyTouchEnd = () => {
+  const handlePathologyPointerUp = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (!pathologyDragging.current) {
+      return;
+    }
+
+    pathologyDragging.current =
+      false;
+
+    pathologyDragEnd.current =
+      e.clientX;
+
+    const start =
+      pathologyDragStart.current;
+
+    const end =
+      pathologyDragEnd.current;
+
     if (
-      pathologyTouchStart.current === null ||
-      pathologyTouchEnd.current === null
+      start === null ||
+      end === null
     ) {
+      pathologyDragStart.current = null;
+      pathologyDragEnd.current = null;
       return;
     }
 
     const distance =
-      pathologyTouchEnd.current -
-      pathologyTouchStart.current;
+      end - start;
 
-    if (Math.abs(distance) < 40) {
-      pathologyTouchStart.current = null;
-      pathologyTouchEnd.current = null;
-      return;
+    if (Math.abs(distance) >= 40) {
+      if (distance > 0) {
+        previousPathology();
+      } else {
+        nextPathology();
+      }
     }
 
-    if (distance > 0) {
-      previousPathology();
-    } else {
-      nextPathology();
-    }
+    pathologyDragStart.current = null;
+    pathologyDragEnd.current = null;
 
-    pathologyTouchStart.current = null;
-    pathologyTouchEnd.current = null;
+    try {
+      e.currentTarget.releasePointerCapture(
+        e.pointerId
+      );
+    } catch {
+      // Pointer capture may already be released.
+    }
+  };
+
+  const handlePathologyPointerCancel = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    pathologyDragging.current =
+      false;
+
+    pathologyDragStart.current =
+      null;
+
+    pathologyDragEnd.current =
+      null;
+
+    try {
+      e.currentTarget.releasePointerCapture(
+        e.pointerId
+      );
+    } catch {
+      // Pointer capture may already be released.
+    }
   };
 
   // ==========================================================
@@ -640,96 +705,99 @@ export default function FundusSimulator() {
       ===================================================== */}
 
       <div
+  style={
+    styles.pathologyCarousel
+  }
+>
+  <button
+    type="button"
+    onClick={
+      previousPathology
+    }
+    aria-label="Previous pathology"
+    style={
+      styles.pathologyArrow
+    }
+  >
+    ‹
+  </button>
+
+  <div
+    style={
+      styles.pathologyViewport
+    }
+    onPointerDown={
+      handlePathologyPointerDown
+    }
+    onPointerMove={
+      handlePathologyPointerMove
+    }
+    onPointerUp={
+      handlePathologyPointerUp
+    }
+    onPointerCancel={
+      handlePathologyPointerCancel
+    }
+  >
+    <div
+      style={
+        styles.pathologyTrack
+      }
+    >
+      <div
         style={
-          styles.pathologyCarousel
-        }
-        onTouchStart={
-          handlePathologyTouchStart
-        }
-        onTouchMove={
-          handlePathologyTouchMove
-        }
-        onTouchEnd={
-          handlePathologyTouchEnd
+          styles.pathologySideLabel
         }
       >
-        <button
-          type="button"
-          onClick={
-            previousPathology
-          }
-          aria-label="Previous pathology"
-          style={
-            styles.pathologyArrow
-          }
-        >
-          ‹
-        </button>
-
-        <div
-          style={
-            styles.pathologyViewport
-          }
-        >
-          <div
-            style={
-              styles.pathologyTrack
-            }
-          >
-            <div
-              style={
-                styles.pathologySideLabel
-              }
-            >
-              {
-                PATHOLOGIES[
-                  pathologyIndex === 0
-                    ? PATHOLOGIES.length - 1
-                    : pathologyIndex - 1
-                ]
-              }
-            </div>
-
-            <div
-              style={
-                styles.pathologySelected
-              }
-            >
-              {
-                selectedPathology
-              }
-            </div>
-
-            <div
-              style={
-                styles.pathologySideLabel
-              }
-            >
-              {
-                PATHOLOGIES[
-                  pathologyIndex ===
-                  PATHOLOGIES.length - 1
-                    ? 0
-                    : pathologyIndex + 1
-                ]
-              }
-            </div>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={
-            nextPathology
-          }
-          aria-label="Next pathology"
-          style={
-            styles.pathologyArrow
-          }
-        >
-          ›
-        </button>
+        {
+          PATHOLOGIES[
+            pathologyIndex === 0
+              ? PATHOLOGIES.length - 1
+              : pathologyIndex - 1
+          ]
+        }
       </div>
+
+      <div
+        style={
+          styles.pathologySelected
+        }
+      >
+        {
+          selectedPathology
+        }
+      </div>
+
+      <div
+        style={
+          styles.pathologySideLabel
+        }
+      >
+        {
+          PATHOLOGIES[
+            pathologyIndex ===
+            PATHOLOGIES.length - 1
+              ? 0
+              : pathologyIndex + 1
+          ]
+        }
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    onClick={
+      nextPathology
+    }
+    aria-label="Next pathology"
+    style={
+      styles.pathologyArrow
+    }
+  >
+    ›
+  </button>
+</div>
 
       {/* ====================================================
           LENS
@@ -1094,35 +1162,26 @@ const styles: Record<
   // ==========================================================
 
   page: {
-    minHeight:
-      "calc(100vh - 80px)",
+    width: "100%",
+    maxWidth: 480,
 
-    display:
-      "flex",
+    minHeight: "calc(100vh - 80px)",
 
-    flexDirection:
-      "column",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
 
-    alignItems:
-      "center",
+    gap: 10,
+    paddingTop: 10,
 
-    gap:
-      10,
+    fontFamily: "sans-serif",
 
-    paddingTop:
-      10,
+    userSelect: "none",
+    WebkitUserSelect: "none",
 
-    fontFamily:
-      "sans-serif",
+    touchAction: "none",
 
-    userSelect:
-      "none",
-
-    WebkitUserSelect:
-      "none",
-
-    touchAction:
-      "none",
+    overflow: "hidden",
   },
 
   // ==========================================================
@@ -1130,50 +1189,40 @@ const styles: Record<
   // ==========================================================
 
   pathologyCarousel: {
-    width:
-      420,
+  width: "100%",
+  maxWidth: 420,
 
-    height:
-      52,
+  height: 52,
 
-    display:
-      "flex",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 
-    alignItems:
-      "center",
+  gap: 4,
 
-    justifyContent:
-      "center",
+  touchAction: "pan-y",
+},
 
-    gap:
-      4,
+pathologyViewport: {
+  width: "calc(100% - 60px)",
+  maxWidth: 340,
 
-    touchAction:
-      "pan-y",
-  },
+  height: 46,
 
-  pathologyViewport: {
-    width:
-      340,
+  overflow: "hidden",
 
-    height:
-      46,
+  borderRadius: 12,
 
-    overflow:
-      "hidden",
+  background: "rgba(255,255,255,.95)",
 
-    borderRadius:
-      12,
+  border: "1px solid rgba(18,68,75,.14)",
 
-    background:
-      "rgba(255,255,255,.95)",
+  boxShadow: "0 3px 12px rgba(0,0,0,.07)",
 
-    border:
-      "1px solid rgba(18,68,75,.14)",
+  cursor: "grab",
 
-    boxShadow:
-      "0 3px 12px rgba(0,0,0,.07)",
-  },
+  touchAction: "pan-y",
+},
 
   pathologyTrack: {
     width:
@@ -1275,23 +1324,16 @@ const styles: Record<
   // ==========================================================
 
   lensWrapper: {
-    position:
-      "relative",
+    position: "relative",
 
-    width:
-      400,
+    width: "100%",
+    maxWidth: 400,
 
-    height:
-      400,
+    aspectRatio: "1 / 1",
 
-    display:
-      "flex",
-
-    alignItems:
-      "center",
-
-    justifyContent:
-      "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   // ==========================================================
@@ -1299,26 +1341,21 @@ const styles: Record<
   // ==========================================================
 
   lensOuterRing: {
-    position:
-      "relative",
+    position: "relative",
 
-    width:
-      320,
+    width: "80%",
+    height: "80%",
 
-    height:
-      320,
+    maxWidth: 320,
+    maxHeight: 320,
 
-    borderRadius:
-      "50%",
+    aspectRatio: "1 / 1",
 
-    display:
-      "flex",
+    borderRadius: "50%",
 
-    justifyContent:
-      "center",
-
-    alignItems:
-      "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
 
     background:
       "repeating-conic-gradient(" +
@@ -1334,8 +1371,7 @@ const styles: Record<
       "0 0 0 7px #111, " +
       "0 5px 20px rgba(0,0,0,.3)",
 
-    zIndex:
-      5,
+    zIndex: 5,
   },
 
   // ==========================================================
@@ -1343,17 +1379,12 @@ const styles: Record<
   // ==========================================================
 
   gazeRing: {
-    position:
-      "absolute",
+    position: "absolute",
 
-    width:
-      390,
+    width: "97.5%",
+    height: "97.5%",
 
-    height:
-      390,
-
-    borderRadius:
-      "50%",
+    borderRadius: "50%",
 
     background:
       "repeating-conic-gradient(" +
@@ -1364,16 +1395,14 @@ const styles: Record<
       "rgba(255,255,255,.95) 45deg" +
       ")",
 
-    border:
-      "1px solid rgba(18,68,75,.18)",
+    border: "1px solid rgba(18,68,75,.18)",
 
     boxShadow:
       "0 0 0 1px rgba(255,255,255,.8), " +
       "0 6px 18px rgba(0,0,0,.08), " +
       "inset 0 1px 0 rgba(255,255,255,.9)",
 
-    zIndex:
-      2,
+    zIndex: 2,
   },
 
   // ==========================================================
@@ -1504,23 +1533,16 @@ const styles: Record<
   // ==========================================================
 
   viewer: {
-    width:
-      280,
+    width: "100%",
+    height: "100%",
 
-    height:
-      280,
+    borderRadius: "50%",
 
-    borderRadius:
-      "50%",
+    overflow: "hidden",
 
-    overflow:
-      "hidden",
+    position: "relative",
 
-    position:
-      "relative",
-
-    background:
-      "#000",
+    background: "#000",
 
     boxShadow:
       "inset 0 0 0 6px #050505, " +
@@ -1559,23 +1581,17 @@ const styles: Record<
   // ==========================================================
 
   controls: {
-    position:
-      "relative",
+    position: "relative",
 
-    width:
-      "280px",
+    width: "100%",
+    maxWidth: 280,
 
-    height:
-      "120px",
+    height: 120,
 
-    display:
-      "flex",
+    display: "flex",
 
-    justifyContent:
-      "center",
-
-    alignItems:
-      "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // ==========================================================
@@ -1633,29 +1649,17 @@ const styles: Record<
   // ==========================================================
 
   beamControl: {
-    position:
-      "absolute",
+    position: "absolute",
 
-    left:
-      "-45px",
+    left: "-20px",
+    top: "-60px",
 
-    top:
-      "-60px",
+    width: 80,
+    height: 100,
 
-    width:
-      80,
-
-    height:
-      100,
-
-    display:
-      "flex",
-
-    justifyContent:
-      "center",
-
-    alignItems:
-      "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // ==========================================================
@@ -1707,43 +1711,24 @@ const styles: Record<
   // ==========================================================
 
   targetControl: {
-    position:
-      "absolute",
+    position: "absolute",
 
-    right:
-      "-45px",
+    right: "-20px",
+    top: "-60px",
 
-    top:
-      "-60px",
+    width: 80,
+    height: 100,
 
-    width:
-      80,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 
-    height:
-      100,
+    border: "none",
+    background: "transparent",
 
-    display:
-      "flex",
+    color: "#12444b",
 
-    alignItems:
-      "center",
-
-    justifyContent:
-      "center",
-
-    border:
-      "none",
-
-    background:
-      "transparent",
-
-    color:
-      "#12444b",
-
-    cursor:
-      "pointer",
-
-    padding:
-      0,
+    cursor: "pointer",
+    padding: 0,
   },
 };
