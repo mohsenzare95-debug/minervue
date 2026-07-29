@@ -226,6 +226,73 @@ export default function FundusSimulator() {
       y: 0,
     });
 
+    // ==========================================================
+  // handleGazePointerDown
+  // ==========================================================
+const handleGazePointerDown = (
+  e: React.PointerEvent<HTMLDivElement>
+) => {
+  const rect =
+    e.currentTarget.getBoundingClientRect();
+
+  const centerX =
+    rect.left +
+    rect.width / 2;
+
+  const centerY =
+    rect.top +
+    rect.height / 2;
+
+  const dx =
+    e.clientX -
+    centerX;
+
+  const dy =
+    e.clientY -
+    centerY;
+
+  const distance =
+    Math.sqrt(
+      dx * dx +
+      dy * dy
+    );
+
+  // اگر نزدیک مرکز لمس شد، ریست
+  if (distance < 30) {
+    resetGaze();
+    return;
+  }
+
+  // زاویه نسبت به محور بالا
+  const angle =
+    Math.atan2(
+      dx,
+      -dy
+    ) *
+    (180 / Math.PI);
+
+  let normalizedAngle =
+    angle;
+
+  if (normalizedAngle < 0) {
+    normalizedAngle += 360;
+  }
+
+  const directionIndex =
+    Math.round(
+      normalizedAngle / 45
+    ) % 8;
+
+  const direction =
+    gazeDirections[
+      directionIndex
+    ];
+
+  setGaze(
+    direction.x,
+    direction.y
+  );
+};
   // ==========================================================
   // ZOOM
   // ==========================================================
@@ -565,19 +632,19 @@ export default function FundusSimulator() {
   const gazeAmount = 135;
 
   const setGaze = (
-    x: number,
-    y: number
-  ) => {
-    setOffset({
-      x: 0,
-      y: 0,
-    });
+  x: number,
+  y: number
+) => {
+  setOffset({
+    x: 0,
+    y: 0,
+  });
 
-    setGazeOffset({
-      x,
-      y,
-    });
-  };
+  setGazeOffset({
+    x: -x,
+    y: -y,
+  });
+};
 
   const resetGaze = () => {
     setOffset({
@@ -813,45 +880,35 @@ export default function FundusSimulator() {
         =================================================== */}
 
         <div
-          style={
-            styles.gazeRing
-          }
-        >
+  style={
+    styles.gazeRing
+  }
+  onPointerDown={
+    handleGazePointerDown
+  }
+>
           {
             gazeDirections.map(
               (
                 direction,
                 index
               ) => (
-                <button
-                  key={
-                    index
-                  }
-                  type="button"
-                  aria-label={
-                    "Set gaze direction " +
-                    String(
-                      index + 1
-                    )
-                  }
-                  onClick={() =>
-                    setGaze(
-                      direction.x,
-                      direction.y
-                    )
-                  }
-                  style={{
-                    ...styles.gazeSegment,
+               <button
+  key={index}
+  type="button"
+  aria-label={
+    "Set gaze direction " +
+    String(index + 1)
+  }
+  style={{
+    ...styles.gazeSegment,
 
-                    transform:
-                      "rotate(" +
-                      String(
-                        index *
-                        45
-                      ) +
-                      "deg)",
-                  }}
-                />
+    transform:
+      "rotate(" +
+      String(index * 45) +
+      "deg)",
+  }}
+/>
               )
             )
           }
@@ -1403,6 +1460,8 @@ pathologyViewport: {
       "inset 0 1px 0 rgba(255,255,255,.9)",
 
     zIndex: 2,
+
+    touchAction: "none",
   },
 
   // ==========================================================
@@ -1454,6 +1513,8 @@ pathologyViewport: {
 
     transition:
       "background .15s ease",
+
+      pointerEvents: "none",
   },
 
   // ==========================================================
