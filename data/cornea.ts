@@ -1435,5 +1435,291 @@ autoantibody against adhesion molecules in the hemidesmosome–epithelial baseme
 
 [SIREN] *Punctal occlusion with **cauterization** is recommended*`,
 },
+
+/// Chapter 15 ///
+/// Question 84 ///
+
+{
+  id: "cornea_84",
+  q: `Describe the Hughes classification for chemical injury (Thoft modification).`,
+  a: `
+  
+**Grade I**: Corneal epithelial defect, no corneal haze, **no limbal ischemia** → [SIREN]*Excellent prognosis*
+
+---
+
+**Grade II**: Mild corneal haze, **focal limbal ischemia** → 
+
+[SIREN]*Good prognosis ± focal corneal vascularization*
+
+---
+
+**Grade III**: Severe corneal haze (anterior segment structures barely visible), **extensive limbal ischemia** (most limbal stem cell loss) → [SIREN]*Guarded prognosis; surgery may be required for visual rehabilitation*
+
+---
+
+**Grade IV**: Complete loss of corneal and adjacent conjunctival epithelium, opaque cornea, **complete limbal ischemia** → [SIREN]*Extremely poor prognosis; surgery is aimed at globe preservation*`,
+},
+
+/// Question 85 ///
+
+{
+  id: "cornea_85",
+  q: `Describe the surgical treatment options for chemical burns in the following situations: 
+  
+  * Scleral melting, 
+
+  * Unilateral injury + PED,
+  
+  * Bilateral conjunctival damage.`,
+  a: `
+  
+* **Scleral Melting**: Rotational graft of tarsoconjunctiva from the adjacent eyelid
+
+
+
+* **Unilateral Injury + PED**: Autologous conjunctival/limbal stem cell transplantation after resolution of inflammation
+
+
+
+* **Bilateral Conjunctival Damage**: AMT, MMG
+
+---
+
+[SIREN] ***Long Term Solotion**: PK/LK after limbal stem cell transplantation or after inflammation has resolved (months to years)*
+
+
+***MMG**: Mucous Membrane Graft, **PK**: Penetrating Keratoplasty, **LK**: Lamellar Keratoplasty*`,
+},
+
+/// Question 86 ///
+
+{
+  id: "cornea_86",
+  q: `What is cyclodialysis, and what is its consequence?`,
+  a: `
+  
+Separation of the **ciliary body** from the **scleral spur** → ↑**Uveoscleral outflow** → Ocular hypotony`,
+},
+
+/// Question 87 ///
+
+{
+  id: "cornea_87",
+  q: `What are the recommended treatments for cyclodialysis?`,
+  a: `
+  
+* Topical cycloplegics → *if fails:*
+
+* Laser treatment, diathermy, cryotherapy, or surgical suturing
+
+---
+
+[WARNING] *Suturing should be performed only after resolution of the hyphema*`,
+},
+
+/// Question 88 ///
+
+{
+  id: "cornea_88",
+  q: `What are the indications for surgical intervention in traumatic hyphema?`,
+  a: `
+  
+**To Prevent Optic Atrophy**:
+- IOP >60 mmHg for 2 days
+- IOP >35 mmHg for 7 days
+
+---
+
+**To Prevent Corneal Blood Staining**:
+- IOP >25 mmHg for 5 days
+- Early corneal blood staining
+
+---
+
+**To Prevent PAS**:
+- Total hyphema for 5 days
+- <50% hyphema resolution after 8 days
+
+---
+
+**Sickle Cell Anemia (SCA)**:
+- IOP >25 mmHg for 24 hours
+- Transient IOP >30 mmHg several times over 2–4 days despite medical therapy`,
+},
+
+/// Question 89 ///
+
+{
+  id: "cornea_89",
+  q: `In which cases of corneal laceration with microleakage is non-surgical management not recommended?`,
+  a: `
+  
+- Microleakage for ≥2 days
+- Very shallow/ Flat AC`,
+},
+
+/// Question 90 ///
+
+{
+  id: "cornea_90",
+  q: `Describe the suturing technique for corneal lacerations.`,
+  a: `
+  
+**Peripheral Cornea**: Longer, wider-spaced, compressive sutures → Flattening effect
+
+---
+
+**Central Cornea**: Shorter, closer-spaced sutures with minimal compression → Steepening effect`,
+},
+
+/// Question 91 ///
+
+{
+  id: "cornea_91",
+  q: `How long should corneal sutures remain in place after corneal laceration repair in adults and children?`,
+  a: `
+  
+**Adults**: 3 months
+
+**Children**: 6–8 weeks
+
+---
+
+[BRAIN]*Corneal healing occurs more rapidly in children*`,
+},
+
+/// Chapter 16 ///
+/// Question 92 ///
+
+{
+  id: "cornea_92",
+  q: `Name the diseases with proven and potential transmission through corneal transplantation.`,
+  a: `
+  
+**Proven Transmission**: HBV[WARNING], Rabies, CJD, RB, Bacterial/ fungal keratitis or endophthalmitis
+
+**Potential Transmission**: HCV[WARNING], HSV, HIV, West Nile virus, Zika virus, Prion disease
+
+---
+
+***CJD**: Creutzfeldt–Jakob disease, **RB**: Retinoblastoma, **HBV**: Hepatitis B virus, **HCV**: Hepatitis C virus, **HSV**: Herpes simplex virus, **HIV**: Human immunodeficiency virus*`,
+},
+
+/// Question 93 ///
+
+{
+  id: "cornea_93",
+  q: `Compare PKP, DSEK, and DMEK in terms of graft dislocation rate, graft failure, and rejection.`,
+  a: `
+  
+* **Graft Dislocation Rate**: PKP ≤ DSEK < DMEK
+
+* **Graft Failure**: PKP < DSEK < DMEK
+
+* **Rejection Rate**: PKP > DSEK > DMEK
+
+  [DUMBBELL]***Thinner** graft → ↑**Dislocation***
+
+  [DUMBBELL]***Thicker** graft → ↑Inflammatory Response & ↑**Rejection**.*
+---
+
+***PKP**: Penetrating Keratoplasty, **DSEK**: Descemet Stripping Endothelial Keratoplasty, **DMEK**: Descemet Membrane Endothelial Keratoplasty*`,
+},
+
+/// Question 94 ///
+
+{
+  id: "cornea_94",
+  q: `Name the contraindications to donor cornea use.`,
+  a: `
+  
+- Congenital rubella
+- Reye syndrome ≤ 3 months ago
+- **Active** infectious endophthalmitis/ endocarditis
+- Suspected rabies or suspected animal bite within the past 6 months
+- **Down syndrome** →[WARNING]*(acceptable for EK only)*
+- Intraocular pathologies:
+  - Retinoblastoma
+  - Anterior segment malignancy or ocular adenocarcinoma
+  - **Active** ocular/intraocular inflammation
+- Active leukemia or disseminated lymphoma
+- **Prior refractive corneal surgery** →[WARNING]*(acceptable for EK only)*
+- HIV infection
+- Parkinson disease, ALS, MS, Alzheimer disease
+- Creutzfeldt–Jakob disease
+- History of Ebola virus infection
+- **History of melanoma with known metastasis**
+
+---
+
+***EK**: Endothelial Keratoplasty*`,
+},
+
+/// Question 95 ///
+
+{
+  id: "cornea_95",
+  q: `What are the proposed mechanisms of textural interface opacity (TIO) after corneal transplantation?`,
+  a: `
+  
+- Trapped OVD
+- **Shearing of stromal fibrils** during donor preparation with an **irregular microkeratome**
+
+
+**Other Possible Mechanisms**:
+- Retained stromal fibers
+- Incomplete removal of Descemet membrane
+- Persistent interface fluid
+
+---
+***OVD**: Ophthalmic Viscosurgical Devices*`,
+},
+
+/// Question 96 ///
+
+{
+  id: "cornea_96",
+  q: `What are the clinical appearances of textural interface opacity (TIO)?`,
+  a: `
+  
+**TIO Has Two Clinical Forms**:
+
+1. **Elongated Form**: Lacy, honeycomb pattern with intervening clear zones
+
+2. **Punctate Form**: Small, discrete deposits`,
+},
+
+/// Question 97 ///
+
+{
+  id: "cornea_97",
+  q: `What is the prognosis of textural interface opacity (TIO)?`,
+  a: `
+  
+May be associated with ↓VA, but in most cases **resolves spontaneously** over **several months**`,
+},
+
+/// Question 98 ///
+
+{
+  id: "cornea_98",
+  q: `When is KPro indicated? Name its types and their indications.`,
+  a: `
+  
+KPro is considered in **high-risk cases for PKP**:
+  - Previous multiple graft rejections
+  - Ocular surface disorders: *SJS or MMP*
+
+---
+
+**Type I Boston KPro** *(Massachusetts Eye and Ear)*: Adequate tear film + good blinking reflex
+
+**Type II Boston KPro / TKPro / Osteo-Odonto KPro**: Significant conjunctival scarring, severe dry eye disease, or exposure keratopathy
+
+---
+
+***PKP**: Penetrating Keratoplasty, **KPro**: Keratoprosthesis*`,
+},
   
 ];
