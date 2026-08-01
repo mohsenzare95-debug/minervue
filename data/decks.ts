@@ -51,7 +51,7 @@ export const decks = [
     key: "retina",
     name: "Retina",
     isFree: false,
-    cards: fundaCards,
+    cards: retinaCards,
   },
 ] as const;
 
