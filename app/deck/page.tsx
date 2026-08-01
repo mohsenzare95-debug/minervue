@@ -73,7 +73,7 @@ export default function DeckPage() {
         style={styles.fundusFloatingButton}
       >
         <img
-  src="/fundus-simulator-icon.png"
+  src="/fundus-simulator-icon3.png"
   alt=""
   draggable={false}
   style={{

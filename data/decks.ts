@@ -46,6 +46,13 @@ export const decks = [
     isFree: false,
     cards: fundaCards,
   },
+
+  {
+    key: "retina",
+    name: "Retina",
+    isFree: false,
+    cards: fundaCards,
+  },
 ] as const;
 
 // optional compatibility
