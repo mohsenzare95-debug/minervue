@@ -312,6 +312,226 @@ export const retinaCards: Card[] = [
 `,
 },
 
+/// Question 21 ///
+{
+  id: "retina_21",
+  q: `What are the clinical, ERG, and fundus findings in carriers of choroideremia?`,
+  a: `
+
+- Asymptomatic
+- Normal ERG
+- Mottled black subretinal patches in the fundus
+
+`,
+},
+
+/// Question 22 ///
+{
+  id: "retina_22",
+  q: `What is the inheritance pattern and gene mutation in gyrate atrophy?`,
+  a: `
+
+- **Inheritance:** Autosomal Recessive (AR)
+
+---
+
+- **Gene Mutation:** OAT Mutation → ↑*Plasma Ornithine*
+
+`,
+},
+
+/// Question 23 ///
+{
+  id: "retina_23",
+  q: `At what age do patients with choroideremia and gyrate atrophy typically become symptomatic?`,
+  a: `
+
+- **Choroideremia:** 3rd–5th decades of life
+
+---
+
+- **Gyrate Atrophy:** from the 1st decade of life
+
+`,
+},
+
+/// Question 24 ///
+{
+  id: "retina_24",
+  q: `What are the characteristic fundus findings in gyrate atrophy?`,
+  a: `
+
+- Paving stone appearance
+- Scalloped borders of chorioretinal atrophy →*Characteristic*
+
+`,
+},
+
+/// Question 25 ///
+{
+  id: "retina_25",
+  q: `What is the recommended treatment for gyrate atrophy?`,
+  a: `
+
+- Arginine restriction
+- Vitamin B6 supplementation
+
+`,
+},
+
+/// Question 26 ///
+{
+  id: "retina_26",
+  q: `What is the inheritance pattern and genetic mutation associated with Stargardt disease?`,
+  a: `
+
+- **Inheritance:** Autosomal Recessive
+
+---
+
+- **Gene mutation:** ABCA4 mutation → *ATP-binding transporter in the RPE and rod outer segments*
+
+`,
+},
+
+/// Question 27 ///
+{
+  id: "retina_27",
+  q: `What are the characteristic findings of Stargardt disease on FA, FAF, and ffERG?`,
+  a: `
+
+- **FA:** Dark choroid in 80% of cases
+
+---
+
+- **FAF:** Peripapillary sparing[SIREN]
+
+---
+
+- **ffERG:** Nondiagnostic[WARNING]
+
+`,
+},
+
+/// Question 28 ///
+{
+  id: "retina_28",
+  q: `What is the inheritance pattern and genetic mutation associated with Best vitelliform dystrophy?`,
+  a: `
+
+- **Inheritance:** Autosomal dominant 
+
+---
+
+- **Gene mutation:** BEST1 (VMD2) mutation → *Bestrophin, an ion channel located in the **basolateral membrane** of the RPE*
+
+`,
+},
+
+/// Question 29 ///
+{
+  id: "retina_29",
+  q: `What percentage of patients with Best vitelliform dystrophy have extrafoveal lesions and how many develop CNV?`,
+  a: `
+
+- Extrafoveal lesions: 30%
+
+---
+
+- CNV: 20%
+
+`,
+},
+
+/// Question 30 ///
+{
+  id: "retina_30",
+  q: `What is the visual prognosis in Best vitelliform dystrophy?`,
+  a: `
+
+- VA = **20/30–20/60**, *even in the scrambled egg stage.*
+
+`,
+},
+
+/// Question 31 ///
+{
+  id: "retina_31",
+  q: `What are the ERG and EOG findings in Best vitelliform dystrophy?`,
+  a: `
+
+- **ERG:** Normal
+
+- **EOG:** Always abnormal  
+  - Light peak / Dark peak ≤ 1.5 *(Arden ratio)*[SIREN]
+
+  ---
+
+- This **abnormal EOG** finding can also be present in ***carriers with a normal fundus***.
+
+`,
+},
+
+/// Question 32 ///
+{
+  id: "retina_32",
+  q: `What is the inheritance pattern and genetic mutation associated with Sorsby macular dystrophy (SMD)?`,
+  a: `
+
+- **Inheritance:** Autosomal dominant
+
+---
+
+- **Gene mutation:** TIMP3 mutation → *regulation of extracellular matrix turnover*
+
+`,
+},
+
+/// Question 33 ///
+{
+  id: "retina_33",
+  q: `What are the characteristic fundus findings in Sorsby macular dystrophy (SMD)?`,
+  a: `
+
+- Yellow-gray drusen-like deposits at the level of Bruch's membrane in the macula + temporal arcades
+ →geographic macular atrophy + CNV
+
+`,
+},
+
+/// Question 34 ///
+{
+  id: "retina_34",
+  q: `What are the common causes of vitreous hemorrhage in children?`,
+  a: `
+
+- X-linked retinoschisis (XLRS) [SIREN]
+- Trauma
+- Pars planitis [SIREN]
+
+`,
+},
+
+/// Question 35 ///
+{
+  id: "retina_35",
+  q: `What are the clinical manifestations of X-linked retinoschisis (XLRS)?`,
+  a: `
+
+- Infantile nystagmus
+- Strabismus
+- ± Dense vitreous hemorrhage
+- ± Bullous retinal detachment (RD)
+- ± Pigmentary changes
+- ± White spiculation
+- ± Vitreous veil
+
+---
+[SIREN] ***Peripheral schisis** is present in **50%** of cases.*
+
+`,
+},
+
 
 
   
