@@ -1,3 +1,4 @@
+//data\cornea.ts
 import type { Card } from "@/shared/types/card";
 
 export const corneaCards: Card[] = [

@@ -3,7 +3,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, BarChart3, Settings } from "lucide-react";
+import {
+  Copy,
+  BarChart3,
+  Settings,
+  NotebookTabs,
+} from "lucide-react";
 
 const CONTAINER_WIDTH = 480;
 
@@ -11,10 +16,30 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const tabs = [
-    { name: "Stats", href: "/stats", icon: BarChart3 },
-    { name: "Decks", href: "/", icon: BookOpen },
-    { name: "Settings", href: "/settings", icon: Settings },
-  ];
+  {
+    name: "Stats",
+    href: "/stats",
+    icon: BarChart3,
+  },
+
+  {
+    name: "Decks",
+    href: "/",
+    icon: Copy,
+  },
+
+  {
+    name: "Notes",
+    href: "/notes",
+    icon: NotebookTabs,
+  },
+
+  {
+    name: "Settings",
+    href: "/settings",
+    icon: Settings,
+  },
+];
 
   return (
     <div style={styles.wrapper}>
@@ -22,9 +47,10 @@ export default function Navbar() {
         const Icon = tab.icon;
 
         const isActive =
-          pathname === tab.href ||
-          (tab.href === "/" && pathname.startsWith("/deck"));
-
+  pathname === tab.href ||
+  (tab.href === "/" && pathname.startsWith("/deck")) ||
+  (tab.href === "/notes" && pathname.startsWith("/notes"));
+  
         return (
           <Link key={tab.href} href={tab.href} style={styles.link}>
             <div style={styles.item}>
