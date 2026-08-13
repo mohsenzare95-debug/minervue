@@ -8,6 +8,7 @@ import {
   BarChart3,
   Settings,
   NotebookTabs,
+  ListChecks,
 } from "lucide-react";
 
 const CONTAINER_WIDTH = 480;
@@ -32,6 +33,12 @@ export default function Navbar() {
     name: "Notes",
     href: "/notes",
     icon: NotebookTabs,
+  },
+
+  {
+    name: "Tests",
+    href: "/question-bank",
+    icon: ListChecks,
   },
 
   {

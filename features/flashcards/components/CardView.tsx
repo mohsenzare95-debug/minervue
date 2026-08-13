@@ -7,6 +7,7 @@ import React, {
   type ReactNode,
 } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { renderCardText } from "@/shared/icons/renderCardText";
 
 type Props = {
@@ -85,26 +86,64 @@ function normalizeContent(
 
 const createMdComponents = (searchQuery: string) => ({
   p: ({ children }: any) => (
-  <p style={styles.p}>
-    {normalizeContent(children, searchQuery)}
-  </p>
-),
+    <p style={styles.p}>
+      {normalizeContent(children, searchQuery)}
+    </p>
+  ),
 
   ul: ({ children }: any) => (
     <ul style={styles.ul}>{children}</ul>
   ),
 
   li: ({ children }: any) => (
-  <li style={styles.li}>
-    {normalizeContent(children, searchQuery)}
-  </li>
-),
+    <li style={styles.li}>
+      {normalizeContent(children, searchQuery)}
+    </li>
+  ),
 
   strong: ({ children }: any) => (
-  <strong style={styles.strong}>
-    {normalizeContent(children, searchQuery)}
-  </strong>
-),
+    <strong style={styles.strong}>
+      {normalizeContent(children, searchQuery)}
+    </strong>
+  ),
+
+  // =========================
+  // TABLE
+  // =========================
+
+  table: ({ children }: any) => (
+    <table style={styles.table}>
+      {children}
+    </table>
+  ),
+
+  thead: ({ children }: any) => (
+    <thead style={styles.thead}>
+      {children}
+    </thead>
+  ),
+
+  tbody: ({ children }: any) => (
+    <tbody>{children}</tbody>
+  ),
+
+  tr: ({ children }: any) => (
+    <tr style={styles.tr}>
+      {children}
+    </tr>
+  ),
+
+  th: ({ children }: any) => (
+    <th style={styles.th}>
+      {normalizeContent(children, searchQuery)}
+    </th>
+  ),
+
+  td: ({ children }: any) => (
+    <td style={styles.td}>
+      {normalizeContent(children, searchQuery)}
+    </td>
+  ),
 });
 
 
@@ -147,9 +186,12 @@ export default function CardView({
 
           {/* QUESTION */}
           <div style={styles.question}>
-            <ReactMarkdown components={mdComponents}>
-              {card.q}
-            </ReactMarkdown>
+            <ReactMarkdown
+  remarkPlugins={[remarkGfm]}
+  components={mdComponents}
+>
+  {card.q}
+</ReactMarkdown>
           </div>
 
           {/* QUESTION IMAGE */}
@@ -169,9 +211,12 @@ export default function CardView({
           {/* ANSWER */}
           {showAnswer && (
             <div style={styles.answer}>
-              <ReactMarkdown components={mdComponents}>
-                {card.a}
-              </ReactMarkdown>
+              <ReactMarkdown
+  remarkPlugins={[remarkGfm]}
+  components={mdComponents}
+>
+  {card.a}
+</ReactMarkdown>
             </div>
           )}
 
@@ -350,6 +395,41 @@ const styles: Record<string, CSSProperties> = {
 
   strong: {
     fontWeight: 600,
+  },
+
+    /* =========================
+     TABLE
+  ========================= */
+
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    margin: "14px 0",
+    fontSize: 13,
+    lineHeight: 1.5,
+  },
+
+  thead: {
+    background: "#dce9e8",
+  },
+
+  tr: {
+    borderBottom: "1px solid #ddd",
+  },
+
+  th: {
+    padding: "8px 10px",
+    textAlign: "left",
+    fontWeight: 700,
+    color: "#12444b",
+    border: "1px solid #d5d5d5",
+  },
+
+  td: {
+    padding: "8px 10px",
+    textAlign: "left",
+    verticalAlign: "middle",
+    border: "1px solid #d5d5d5",
   },
 
   /* =========================

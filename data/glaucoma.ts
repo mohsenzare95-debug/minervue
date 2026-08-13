@@ -321,9 +321,14 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
 3. and changes secondary to increased IOP.`,
     a: `
+|   | Endothelial and BM continuity | Transport | ↑IOP |
+|---|---|---|---|
+| TM | Continuous endothelium | Inactive | Expands |
+| SCHL | Discontinuous BM | Active | ↓CSA |
+
+***TM**: Trabecular Meshwork, **SCHL**: Schlemm's Canal, **BM**: Basement Membrane, **CSA**: Cross-Sectional Area*
 
 `,
-answerImage: "/images/glaucoma/16.png",
   },
 
   /// Question 74 ///
@@ -424,9 +429,12 @@ Depolarizing muscle relaxants (succinylcholine), Ketamine, Alcohol, Heroin, Mari
     topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Tono-Pen (Mackay–Marg type).`,
     a: `
+| Technique | Advantage | Disadvantage |
+|---|---|---|
+| Applantation | In Corneal Scar, Edema & Regardless of Body Position | Overestimation in Lower IOPs & Underestimation in High IOPs |
 
 `,
-answerImage: "/images/glaucoma/21.png",
+
   },
 
   /// Question 22 ///
@@ -435,9 +443,11 @@ answerImage: "/images/glaucoma/21.png",
     topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Pneumatonometer.`,
     a: `
+| Technique | Advantage | Disadvantage |
+|---|---|---|
+| Applantation | In Corneal Scar, Edema & Regardless of Body Position & Useful in KPro | Scleral Measurements = Corneal Measurements |
 
 `,
-answerImage: "/images/glaucoma/22.png",
   },
 
   /// Question 23 ///
@@ -446,8 +456,11 @@ answerImage: "/images/glaucoma/22.png",
     topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Ocular Response Analyzer (ORA, Airpuff).`,
     a: `
+| Technique | Advantage | Disadvantage |
+|---|---|---|
+| Applantation (non-contact) | ↓Effect of Biomechanics | IOP Overestimation |
+
 `,
-answerImage: "/images/glaucoma/23.png",
   },
 
 
@@ -455,10 +468,13 @@ answerImage: "/images/glaucoma/23.png",
   {
     id: "glaucoma_42",
     topic: "Dynamics",
-    q: `Describe the technique, advantage, and disadvantage of the Rebound Tonometer.`,
+    q: `Describe the technique and advantage of the Rebound Tonometer.`,
     a: `
+| Technique | Advantage | 
+|---|---|
+| Applantation? | Independent of CCT & Biomechanics |
+
 `,
-answerImage: "/images/glaucoma/25.png",
   },
 
   /// Question 24 ///
@@ -467,9 +483,11 @@ answerImage: "/images/glaucoma/25.png",
     topic: "Dynamics",
     q: `Describe the technique and advantage of the Dynamic Contour Tonometry.`,
     a: `
+| Technique | Advantage | Disadvantage |
+|---|---|---|
+| Non-applantation, Measures Tearfilm Pressure! | No Anesthesia, Pediatric Use, Home Use | Influenced by CCT |
 
 `,
-answerImage: "/images/glaucoma/24.png",
   },
 
   /// Question 25 ///
