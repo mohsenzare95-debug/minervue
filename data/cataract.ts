@@ -8,6 +8,7 @@ export const cataractCards: Card[] = [
   
   {
     id: "cataract_1",
+    topic: "Epidemiology",
     q: `Which types of cataract are associated with cigarette smoking?`,
     a: `
 NS + PSC
@@ -24,6 +25,7 @@ NS + PSC
   /// Question 2 ///
   {
     id: "cataract_2",
+    topic: "Epidemiology",
     q: `What is the relationship between sex, sex hormones, and cataract risk?`,
     a: `
 **Female sex** + **exogenous estrogen** are two risk factors for cataract development
@@ -34,6 +36,7 @@ NS + PSC
   /// Question 3 ///
   {
     id: "cataract_3",
+    topic: "Epidemiology",
     q: `What is the relationship between multivitamin/mineral supplementation and cataract development?`,
     a: `
 Associated with:
@@ -48,6 +51,7 @@ Associated with:
   /// Question 4 ///
   {
     id: "cataract_4",
+    topic: "Epidemiology",
     q: `What is the effect of lutein and zeaxanthin supplementation on cataract risk?`,
     a: `
 [WARNING]reduced risk of cataract **only** in individuals who are deficient in these carotenoids
@@ -58,6 +62,7 @@ Associated with:
   /// Question 5 ///
   {
     id: "cataract_5",
+    topic: "Anatomy",
     q: `Where are the thickest and thinnest regions of the crystalline lens capsule?`,
     a: `
 **Thickest:** Anterior and posterior pre-equatorial regions
@@ -70,6 +75,7 @@ Associated with:
   /// Question 6 ///
   {
     id: "cataract_6",
+    topic: "Anatomy",
     q: `What is the origin of the zonular fibers of the crystalline lens?`,
     a: `
 Basal lamina of the **non**pigmented ciliary epithelium (NPE) of the pars plana and pars plicata of the ciliary body.
@@ -80,6 +86,7 @@ Basal lamina of the **non**pigmented ciliary epithelium (NPE) of the pars plana 
   /// Question 7 ///
   {
     id: "cataract_7",
+    topic: "Biochemistry",
     q: `What is the protein composition of the crystalline lens in a young individual without cataract?`,
     a: `
 
@@ -98,6 +105,7 @@ Basal lamina of the **non**pigmented ciliary epithelium (NPE) of the pars plana 
   /// Question 8 ///
   {
     id: "cataract_8",
+    topic: "Biochemistry",
     q: `What causes the increased fluorescence observed in brown cataracts?`,
     a: `
 Protein cross-linking through **non-disulfide bonds** within lens crystallins.
@@ -108,6 +116,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 9 ///
   {
     id: "cataract_9",
+    topic: "Biochemistry",
     q: `How is most of the glucose in the crystalline lens metabolized, and how much ATP does this pathway generate?`,
     a: `
 **anaerobic glycolysis:** 2 ATP molecules per glucose molecule
@@ -118,6 +127,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 10 ///
   {
     id: "cataract_10",
+    topic: "Biochemistry",
     q: `What proportion of lens glucose enters the Krebs cycle, and what proportion of total ATP production does this pathway provide?`,
     a: `
 **3% of lens glucose**: about **25%** of the total ATP
@@ -128,6 +138,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 11 ///
   {
     id: "cataract_11",
+    topic: "Biochemistry",
     q: `Name three enzymes in the lens that protect against free radicals.`,
     a: `
 • Superoxide dismutase 
@@ -142,6 +153,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 12 ///
   {
     id: "cataract_12",
+    topic: "Biochemistry",
     q: `How do the concentrations of potassium, sodium, chloride, and amino acids in the lens compare to the aqueous/ vitreous humor?`,
     a: `
 **Higher concentrations** of Potassium and Amino acids
@@ -156,6 +168,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 13 ///
   {
     id: "cataract_13",
+    topic: "Embryology",
     q: `How does the Tunica Vasculosa Lentis (TVL) develop?`,
     a: `
 • **GA=1m:** originates from the hyaloid artery system
@@ -178,6 +191,7 @@ Protein cross-linking through **non-disulfide bonds** within lens crystallins.
   /// Question 14 ///
   {
     id: "cataract_14",
+    topic: "Embryology",
     q: `With which vascular structure does the Tunica Vasculosa Lentis (TVL) anastomose anteriorly?`,
     a: `
 cilliray veins (anterior pupillary membrane vascular network)
@@ -189,6 +203,7 @@ cilliray veins (anterior pupillary membrane vascular network)
   /// Question 15 ///
   {
     id: "cataract_15",
+    topic: "Embryology",
     q: `Name the types of lenticonus and their key clinical features.`,
     a: `
 **Anterior lenticonus:** usually bilateral - associated with Alport syndrome
@@ -205,6 +220,7 @@ cilliray veins (anterior pupillary membrane vascular network)
   /// Question 16 ///
   {
     id: "cataract_16",
+    topic: "Embryology",
     q: `What is the mechanism of Peters anomaly?`,
     a: `
 Failure of normal separation of **lens vesicle** from **surface ectoderm** (around **day 33**)
@@ -215,6 +231,7 @@ Failure of normal separation of **lens vesicle** from **surface ectoderm** (arou
   /// Question 17 ///
   {
     id: "cataract_17",
+    topic: "Embryology",
     q: `Which mutations are involved in Peters anomaly?`,
     a: `
 PAX6, PITX2, FOXC1
@@ -227,6 +244,7 @@ PAX6, PITX2, FOXC1
   /// Question 18 ///
   {
     id: "cataract_18",
+    topic: "Embryology",
     q: `What are the lens-related features in Peters anomaly?`,
     a: `
 1.Polar or anterior cortical lens opacity
@@ -241,6 +259,7 @@ PAX6, PITX2, FOXC1
   /// Question 19 ///
   {
     id: "cataract_19",
+    topic: "Embryology",
     q: `Which gene is responsible for aniridia?`,
     a: `
 PAX6
@@ -251,6 +270,7 @@ PAX6
   /// Question 20 ///
   {
     id: "cataract_20",
+    topic: "Embryology",
     q: `What are the ocular findings associated with aniridia?`,
     a: `
 • Corneal pannus →[BRAIN]*due to limbal stem cell deficiency*
@@ -269,6 +289,7 @@ PAX6
   /// Question 21 ///
   {
     id: "cataract_21",
+    topic: "Embryology",
     q: `What is the inheritance pattern of aniridia and why is it clinically important?`,
     a: `
 2/3 **familial** cases
@@ -283,6 +304,7 @@ PAX6
   /// Question 22 ///
   {
     id: "cataract_22",
+    topic: "Embryology",
     q: `What types of cataract are associated with aniridia?`,
     a: `
 **At birth:** anterior and posterior polar cataracts
@@ -297,6 +319,7 @@ PAX6
   /// Question 23 ///
   {
     id: "cataract_23",
+    topic: "Embryology",
     q: `What are the clinical characteristics of anterior polar cataract in terms of size, laterality, symmetry, progression, and symptoms?`,
     a: `
 • Small in size
@@ -313,6 +336,7 @@ PAX6
   /// Question 24 ///
   {
     id: "cataract_24",
+    topic: "Embryology",
     q: `What is the inheritance pattern of the two types of polar cataract?`,
     a: `
 Sporadic or autosomal dominant
@@ -323,6 +347,7 @@ Sporadic or autosomal dominant
   /// Question 25 ///
   {
     id: "cataract_25",
+    topic: "Embryology",
     q: `Which ocular anomalies are associated with anterior polar cataract?`,
     a: `
 • Microphthalmia
@@ -337,6 +362,7 @@ Sporadic or autosomal dominant
   /// Question 26 ///
   {
     id: "cataract_26",
+    topic: "Embryology",
     q: `What are the clinical characteristics of posterior polar cataract in terms of size, progression, and visual impairment compared to anterior polar cataract?`,
     a: `
 • **Size:** larger
@@ -351,6 +377,7 @@ Sporadic or autosomal dominant
   /// Question 27 ///
   {
     id: "cataract_27",
+    topic: "Embryology",
     q: `Which type of congenital cataract is associated with aphakic glaucoma?`,
     a: `
 Congenital nuclear cataract
@@ -361,6 +388,7 @@ Congenital nuclear cataract
   /// Question 28 ///
   {
     id: "cataract_28",
+    topic: "Embryology",
     q: `What are the inheritance patterns of ectopia lentis in Marfan syndrome and homocystinuria?`,
     a: `
 **Marfan syndrome:** autosomal dominant
@@ -375,6 +403,7 @@ Congenital nuclear cataract
   /// Question 29 ///
   {
     id: "cataract_29",
+    topic: "Embryology",
     q: `How does zonular integrity differ between Marfan syndrome and homocystinuria?`,
     a: `
 **Marfan syndrome:** intact, but stretched and elongated
@@ -389,6 +418,7 @@ Congenital nuclear cataract
   /// Question 30 ///
   {
     id: "cataract_30",
+    topic: "Embryology",
     q: `How is homocystinuria diagnosed?`,
     a: `
 By detecting **urinary disulfides** 
@@ -399,6 +429,7 @@ By detecting **urinary disulfides**
   /// Question 31 ///
   {
     id: "cataract_31",
+    topic: "Embryology",
     q: `What is the treatment of homocystinuria, and does it affect systemic complications and ectopia lentis?`,
     a: `
 • Low-methionine, high-cysteine diet
@@ -415,6 +446,7 @@ By detecting **urinary disulfides**
   /// Question 32 ///
   {
     id: "cataract_32",
+    topic: "Pathology",
     q: `What are four non-cataractous age-related changes of the crystalline lens in terms of (1) cortical thickness, (2) lens curvature, (3) refractive index, and (4) anterior capsule thickness?`,
     a: `
 • **Cortical thickness:** increases 
@@ -431,6 +463,7 @@ By detecting **urinary disulfides**
   /// Question 33 ///
   {
     id: "cataract_33",
+    topic: "Pathology",
     q: `What are the risk factors for posterior subcapsular cataract (PSC)?`,
     a: `
 • Increasing age • Trauma • Corticosteroid use • **Tamoxifen use** • Uveitis
@@ -442,6 +475,7 @@ By detecting **urinary disulfides**
   /// Question 34 ///
   {
     id: "cataract_34",
+    topic: "Pathology",
     q: `What are the characteristic features of cataract secondary to ionizing radiation?`,
     a: `
 Punctate opacities in the **posterior capsule** region
@@ -456,6 +490,7 @@ Feathery **anterior capsular** opacities extending toward the lens equator
   /// Question 35 ///
   {
     id: "cataract_35",
+    topic: "Pathology",
     q: `At which age group does ionizing radiation have a greater cataractogenic effect?`,
     a: `
 Younger individuals
@@ -466,6 +501,7 @@ Younger individuals
   /// Question 36 ///
   {
     id: "cataract_36",
+    topic: "Pathology",
     q: `What are the types of lens opacities secondary to infrared (IR) radiation?`,
     a: `
 • True exfoliation 
@@ -480,6 +516,7 @@ Younger individuals
   /// Question 37 ///
   {
     id: "cataract_37",
+    topic: "Pathology",
     q: `What type of cataract is associated with UV exposure and in which sex is it more common?`,
     a: `
 Type: **Cortical cataract**
@@ -494,6 +531,7 @@ More common in: **Males**
   /// Question 38 ///
   {
     id: "cataract_38",
+    topic: "Pathology",
     q: `What type of cataract is caused by electrical injury?`,
     a: `
 • Formation of lens **vacuoles** in the **anterior mid-periphery**
@@ -508,6 +546,7 @@ More common in: **Males**
   /// Question 39 ///
   {
     id: "cataract_39",
+    topic: "Pathology",
     q: `Which lens opacities may spontaneously regress or improve?`,
     a: `
 1.Drug-induced **PSC in children**
@@ -531,6 +570,7 @@ More common in: **Males**
   /// Question 40 ///
   {
     id: "cataract_40",
+    topic: "Pathology",
     q: `What is the clinical appearance of hypocalcemic cataract on examination?`,
     a: `
 **Punctate iridescent opacities** in the anterior and posterior cortical–**subcapsular** regions, separated from the capsule by a **clear zone**
@@ -541,6 +581,7 @@ More common in: **Males**
   /// Question 41 ///
   {
     id: "cataract_41",
+    topic: "Pathology",
     q: `What are the inheritance patterns of galactosemia, Wilson disease, and myotonic dystrophy?`,
     a: `
 • **Galactosemia**, **Wilson disease:** autosomal recessive
@@ -555,6 +596,7 @@ More common in: **Males**
   /// Question 42 ///
   {
     id: "cataract_42",
+    topic: "Pathology",
     q: `What is the examination appearance of cataract in Wilson disease?`,
     a: `
 **Sunflower cataract:** red–brown *(copper oxide)* pigment deposition in the **anterior capsule** and **subcapsular cortex** → forming a **sunflower pattern**
@@ -569,6 +611,7 @@ More common in: **Males**
   /// Question 43 ///
   {
     id: "cataract_43",
+    topic: "Pathology",
     q: `What is the clinical appearance of cataract in myotonic dystrophy on examination?`,
     a: `
 •**Polychromatic**, **iridescent “crystalline”** opacities in the lens cortex
@@ -585,6 +628,7 @@ More common in: **Males**
   /// Question 45 ///
   {
     id: "cataract_45",
+    topic: "Evaluation",
     q: `What is the progression speed of nuclear sclerosis (NS), cortical cataract (CC), and PSC?`,
     a: `
 •**NS:** slow progression
@@ -603,6 +647,7 @@ More common in: **Males**
   /// Question 46 ///
   {
     id: "cataract_46",
+    topic: "Evaluation",
     q: `What is the relative severity of glare in nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC)?`,
     a: `
 PSC > CC > NS
@@ -613,6 +658,7 @@ PSC > CC > NS
   /// Question 47 ///
   {
     id: "cataract_47",
+    topic: "Evaluation",
     q: `What is the comparative effect of nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC) on distance vision?`,
     a: `
 NS *(moderate)* > CC ≈ PSC *(mild)*
@@ -623,6 +669,7 @@ NS *(moderate)* > CC ≈ PSC *(mild)*
   /// Question 48 ///
   {
     id: "cataract_48",
+    topic: "Evaluation",
     q: `What is the relative effect of nuclear sclerosis (NS), cortical cataract (CC), and posterior subcapsular cataract (PSC) on near vision?`,
     a: `
 PSC *(marked)* > CC *(Mild)* > NS *(none!)*
@@ -633,6 +680,7 @@ PSC *(marked)* > CC *(Mild)* > NS *(none!)*
   /// Question 49 ///
   {
     id: "cataract_49",
+    topic: "Evaluation",
     q: `What type of cataract can be induced by vitrectomy?`,
     a: `
 Nuclear sclerosis (NS)
@@ -643,6 +691,7 @@ Nuclear sclerosis (NS)
   /// Question 50 ///
   {
     id: "cataract_50",
+    topic: "PreOp Considerations",
     q: `What is the SRK (classic regression) formula?`,
     a: `
 P = A − (2.5×AL) − (0.9×K)
@@ -653,6 +702,7 @@ P = A − (2.5×AL) − (0.9×K)
   /// Question 51 ///
   {
     id: "cataract_51",
+    topic: "PreOp Considerations",
     q: `In which patients is a facial block used for cataract surgery?`,
     a: `
 Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
@@ -663,6 +713,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
   /// Question 52 ///
   {
     id: "cataract_52",
+    topic: "PreOp Considerations",
     q: `Name four types of facial nerve blocks based on the site of injection.`,
     a: `
 
@@ -686,6 +737,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
   /// Question 53 ///
   {
     id: "cataract_53",
+    topic: "PreOp Considerations",
     q: `Name the categories of ophthalmic viscosurgical devices (OVDs) and give examples of each.`,
     a: `
 **Dispersive OVDs** *(-coat)*: Ocucoat, Viscoat, CelluGel, Healon EndoCoat
@@ -705,6 +757,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
   /// Question 54 ///
   {
     id: "cataract_54",
+    topic: "PreOp Considerations",
     q: `Name and describe the four physical properties of OVDs.`,
     a: `
 • **Viscosity:** resistance to flow →[BRAIN]*higher viscosity allows better retention in place and greater ability to displace tissues*.
@@ -727,6 +780,7 @@ Patients with **blepharospasm**, to achieve *orbicularis oculi akinesia*
   /// Question 55 ///
   {
     id: "cataract_55",
+    topic: "PreOp Considerations",
     q: `How do the contact angle and surface tension of Cohesive OVD compare to Dispersive OVD?`,
     a: `
 Both are higher
@@ -737,6 +791,7 @@ Both are higher
   /// Question 56 ///
   {
     id: "cataract_56",
+    topic: "Phaco",
     q: `How do phaco tip features vary based on bevel slope (less slope vs. more slope) in terms of vacuum, cutting, gripping force, and occlusion?`,
     a: `
 **Less slope:** Higher vacuum, lower cutting, lower gripping force, easier occlusion.
@@ -751,6 +806,7 @@ Both are higher
   /// Question 57 ///
   {
     id: "cataract_57",
+    topic: "Phaco",
     q: `What are the solutions to manage surge during phacoemulsification?`,
     a: `
 1. Increase bottle height
@@ -773,6 +829,7 @@ Both are higher
   /// Question 58 ///
   {
     id: "cataract_58",
+    topic: "Phaco",
     q: `What is venting?`,
     a: `
 _Exposure to air_ → venting reduces **surge** by allowing the **negative vacuum pressure** to quickly return to **atmospheric pressure**.
@@ -783,6 +840,7 @@ _Exposure to air_ → venting reduces **surge** by allowing the **negative vacuu
   /// Question 59 ///
   {
     id: "cataract_59",
+    topic: "Phaco",
     q: `What are the predisposing factors for thermal wound burn?`,
     a: `
 • Inadequate inflow
@@ -801,6 +859,7 @@ _Exposure to air_ → venting reduces **surge** by allowing the **negative vacuu
   /// Question 60 ///
   {
     id: "cataract_60",
+    topic: "Phaco",
     q: `In the face of intraoperative fluid misdirection, what steps do you take in order?`,
     a: `
 Gentle posterior pressure on the lens + OVD injection 
@@ -820,6 +879,7 @@ Gentle posterior pressure on the lens + OVD injection
   /// Question 61 ///
   {
     id: "cataract_61",
+    topic: "Phaco",
     q: `In case of a PC tear during phaco, what settings adjustments do you make?`,
     a: `
 Low vacuum, low flow, minimal power
@@ -835,6 +895,7 @@ Low vacuum, low flow, minimal power
   /// Question 62 ///
   {
     id: "cataract_62",
+    topic: "Phaco",
     q: `What are the risk factors for suprachoroidal effusion or hemorrhage during surgery?`,
     a: `
 •Hypertension and atherosclerotic CVD
@@ -860,6 +921,7 @@ Low vacuum, low flow, minimal power
   /// Question 63 ///
   {
     id: "cataract_63",
+    topic: "PostOp",
     q: `What are the five causes of IOL calcification?`,
     a: `
 1.Glistening *(water influx)*
@@ -882,6 +944,7 @@ Low vacuum, low flow, minimal power
   /// Question 64 ///
   {
     id: "cataract_64",
+    topic: "PostOp",
     q: `What is IOL glistening? In which lenses is it seen? What is its effect on the patient’s vision and what is the treatment?`,
     a: `
 **Influx of water** into the lens in the form of lipid-filled microvacuoles.
@@ -904,6 +967,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
   /// Question 65 ///
   {
     id: "cataract_65",
+    topic: "PostOp",
     q: `In which IOLs does calcification-related IOL opacification occur, and how is it managed?`,
     a: `
 • **Hydrophilic** acrylic IOLs
@@ -920,6 +984,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
   /// Question 66 ///
   {
     id: "cataract_66",
+    topic: "PostOp",
     q: `What are three causes of postoperative glare after cataract surgery?`,
     a: `
 1.IOL **decentration**
@@ -937,6 +1002,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
   /// Question 67 ///
   {
     id: "cataract_67",
+    topic: "PostOp",
     q: `What is the clinical presentation of Brown-McLean syndrome?`,
     a: `
 **Peripheral corneal edema** with a **clear central cornea** (typically sparing ~5–7 mm centrally), often **starting inferiorly** and progressing circumferentially + **Central guttae** + Brownish punctate endothelial pigment deposits in the edematous peripheral cornea
@@ -947,6 +1013,7 @@ Generally **increases over time**, but **BCVA usually remains unchanged**. Howev
   /// Question 68 ///
   {
     id: "cataract_68",
+    topic: "PostOp",
     q: `Which type of postoperative corneal edema has a worse prognosis: central or peripheral?`,
     a: `
 Peripheral corneal edema has a worse prognosis
@@ -961,6 +1028,7 @@ Cases with **central edema with peripheral clear cornea** often improve spontane
   /// Question 69 ///
   {
     id: "cataract_69",
+    topic: "PostOp",
     q: `When does postoperative refraction stabilize after ECCE, and when can selective suture removal begin?`,
     a: `
 within ~6–8 weeks
@@ -971,6 +1039,7 @@ within ~6–8 weeks
   /// Question 70 ///
   {
     id: "cataract_70",
+    topic: "PostOp",
     q: `What are the manifestations of positive dysphotopsia and its predisposing factors?`,
     a: `
 **Manifestations:** glare, halos, flashes, and arc-like photic phenomena
@@ -985,6 +1054,7 @@ within ~6–8 weeks
   /// Question 71 ///
   {
     id: "cataract_71",
+    topic: "PostOp",
     q: `How does negative dysphotopsia usually present?`,
     a: `
 a dark or dim curved shadow/arc, typically in the **temporal visual field**
@@ -999,6 +1069,7 @@ a dark or dim curved shadow/arc, typically in the **temporal visual field**
   /// Question 72 ///
   {
     id: "cataract_72",
+    topic: "PostOp",
     q: `What are the predisposing factors for negative dysphotopsia?`,
     a: `
 1.Square-edge IOLs
@@ -1019,6 +1090,7 @@ a dark or dim curved shadow/arc, typically in the **temporal visual field**
   /// Question 73 ///
   {
     id: "cataract_73",
+    topic: "PostOp",
     q: `How is negative dysphotopsia managed after cataract surgery?`,
     a: `
 **Nonsurgical Management:** 
@@ -1049,6 +1121,7 @@ Observation + Cycloplegics + Blocking temporal light rays
   /// Question 74 ///
   {
     id: "cataract_74",
+    topic: "PostOp",
     q: `Describe Soemmering ring and Elschnig pearls from a pathological perspective.`,
     a: `
 **Soemmering ring:** proliferation of **nucleated bladder-shaped (Wedl) cells** within the capsular bag

@@ -1,3 +1,4 @@
+//data\retina.ts
 import type { Card } from "@/shared/types/card";
 
 export const retinaCards: Card[] = [
@@ -7,6 +8,7 @@ export const retinaCards: Card[] = [
 /// Question 1 ///
 {
   id: "retina_1",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `List the causes of achromatopsia + congenital nystagmus + ↓ VA + photophobia. Also name the differential diagnoses of these two conditions and explain how to differentiate them.`,
   a: `
 
@@ -24,6 +26,7 @@ export const retinaCards: Card[] = [
 /// Question 2 ///
 {
   id: "retina_2",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `State the visual acuity of rod monochromatism and blue cone (S-cone) monochromatism.`,
   a: `
 
@@ -39,6 +42,7 @@ export const retinaCards: Card[] = [
 /// Question 3 ///
 {
   id: "retina_3",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `State the inheritance pattern of rod monochromatism and blue cone (S-cone) monochromatism.`,
   a: `
 
@@ -54,6 +58,7 @@ export const retinaCards: Card[] = [
 /// Question 4 ///
 {
   id: "retina_4",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `Describe the ERG findings in rod monochromatism and blue cone (S-cone) monochromatism.`,
   a: `
 
@@ -69,6 +74,7 @@ export const retinaCards: Card[] = [
 /// Question 5 ///
 {
   id: "retina_5",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `List the causes of a negative ERG.`,
   a: `
 
@@ -91,6 +97,7 @@ export const retinaCards: Card[] = [
 /// Question 6 ///
 {
   id: "retina_6",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the characteristic dark adaptation finding in rod monochromatism?`,
   a: `
 
@@ -102,6 +109,7 @@ export const retinaCards: Card[] = [
 /// Question 7 ///
 {
   id: "retina_7",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the causative gene mutation in fundus albipunctatus? What are its characteristic clinical findings, and what is the typical ERG and dark adaptation pattern?`,
   a: `
 
@@ -125,6 +133,7 @@ export const retinaCards: Card[] = [
 /// Question 8 ///
 {
   id: "retina_8",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the causative gene mutation in retinitis punctata albescens? Describe its characteristic fundus appearance, ERG findings, and dark adaptation pattern.`,
   a: `
 
@@ -146,6 +155,7 @@ export const retinaCards: Card[] = [
 /// Question 9 ///
 {
   id: "retina_9",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the characteristic fundus finding in Oguchi disease?`,
   a: `
 
@@ -160,6 +170,7 @@ export const retinaCards: Card[] = [
 /// Question 10 ///
 {
   id: "retina_10",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What ocular abnormalities may be associated with rod-cone dystrophy?`,
   a: `
 
@@ -176,6 +187,7 @@ export const retinaCards: Card[] = [
 /// Question 11 ///
 {
   id: "retina_11",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `Describe the visual field defects in rod-cone dystrophy and cone dystrophy.`,
   a: `
 
@@ -191,6 +203,7 @@ export const retinaCards: Card[] = [
 /// Question 12 ///
 {
   id: "retina_12",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `Describe the ERG findings in rod-cone dystrophy. How do they differ from post-inflammatory retinopathy?`,
   a: `
 
@@ -206,6 +219,7 @@ export const retinaCards: Card[] = [
 /// Question 13 ///
 {
   id: "retina_13",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern of Enhanced S-Cone Syndrome (ESCS, Goldmann-Favre syndrome)?`,
   a: `
 
@@ -217,6 +231,7 @@ export const retinaCards: Card[] = [
 /// Question 14 ///
 {
   id: "retina_14",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the characteristic clinical findings of Enhanced S-Cone Syndrome (ESCS, Goldmann-Favre syndrome)?`,
   a: `
 
@@ -235,6 +250,7 @@ export const retinaCards: Card[] = [
 /// Question 15 ///
 {
   id: "retina_15",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `Describe the characteristic ERG findings in Enhanced S-Cone Syndrome (ESCS, Goldmann-Favre syndrome).`,
   a: `
 
@@ -250,6 +266,7 @@ export const retinaCards: Card[] = [
 /// Question 16 ///
 {
   id: "retina_16",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `List the disorders in which primary retinal/RPE damage leads to secondary choriocapillaris degeneration.`,
   a: `
 
@@ -264,6 +281,7 @@ export const retinaCards: Card[] = [
 /// Question 17 ///
 {
   id: "retina_17",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern of choroideremia, and which gene is mutated?`,
   a: `
 
@@ -279,6 +297,7 @@ export const retinaCards: Card[] = [
 /// Question 18 ///
 {
   id: "retina_18",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `Describe the characteristic fundus findings in choroideremia.`,
   a: `
 
@@ -292,6 +311,7 @@ export const retinaCards: Card[] = [
 /// Question 19 ///
 {
   id: "retina_19",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the characteristic fluorescein angiography findings in choroideremia?`,
   a: `
 
@@ -304,6 +324,7 @@ export const retinaCards: Card[] = [
 /// Question 20 ///
 {
   id: "retina_20",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the characteristic fundus autofluorescence finding in choroideremia?`,
   a: `
 
@@ -315,6 +336,7 @@ export const retinaCards: Card[] = [
 /// Question 21 ///
 {
   id: "retina_21",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the clinical, ERG, and fundus findings in carriers of choroideremia?`,
   a: `
 
@@ -328,6 +350,7 @@ export const retinaCards: Card[] = [
 /// Question 22 ///
 {
   id: "retina_22",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern and gene mutation in gyrate atrophy?`,
   a: `
 
@@ -343,6 +366,7 @@ export const retinaCards: Card[] = [
 /// Question 23 ///
 {
   id: "retina_23",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `At what age do patients with choroideremia and gyrate atrophy typically become symptomatic?`,
   a: `
 
@@ -358,6 +382,7 @@ export const retinaCards: Card[] = [
 /// Question 24 ///
 {
   id: "retina_24",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the characteristic fundus findings in gyrate atrophy?`,
   a: `
 
@@ -370,6 +395,7 @@ export const retinaCards: Card[] = [
 /// Question 25 ///
 {
   id: "retina_25",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the recommended treatment for gyrate atrophy?`,
   a: `
 
@@ -382,6 +408,7 @@ export const retinaCards: Card[] = [
 /// Question 26 ///
 {
   id: "retina_26",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern and genetic mutation associated with Stargardt disease?`,
   a: `
 
@@ -397,6 +424,7 @@ export const retinaCards: Card[] = [
 /// Question 27 ///
 {
   id: "retina_27",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the characteristic findings of Stargardt disease on FA, FAF, and ffERG?`,
   a: `
 
@@ -416,6 +444,7 @@ export const retinaCards: Card[] = [
 /// Question 28 ///
 {
   id: "retina_28",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern and genetic mutation associated with Best vitelliform dystrophy?`,
   a: `
 
@@ -431,6 +460,7 @@ export const retinaCards: Card[] = [
 /// Question 29 ///
 {
   id: "retina_29",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What percentage of patients with Best vitelliform dystrophy have extrafoveal lesions and how many develop CNV?`,
   a: `
 
@@ -446,6 +476,7 @@ export const retinaCards: Card[] = [
 /// Question 30 ///
 {
   id: "retina_30",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the visual prognosis in Best vitelliform dystrophy?`,
   a: `
 
@@ -457,6 +488,7 @@ export const retinaCards: Card[] = [
 /// Question 31 ///
 {
   id: "retina_31",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the ERG and EOG findings in Best vitelliform dystrophy?`,
   a: `
 
@@ -475,6 +507,7 @@ export const retinaCards: Card[] = [
 /// Question 32 ///
 {
   id: "retina_32",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What is the inheritance pattern and genetic mutation associated with Sorsby macular dystrophy (SMD)?`,
   a: `
 
@@ -490,6 +523,7 @@ export const retinaCards: Card[] = [
 /// Question 33 ///
 {
   id: "retina_33",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the characteristic fundus findings in Sorsby macular dystrophy (SMD)?`,
   a: `
 
@@ -502,6 +536,7 @@ export const retinaCards: Card[] = [
 /// Question 34 ///
 {
   id: "retina_34",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the common causes of vitreous hemorrhage in children?`,
   a: `
 
@@ -515,6 +550,7 @@ export const retinaCards: Card[] = [
 /// Question 35 ///
 {
   id: "retina_35",
+  topic: "Heriditary Diseases & Dystrophies",
   q: `What are the clinical manifestations of X-linked retinoschisis (XLRS)?`,
   a: `
 

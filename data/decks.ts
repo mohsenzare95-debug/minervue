@@ -6,7 +6,6 @@ import { retinaCards } from "./retina";
 import { uveitisCards } from "./uveitis";
 import { glaucomaCards } from "./glaucoma";
 import { corneaCards } from "./cornea";
-import { fundaCards } from "./fundamentals";
 
 
 
@@ -38,13 +37,6 @@ export const decks = [
     name: "Cornea",
     isFree: false,
     cards: corneaCards,
-  },
-
-  {
-    key: "funda",
-    name: "Fundamentals",
-    isFree: false,
-    cards: fundaCards,
   },
 
   {

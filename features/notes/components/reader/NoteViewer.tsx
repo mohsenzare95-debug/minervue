@@ -1,7 +1,7 @@
 //features/notes/components/reader/NoteViewer.tsx
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import type { Note } from "@/shared/types/note";
 
 import NoteHeader from "./NoteHeader";

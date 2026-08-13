@@ -1,8 +1,7 @@
 import React from "react";
 import type { NotePage } from "@/shared/types/note";
-import ReactMarkdown from "react-markdown";
-import type { ReactNode, CSSProperties } from "react";
-import { renderNoteDescription } from "@/shared/icons/renderNoteDescription";
+import type { CSSProperties } from "react";
+import MarkdownText from "./MarkdownText";
 
 export default function NotePage({
   page,
@@ -24,11 +23,11 @@ export default function NotePage({
           TEXT
       ========================= */}
 
-      <div style={styles.text}>
-        <ReactMarkdown components={mdComponents}>
-          {page.text}
-        </ReactMarkdown>
-      </div>
+      <MarkdownText
+  style={styles.text}
+>
+  {page.text}
+</MarkdownText>
 
       {/* =========================
           IMAGE
@@ -46,73 +45,6 @@ export default function NotePage({
     </section>
   );
 }
-
-/* ==========================================================
-   MARKDOWN COMPONENTS
-   ========================================================== */
-
-const mdComponents = {
-  p: ({ children }: { children?: ReactNode }) => (
-    <p style={styles.p}>
-      {renderMarkdownChildren(children)}
-    </p>
-  ),
-
-  ul: ({ children }: { children?: ReactNode }) => (
-    <ul style={styles.ul}>
-      {children}
-    </ul>
-  ),
-
-  ol: ({ children }: { children?: ReactNode }) => (
-    <ol style={styles.ol}>
-      {children}
-    </ol>
-  ),
-
-  li: ({ children }: { children?: ReactNode }) => (
-    <li style={styles.li}>
-      {renderMarkdownChildren(children)}
-    </li>
-  ),
-
-  strong: ({ children }: { children?: ReactNode }) => (
-    <strong style={styles.strong}>
-      {children}
-    </strong>
-  ),
-
-  em: ({ children }: { children?: ReactNode }) => (
-    <em style={styles.em}>
-      {children}
-    </em>
-  ),
-
-  br: () => <br />,
-};
-
-/* ==========================================================
-   MARKDOWN → ICONS
-   ========================================================== */
-
-function renderMarkdownChildren(
-  children: ReactNode
-): ReactNode {
-  if (typeof children === "string") {
-    return renderNoteDescription(children);
-  }
-
-  if (Array.isArray(children)) {
-    return children.map((child, index) => (
-      <React.Fragment key={index}>
-        {renderMarkdownChildren(child)}
-      </React.Fragment>
-    ));
-  }
-
-  return children;
-}
-
 /* ==========================================================
    STYLES
    ========================================================== */

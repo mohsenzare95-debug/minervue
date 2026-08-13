@@ -1,9 +1,59 @@
+//features\notes\components\reader\FillBlankPage.tsx
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Lightbulb } from "lucide-react";
 
 import type { NotePage } from "@/shared/types/note";
+import ReactMarkdown from "react-markdown";
+import type { ReactNode } from "react";
+import { renderNoteDescription } from "@/shared/icons/renderNoteDescription";
+
+function renderInlineMarkdown(text: string): ReactNode {
+  return (
+    <ReactMarkdown
+      components={{
+        p: ({ children }) => (
+          <>
+            {renderMarkdownChildren(children)}
+          </>
+        ),
+
+        strong: ({ children }) => (
+          <strong style={{ fontWeight: 600 }}>
+            {renderMarkdownChildren(children)}
+          </strong>
+        ),
+
+        em: ({ children }) => (
+          <em style={{ fontStyle: "italic" }}>
+            {renderMarkdownChildren(children)}
+          </em>
+        ),
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  );
+}
+
+function renderMarkdownChildren(
+  children: ReactNode
+): ReactNode {
+  if (typeof children === "string") {
+    return renderNoteDescription(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map((child, index) => (
+      <React.Fragment key={index}>
+        {renderMarkdownChildren(child)}
+      </React.Fragment>
+    ));
+  }
+
+  return children;
+}
 
 export default function FillBlankPage({
   page,
@@ -31,7 +81,7 @@ export default function FillBlankPage({
 
       <div style={styles.text}>
 
-        {parts[0]}
+        {renderInlineMarkdown(parts[0])}
 
         <span
           style={{
@@ -44,7 +94,7 @@ export default function FillBlankPage({
           {showAnswer ? page.answer : "\u00A0"}
         </span>
 
-        {parts[1]}
+        {renderInlineMarkdown(parts[1])}
 
         {/* LIGHTBULB */}
         <button

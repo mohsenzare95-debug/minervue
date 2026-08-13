@@ -32,22 +32,27 @@ export default function DeckReviewClient({
 
       {/* SEARCH */}
       <div style={styles.searchBox}>
+  <span style={styles.searchIcon}>⌕</span>
 
-        <span style={styles.searchIcon}>
-          ⌕
-        </span>
+  <input
+    type="text"
+    placeholder="Search cards..."
+    value={query}
+    onChange={(e) => setQuery(e.target.value)}
+    style={styles.searchInput}
+  />
 
-        <input
-          type="text"
-          placeholder="Search cards..."
-          value={query}
-          onChange={(e) =>
-            setQuery(e.target.value)
-          }
-          style={styles.searchInput}
-        />
-
-      </div>
+  {query && (
+    <button
+      type="button"
+      onClick={() => setQuery("")}
+      style={styles.clearButton}
+      aria-label="Clear search"
+    >
+      ×
+    </button>
+  )}
+</div>
 
       {/* NO RESULTS */}
       {query.trim() && results.length === 0 && (
@@ -146,4 +151,17 @@ const styles: Record<string, CSSProperties> = {
     width: "100%",
     marginBottom: 16,
   },
+
+  clearButton: {
+  border: "none",
+  background: "transparent",
+  color: "#12444b",
+  fontSize: 22,
+  lineHeight: 1,
+  padding: 0,
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+},
 };

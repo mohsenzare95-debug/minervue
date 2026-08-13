@@ -1,9 +1,9 @@
 //features\notes\components\reader\MCQPage.tsx
 "use client";
 
-import { useState } from "react";
-import { TriangleAlert, Check } from "lucide-react";
-
+import React, { useState } from "react";
+import { TriangleAlert } from "lucide-react";
+import MarkdownText from "./MarkdownText";
 import type { NotePage } from "@/shared/types/note";
 
 export default function MCQPage({
@@ -30,9 +30,9 @@ export default function MCQPage({
           QUESTION
       ========================= */}
 
-      <div style={styles.question}>
+      <MarkdownText style={styles.question}>
         {page.question}
-      </div>
+      </MarkdownText>
 
       {/* =========================
           QUESTION IMAGE
@@ -82,30 +82,34 @@ export default function MCQPage({
               {/* LETTER / CHECK */}
 
               <span
-  style={{
-    ...styles.letter,
-    ...(isWrong ? styles.wrongLetter : {}),
-    ...(answered && isCorrect ? styles.correctLetter : {}),
-  }}
->
-  {isWrong ? (
-    <TriangleAlert size={14} strokeWidth={2.2} />
-  ) : answered && isCorrect ? (
-    <span style={styles.checkMark}>✓</span>
-  ) : (
-    String.fromCharCode(65 + index)
-  )}
-</span>
+                style={{
+                  ...styles.letter,
+
+                  ...(isWrong
+                    ? styles.wrongLetter
+                    : {}),
+
+                  ...(answered && isCorrect
+                    ? styles.correctLetter
+                    : {}),
+                }}
+              >
+                {isWrong ? (
+  <TriangleAlert size={14} strokeWidth={2.2} />
+) : answered && isCorrect ? (
+  <span style={styles.checkMark}>✓</span>
+) : (
+  String.fromCharCode(65 + index)
+)}
+              </span>
 
               {/* OPTION TEXT */}
 
-              <span style={styles.optionText}>
-                {option}
-              </span>
-
-              {/* WRONG ANSWER WARNING */}
-
-        
+              <div style={styles.optionText}>
+  <MarkdownText inline>
+    {option}
+  </MarkdownText>
+</div>
 
             </button>
           );
@@ -125,9 +129,9 @@ export default function MCQPage({
             Explanation
           </div>
 
-          <div style={styles.explanationText}>
+          <MarkdownText style={styles.explanationText}>
             {page.explanation}
-          </div>
+          </MarkdownText>
 
         </div>
       )}
@@ -143,20 +147,19 @@ const styles: Record<string, React.CSSProperties> = {
   // ==========================================================
 
   page: {
-  width: "100%",
+    width: "100%",
+    boxSizing: "border-box",
 
-  boxSizing: "border-box",
+    padding: "24px 20px 30px",
 
-  padding: "24px 20px 30px",
+    background: "#dce9e8",
 
-  background: "#dce9e8",
+    borderRadius: 8,
 
-  borderRadius: 8,
+    minHeight: "100%",
 
-  minHeight: "100%",
-
-  color: "#222",
-},
+    color: "#222",
+  },
 
   // ==========================================================
   // LABEL
@@ -223,152 +226,133 @@ const styles: Record<string, React.CSSProperties> = {
 
     flexDirection: "column",
 
-    gap: 10,
+    gap: 8,
   },
 
   option: {
-  position: "relative",
+    position: "relative",
 
-  width: "100%",
+    width: "100%",
 
-  minHeight: 50,
+    minHeight: 50,
 
-  padding: "12px 14px",
+padding: "4px 12px",
 
-  boxSizing: "border-box",
+    boxSizing: "border-box",
 
-  border: "2px dashed #111",
+    border: "2px dashed #111",
 
-  borderRadius: 9,
+    borderRadius: 8,
 
-  background: "#dce9e8",
+    background: "#dce9e8",
 
-  color: "#12444b",
+    color: "#12444b",
 
-  display: "flex",
+    display: "flex",
 
-  alignItems: "center",
+    alignItems: "center",
 
-  gap: 12,
+    gap: 10,
 
-  cursor: "pointer",
+    cursor: "pointer",
 
-  fontSize: 14,
+    fontSize: 14,
 
-  textAlign: "left",
+    lineHeight: 1.5,
 
-  transition:
-    "background .18s ease, border .18s ease, color .18s ease, box-shadow .18s ease",
-},
+    textAlign: "left",
+
+    transition:
+      "background .18s ease, border .18s ease, color .18s ease, box-shadow .18s ease",
+  },
+
   // ==========================================================
   // LETTER
   // ==========================================================
 
   letter: {
-  flexShrink: 0,
+    flexShrink: 0,
 
-  width: 24,
-  height: 24,
+    width: 22,
+    height: 22,
 
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+    display: "flex",
 
-  borderRadius: "50%",
+    alignItems: "center",
+    justifyContent: "center",
 
-  background: "#12444b",
+    borderRadius: "50%",
 
-  color: "#fff",
+    background: "#12444b",
 
-  fontSize: 11,
-  fontWeight: 600,
-},
+    color: "#fff",
+
+    fontSize: 10,
+
+    fontWeight: 600,
+
+    lineHeight: 1,
+  },
 
   // ==========================================================
   // CORRECT ANSWER
   // ==========================================================
 
   correct: {
-  background: "#12444b",
+    background: "#12444b",
 
-  border: "2px solid #12444b",
+    border: "2px solid #12444b",
 
-  color: "#fff",
+    color: "#fff",
 
-  boxShadow:
-    "0 4px 12px rgba(18,68,75,.18)",
-},
+    boxShadow:
+      "0 4px 12px rgba(18,68,75,.18)",
+  },
 
   correctLetter: {
-  background: "#fff",
+    background: "#fff",
 
-  color: "#12444b",
+    color: "#12444b",
 
-  border: "none",
-},
+    border: "none",
+  },
 
   // ==========================================================
   // WRONG ANSWER
   // ==========================================================
 
   wrong: {
-  background: "#202020",
+    background: "#202020",
 
-  border: "2px solid #111",
+    border: "2px solid #111",
 
-  color: "#fff",
+    color: "#fff",
 
-  boxShadow:
-    "0 4px 10px rgba(0,0,0,.18)",
-},
-
-  wrongLetter: {
-  background: "#fff",
-
-  color: "#222",
-
-  border: "1px solid #fff",
-
-  boxSizing: "border-box",
-},
-
-  // ==========================================================
-  // WARNING
-  // ==========================================================
-
-  warning: {
-    position: "absolute",
-
-    right: 8,
-
-    top: 7,
-
-    width: 24,
-
-    height: 24,
-
-    display: "flex",
-
-    alignItems: "center",
-
-    justifyContent: "center",
-
-    color: "#777",
-
-    background: "rgba(255,255,255,.75)",
-
-    borderRadius: 50,
-
-    pointerEvents: "none",
-
-    zIndex: 2,
+    boxShadow:
+      "0 4px 10px rgba(0,0,0,.18)",
   },
 
+  wrongLetter: {
+    background: "#fff",
+
+    color: "#222",
+
+    border: "1px solid #fff",
+
+    boxSizing: "border-box",
+  },
+
+  // ==========================================================
+  // CHECK MARK
+  // ==========================================================
+
   checkMark: {
-  fontSize: 15,
-  fontWeight: 700,
-  lineHeight: 1,
-},
+    fontSize: 14,
+
+    fontWeight: 700,
+
+    lineHeight: 1,
+  },
 
   // ==========================================================
   // EXPLANATION
@@ -419,4 +403,24 @@ const styles: Record<string, React.CSSProperties> = {
 
     lineHeight: 1.7,
   },
+
+  // ==========================================================
+  // OPTION TEXT
+  // ==========================================================
+
+  optionText: {
+  flex: 1,
+
+  minWidth: 0,
+
+  fontSize: 14,
+
+  lineHeight: 1.4,
+
+  display: "flex",
+
+  alignItems: "center",
+
+  justifyContent: "flex-start",
+},
 };

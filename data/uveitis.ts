@@ -6,6 +6,7 @@ export const uveitisCards: Card[] = [
   /// Question 19 ///
   {
     id: "uveitis_19",
+    topic: "Immunology Basics",
     q: `In which diseases are neutrophils the predominant inflammatory cells?`,
     a: `
 • Bacterial infections *(e.g., endophthalmitis, keratitis, scleritis)*
@@ -18,6 +19,7 @@ export const uveitisCards: Card[] = [
    /// Question 20 ///
   {
     id: "uveitis_20",
+    topic: "Immunology Basics",
     q: `Where are mast cells normally found in ocular tissues?`,
     a: `
 • Conjunctival substantia propria
@@ -34,6 +36,7 @@ export const uveitisCards: Card[] = [
   /// Question 27 ///
   {
     id: "uveitis_27",
+    topic: "Immunology Basics",
     q: `What are the major targets of resting and scavenging macrophages?`,
     a: `
 • Membranes and debris of dead cells
@@ -50,6 +53,7 @@ export const uveitisCards: Card[] = [
   /// Question 28 ///
   {
     id: "uveitis_28",
+    topic: "Immunology Basics",
     q: `What are the three key characteristics of classically activated (M1) macrophages?`,
     a: `
 1.High production of **pro-inflammatory cytokines** and **reactive oxygen/nitrogen species**
@@ -63,6 +67,7 @@ export const uveitisCards: Card[] = [
   /// Question 29 ///
   {
     id: "uveitis_29",
+    topic: "Immunology Basics",
     q: `What are the four key characteristics of alternatively activated (M2) macrophages?`,
     a: `
 1.Activity against **parasitic infections**
@@ -78,6 +83,7 @@ export const uveitisCards: Card[] = [
   /// Question 30 ///
   {
     id: "uveitis_30",
+    topic: "Immunology Basics",
     q: `Describe the two major arachidonic acid metabolic pathways and their products.`,
     a: `
 **Cyclooxygenase (COX) pathway:**
@@ -97,6 +103,7 @@ Eoxins (EX)
     /// Question 31 ///
   {
     id: "uveitis_31",
+    topic: "Immunology Basics",
     q: `What are the four major functions of complement system during inflammation?`,
     a: `
 **1.Opsonization** (coating of pathogens): mainly via **C3b**
@@ -119,6 +126,7 @@ Eoxins (EX)
   /// Question 32 ///
   {
     id: "uveitis_32",
+    topic: "Diagnostic",
     q: `What are the SUN criteria for describing uveitis?`,
     a: `
 **1.Onset:**
@@ -149,6 +157,7 @@ Eoxins (EX)
     /// Question 33 ///
   {
     id: "uveitis_33",
+    topic: "Diagnostic",
     q: `Which retinal vasculitides primarily involve retinal arterioles (arteritis pattern)?`,
     a: `
 • Systemic lupus erythematosus (SLE)
@@ -170,6 +179,7 @@ Eoxins (EX)
   /// Question 34 ///
   {
     id: "uveitis_34",
+    topic: "Diagnostic",
     q: `Which retinal vasculitic diseases primarily involve venules (retinal phlebitis)?`,
     a: `
 • Sarcoidosis
@@ -188,6 +198,7 @@ Eoxins (EX)
   /// Question 35 ///
   {
     id: "uveitis_35",
+    topic: "Diagnostic",
     q: `Which retinal vasculitic diseases involve both arteries and veins simultaneously from the outset (mixed arteritis and phlebitis)?`,
     a: `
 • Toxoplasmosis
@@ -204,6 +215,7 @@ Eoxins (EX)
   /// Question 36 ///
   {
     id: "uveitis_36",
+    topic: "Diagnostic",
     q: `SUN criteria – Anterior Chamber (AC) cell grading`,
     a: `
 • Grade 0: < 1 cell
@@ -223,6 +235,7 @@ Eoxins (EX)
     /// Question 1 /// 
     {
     id: "uveitis_1",
+    topic: "Posterior & Panuveitis",
     q: `What is the prevalence of ocular involvement in the following systemic diseases?
 
 • Systemic Lupus Erythematosus (SLE)
@@ -247,6 +260,7 @@ Eoxins (EX)
   /// Question 2 ///
   {
     id: "uveitis_2",
+    topic: "Posterior & Panuveitis",
     q: `What is the prevalence of lupus retinopathy in hospitalized and outpatient patients with SLE?`,
     a: `Outpatient patients: ~3%
     
@@ -256,6 +270,7 @@ Hospitalized: ~29%`,
   /// Question 3 ///
   {
     id: "uveitis_3",
+    topic: "Posterior & Panuveitis",
    q: `What are the three most common vascular manifestations of SLE in the posterior segment, and what is the underlying mechanism of each?`,
     a: `    
 **1. IRH ± CWS:** microangiopathy, [WARNING]*not HTN-related*
@@ -272,6 +287,7 @@ Hospitalized: ~29%`,
   /// Question 4 ///
   {
     id: "uveitis_4",
+    topic: "Posterior & Panuveitis",
     q: `Describe a typical clinical presentation of Polyarteritis Nodosa (PAN)`,
     a: `
 **1. Constitutional symptoms:** fever, arthralgia, weight loss
@@ -288,6 +304,7 @@ Hospitalized: ~29%`,
    /// Question 5 ///
   {
     id: "uveitis_5",
+    topic: "Posterior & Panuveitis",
     q: `What is the 5-year mortality rate in Polyarteritis Nodosa (PAN) with and without treatment?`,
     a: `
 **Without Tx:** ~90%
@@ -305,6 +322,7 @@ Hospitalized: ~29%`,
 /// Question 6 ///
   {
     id: "uveitis_6",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical clinical and ophthalmic features of Susac syndrome?`,
     a: `
 **BRAO with “boxcar” segmentation** without perivascular sheathing or inflammation
@@ -321,6 +339,7 @@ Hospitalized: ~29%`,
   /// Question 7 ///
   {
     id: "uveitis_7",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical clinical features of Birdshot chorioretinopathy?`,
     a: `
 Multiple hypopigmented, **ovoid cream-colored** lesions
@@ -345,6 +364,7 @@ Rarely with CNV`,
   /// Question 8 ///
   {
     id: "uveitis_8",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical features of APMPPE?`,
     a: `
 
@@ -375,6 +395,7 @@ May be associated with papillitis, UME is rare
   /// Question 9 ///
   {
     id: "uveitis_9",
+    topic: "Posterior & Panuveitis",
     q: `Typical Presentation of Serpiginous Choroiditis?`,
     a: `
 Bilateral asymmetric disease
@@ -404,6 +425,7 @@ Located at the level of the RPE
   /// Question 10 ///
   {
     id: "uveitis_10",
+    topic: "Posterior & Panuveitis",
     q: `What are the distinguishing features between serpiginous choroiditis and serpiginous-like choroiditis?`,
     a: `
 More often **unilateral**
@@ -428,6 +450,7 @@ Better response to **anti-tuberculous therapy (ATT)**`,
   /// Question 11 ///
   {
     id: "uveitis_11",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical clinical features of Multifocal Choroiditis (MFC)?`,
     a: `
 Multiple yellow-white **“punch-out” atrophic lesions**
@@ -453,6 +476,7 @@ Associated AC **inflammation** and vitritis ([SIREN]*important in differential d
   /// Question 12 ///
   {
     id: "uveitis_12",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical features of Punctate Inner Choroidopathy (PIC) compared to Multifocal Choroiditis (MFC)?`,
     a: `
 **Younger age** of onset (≈25 vs 29 years)
@@ -488,6 +512,7 @@ Acute onset, self-limited course, and generally **good prognosis** (vs insidious
   /// Question 13 ///
   {
     id: "uveitis_13",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical clinical features of Multiple Evanescent White Dot Syndrome (MEWDS)?`,
     a: `
 Multiple discrete **white–orange dots**
@@ -516,6 +541,7 @@ Characteristic **macular granular pigment change** ([SIREN]pathognomonic finding
   /// Question 14 ///
   {
     id: "uveitis_14",
+    topic: "Posterior & Panuveitis",
     q: `What are the three corneal manifestations of sarcoidosis?`,
     a: `
 1.Nummular corneal infiltrates
@@ -530,6 +556,7 @@ Characteristic **macular granular pigment change** ([SIREN]pathognomonic finding
   /// Question 15 ///
   {
     id: "uveitis_15",
+    topic: "Posterior & Panuveitis",
     q: `What is the frequency of anterior and posterior uveitis in ocular sarcoidosis?`,
     a: `
 **Anterior uveitis:** ~2/3 of cases
@@ -540,6 +567,7 @@ Characteristic **macular granular pigment change** ([SIREN]pathognomonic finding
   /// Question 16 ///
   {
     id: "uveitis_16",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical clinical features of anterior uveitis in sarcoidosis?`,
     a: `
 • Mutton-fat KPs (also on the angle)
@@ -553,6 +581,7 @@ Characteristic **macular granular pigment change** ([SIREN]pathognomonic finding
   /// Question 17 ///
   {
     id: "uveitis_17",
+    topic: "Posterior & Panuveitis",
     q: `What are the typical posterior uveitis manifestations of sarcoidosis?`,
     a: `
 **Vitritis:** white–yellow snowballs, diffuse cellular infiltration, and **“string of pearls” appearance**
@@ -581,6 +610,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 18 ///
   {
     id: "uveitis_18",
+    topic: "Posterior & Panuveitis",
     q: `What are the major and minor diagnostic criteria for Behçet disease in the Japanese classification system?`,
     a: `
 **Major criteria:** 
@@ -626,6 +656,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
    /// Question 21 ///
   {
     id: "uveitis_21",
+    topic: "AIDS",
     q: `What is the typical clinical scenario of Immune Recovery Uveitis (IRU)?`,
     a: `
 • In patients with a history of **CMV retinitis** after initiation of HAART; which CD4 count rises **from ≤50 to ≥100 cells/µL**
@@ -643,6 +674,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 22 ///
   {
     id: "uveitis_22",
+    topic: "AIDS",
     q: `What are the risk factors for Immune Recovery Uveitis (IRU)?`,
     a: `
 • >25% retinal involvement
@@ -658,6 +690,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 23 ///
   {
     id: "uveitis_23",
+    topic: "AIDS",
     q: `What is the treatment of Immune Recovery Uveitis (IRU)?`,
     a: `
   Short courses of **systemic** or **periocular corticosteroids**
@@ -671,6 +704,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 24 ///
   {
     id: "uveitis_24",
+    topic: "AIDS",
     q: `What are the differences between toxoplasma chorioretinitis in patients with AIDS and immunocompetent individuals?`,
     a: `
 • **Larger** lesions
@@ -712,6 +746,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 25 ///
   {
     id: "uveitis_25",
+    topic: "AIDS",
     q: `What is the typical ocular manifestation of Pneumocystis jirovecii (PCP) choroiditis?`,
     a: `
 
@@ -730,6 +765,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 26 ///
   {
     id: "uveitis_26",
+    topic: "AIDS",
     q: `What systemic workup should be performed in a patient with PCP choroiditis and suspected disseminated infection?`,
     a: `
 • CXR
@@ -746,6 +782,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 37 ///
   {
     id: "uveitis_37",
+    topic: "Masqueraders",
     q: `What is the typical clinical scenario of primary vitreoretinal lymphoma (PVRL)?`,
     a: `
 • 50–70 years old patients
@@ -761,6 +798,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 38 ///
   {
     id: "uveitis_38",
+    topic: "Masqueraders",
     q: `What is the bidirectional statistical association between primary vitreoretinal lymphoma (PVRL) and primary CNS lymphoma (PCNSL)?`,
     a: `
 •PVRL -> 2/3 risk of PCNSL
@@ -772,6 +810,7 @@ Optic disc edema may occur, including in **neurosarcoidosis** or **inflammatory 
   /// Question 39 ///
   {
     id: "uveitis_39",
+    topic: "Masqueraders",
     q: `What is the characteristic angiographic appearance in primary vitreoretinal lymphoma (PVRL)?`,
     a: `
 leopard pattern
@@ -781,6 +820,7 @@ leopard pattern
   /// Question 40 ///
   {
     id: "uveitis_40",
+    topic: "Masqueraders",
     q: `What are the typical OCT findings in primary vitreoretinal lymphoma (PVRL)?`,
     a: `
 IS/OS + RPE-Bruch membrane irregularity
@@ -790,6 +830,7 @@ IS/OS + RPE-Bruch membrane irregularity
   /// Question 41 ///
   {
     id: "uveitis_41",
+    topic: "Masqueraders",
     q: `Describe your diagnostic approach to a patient with suspected primary vitreoretinal lymphoma (PVRL) presenting with a leopard-spot pattern on fluorescein angiography and irregularities at the IS/OS junction and RPE–Bruch’s membrane complex on OCT.`,
     a: `
 
@@ -800,6 +841,7 @@ IS/OS + RPE-Bruch membrane irregularity
   /// Question 42 ///
   {
     id: "uveitis_42",
+    topic: "Masqueraders",
     q: `What are the poor prognostic factors in primary vitreoretinal lymphoma (PVRL)?`,
     a: `
 • Older age
@@ -815,6 +857,7 @@ IS/OS + RPE-Bruch membrane irregularity
    /// Question 43 ///
   {
     id: "uveitis_43",
+    topic: "Masqueraders",
     q: `When is maternal-to-fetal transmission most likely to occur in congenital syphilis, rubella, and toxoplasmosis?`,
     a: `
 **Syphilis:** >10w
@@ -835,6 +878,7 @@ IS/OS + RPE-Bruch membrane irregularity
    /// Question 44 ///
   {
     id: "uveitis_44",
+    topic: "Bacterial Uveitis",
     q: `What is the funduscopic appearance of acquired syphilitic chorioretinitis?`,
     a: `
 Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE typically involving the **macular** or **peripapillary region**.
@@ -844,6 +888,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
    /// Question 45 ///
   {
     id: "uveitis_45",
+    topic: "Bacterial Uveitis",
     q: `What are the ocular manifestations of Stage 1 Lyme disease?`,
     a: `
 • Follicular conjunctivitis (~11%)
@@ -855,6 +900,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
    /// Question 46 ///
   {
     id: "uveitis_46",
+    topic: "Bacterial Uveitis",
     q: `What are the ocular manifestations of Stage 2 Lyme disease?`,
     a: `
 • Uveitis *(most commonly intermediate uveitis)*
@@ -874,6 +920,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
   /// Question 47 ///
   {
     id: "uveitis_47",
+    topic: "Bacterial Uveitis",
     q: `What are the ocular manifestations of Stage 3 Lyme disease?`,
     a: `
 • Keratitis *(most common)*
@@ -885,6 +932,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
   /// Question 48 ///
   {
     id: "uveitis_4",
+    topic: "Bacterial Uveitis",
     q: `How is Lyme disease treated?`,
     a: `
 **Localized disease:** doxycycline, amoxicillin, or cefuroxime
@@ -902,6 +950,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
   /// Question 49 ///
   {
     id: "uveitis_49",
+    topic: "Bacterial Uveitis",
     q: `What are the posterior segment manifestations of ocular tuberculosis (TB)?`,
     a: `
 **1. Disseminated Choroiditis**
@@ -927,6 +976,7 @@ Solitary or multifocal **yellow-gray placoid** lesions at the level of the RPE t
   /// Question 50 ///
   {
     id: "uveitis_50",
+    topic: "Bacterial Uveitis",
     q: `In uveitic patients with latent TB who are candidates for systemic steroid therapy, when is treatment indicated and how should they be managed?`,
     a: `
 Patients receiving **prednisolone ≥15 mg/day for >2 weeks** should receive Isoniazid (INH) for 6–12 months
@@ -937,6 +987,7 @@ Patients receiving **prednisolone ≥15 mg/day for >2 weeks** should receive Iso
   /// Question 51 ///
   {
     id: "uveitis_51",
+    topic: "Bacterial Uveitis",
     q: `In uveitic patients with latent TB who are candidates for anti-TNF-α therapy, when is treatment indicated and how should they be managed?`,
     a: `
 INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
@@ -946,6 +997,7 @@ INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
   /// Question 52 ///
   {
     id: "uveitis_52",
+    topic: "Bacterial Uveitis",
     q: `What are the systemic and ocular manifestations of Whipple disease?`,
     a: `
 **Systemic manifestations:** Chronic diarrhea, weight loss, migratory arthritis
@@ -959,6 +1011,7 @@ INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
   /// Question 53 ///
   {
     id: "uveitis_53",
+    topic: "Bacterial Uveitis",
     q: `What happens to retinal vasculitis and neurologic complications after treatment of Whipple disease?`,
     a: `
 **retinal vasculitis:** usually improves with treatment
@@ -972,6 +1025,7 @@ INH initiation  **≥ 3 weeks before** the first infusion for **all patients**.
   /// Question 54 ///
   {
     id: "uveitis_54",
+    topic: "Bacterial Uveitis",
     q: `How is Whipple disease diagnosed?`,
     a: `
 **Duodenal biopsy**[SIREN] (*gold standard*): PAS-positive macrophages containing bacilli

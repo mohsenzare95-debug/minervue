@@ -8,6 +8,7 @@ export const corneaCards: Card[] = [
 /// Question 1 ///
 {
   id: "cornea_1",
+  topic: "Structure",
   q: `Name and describe the anatomical zones of the cornea.`,
   a: `
   
@@ -33,6 +34,7 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_2",
+  topic: "Examination",
   q: `Name and describe the optical zones of the cornea.`, 
   a: `
   
@@ -61,6 +63,7 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_3",
+  topic: "Examination",
   q: `What types of collagen are found in the corneal basal membrane and stroma?`,
   a: `
   
@@ -73,12 +76,10 @@ export const corneaCards: Card[] = [
 
 /// Question 4 ///
 
-
-
 {
 
   id: "cornea_4",
-
+  topic: "Examination",
   q: `Name the direct illumination techniques used for slit-lamp examination of the cornea and describe the application of each.`,
 
   a: `
@@ -98,16 +99,13 @@ export const corneaCards: Card[] = [
 **Specular Illumination**`,
 },
 
-/// Question 5 ///
 
 /// Question 5 ///
-
-
 
 {
 
   id: "cornea_5",
-
+  topic: "Examination",
   q: `Name the indirect illumination techniques used for slit-lamp examination of the cornea and describe the application of each.`,
 
   a: `
@@ -132,6 +130,7 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_6",
+  topic: "Examination",
   q: `Name the pachymetric risk factors for symptomatic corneal decompensation after intraocular surgery.`,
   a: `
   
@@ -146,6 +145,7 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_7",
+  topic: "Examination",
   q: `Describe the Basic Secretion Test, Schirmer I, and Schirmer II for evaluation of tear production.`,
   a: `
   
@@ -172,6 +172,7 @@ export const corneaCards: Card[] = [
 
 {
   id: "cornea_8",
+  topic: "Examination",
 q: `Name and describe the three parameters used for interpretation of specular microscopy results, including their cutoff values and associated risk of post-surgical corneal decompensation[WARNING].`,  a: `
   **Cell Density**: 1500–3500 cells/mm² *(+cell size of 150–350 µm²)*
 
@@ -197,6 +198,7 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 {
   id: "cornea_9",
+  topic: "Approach",
   q: `Name the causes of aqueous deficient dry eye.`,
   a: `
   
@@ -209,6 +211,7 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 {
   id: "cornea_10",
+  topic: "Approach",
   q: `Name the causes of evaporative dry eye.`,
   a: `
   
@@ -224,6 +227,7 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 {
   id: "cornea_11",
+  topic: "Approach",
   q: `Describe the clinical classification of MGD.`,
   a: `
   
@@ -251,6 +255,7 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 {
   id: "cornea_12",
+  topic: "Approach",
   q: `Name the treatment options for MGD according to its severity.`,
   a: `
   
@@ -273,6 +278,7 @@ q: `Name and describe the three parameters used for interpretation of specular m
 
 {
   id: "cornea_13",
+  topic: "Approach",
   q: `Describe the pathology associated with Superior limbic keratoconjunctivitis (SLK).`,
   a: `
   
@@ -288,6 +294,7 @@ Hyperproliferation + acanthosis + loss of goblet cells + keratinization.
 
 {
   id: "cornea_14",
+  topic: "Ocular Surface",
   q: `Name the surgical treatment options for conjchalazia.`,
   a: `
   
@@ -307,6 +314,7 @@ Hyperproliferation + acanthosis + loss of goblet cells + keratinization.
 /// Question 15 ///
 {
   id: "cornea_15",
+  topic: "Ocular Surface",
   q: `Name the causes of toxic reactions to topical medications presenting as keratoconjunctivitis.`,
   a: `
   
@@ -325,6 +333,7 @@ Hyperproliferation + acanthosis + loss of goblet cells + keratinization.
 
 {
   id: "cornea_16",
+  topic: "Ocular Surface",
   q: `Name three topical medications associated with toxic keratoconjunctivitis with a pattern of epithelial toxicity, anterior stromal peripheral infiltration, and clear limbal zone.`,
   a: `
   
@@ -335,6 +344,7 @@ Aminoglycosides, Antivirals *(TFT)*, Preservatives *(BAK, Thimerosal)*.`,
 
 {
   id: "cornea_17",
+  topic: "Ocular Surface",
   q: `Name two topical medications associated with toxic keratoconjunctivitis with the pattern of vortex keratopathy, inferior/central CED, stromal opacity, and neovascularization.`,
   a: `
   
@@ -345,6 +355,7 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 {
   id: "cornea_18",
+  topic: "Ocular Surface",
   q: `Which topical medications have been reported to cause toxic follicular conjunctivitis?`,
   a: `
   
@@ -359,6 +370,7 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 {
   id: "cornea_19",
+  topic: "Ocular Surface",
   q: `What are the specific features of follicular conjunctivitis due to toxicity from miotics and β-blockers?`,
   a: `
   
@@ -370,6 +382,7 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 {
   id: "cornea_20",
+  topic: "Degenerations",
   q: `Name the age-related changes of the conjunctiva.`,
   a: `
   
@@ -386,6 +399,7 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 {
   id: "cornea_21",
+  topic: "Degenerations",
   q: `Name the age-related changes of the cornea.`,
   a: `
   
@@ -414,6 +428,7 @@ Antineoplastic Agents *(MMC)*, Topical Anesthesia *(Proparacaine, Tetracaine)*`,
 
 {
   id: "cornea_22",
+  topic: "Degenerations",
   q: `Describe the histologic changes of Salzmann nodular degeneration.`,
   a: `
   
@@ -424,6 +439,7 @@ Replacement of Bowman's layer with hyaline + fibrillar material → similar to s
 
 {
   id: "cornea_23",
+  topic: "Degenerations",
   q: `Describe the three features of Salzmann nodular degeneration on confocal biomicroscopy.`,
   a: `
   
@@ -438,6 +454,7 @@ Replacement of Bowman's layer with hyaline + fibrillar material → similar to s
 
 {
   id: "cornea_24",
+  topic: "Degenerations",
   q: `Describe the slit-lamp features of polymorphic amyloid degeneration (PAD).`,
   a: `
 **Appearance**: husky white, partially refractile opacities
@@ -453,6 +470,7 @@ Replacement of Bowman's layer with hyaline + fibrillar material → similar to s
 
 {
   id: "cornea_25",
+  topic: "Degenerations",
   q: `What is Fuchs superficial marginal keratitis?`,
   a: `
   
@@ -465,6 +483,7 @@ A part of TMD spectrum, inflammatory, occurring in children and teenagers.
 
 {
   id: "cornea_26",
+  topic: "Degenerations",
   q: `Describe the features of corneal drug toxicity associated with clofazimine.`,
   a: `
   
@@ -475,6 +494,7 @@ A part of TMD spectrum, inflammatory, occurring in children and teenagers.
 
 {
   id: "cornea_27",
+  topic: "Degenerations",
   q: `Describe the features of corneal drug toxicity associated with isotretinoin.`,
   a: `
   
@@ -485,6 +505,7 @@ Fine, diffuse, gray deposits in the **central and peripheral cornea**.`,
 
 {
   id: "cornea_28",
+  topic: "Degenerations",
   q: `Describe the features of corneal drug toxicity associated with gold salts.`,
   a: `
   
@@ -497,6 +518,7 @@ Fine, diffuse, gray deposits in the **central and peripheral cornea**.`,
 
 {
   id: "cornea_29",
+  topic: "Degenerations",
   q: `Describe the features of corneal drug toxicity associated with rifabutin.`,
   a: `
   
@@ -507,6 +529,7 @@ Refractile, stellate **endothelial deposits** in the peripheral cornea → centr
 
 {
   id: "cornea_30",
+  topic: "Degenerations",
   q: `Describe the features of corneal drug toxicity associated with ciprofloxacin.`,
   a: `
   
@@ -516,6 +539,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 /// Question 31 ///
 {
   id: "cornea_31",
+  topic: "Degenerations",
   q: `What is the composition of corneal deposits in ochronosis, in which disease are they seen, and where do they accumulate?`,
   a: `
   
@@ -534,6 +558,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_32",
+  topic: "Degenerations",
   q: `What is the composition of corneal adrenochrome deposits, in which conditions are they seen, and where do they accumulate?`,
   a: `
   
@@ -552,6 +577,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_33",
+  topic: "Degenerations",
   q: `What is the composition of corneal deposits in siderosis, and where do they accumulate?`,
   a: `
   
@@ -566,6 +592,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_34",
+  topic: "Degenerations",
   q: `What is the composition of chrysiasis corneal deposits, and where do they accumulate?`,
   a: `
   
@@ -580,6 +607,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_35",
+  topic: "Degenerations",
   q: `What is the composition of corneal deposits in argyrosis, and where do they accumulate?`,
   a: `
   
@@ -594,6 +622,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_36",
+  topic: "Degenerations",
   q: `What is the composition of chalcosis corneal deposits, and where do they accumulate?`,
   a: `
   
@@ -609,6 +638,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_37",
+  topic: "Dystrophies",
   q: `Compare the severity of RCE in Reis-Bücklers corneal dystrophy and Thiel-Behnke corneal dystrophy.`,
   a: `
   
@@ -625,6 +655,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_38",
+  topic: "Dystrophies",
   q: `Compare the corneal opacity features of RBCD and TBCD.`,
   a: `
   
@@ -641,6 +672,7 @@ Chalky white crystalline deposits within epithelial defects.`,
 
 {
   id: "cornea_39",
+  topic: "Dystrophies",
   q: `Which of RBCD and TBCD demonstrates a saw-tooth pattern on AS-OCT?`,
   a: `
   
@@ -651,6 +683,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_40",
+  topic: "Dystrophies",
   q: `Describe the confocal microscopy findings of TBCD and RBCD.`,
   a: `
   
@@ -669,6 +702,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_41",
+  topic: "Dystrophies",
   q: `Describe the transmission electron microscopy findings of TBCD and RBCD.`,
   a: `
   
@@ -686,6 +720,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_42",
+  topic: "Dystrophies",
   q: `Describe the histologic features of TBCD.`,
   a: `
   
@@ -706,6 +741,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_43",
+  topic: "Dystrophies",
   q: `Name three corneal dystrophies associated with ↓ corneal sensation.`,
   a: `
   
@@ -720,6 +756,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_44",
+  topic: "Dystrophies",
   q: `What percentage of patients with SCD are associated with hypercholesterolemia, and what is the effect of medical/dietary treatment?`,
   a: `
   
@@ -734,6 +771,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_45",
+  topic: "Dystrophies",
   q: `Describe the clinical features of posterior amorphous corneal dystrophy (PACD) on examination.`,
   a: `
   
@@ -757,6 +795,7 @@ TBCD *(Thiel-Behnke Corneal Dystrophy)*`,
 
 {
   id: "cornea_46",
+  topic: "Dystrophies",
   q: `Describe the histopathologic features of posterior amorphous corneal dystrophy (PACD).`,
   a: `
   
@@ -776,6 +815,7 @@ a fibrillar membrane layer interrupts Descemet membrane.
 
 {
   id: "cornea_47",
+  topic: "Dystrophies",
   q: `Describe the confocal biomicroscopy findings of posterior amorphous corneal dystrophy (PACD).`,
   a: `
   
@@ -786,6 +826,7 @@ Microfolds + Hyperreflective layers in the posterior stroma`,
 
 {
   id: "cornea_48",
+  topic: "Dystrophies",
   q: `Describe the clinical features of posterior polymorphous corneal dystrophy (PPCD) on examination.`,
   a: `
   
@@ -811,6 +852,7 @@ Microfolds + Hyperreflective layers in the posterior stroma`,
 
 {
   id: "cornea_49",
+  topic: "Dystrophies",
   q: `Describe the histopathologic features of posterior polymorphous corneal dystrophy (PPCD).`,
   a: `
   
@@ -828,6 +870,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_50",
+  topic: "Immune-Related Disorders",
   q: `Describe the mechanisms underlying contact dermatoblepharitis.`,
   a: `
   
@@ -846,6 +889,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_51",
+  topic: "Immune-Related Disorders",
   q: `Name the medications commonly associated with contact dermatoblepharitis.`,
   a: `
   
@@ -867,7 +911,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 {
 
   id: "cornea_52",
-
+  topic: "Immune-Related Disorders",
   q: `Name the treatment options for contact dermatoblepharitis.`,
 
   a: `
@@ -897,6 +941,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_53",
+  topic: "Immune-Related Disorders",
   q: `What conditions are associated with seasonal allergic conjunctivitis (SAC)?`,
   a: `
   
@@ -911,6 +956,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_54",
+  topic: "Immune-Related Disorders",
   q: `Describe the mechanism underlying seasonal allergic conjunctivitis (SAC).`,
   a: `
   
@@ -925,6 +971,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_55",
+  topic: "Immune-Related Disorders",
   q: `What measures are recommended in the management of patients with seasonal allergic conjunctivitis (SAC)?`,
   a: `
   
@@ -961,6 +1008,7 @@ Epithelial metaplasia/fibroblastic transformation of endothelial cells:
 
 {
   id: "cornea_56",
+  topic: "Immune-Related Disorders",
   q: `In which age group and sex is VKC more prevalent?`,
   a: `
   
@@ -973,6 +1021,7 @@ Children and young adults
 
 {
   id: "cornea_57",
+  topic: "Immune-Related Disorders",
   q: `Name the types of VKC and describe the clinical manifestations of each.`,
   a: `
   
@@ -989,6 +1038,7 @@ Children and young adults
 
 {
   id: "cornea_58",
+  topic: "Immune-Related Disorders",
   q: `What are the pathophysiologic mechanisms underlying Trantas dots and shield ulcers in VKC?`,
   a: `
   
@@ -1003,6 +1053,7 @@ Children and young adults
 
 {
   id: "cornea_59",
+  topic: "Immune-Related Disorders",
   q: `What types of hypersensitivity reactions occur in VKC?`,
   a: `
   
@@ -1013,6 +1064,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_60",
+  topic: "Immune-Related Disorders",
   q: `Describe the treatment options for VKC according to disease severity.`,
   a: `
   
@@ -1044,6 +1096,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_61",
+  topic: "Immune-Related Disorders",
   q: `Compare VKC and AKC by age group.`,
   a: `
   
@@ -1060,6 +1113,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_62",
+  topic: "Immune-Related Disorders",
   q: `What are the eyelid findings on clinical examination in VKC and AKC?`,
   a: `
   
@@ -1076,6 +1130,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_63",
+  topic: "Immune-Related Disorders",
   q: `Compare the discharge characteristics of VKC and AKC.`,
   a: `
   
@@ -1092,6 +1147,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_64",
+  topic: "Immune-Related Disorders",
   q: `Compare the conjunctival papillary characteristics of VKC and AKC.`,
   a: `
   
@@ -1120,6 +1176,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_65",
+  topic: "Immune-Related Disorders",
   q: `What are the corneal examination findings in patients with VKC and AKC?`,
   a: `
   
@@ -1136,6 +1193,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_66",
+  topic: "Immune-Related Disorders",
   q: `Which of VKC and AKC is associated with cataract, and what type of cataract is more common?`,
   a: `
   
@@ -1150,6 +1208,7 @@ IgE-mediated + Cell-mediated`,
 
 {
   id: "cornea_67",
+  topic: "Immune-Related Disorders",
   q: `Which of VKC and AKC is associated with less eosinophil density?`,
   a: `
   
@@ -1164,6 +1223,7 @@ Eosinophils are **less numerous** and **less degranulated** in the conjunctiva o
 
 {
   id: "cornea_68",
+  topic: "Immune-Related Disorders",
   q: `What types of hypersensitivity reactions are associated with AKC?`,
   a: `
   
@@ -1178,6 +1238,7 @@ AKC: Atopic Keratoconjunctivitis`,
 
 {
   id: "cornea_69",
+  topic: "Immune-Related Disorders",
   q: `What systemic disease is associated with AKC? Name two important clinical features of this disease.`,
   a: `
   
@@ -1199,6 +1260,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_70",
+  topic: "Immune-Related Disorders",
   q: `What are the indications for systemic treatment in AKC?`,
   a: `
   
@@ -1218,6 +1280,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_71",
+  topic: "Immune-Related Disorders",
   q: `What is the inheritance pattern of ligneous conjunctivitis, which gene mutation is associated with it, and what is its pathogenesis and resulting clinical presentation?`,
   a: `
   
@@ -1242,6 +1305,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_72",
+  topic: "Immune-Related Disorders",
   q: `What are the histologic contents of ligneous conjunctivitis?`,
   a: `
   
@@ -1258,6 +1322,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_73",
+  topic: "Immune-Related Disorders",
   q: `How is ligneous conjunctivitis treated?`,
   a: `
   
@@ -1274,6 +1339,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_74",
+  topic: "Immune-Related Disorders",
   q: `What is the prognosis of patients with ligneous conjunctivitis?`,
   a: `
   
@@ -1284,6 +1350,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_75",
+  topic: "Immune-Related Disorders",
   q: `Describe the ocular manifestations of TEN and SJS.`,
   a: `
   
@@ -1298,6 +1365,7 @@ Atopic dermatitis *(in 1/3 of patients)*
 
 {
   id: "cornea_76",
+  topic: "Immune-Related Disorders",
   q: `What is the mechanism of SJS and TEN?`,
   a: `
   
@@ -1308,6 +1376,7 @@ Delayed hypersensitivity reaction, *4–28 days after exposure*`,
 
 {
   id: "cornea_77",
+  topic: "Immune-Related Disorders",
   q: `Name the etiologies and risk factors for SJS and TEN.`,
   a: `
   
@@ -1324,6 +1393,7 @@ Delayed hypersensitivity reaction, *4–28 days after exposure*`,
 
 {
   id: "cornea_78",
+  topic: "Immune-Related Disorders",
   q: `Name the treatment options for SJS and TEN.`,
   a: `
   
@@ -1342,6 +1412,7 @@ Delayed hypersensitivity reaction, *4–28 days after exposure*`,
 
 {
   id: "cornea_79",
+  topic: "Immune-Related Disorders",
   q: `What is the typical clinical scenario of patients with MMP?`,
   a: `
   
@@ -1357,6 +1428,7 @@ A patient >60 years old with a history of **recurrent**, mild, nonspecific episo
 
 {
   id: "cornea_80",
+  topic: "Immune-Related Disorders",
   q: `Name the four stages of MMP.`,
   a: `
   
@@ -1373,6 +1445,7 @@ A patient >60 years old with a history of **recurrent**, mild, nonspecific episo
 
 {
   id: "cornea_81",
+  topic: "Immune-Related Disorders",
   q: `Name the causes of pseudopemphigoid and state the key distinguishing feature from true pemphigoid.`,
   a: `
   
@@ -1395,6 +1468,7 @@ A patient >60 years old with a history of **recurrent**, mild, nonspecific episo
 
 {
   id: "cornea_82",
+  topic: "Immune-Related Disorders",
   q: `Explain the pathogenesis of MMP.`,
   a: `
   
@@ -1413,6 +1487,7 @@ autoantibody against adhesion molecules in the hemidesmosome–epithelial baseme
 
 {
   id: "cornea_83",
+  topic: "Immune-Related Disorders",
   q: `What are the treatment options for MMP?`,
   a: `
   
@@ -1442,6 +1517,7 @@ autoantibody against adhesion molecules in the hemidesmosome–epithelial baseme
 
 {
   id: "cornea_84",
+  topic: "Traumatic Injuries",
   q: `Describe the Hughes classification for chemical injury (Thoft modification).`,
   a: `
   
@@ -1466,6 +1542,7 @@ autoantibody against adhesion molecules in the hemidesmosome–epithelial baseme
 
 {
   id: "cornea_85",
+  topic: "Traumatic Injuries",
   q: `Describe the surgical treatment options for chemical burns in the following situations: 
   
   * Scleral melting, 
@@ -1497,6 +1574,7 @@ autoantibody against adhesion molecules in the hemidesmosome–epithelial baseme
 
 {
   id: "cornea_86",
+  topic: "Traumatic Injuries",
   q: `What is cyclodialysis, and what is its consequence?`,
   a: `
   
@@ -1507,6 +1585,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_87",
+  topic: "Traumatic Injuries",
   q: `What are the recommended treatments for cyclodialysis?`,
   a: `
   
@@ -1523,6 +1602,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_88",
+  topic: "Traumatic Injuries",
   q: `What are the indications for surgical intervention in traumatic hyphema?`,
   a: `
   
@@ -1553,6 +1633,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_89",
+  topic: "Traumatic Injuries",
   q: `In which cases of corneal laceration with microleakage is non-surgical management not recommended?`,
   a: `
   
@@ -1564,6 +1645,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_90",
+  topic: "Traumatic Injuries",
   q: `Describe the suturing technique for corneal lacerations.`,
   a: `
   
@@ -1578,6 +1660,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_91",
+  topic: "Traumatic Injuries",
   q: `How long should corneal sutures remain in place after corneal laceration repair in adults and children?`,
   a: `
   
@@ -1595,6 +1678,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_92",
+  topic: "Transplant",
   q: `Name the diseases with proven and potential transmission through corneal transplantation.`,
   a: `
   
@@ -1611,6 +1695,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_93",
+  topic: "Transplant",
   q: `Compare PKP, DSEK, and DMEK in terms of graft dislocation rate, graft failure, and rejection.`,
   a: `
   
@@ -1632,6 +1717,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_94",
+  topic: "Transplant",
   q: `Name the contraindications to donor cornea use.`,
   a: `
   
@@ -1661,6 +1747,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_95",
+  topic: "Transplant",
   q: `What are the proposed mechanisms of textural interface opacity (TIO) after corneal transplantation?`,
   a: `
   
@@ -1681,6 +1768,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_96",
+  topic: "Transplant",
   q: `What are the clinical appearances of textural interface opacity (TIO)?`,
   a: `
   
@@ -1695,6 +1783,7 @@ Separation of the **ciliary body** from the **scleral spur** → ↑**Uveosclera
 
 {
   id: "cornea_97",
+  topic: "Transplant",
   q: `What is the prognosis of textural interface opacity (TIO)?`,
   a: `
   
@@ -1705,6 +1794,7 @@ May be associated with ↓VA, but in most cases **resolves spontaneously** over 
 
 {
   id: "cornea_98",
+  topic: "Transplant",
   q: `When is KPro indicated? Name its types and their indications.`,
   a: `
   
