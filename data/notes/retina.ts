@@ -444,6 +444,9 @@ Fundus albipunctatus is a congenital disorder associated with **delayed regenera
       subtitle: "Inherited Disorders",
       label: "Key Mutations",
       text: `
+
+
+*This is a list of most important mutations discussed in this chapter.*
 | Disease | Gene Mutation | Encoded Protein |
 |---|---|---|
 | **Fundus Albipunctatus** | RDH5 | 11-cis retinol dehydrogenase |
