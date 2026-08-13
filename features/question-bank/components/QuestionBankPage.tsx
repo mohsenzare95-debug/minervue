@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import MarkdownText from "@/features/notes/components/reader/MarkdownText";
-import type { Question } from "../data/types";
+import type { Question } from "@/shared/types/question";
+
+const LONG_OPTION_WORD_LIMIT = 8;
 
 export default function QuestionBankPage({
   slug,
@@ -15,6 +17,11 @@ export default function QuestionBankPage({
   const [selected, setSelected] = useState<number | null>(null);
 
   const question = questions[currentIndex];
+
+  const hasLongOption = question.options.some(
+    (option) =>
+      option.trim().split(/\s+/).length > LONG_OPTION_WORD_LIMIT
+  );
 
   const answered = selected !== null;
 
@@ -93,7 +100,12 @@ export default function QuestionBankPage({
             OPTIONS
         ========================= */}
 
-        <div style={styles.options}>
+        <div
+  style={{
+    ...styles.options,
+    ...(hasLongOption ? styles.optionsVertical : {}),
+  }}
+>
 
           {question.options.map((option, index) => {
 
@@ -345,47 +357,50 @@ const styles: Record<string, React.CSSProperties> = {
     width: "100%",
   },
 
+  optionsVertical: {
+  gridTemplateColumns: "1fr",
+},
+
 
   // ==========================================================
   // OPTION
   // ==========================================================
 
   option: {
-    position: "relative",
+  position: "relative",
 
-    width: "100%",
+  width: "100%",
+  minWidth: 0,
 
-    minHeight: 58,
+  minHeight: 58,
 
-    padding: "8px 12px",
+  padding: "8px 12px",
 
-    boxSizing: "border-box",
+  boxSizing: "border-box",
 
-    border: "2px dashed #111",
+  border: "2px dashed #111",
+  borderRadius: 8,
 
-    borderRadius: 8,
+  background: "#dce9e8",
+  color: "#12444b",
 
-    background: "#dce9e8",
+  display: "flex",
+  alignItems: "center",
 
-    color: "#12444b",
+  gap: 10,
 
-    display: "flex",
+  cursor: "pointer",
 
-    alignItems: "center",
+  fontSize: 14,
+  lineHeight: 1.5,
 
-    gap: 10,
+  textAlign: "left",
 
-    cursor: "pointer",
+  overflow: "hidden",
 
-    fontSize: 14,
-
-    lineHeight: 1.5,
-
-    textAlign: "left",
-
-    transition:
-      "background .18s ease, border .18s ease, color .18s ease, box-shadow .18s ease",
-  },
+  transition:
+    "background .18s ease, border .18s ease, color .18s ease, box-shadow .18s ease",
+},
 
 
   selected: {
@@ -429,20 +444,26 @@ const styles: Record<string, React.CSSProperties> = {
   // ==========================================================
 
   optionText: {
-    flex: 1,
+  flex: 1,
 
-    minWidth: 0,
+  minWidth: 0,
 
-    fontSize: 14,
+  maxWidth: "100%",
 
-    lineHeight: 1.4,
+  fontSize: 14,
 
-    display: "flex",
+  lineHeight: 1.4,
 
-    alignItems: "center",
+  display: "flex",
 
-    justifyContent: "flex-start",
-  },
+  alignItems: "center",
+
+  justifyContent: "flex-start",
+
+  overflowWrap: "anywhere",
+
+  wordBreak: "break-word",
+},
 
 
   // ==========================================================
