@@ -1,3 +1,4 @@
+//data\glaucoma.ts
 import type { Card } from "@/shared/types/card";
 
 export const glaucomaCards: Card[] = [
@@ -5,6 +6,7 @@ export const glaucomaCards: Card[] = [
   /// Question 1 ///
   {
     id: "glaucoma_1",
+    topic: "Intro",
     q: `Which glaucoma types are associated with the GLC1, GLC2, and GLC3 gene loci?`,
     a: `
 **GLC1:** POAG, NTG, JOAG
@@ -21,6 +23,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_2",
+    topic: "Intro",
     q: `What are the gene locus, gene mutation, and inheritance pattern of juvenile open-angle glaucoma (JOAG)?`,
     a: `
 **Gene locus:** GLC1A
@@ -38,11 +41,12 @@ export const glaucomaCards: Card[] = [
 [DUMBBELL] **Code:** *"Juveniles are all Alpha and Dominant — they listen to music and become Tigers."*
 
 → JOAG = AD + MYOC (GLC1A) + TIGR
-`,
+`, 
   },
 
   {
     id: "glaucoma_3",
+    topic: "Intro",
     q: `What are the defined gene loci, gene mutations, and inheritance patterns for normal-tension glaucoma (NTG)?`,
     a: `
 **Pattern 1**
@@ -73,6 +77,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_4",
+    topic: "Intro",
     q: `What are the gene loci, gene mutations, and inheritance patterns of Axenfeld–Rieger syndrome?`,
     a: `
 **Pattern 1**
@@ -105,6 +110,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_5",
+    topic: "Intro",
     q: `What are the gene loci, gene mutations, and inheritance patterns associated with primary congenital glaucoma (PCG)?`,
     a: `
 **Pattern 1**
@@ -139,6 +145,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_6",
+    topic: "Intro",
     q: `What diseases are associated with LTBP2 mutation?`,
     a: `
 [DOT] Primary congenital glaucoma (PCG) *(GLC3D)*
@@ -153,6 +160,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_7",
+    topic: "Intro",
     q: `What are the gene locus, gene mutation, and inheritance pattern of nail-patella syndrome?`,
     a: `
 **Gene locus:** NPS
@@ -169,6 +177,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_8",
+    topic: "Intro",
     q: `What are the gene locus, gene mutation, and inheritance pattern of aniridia?`,
     a: `
 **Locus:** 11p13
@@ -185,6 +194,7 @@ export const glaucomaCards: Card[] = [
 
   {
     id: "glaucoma_9",
+    topic: "Intro",
     q: `What is the common mutation in pseudoexfoliation (PXF), what is its function, and how frequently is it found in normal individuals?`,
     a: `
 LOXL1 *(Elastin mutation)*
@@ -197,6 +207,7 @@ LOXL1 *(Elastin mutation)*
 
   {
     id: "glaucoma_10",
+    topic: "Intro",
     q: `What are environmental factors associated with glaucoma?`,
     a: `
 [DOT] Sunlight exposure
@@ -217,6 +228,7 @@ LOXL1 *(Elastin mutation)*
 
   {
     id: "glaucoma_11",
+    topic: "Dynamics",
     q: `Describe the general anatomy of the ciliary processes?`,
     a: `
 
@@ -239,6 +251,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
   {
     id: "glaucoma_12",
+    topic: "Dynamics",
     q: `Name the three mechanisms of aqueous humor secretion.`,
     a: `
 1. **Active secretion** (*majority of aqueous humor production*; carbonic anhydrase II–dependent) → Na⁺, Cl⁻, HCO₃⁻, etc.
@@ -253,6 +266,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
   {
     id: "glaucoma_13",
+    topic: "Dynamics",
     q: `How do the levels of H⁺, Cl⁻, ascorbate, HCO₃⁻, and protein in aqueous humor compare with plasma?`,
     a: `
 **Higher than plasma:** H⁺, Cl⁻, ascorbate
@@ -265,6 +279,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
   {
     id: "glaucoma_14",
+    topic: "Dynamics",
     q: `At which sites is the composition of aqueous humor modified within the eye?`,
     a: `
 [DOT]Vitreous hyaloid face
@@ -282,6 +297,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
   {
     id: "glaucoma_15",
+    topic: "Dynamics",
     q: `Name the three main mechanisms that reduce aqueous humor production.`,
     a: `
 **Carbonic anhydrase inhibitors:** ↓ HCO₃⁻ and H⁺ providing
@@ -296,6 +312,7 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 
   {
     id: "glaucoma_16",
+    topic: "Dynamics",
     q: `Compare the trabecular meshwork vs Schlemm's canal in terms of 
 
 1. endothelial and basement membrane continuity
@@ -309,9 +326,10 @@ Approximately 80 cilliary processes, consisting of: a bilayered epithelium + str
 answerImage: "/images/glaucoma/16.png",
   },
 
-  /// Question 16 ///
+  /// Question 74 ///
   {
-    id: "glaucoma_16",
+    id: "glaucoma_74",
+    topic: "Dynamics",
     q: `What changes occur in the trabecular meshwork with aging?`,
     a: `
 ↓ Trabecular meshwork cell number
@@ -327,6 +345,7 @@ answerImage: "/images/glaucoma/16.png",
   /// Question 17 ///
   {
     id: "glaucoma_17",
+    topic: "Dynamics",
     q: `What is the Goldmann equation for IOP?`,
     a: `
 IOP = (F − U) / C + Pv
@@ -346,6 +365,7 @@ IOP = (F − U) / C + Pv
    /// Question 18 ///
   {
     id: "glaucoma_18",
+    topic: "Dynamics",
     q: `Which factors increase aqueous humor outflow through the uveoscleral pathway?`,
     a: `
 1. Cycloplegic agents
@@ -366,6 +386,7 @@ IOP = (F − U) / C + Pv
   /// Question 19 ///
   {
     id: "glaucoma_19",
+    topic: "Dynamics",
     q: `Name three causes of increased IOP.`,
     a: `
 [DOT]**Fever** → [BRAIN]*↑ aqueous humor production*
@@ -383,6 +404,7 @@ Anticholinergics *(angle closure)*, Corticosteroids, Ketamine, LSD, Topiramate
   /// Question 20 ///
   {
     id: "glaucoma_20",
+    topic: "Dynamics",
     q: `Name some causes of decreased IOP.`,
     a: `
 [DOT]**Aerobic exercise**
@@ -399,6 +421,7 @@ Depolarizing muscle relaxants (succinylcholine), Ketamine, Alcohol, Heroin, Mari
   /// Question 21 ///
   {
     id: "glaucoma_21",
+    topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Tono-Pen (Mackay–Marg type).`,
     a: `
 
@@ -409,6 +432,7 @@ answerImage: "/images/glaucoma/21.png",
   /// Question 22 ///
   {
     id: "glaucoma_22",
+    topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Pneumatonometer.`,
     a: `
 
@@ -419,6 +443,7 @@ answerImage: "/images/glaucoma/22.png",
   /// Question 23 ///
   {
     id: "glaucoma_23",
+    topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Ocular Response Analyzer (ORA, Airpuff).`,
     a: `
 `,
@@ -429,6 +454,7 @@ answerImage: "/images/glaucoma/23.png",
    /// Question 42 ///
   {
     id: "glaucoma_42",
+    topic: "Dynamics",
     q: `Describe the technique, advantage, and disadvantage of the Rebound Tonometer.`,
     a: `
 `,
@@ -438,6 +464,7 @@ answerImage: "/images/glaucoma/25.png",
   /// Question 24 ///
   {
     id: "glaucoma_24",
+    topic: "Dynamics",
     q: `Describe the technique and advantage of the Dynamic Contour Tonometry.`,
     a: `
 
@@ -448,6 +475,7 @@ answerImage: "/images/glaucoma/24.png",
   /// Question 25 ///
   {
     id: "glaucoma_25",
+    topic: "Dynamics",
     q: `When does the highest peak of IOP occur during the 24-hour cycle, and what is the reason?`,
     a: `
 Early morning hours (during sleep)
@@ -468,6 +496,7 @@ Early morning hours (during sleep)
   /// Question 26 ///
   {
     id: "glaucoma_26",
+    topic: "Evaluation",
     q: `Which adnexal diseases may be associated with glaucoma?`,
     a: `
 [DOT]**Tuberous sclerosis** (TS, *Bourneville syndrome*) 
@@ -499,6 +528,7 @@ Early morning hours (during sleep)
   /// Question 27 ///
   {
     id: "glaucoma_27",
+    topic: "Evaluation",
     q: `Describe the types of gonioscopy lenses with examples.`,
     a: `
 **1. Direct gonioscopy lenses:** Richard, Wurst, Swan-Jacob, Koeppe
@@ -514,6 +544,7 @@ Early morning hours (during sleep)
   /// Question 28 ///
   {
     id: "glaucoma_28",
+    topic: "Evaluation",
     q: `What does the Shaffer system evaluate for estimation of angle closure, and how is it graded?`,
     a: `
 Evaluates: TM–iris angle
@@ -535,6 +566,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 29 ///
   {
     id: "glaucoma_29",
+    topic: "Evaluation",
     q: `What parameters are assessed in the Spaeth gonio classification?`,
     a: `
 **1. Iris root insertion:**
@@ -571,6 +603,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 30 ///
   {
     id: "glaucoma_30",
+    topic: "Evaluation",
     q: `What are the specific characteristics of angle vessels in Fuchs uveitis?`,
     a: `
 * Thin + Branching + Unsheathed + Meandering (tortuous)
@@ -588,6 +621,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 31 ///
   {
     id: "glaucoma_31",
+    topic: "Evaluation",
     q: `Gonioscopic appearance of post-traumatic angle recession?`,
     a: `
 
@@ -605,6 +639,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 32 ///
   {
     id: "glaucoma_32",
+    topic: "Evaluation",
     q: `Name and describe the types of anterior chamber injuries following blunt trauma.`,
     a: `
 1. **Angle Recession:** a tear between the longitudinal and circular muscles of the CB.
@@ -624,6 +659,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 33 ///
   {
     id: "glaucoma_33",
+    topic: "Evaluation",
     q: `How is Ocular Perfusion Pressure (OPP) calculated?`,
     a: `
 **OPP = DBP + 1/3 SBP − IOP**
@@ -637,6 +673,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 34 ///
   {
     id: "glaucoma_34",
+    topic: "Evaluation",
     q: `Name two inappropriate treatments in patients with NTG (Normal-Tension Glaucoma)`,
     a: `
 [DOT]Topical β-blockers
@@ -652,6 +689,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 35 ///
   {
     id: "glaucoma_35",
+    topic: "POAG",
     q: `Name five risk factors in the OHTS study associated with an increased risk of progression from ocular hypertension to POAG.`,
     a: `
 
@@ -682,6 +720,7 @@ Grade 0: 0° → *Present angle closure*
   /// Question 36 ///
   {
     id: "glaucoma_36",
+    topic: "SOAG",
     q: `What is the risk of progression to glaucoma or ocular hypertension in the following conditions:
 
 
@@ -709,6 +748,7 @@ PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieg
   /// Question 37 ///
   {
     id: "glaucoma_37",
+    topic: "SOAG",
     q: `What is the general treatment approach for patients with Pigment Dispersion Glaucoma?`,
     a: `
 * During exercise, **miotics** have a prophylactic effect.
@@ -732,6 +772,7 @@ PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieg
   /// Question 38 ///
   {
     id: "glaucoma_38",
+    topic: "SOAG",
     q: `What are the distinguishing features of phacolytic and phacoantigenic glaucoma?
 `,
     a: `
@@ -743,6 +784,7 @@ PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieg
   /// Question 39 ///
   {
     id: "glaucoma_39",
+    topic: "SOAG",
     q: `By what mechanisms can intraocular tumors cause glaucoma? Give examples.
 `,
     a: `
@@ -761,6 +803,7 @@ PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieg
   /// Question 40 ///
   {
     id: "glaucoma_40",
+    topic: "SOAG",
     q: `Name the tumors that can cause glaucoma according to age group (adults vs. children).
 `,
     a: `
@@ -779,6 +822,7 @@ PXF, PDS, Fuchs Uveitis, Hyphema Rebleeding, Angle Recession, ICE, Axenfeld-Rieg
   /// Question 41 ///
   {
     id: "glaucoma_41",
+    topic: "SOAG",
     q: `**Yes or No!**
 
 
@@ -796,6 +840,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
   /// Question 43 ///
   {
     id: "glaucoma_43",
+    topic: "SOAG",
     q: `Describe the treatment options for Posner-Schlossman syndrome.`,
     a: `
 * Topical ± Oral Hypotensive
@@ -812,6 +857,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
    /// Question 44 ///
   {
     id: "glaucoma_44",
+    topic: "SOAG",
     q: `**Name three contraindicated treatment options in patients with sickle cell anemia (SCA) + Hyphema.**`,
     a: `
 * Carbonic Anhydrase Inhibitors [WARNING]
@@ -824,6 +870,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
    /// Question 45 ///
   {
     id: "glaucoma_45",
+    topic: "SOAG",
     q: `**Name two prognostic factors for the development of secondary open-angle glaucoma (SOAG) following angle recession.**
 `,
     a: `
@@ -839,6 +886,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
    /// Question 46 ///
   {
     id: "glaucoma_46",
+    topic: "SOAG",
     q: `**Name six risk factors for corticosteroid-induced glaucoma.**
 `,
     a: `
@@ -858,6 +906,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
    /// Question 47 ///
   {
     id: "glaucoma_47",
+    topic: "SOAG",
     q: `**Name four risk factors for cycloplegic-induced IOP elevation.**
 `,
     a: `
@@ -875,6 +924,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
   /// Question 48 ///
   {
     id: "glaucoma_48",
+    topic: "PACG",
     q: `What are the indications for performing laser PI in PACS?`,
     a: `
 * Presence of PAS → *equals PAC*
@@ -900,7 +950,7 @@ Is there a relationship between the degree of inflammation and IOP in Fuchs Uvei
   {
 
     id: "glaucoma_49",
-
+    topic: "PACG",
     q: `What is the role of miotics in AAC, and at what dose can they be used?`,
 
     a: `
@@ -920,6 +970,7 @@ In cases of **Pupillary Block**, Pilocarpine **1–2%** may be effective.
   /// Question 50 ///
   {
     id: "glaucoma_50",
+    topic: "PACG",
     q: `How does the pattern of PAS differ between Plateau Iris and Pupillary Block?`,
     a: `
 The direction of PAS is opposite in the two conditions.
@@ -933,6 +984,7 @@ The direction of PAS is opposite in the two conditions.
    /// Question 51 ///
   {
     id: "glaucoma_51",
+    topic: "PACG",
     q: `What treatment options are available for Plateau Iris Syndrome?`,
     a: `
 * LPI
@@ -955,7 +1007,7 @@ The direction of PAS is opposite in the two conditions.
   {
 
     id: "glaucoma_52",
-
+    topic: "Pediatric",
     q: `What are the normal cutoff values for horizontal corneal diameter according to age, including both the upper and lower limits?`,
 
     a: `
@@ -983,6 +1035,7 @@ The direction of PAS is opposite in the two conditions.
    /// Question 53 ///
   {
     id: "glaucoma_53",
+    topic: "Pediatric",
     q: `According to the definition, in which age groups do late-onset congenital glaucoma and juvenile open-angle glaucoma (JOAG) occur?`,
     a: `
 **Late-Onset Congenital Glaucoma**: ≥ 24 M/O
@@ -996,6 +1049,7 @@ The direction of PAS is opposite in the two conditions.
    /// Question 54 ///
   {
     id: "glaucoma_54",
+    topic: "Pediatric",
     q: `Name three risk factors for blindness in patients with Primary Congenital Glaucoma (PCG).`,
     a: `
 * Newborn PCG
@@ -1016,7 +1070,7 @@ The direction of PAS is opposite in the two conditions.
   {
 
     id: "glaucoma_55",
-
+    topic: "Pediatric",
     q: `What gonioscopic finding is associated with glaucoma progression in patients with Axenfeld-Rieger Syndrome?`,
 
     a: `
@@ -1032,6 +1086,7 @@ The direction of PAS is opposite in the two conditions.
    /// Question 56 ///
   {
     id: "glaucoma_56",
+    topic: "Pediatric",
     q: `In which subgroup of patients with Peters Anomaly is glaucoma more common?`,
     a: `
 Corneolenticular Adhesion > Iridocorneal
@@ -1041,6 +1096,7 @@ Corneolenticular Adhesion > Iridocorneal
    /// Question 57 ///
   {
     id: "glaucoma_57",
+    topic: "Pediatric",
     q: `What is the ocular and systemic significance of the Peters Anomaly subtype?`,
     a: `
 The **Corneolenticular type** is more commonly associated with ocular and systemic abnormalities.
@@ -1058,7 +1114,7 @@ The **Corneolenticular type** is more commonly associated with ocular and system
   {
 
     id: "glaucoma_58",
-
+    topic: "Pediatric",
     q: `What is the association between Neurofibromatosis and Glaucoma?`,
 
     a: `
@@ -1080,7 +1136,7 @@ The **Corneolenticular type** is more commonly associated with ocular and system
   {
 
     id: "glaucoma_59",
-
+    topic: "Pediatric",
     q: `Name the risk factors for Glaucoma Following Cataract Surgery (GFCS) in patients with congenital cataract.`,
 
     a: `
@@ -1107,6 +1163,7 @@ The **Corneolenticular type** is more commonly associated with ocular and system
   /// Question 60 ///
   {
     id: "glaucoma_60",
+    topic: "Medications",
     q: `Define Mild, Moderate, and Severe Glaucoma and state the target IOP for each. Also, state the target IOP for OHTN.`,
     a: `
 **Mild Glaucoma**: Disc Damage + Normal VF
@@ -1133,7 +1190,7 @@ Target IOP:
   {
 
     id: "glaucoma_61",
-
+    topic: "Medications",
     q: `What is the mechanism of IOP lowering by PG Agonists?`,
 
     a: `
@@ -1153,6 +1210,7 @@ Target IOP:
    /// Question 62 ///
   {
     id: "glaucoma_62",
+    topic: "Medications",
     q: `Describe the pigmentation-related adverse effects associated with PG Analogues.`,
     a: `
 **Skin Darkening (Irreversible)**: *Hazel > Green >>> Blue Irides*
@@ -1164,6 +1222,7 @@ Target IOP:
    /// Question 63 ///
   {
     id: "glaucoma_63",
+    topic: "Medications",
     q: `Name two antiglaucoma medications that may be associated with Uveitis and state the type of Uveitis associated with each.`,
     a: `
 **PG Analogues** → Nongranulomatous Anterior Uveitis (1%)
@@ -1175,6 +1234,7 @@ Target IOP:
    /// Question 64 ///
   {
     id: "glaucoma_64",
+    topic: "Medications",
     q: `Which patients are at higher risk of developing CME following the use of PG Analogues?`,
     a: `
 * Aphakia
@@ -1190,7 +1250,7 @@ Target IOP:
   {
 
     id: "glaucoma_65",
-
+    topic: "Medications",
     q: `What is the mechanism of IOP lowering by α2 Agonists?`,
 
     a: `
@@ -1204,6 +1264,7 @@ Target IOP:
    /// Question 66 ///
   {
     id: "glaucoma_66",
+    topic: "Medications",
     q: `What are the pregnancy categories of four major antiglaucoma medication classes: Prostaglandin Analogues, β-Blockers, α2 Agonists, and Carbonic Anhydrase Inhibitors?`,
     a: `
 * **PG Analogues** → Category C
@@ -1223,6 +1284,7 @@ Target IOP:
    /// Question 67 ///
   {
     id: "glaucoma_67",
+    topic: "Medications",
     q: `What are the washout periods for PG Analogues, β-Blockers, α2 Agonists, Pilocarpine, and Dorzolamide?`,
     a: `
 * **PG Analogues**: 4–6 weeks
@@ -1238,6 +1300,7 @@ Target IOP:
    /// Question 68 ///
   {
     id: "glaucoma_68",
+    topic: "Medications",
     q: `What effects do Apraclonidine and Brimonidine have on pupil dilation?`,
     a: `
 * **Apraclonidine** → Mydriasis
@@ -1245,13 +1308,13 @@ Target IOP:
 * **Brimonidine** → Miosis
 `,
   },
-
+   
    /// Question 69 ///
 
   {
 
     id: "glaucoma_69",
-
+    topic: "Medications",
     q: `Which of Apraclonidine and Brimonidine is more commonly associated with allergic reactions?`,
 
     a: `
@@ -1263,9 +1326,11 @@ Apraclonidine > Brimonidine
 
   },
 
+  /// Chapter 13 ///
    /// Question 70 ///
   {
     id: "glaucoma_70",
+    topic: "Surgeries",
     q: `In which cases of Glaucoma is LTP indicated?`,
     a: `
 * PXF
@@ -1287,6 +1352,7 @@ Apraclonidine > Brimonidine
   /// Question 71 ///
   {
     id: "glaucoma_71",
+    topic: "Surgeries",
     q: `What are the contraindications to LTP?`,
     a: `
 * CAG
@@ -1307,7 +1373,7 @@ Apraclonidine > Brimonidine
   {
 
     id: "glaucoma_72",
-
+    topic: "Surgeries",
     q: `Name the risk factors for Bleb-Related Infections.`,
 
     a: `
@@ -1329,6 +1395,7 @@ Apraclonidine > Brimonidine
 /// Question 73 ///
   {
     id: "glaucoma_73",
+    topic: "Surgeries",
     q: `What are the stages of Bleb-Related Infection (Blebitis), and how is each stage treated?`,
     a: `
 **Stage I**: Erythema / Infiltration Around the Bleb

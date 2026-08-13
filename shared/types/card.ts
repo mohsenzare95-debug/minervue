@@ -5,6 +5,8 @@ export type Card = {
   q: string;
   a: string;
 
+  topic?: string;
+
   questionImage?: string;
   answerImage?: string;
 };

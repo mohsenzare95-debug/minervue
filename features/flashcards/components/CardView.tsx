@@ -2,159 +2,349 @@
 "use client";
 
 import type { Card } from "@/shared/types/card";
-import type { CSSProperties, ReactNode } from "react";
+import React, {
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import ReactMarkdown from "react-markdown";
 import { renderCardText } from "@/shared/icons/renderCardText";
 
 type Props = {
   card: Card;
   showAnswer: boolean;
-
-  // 🔴 مهم: explicit mode (برای جلوگیری از event leak)
   mode?: "session" | "review";
+  searchQuery?: string;
 };
 
-/**
- * متن‌ها را فقط برای UI enrich می‌کنیم
- * هیچ side-effect ندارد
- */
-function normalizeContent(children: ReactNode): ReactNode {
-  if (typeof children === "string") {
-    return renderCardText(children);
+function highlightText(
+  text: string,
+  query: string
+): ReactNode {
+  if (!query.trim()) {
+    return renderCardText(text);
   }
 
+  const escaped = query.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
+  );
+
+  const parts = text.split(
+    new RegExp(`(${escaped})`, "gi")
+  );
+
+  return parts.map((part, index) => {
+    if (
+      part.toLowerCase() ===
+      query.toLowerCase()
+    ) {
+      return (
+        <mark
+          key={index}
+          style={{
+            background: "#b8d9d5",
+            color: "#12444b",
+            padding: "1px 3px",
+            borderRadius: 3,
+          }}
+        >
+          {part}
+        </mark>
+      );
+    }
+
+    return (
+      <React.Fragment key={index}>
+        {renderCardText(part)}
+      </React.Fragment>
+    );
+  });
+}
+
+function normalizeContent(
+  children: ReactNode,
+  searchQuery: string
+): ReactNode {
+  if (typeof children === "string") {
+  return highlightText(
+    children,
+    searchQuery
+  );
+}
+
   if (Array.isArray(children)) {
-    return children.map((child, i) => (
-      <span key={i}>{normalizeContent(child)}</span>
-    ));
-  }
+  return children.map((child, i) => (
+    <span key={i}>
+      {normalizeContent(child, searchQuery)}
+    </span>
+  ));
+}
 
   return children;
 }
 
-/**
- * فقط UI transform
- * هیچ event / hook / analytics نباید اینجا باشد
- */
-const mdComponents = {
+const createMdComponents = (searchQuery: string) => ({
   p: ({ children }: any) => (
-    <p style={styles.p}>{normalizeContent(children)}</p>
-  ),
+  <p style={styles.p}>
+    {normalizeContent(children, searchQuery)}
+  </p>
+),
 
   ul: ({ children }: any) => (
     <ul style={styles.ul}>{children}</ul>
   ),
 
   li: ({ children }: any) => (
-    <li style={styles.li}>{normalizeContent(children)}</li>
-  ),
+  <li style={styles.li}>
+    {normalizeContent(children, searchQuery)}
+  </li>
+),
 
   strong: ({ children }: any) => (
-    <strong style={styles.strong}>
-      {normalizeContent(children)}
-    </strong>
-  ),
-};
+  <strong style={styles.strong}>
+    {normalizeContent(children, searchQuery)}
+  </strong>
+),
+});
+
+
 
 export default function CardView({
   card,
   showAnswer,
   mode = "session",
+  searchQuery = "",
 }: Props) {
   if (!card) return null;
 
+  const mdComponents = createMdComponents(searchQuery);
+
   return (
     <div
-      style={{
-        ...styles.card,
-
-        // 🔴 HARD ISOLATION: review mode is visually same but conceptually inert
-        opacity: mode === "review" ? 1 : 1,
-      }}
+      style={styles.wrapper}
       onCopy={(e) => e.preventDefault()}
       onCut={(e) => e.preventDefault()}
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* QUESTION */}
-      <div style={styles.question}>
-        <ReactMarkdown components={mdComponents}>
-          {card.q}
-        </ReactMarkdown>
+      {/* BACK PAPER 1 */}
+      <div style={styles.backPaper1} />
+
+      {/* BACK PAPER 2 */}
+      <div style={styles.backPaper2} />
+
+      {/* MAIN PAPER */}
+      <div style={styles.card}>
+
+        {/* TOPIC */}
+        {card.topic && (
+  <div style={styles.topic}>
+    #{card.topic}
+  </div>
+)}
+
+        {/* CONTENT */}
+        <div style={styles.content}>
+
+          {/* QUESTION */}
+          <div style={styles.question}>
+            <ReactMarkdown components={mdComponents}>
+              {card.q}
+            </ReactMarkdown>
+          </div>
+
+          {/* QUESTION IMAGE */}
+          {card.questionImage && (
+            <div style={styles.imageContainer}>
+              <img
+                src={card.questionImage}
+                alt={card.q}
+                style={styles.image}
+              />
+            </div>
+          )}
+
+          {/* SEPARATOR */}
+          <div style={styles.separator} />
+
+          {/* ANSWER */}
+          {showAnswer && (
+            <div style={styles.answer}>
+              <ReactMarkdown components={mdComponents}>
+                {card.a}
+              </ReactMarkdown>
+            </div>
+          )}
+
+          {/* ANSWER IMAGE */}
+          {showAnswer && card.answerImage && (
+            <div style={styles.imageContainer}>
+              <img
+                src={card.answerImage}
+                alt={card.a}
+                style={styles.image}
+              />
+            </div>
+          )}
+
+        </div>
       </div>
-
-      {/* QUESTION IMAGE */}
-      {card.questionImage && (
-        <div style={styles.imageContainer}>
-          <img
-            src={card.questionImage}
-            alt={card.q}
-            style={styles.image}
-          />
-        </div>
-      )}
-
-      {/* SEPARATOR */}
-      <div style={styles.separator} />
-
-      {/* ANSWER */}
-      {showAnswer && (
-        <div style={styles.answer}>
-          <ReactMarkdown components={mdComponents}>
-            {card.a}
-          </ReactMarkdown>
-        </div>
-      )}
-
-      {/* ANSWER IMAGE */}
-      {showAnswer && card.answerImage && (
-        <div style={styles.imageContainer}>
-          <img
-            src={card.answerImage}
-            alt={card.a}
-            style={styles.image}
-          />
-        </div>
-      )}
     </div>
   );
 }
 
 const styles: Record<string, CSSProperties> = {
-  card: {
-    padding: 16,
+  wrapper: {
+    position: "relative",
+    width: "100%",
+    boxSizing: "border-box",
+    padding: "8px 4px 10px",
+  },
+
+  /* =========================
+     BACK PAPERS
+  ========================= */
+
+  backPaper1: {
+    position: "absolute",
+
+    left: 10,
+    right: 10,
+
+    top: 12,
+    bottom: 4,
+
+    background: "#12444b",
+
     borderRadius: 8,
-    border: "1px solid #eee",
+
+    transform: "rotate(-1deg)",
+
+    zIndex: 0,
+  },
+
+  backPaper2: {
+    position: "absolute",
+
+    left: 6,
+    right: 7,
+
+    top: 8,
+    bottom: 7,
+
+    background: "#dce9e8",
+
+    borderRadius: 8,
+
+    transform: "rotate(1deg)",
+
+    zIndex: 1,
+  },
+
+  /* =========================
+     MAIN CARD
+  ========================= */
+
+  card: {
+    position: "relative",
+
+    zIndex: 2,
+
+    width: "100%",
+
+    boxSizing: "border-box",
+
+    background: "#e6e6e6",
+
+    border: "1px solid #eeeeee",
+
+    borderRadius: 8,
+
+    boxShadow: "0 5px 16px rgba(0,0,0,.07)",
+
+    transform: "rotate(-0.2deg)",
+
+    overflow: "visible",
+      userSelect: "none",
+  WebkitUserSelect: "none",
+  WebkitTouchCallout: "none",
+  },
+
+  /* =========================
+     TOPIC
+  ========================= */
+
+  topic: {
+    position: "absolute",
+
+    right: 18,
+    top: -11,
+
+    padding: "5px 10px",
+
+    background: "#dce9e8",
+
+    color: "#12444b",
+
+    border: "1px solid #b8cecc",
+
+    borderRadius: 7,
+
+    fontSize: 11,
+
+    fontWeight: 700,
+
+    letterSpacing: "0.2px",
+
+    zIndex: 10,
+  },
+
+  /* =========================
+     CONTENT
+  ========================= */
+
+  content: {
     background: "#fff",
 
-    // 🔴 critical: prevent accidental UI-driven side effects
-    userSelect: "none",
-    WebkitUserSelect: "none",
-    WebkitTouchCallout: "none",
+    borderRadius: 8,
+
+    padding: "20px 18px 24px",
+
+    boxSizing: "border-box",
   },
 
   question: {
     fontSize: 18,
+
     fontWeight: 500,
+
     lineHeight: 1.5,
+
+    color: "#111",
   },
 
   answer: {
     marginTop: 14,
+
     lineHeight: 1.5,
+
+    color: "#222",
   },
 
   p: {
     margin: 0,
+
     lineHeight: 1.5,
   },
 
   ul: {
     margin: "6px 0",
+
     paddingLeft: 18,
   },
 
   li: {
     margin: "2px 0",
+
     lineHeight: 1.5,
   },
 
@@ -162,26 +352,45 @@ const styles: Record<string, CSSProperties> = {
     fontWeight: 600,
   },
 
+  /* =========================
+     IMAGES
+  ========================= */
+
   imageContainer: {
     marginTop: 16,
+
     marginBottom: 8,
+
     borderRadius: 8,
+
     overflow: "hidden",
+
     border: "1px solid #f0f0f0",
+
     background: "#fafafa",
   },
 
   image: {
     width: "100%",
+
     height: "auto",
+
     maxHeight: 360,
+
     objectFit: "contain",
+
     display: "block",
   },
 
+  /* =========================
+     SEPARATOR
+  ========================= */
+
   separator: {
     height: 1,
+
     margin: "16px 0",
+
     background:
       "linear-gradient(to right, transparent, #ddd 20%, #ddd 80%, transparent)",
   },

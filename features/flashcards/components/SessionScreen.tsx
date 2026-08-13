@@ -110,8 +110,10 @@ const styles = {
   },
 
   cardContainer: {
-    width: "100%",
-  },
+  width: "100%",
+  position: "relative",
+  paddingTop: 4,
+},
 
   controls: {
     width: "100%",

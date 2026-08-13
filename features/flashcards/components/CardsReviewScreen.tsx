@@ -1,8 +1,10 @@
-//features\flashcards\components\CardsReviewScreen.tsx
+// features/flashcards/components/CardsReviewScreen.tsx
+
 "use client";
 
 import DeckHero from "@/features/decks/components/DeckHero";
 import DeckList from "@/features/decks/components/DeckList";
+
 import { useGlobalProgress } from "@/features/decks/hooks/useGlobalProgress";
 import { useDeckProgress } from "@/features/decks/hooks/useDeckProgress";
 
@@ -14,6 +16,7 @@ export default function DeckPage() {
 
   return (
     <div style={styles.page}>
+
       {/* HERO CARD */}
       <div style={styles.heroCard}>
         <DeckHero
@@ -26,11 +29,19 @@ export default function DeckPage() {
         />
       </div>
 
+      {/* TITLE */}
       <div style={styles.titleBlock}>
-        <div style={styles.title}>Decks</div>
+        <div style={styles.title}>
+          Decks
+        </div>
       </div>
 
-      <DeckList decks={decks} getDeckProgress={getDeckProgress} />
+      {/* DECK LIST */}
+      <DeckList
+        decks={decks}
+        getDeckProgress={getDeckProgress}
+      />
+
     </div>
   );
 }

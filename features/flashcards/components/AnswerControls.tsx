@@ -1,5 +1,3 @@
-// features/flashcards/components/AnswerControls.tsx
-
 import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
 import type { AnswerType } from "@/shared/types/events";
 
@@ -26,9 +24,14 @@ function AnswerButton({
       onClick={onClick}
       style={{
         ...styles.btn,
-        background: active ? "#111" : "#fff",
-        color: active ? "#fff" : "#111",
-        border: active ? "1px solid #111" : "1px solid #ddd",
+
+        background: active ? "#12444b" : "#fff",
+
+        color: active ? "#fff" : "#12444b",
+
+        border: active
+          ? "1px solid #12444b"
+          : "1px solid #c8d8d7",
       }}
     >
       <Icon size={18} />
@@ -43,8 +46,6 @@ export default function AnswerControls({
   canNext,
   handleNext,
 }: Props) {
-  // فقط intent → هیچ validation / event / analytics نداریم
-
   const emitAnswer = (answer: AnswerType) => {
     chooseAnswer(answer);
   };
@@ -55,7 +56,9 @@ export default function AnswerControls({
 
   return (
     <div style={styles.container}>
+
       <div style={styles.rowButtons}>
+
         <AnswerButton
           icon={CheckCircle}
           label="Correct"
@@ -76,13 +79,18 @@ export default function AnswerControls({
           active={selected === "Wrong"}
           onClick={() => emitAnswer("Wrong")}
         />
+
       </div>
 
       {canNext && (
-        <button style={styles.nextBtn} onClick={emitNext}>
+        <button
+          style={styles.nextBtn}
+          onClick={emitNext}
+        >
           Next
         </button>
       )}
+
     </div>
   );
 }
@@ -103,22 +111,51 @@ const styles = {
 
   btn: {
     flex: 1,
-    padding: 12,
+
+    padding: "12px 10px",
+
     borderRadius: 8,
+
     display: "flex",
+
     alignItems: "center",
+
+    justifyContent: "center",
+
     gap: 8,
+
     cursor: "pointer",
+
+    fontSize: 14,
+
+    fontWeight: 600,
+
+    transition: "all 0.15s ease",
+
+    boxSizing: "border-box",
   },
 
   nextBtn: {
     marginTop: 14,
+
     width: "100%",
+
     padding: 14,
+
     borderRadius: 8,
-    background: "#111",
+
+    background: "#12444b",
+
     color: "#fff",
-    border: "none",
+
+    border: "1px solid #12444b",
+
     cursor: "pointer",
+
+    fontSize: 15,
+
+    fontWeight: 600,
+
+    transition: "all 0.15s ease",
   },
 };
