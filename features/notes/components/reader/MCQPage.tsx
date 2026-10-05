@@ -120,21 +120,24 @@ export default function MCQPage({
           EXPLANATION
       ========================= */}
 
-      {answered && (
-        <div style={styles.explanation}>
+      <div style={styles.explanation}>
+  <div
+    style={{
+      ...styles.explanationMask,
+      opacity: answered ? 0 : 1,
+    }}
+  />
 
-          <div style={styles.explanationLine} />
+  <div style={styles.explanationLine} />
 
-          <div style={styles.explanationTitle}>
-            Explanation
-          </div>
+  <div style={styles.explanationTitle}>
+    Explanation
+  </div>
 
-          <MarkdownText style={styles.explanationText}>
-            {page.explanation}
-          </MarkdownText>
-
-        </div>
-      )}
+  <MarkdownText style={styles.explanationText}>
+    {page.explanation}
+  </MarkdownText>
+</div>
 
     </section>
   );
@@ -359,16 +362,31 @@ padding: "4px 12px",
   // ==========================================================
 
   explanation: {
-    marginTop: 24,
+  position: "relative",
+  marginTop: 24,
+  paddingTop: 16,
+  fontSize: 14,
+  lineHeight: 1.7,
+  color: "#405052",
+  overflow: "hidden",
+},
 
-    paddingTop: 16,
-
-    fontSize: 14,
-
-    lineHeight: 1.7,
-
-    color: "#405052",
-  },
+explanationMask: {
+  position: "absolute",
+  zIndex: 5,
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  borderRadius: 6,
+  backgroundColor: "#dce9e8",
+  backgroundImage:
+    "linear-gradient(45deg, rgba(18,68,75,0.12) 25%, transparent 25%, transparent 75%, rgba(18,68,75,0.12) 75%), linear-gradient(45deg, rgba(18,68,75,0.12) 25%, transparent 25%, transparent 75%, rgba(18,68,75,0.12) 75%)",
+  backgroundPosition: "0 0, 8px 8px",
+  backgroundSize: "16px 16px",
+  transition: "opacity .35s ease",
+  pointerEvents: "none",
+},
 
   explanationLine: {
     width: "100%",

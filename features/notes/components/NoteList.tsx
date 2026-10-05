@@ -15,7 +15,7 @@ type Note = {
 const notes: Note[] = [
   {
     key: "retina",
-    title: "Retina",
+    title: "Inherited Diseases",
     icon: "/notes-icons/retina.png",
     description:
 `An evolving interactive Retina review based on the AAO BCSC Series, combining
@@ -32,7 +32,7 @@ export default function NoteList() {
       {notes.map((note) => (
         <Link
           key={note.key}
-          href={`/notes/${note.key}`}
+          href={`/notes/${note.key}/overview`}
           style={styles.link}
         >
           <div style={styles.card}>

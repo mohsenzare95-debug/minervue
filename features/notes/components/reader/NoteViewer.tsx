@@ -1,31 +1,57 @@
-//features/notes/components/reader/NoteViewer.tsx
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
+
 import type { Note } from "@/shared/types/note";
 
 import NoteHeader from "./NoteHeader";
 import NotePageRenderer from "./NotePageRenderer";
-import NoteNavigation from "./NoteNavigation";
 
 export default function NoteViewer({
   note,
+  noteSlug,
+  currentSectionSlug,
 }: {
   note: Note;
+  noteSlug: string;
+  currentSectionSlug: string;
 }) {
-  const [currentPage, setCurrentPage] = useState(0);
+  const router = useRouter();
 
-  const page = note.pages[currentPage];
+  const currentSectionIndex = note.sections.findIndex(
+    (item) => item.slug === currentSectionSlug
+  );
+
+  const section = note.sections[currentSectionIndex];
+
+  if (!section) {
+    return null;
+  }
+
+  const isFirstSection = currentSectionIndex === 0;
+  const isLastSection =
+    currentSectionIndex === note.sections.length - 1;
 
   const goNext = () => {
-    setCurrentPage((prev) =>
-      Math.min(prev + 1, note.pages.length - 1)
+    if (isLastSection) return;
+
+    const nextSection =
+      note.sections[currentSectionIndex + 1];
+
+    router.push(
+      `/notes/${noteSlug}/${nextSection.slug}`
     );
   };
 
   const goPrevious = () => {
-    setCurrentPage((prev) =>
-      Math.max(prev - 1, 0)
+    if (isFirstSection) return;
+
+    const previousSection =
+      note.sections[currentSectionIndex - 1];
+
+    router.push(
+      `/notes/${noteSlug}/${previousSection.slug}`
     );
   };
 
@@ -36,71 +62,82 @@ export default function NoteViewer({
       onCopy={(e) => e.preventDefault()}
       onCut={(e) => e.preventDefault()}
     >
-      {/* =========================
-          READER
-      ========================= */}
-
       <div style={styles.readerWrapper}>
-
-        {/* BACK PAPERS */}
         <div style={styles.backPaper1} />
         <div style={styles.backPaper2} />
 
-        {/* MAIN PAPER */}
         <div style={styles.paper}>
-
-          {/* =========================
-              HEADER BOX
-          ========================= */}
-
           <div style={styles.headerBox}>
             <NoteHeader
               title={note.title}
-              subtitle={page.subtitle}
+              subtitle={section.title}
             />
           </div>
 
-          {/* =========================
-              CONTENT BOX
-          ========================= */}
+          <div style={styles.headerDivider} />
 
-          <div
-  style={{
-    ...styles.contentFrame,
-    background:
-      page.type === "mcq"
-        ? "#dce9e8"
-        : "#fff",
-  }}
->
-
-            {/* PAPER CLIP */}
-            <div style={styles.contentClip}>
-              <div style={styles.contentClipInner} />
-            </div>
-
-            {/* SCROLLABLE CONTENT */}
+          <div style={styles.contentFrame}>
             <div style={styles.contentScroll}>
-              <NotePageRenderer page={page} />
+              {section.pages.map((page) => (
+                <div
+                  key={page.id}
+                  style={styles.sectionPage}
+                >
+                  <NotePageRenderer page={page} />
+                </div>
+              ))}
             </div>
-
           </div>
 
+        
+<div style={styles.sectionNavigation}>
+  <button
+    type="button"
+    onClick={goPrevious}
+    disabled={isFirstSection}
+    style={{
+      ...styles.sectionButton,
+      opacity: isFirstSection ? 0.25 : 1,
+      cursor: isFirstSection
+        ? "default"
+        : "pointer",
+    }}
+    aria-label="Previous section"
+  >
+    <span style={styles.sectionArrow}>←</span>
+
+    <span style={styles.sectionButtonText}>
+      {isFirstSection
+        ? "Previous"
+        : note.sections[currentSectionIndex - 1].title}
+    </span>
+  </button>
+
+  <button
+    type="button"
+    onClick={goNext}
+    disabled={isLastSection}
+    style={{
+      ...styles.sectionButton,
+      opacity: isLastSection ? 0.25 : 1,
+      cursor: isLastSection
+        ? "default"
+        : "pointer",
+    }}
+    aria-label="Next section"
+  >
+    <span style={styles.sectionButtonText}>
+      {isLastSection
+        ? "Next"
+        : note.sections[currentSectionIndex + 1].title}
+    </span>
+
+    <span style={styles.sectionArrow}>→</span>
+  </button>
+</div>
+
+          
         </div>
-      </div>
-
-      {/* =========================
-          FIXED NAVIGATION
-      ========================= */}
-
-      <div style={styles.navigation}>
-        <NoteNavigation
-          currentPage={currentPage}
-          totalPages={note.pages.length}
-          onPrevious={goPrevious}
-          onNext={goNext}
-          onSelect={setCurrentPage}
-        />
       </div>
     </main>
   );
@@ -109,230 +146,129 @@ export default function NoteViewer({
 const styles: Record<string, React.CSSProperties> = {
   page: {
     width: "100%",
-    height: "100dvh",
-
-    boxSizing: "border-box",
-
-    padding: "8px 4px 92px",
-
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    paddingBottom: 60,
     fontFamily: "sans-serif",
-
-    overflow: "visible",
-
-    userSelect: "none",
-    WebkitUserSelect: "none",
   },
 
   readerWrapper: {
     position: "relative",
-
     width: "100%",
-    height: "calc(100dvh - 100px)",
-
-    boxSizing: "border-box",
-
-    padding: "8px 4px 10px",
+    maxWidth: 900,
   },
-
-  /* =========================
-     BACK PAPERS
-  ========================= */
 
   backPaper1: {
     position: "absolute",
-
-    left: 10,
-    right: 10,
-
-    top: 12,
-    bottom: 4,
-
-    background: "#12444b",
-
-    borderRadius: 8,
-
-    transform: "rotate(-1deg)",
-
-    zIndex: 0,
+    inset: "8px 10px 0 10px",
+    background: "#f5f5f5",
+    borderRadius: 5,
   },
 
   backPaper2: {
     position: "absolute",
-
-    left: 6,
-    right: 7,
-
-    top: 8,
-    bottom: 7,
-
-    background: "#dce9e8",
-
-    borderRadius: 8,
-
-    transform: "rotate(1deg)",
-
-    zIndex: 1,
+    inset: "4px 5px 0 5px",
+    background: "#fafafa",
+    borderRadius: 5,
   },
-
-  /* =========================
-     MAIN PAPER
-  ========================= */
 
   paper: {
-  position: "relative",
-
-  zIndex: 2,
-
-  width: "100%",
-  height: "100%",
-
-  background: "#e6e6e6",
-
-  border: "1px solid #eeeeee",
-
-  borderRadius: 8,
-
-  boxSizing: "border-box",
-
-  overflow: "visible",
-
-  boxShadow:
-    "0 5px 16px rgba(0,0,0,.07)",
-
-  transform: "rotate(-0.2deg)",
-
-  display: "flex",
-  flexDirection: "column",
-},
-
-  /* =========================
-     HEADER BOX
-  ========================= */
-
-  headerBox: {
-    flexShrink: 0,
-
+    position: "relative",
+    minHeight: "calc(100vh - 80px)",
     background: "#fff",
-
-    border: "1px solid #eeeeee",
-
-    borderRadius: 8,
-
-    boxSizing: "border-box",
-
-    padding: "18px 20px",
-
-    marginBottom: 10,
-
-    boxShadow:
-      "0 3px 10px rgba(0,0,0,.04)",
+    borderRadius: 5,
+    boxShadow: "0 4px 18px rgba(0,0,0,0.08)",
+    overflow: "hidden",
+    paddingBottom: 62,
   },
 
-  /* =========================
-     CONTENT FRAME
-  ========================= */
+  headerDivider: {
+    height: 1,
+    width: "calc(100% - 48px)",
+    margin: "0 auto",
+    background: "#d6d6d6",
+  },
+
+  headerBox: {
+    paddingBottom: 22,
+  },
 
   contentFrame: {
-  position: "relative",
-
-  flex: 1,
-  minHeight: 0,
-
-  width: "100%",
-
-  boxSizing: "border-box",
-
-  background: "#e9e2dc",
-
-  borderRadius: 8,
-
-  overflow: "visible",
-
-  padding: 0,
-},
-
-  /* =========================
-     CONTENT SCROLL
-  ========================= */
+    position: "relative",
+    width: "100%",
+  },
 
   contentScroll: {
     width: "100%",
-    height: "100%",
-
-    overflowY: "auto",
-    overflowX: "hidden",
-
     boxSizing: "border-box",
-
-    padding: "0 18px 28px",
-
-    WebkitOverflowScrolling: "touch",
-
-    scrollbarWidth: "none",
-
-    msOverflowStyle: "none",
+    padding: "0 28px 30px",
   },
 
-  /* =========================
-     PAPER CLIP
-  ========================= */
-
-  contentClip: {
-    position: "absolute",
-
-    right: 22,
-    top: -12,
-
-    width: 17,
-    height: 40,
-
-    border: "2.5px solid #555",
-
-    borderRadius: "9px 9px 7px 7px",
-
-    transform: "rotate(17deg)",
-
+  sectionPage: {
+    width: "100%",
     boxSizing: "border-box",
-
-    background: "transparent",
-
-    zIndex: 20,
-
-    pointerEvents: "none",
-
-    filter:
-      "drop-shadow(0 1px 1px rgba(0,0,0,.15))",
+    marginBottom: 2,
   },
 
-  contentClipInner: {
-    position: "absolute",
 
-    left: 3,
-    top: 5,
-
-    width: 7,
-    height: 27,
-
-    borderLeft: "1.8px solid #555",
-
-    borderRadius: 8,
-  },
-
-  /* =========================
-     NAVIGATION
-  ========================= */
-
- navigation: {
-  position: "fixed",
-
-  left: "50%",
-  transform: "translateX(-50%)",
-
-  bottom: 96,
-
-  width: "calc(100% - 32px)",
-  maxWidth: 448,
-
-  zIndex: 1000,
+sectionNavigation: {
+  position: "absolute",
+  left: 28,
+  right: 28,
+  bottom: 12,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 16,
 },
+
+sectionButton: {
+  minWidth: 150,
+  maxWidth: "42%",
+  minHeight: 42,
+  padding: "0 16px",
+  border: "none",
+  borderRadius: 8,
+  background: "#12444b",
+  color: "#fff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 10,
+  fontSize: 12,
+  fontWeight: 600,
+  letterSpacing: "0.1px",
+  transition: "opacity .15s ease",
+  boxSizing: "border-box",
+},
+
+sectionButtonText: {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+},
+
+sectionArrow: {
+  flexShrink: 0,
+  fontSize: 18,
+  fontWeight: 300,
+  lineHeight: 1,
+},
+
+
+  arrow: {
+    width: 42,
+    height: 42,
+    border: "none",
+    background: "transparent",
+    color: "#12444b",
+    fontSize: 28,
+    fontWeight: 300,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    transition: "opacity .15s ease",
+  },
 };

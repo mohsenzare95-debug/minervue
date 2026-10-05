@@ -1,5 +1,5 @@
-import { retinaNote } from "./retina";
+import { IDNote } from "./Inherited Disorders";
 
 export const notes = {
-  retina: retinaNote,
+  retina: IDNote,
 };
