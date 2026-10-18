@@ -1,4 +1,5 @@
 
+//question-bank\components\QuestionBankPage.tsx
 "use client";
 
 import { useState } from "react";
@@ -65,16 +66,23 @@ export default function QuestionBankPage({
   };
 
   return (
-    <main style={styles.page}>
-      <div
-        style={{
-          ...styles.content,
-          filter: isLocked ? "blur(5px)" : "none",
-          pointerEvents: isLocked ? "none" : "auto",
-          userSelect: isLocked ? "none" : "auto",
-        }}
-        aria-hidden={isLocked}
-      >
+    <main
+  style={styles.page}
+  onCopy={(e) => e.preventDefault()}
+  onCut={(e) => e.preventDefault()}
+  onContextMenu={(e) => e.preventDefault()}
+>
+  <div
+    style={{
+      ...styles.content,
+      filter: isLocked ? "blur(5px)" : "none",
+      pointerEvents: isLocked ? "none" : "auto",
+      userSelect: "none",
+      WebkitUserSelect: "none",
+      WebkitTouchCallout: "none",
+    }}
+    aria-hidden={isLocked}
+  >
         <div style={styles.header}>
           <div style={styles.title}>
             {slug.charAt(0).toUpperCase() + slug.slice(1)}

@@ -1,4 +1,4 @@
-
+//notes\components\reader\NoteViewer.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -220,13 +220,16 @@ export default function NoteViewer({
 
 const styles: Record<string, React.CSSProperties> = {
   page: {
-    width: "100%",
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    paddingBottom: 60,
-    fontFamily: "sans-serif",
-  },
+  width: "100%",
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  paddingBottom: 60,
+  fontFamily: "sans-serif",
+  userSelect: "none",
+  WebkitUserSelect: "none",
+  WebkitTouchCallout: "none",
+},
 
   readerWrapper: {
     position: "relative",
