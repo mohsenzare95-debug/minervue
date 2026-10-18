@@ -13,20 +13,31 @@ type QuestionBank = {
   questions: number;
 };
 
+
 const questionBanks: QuestionBank[] = [
   {
-    key: "retina",
-    title: "Retina",
+    key: "retina-anatomy",
+    title: "Retina Anatomy",
     icon: "/notes-icons/retina.png",
     questions: 0,
     description:
-`Practice questions covering major Retina topics.
+      `Practice questions covering retinal anatomy.
 
 [MCQ] Multiple Choice Questions
 [ANSWER] Immediate Answer & Explanation`,
   },
 
-  
+  {
+    key: "retina-trauma",
+    title: "Trauma",
+    icon: "/notes-icons/retina.png",
+    questions: 0,
+    description:
+      `Practice questions covering ocular trauma.
+
+[MCQ] Multiple Choice Questions
+[ANSWER] Immediate Answer & Explanation`,
+  },
 ];
 
 export default function QuestionBankList() {

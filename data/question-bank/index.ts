@@ -1,15 +1,13 @@
-import { retinaQuestions } from "./retina";
-
-
+//question-bank\index.ts
 import type { Question } from "@/shared/types/question";
+import { anatomyQuestions } from "./retina/anatomy";
+import { traumaQuestions } from "./retina/trauma";
 
 export const questionBanks: Record<string, Question[]> = {
-  retina: retinaQuestions,
-
+  "retina-anatomy": anatomyQuestions,
+  "retina-trauma": traumaQuestions,
 };
 
-export function getQuestionBank(
-  slug: string
-): Question[] {
+export function getQuestionBank(slug: string): Question[] {
   return questionBanks[slug] ?? [];
 }
