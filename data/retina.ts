@@ -569,6 +569,479 @@ export const retinaCards: Card[] = [
 },
 
 
+/*/// Question 36 ///*/
+{
+  id: "retina_36",
+  topic: "Anatomy",
+  q: `What are the anterior and posterior boundaries of the vitreous base?`,
+  a: `
 
+**2 mm anterior** to the ora serrata to **3–4 mm posterior** to it
+
+`,
+},
+
+/*/// Question 37 ///*/
+{
+  id: "retina_37",
+  topic: "Anatomy",
+  q: `Where is the most common location of retinal tears?`,
+  a: `
+
+At the **posterior border of the vitreous base**, between the ora serrata and the equator
+
+`,
+},
+
+/*/// Question 38 ///*/
+{
+  id: "retina_38",
+  topic: "Anatomy",
+  q: `Name the sites of strong vitreoretinal adhesion.`,
+  a: `
+
+- Posterior lens capsule
+- Vitreous base
+- Optic disc margin
+- Fovea
+- Retinal vessels
+- Margins of lattice degeneration
+- Chorioretinal scars
+
+`,
+},
+
+/*/// Question 39 ///*/
+{
+  id: "retina_39",
+  topic: "Anatomy",
+  q: `Name and define the three important anatomical landmarks of the anterior vitreous.`,
+  a: `
+
+**Wieger ligament:** An annular condensation of collagen fibers connecting the anterior vitreous surface to the posterior lens capsule.
+
+---
+
+**Patellar fossa:** An indentation of the anterior vitreous surface corresponding to the posterior surface of the lens.
+
+---
+
+**Berger space:** A potential space between the posterior peripheral lens surface and the anterior cortical vitreous, with Wieger ligament forming its boundary.
+
+`,
+},
+
+/*/// Question 40 ///*/
+{
+  id: "retina_40",
+  topic: "Anatomy",
+  q: `Define the macula anatomically and histologically.`,
+  a: `
+
+**Anatomically:** The area located between the temporal vascular arcades, measuring approximately **5.5 mm** in diameter.
+
+---
+
+**Histologically:** The area of the retina containing at least **two** layers of ganglion cells.
+
+`,
+},
+
+/*/// Question 41 ///*/
+{
+  id: "retina_41",
+  topic: "Anatomy",
+  q: `Name the anatomical subdivisions of the macula from center to periphery and their respective dimensions.`,
+  a: `
+
+**Umbo:** 150–200 µm
+
+---
+
+**Foveola:** 350 µm *(slightly smaller than the FAZ)*
+
+---
+
+**Fovea:** 1.5 mm in diameter
+
+---
+
+**Parafovea:** A 0.5-mm-wide ring surrounding the fovea
+
+---
+
+**Perifovea:** A 1.5-mm-wide ring surrounding the parafovea
+
+`,
+},
+
+/*/// Question 42 ///*/
+{
+  id: "retina_42",
+  topic: "Anatomy",
+  q: `What are the histological characteristics of the foveola?`,
+  a: `
+
+Lateral displacement of the INL and GCL
+
+---
+
+Absence of rod photoreceptors
+
+`,
+},
+
+/*/// Question 43 ///*/
+{
+  id: "retina_43",
+  topic: "Anatomy",
+  q: `What are the characteristic histological features of the parafovea?`,
+  a: `
+
+Greatest thickness of the GCL, INL, and OPL
+
+`,
+},
+
+/*/// Question 44 ///*/
+{
+  id: "retina_44",
+  topic: "Anatomy",
+  q: `Name the subdivisions of the extra-macular retinal periphery and define their boundaries.`,
+  a: `
+
+**Near periphery:** Extends 1.5 mm peripheral to the vascular arcades
+
+---
+
+**Equatorial region:** around the equator
+
+---
+
+**Peripheral region:** anterior to the equator
+
+---
+
+**Far periphery:** ora serrata + junction between the retina and pars plana
+
+[SIREN] *The equator is located approximately at the level of the vortex veins on clinical examination.*
+
+`,
+},
+
+/*/// Question 45 ///*/
+{
+  id: "retina_45",
+  topic: "Anatomy",
+  q: `Name and define the anatomical landmarks of the ora serrata.`,
+  a: `
+
+**Dentate process:** Extensions of the retina into the pars plana
+
+---
+
+**Ora bay:** Extensions of the pars plana into the retina
+
+---
+
+**Enclosed ora bay:** An ora bay completely surrounded by a dentate process
+
+---
+
+**Meridional fold:** A thickening of retinal tissue or redundant retinal folds extending radially into the pars plana
+
+---
+
+**Meridional complex:** A meridional fold and the ciliary process aligned with it
+
+---
+
+**Peripheral retinal excavation:** A type of lattice degeneration located at the ora serrata or up to 4 disc diameters posterior to it, *usually aligned with a meridional fold*
+
+`,
+},
+
+/*/// Question 46 ///*/
+{
+  id: "retina_46",
+  topic: "Anatomy",
+  q: `Which ora serrata landmarks are associated with retinal breaks?`,
+  a: `
+
+- Posterior to a **meridional fold**
+
+- Posterior margin of an **enclosed ora bay**
+
+- **Peripheral retinal excavation**
+
+`,
+},
+
+/*/// Question 47 ///*/
+{
+  id: "retina_47",
+  topic: "Anatomy",
+  q: `Name the retinal lesions that predispose to rhegmatogenous retinal detachment (RRD).`,
+  a: `
+
+- Peripheral retinal excavations
+
+---
+
+- Enclosed ora bays
+
+---
+
+- Meridional folds
+
+---
+
+- Vitreoretinal tufts → [WARNING] *(cystic and zonular traction type)*
+
+---
+
+- Lattice degeneration
+
+`,
+},
+
+/*/// Question 48 ///*/
+{
+  id: "retina_48",
+  topic: "Anatomy",
+  q: `Where are the highest densities of cone and rod photoreceptors found?`,
+  a: `
+
+**Cones:** in the **fovea**, exceeding 140,000 cells/mm². *However, 90% of all retinal cones are located outside the fovea.*
+
+---
+
+**Rods:** approximately **12° (4 mm) from the fovea**, reaching 160,000 cells/mm². *Another region of high rod density has also been identified in the superior macula.*
+
+`,
+},
+
+/*/// Question 49 ///*/
+{
+  id: "retina_49",
+  topic: "Anatomy",
+  q: `Which imaging technique allows direct visualization of photoreceptors?`,
+  a: `
+
+Adaptive optics
+
+`,
+},
+
+/*/// Question 50 ///*/
+{
+  id: "retina_50",
+  topic: "Anatomy",
+  q: `What are the components of the photoreceptor inner-outer segment junction?`,
+  a: `
+
+- Ellipsoid *(mitochondria-rich region)*
+
+
+
+- Cilium
+
+
+
+- Internal portion of the outer segment (discs)
+
+`,
+},
+
+/*/// Question 51 ///*/
+{
+  id: "retina_51",
+  topic: "Anatomy",
+  q: `Name the first- and second-order neurons of the visual pathway.`,
+  a: `
+
+**1st**-order neurons: **Bipolar cells**
+
+---
+
+**2nd**-order neurons: **Ganglion cells**
+
+`,
+},
+
+/*/// Question 52 ///*/
+{
+  id: "retina_52",
+  topic: "Anatomy",
+  q: `Compare the synaptic convergence of cone and rod photoreceptors onto bipolar cells.`,
+  a: `
+
+**Cone photoreceptors** to bipolar cells: Typically a **1:1** relationship
+
+---
+
+**Rod photoreceptors** to bipolar cells: up to **1:100**
+
+`,
+},
+
+/*/// Question 53 ///*/
+{
+  id: "retina_53",
+  topic: "Anatomy",
+  q: `Where are bipolar cell bodies located, and where do they form synapses?`,
+  a: `
+
+- Cell bodies: **INL**
+
+---
+
+- With photoreceptors: **OPL**
+
+- With ganglion cells: **IPL**
+
+`,
+},
+
+/*/// Question 54 ///*/
+{
+  id: "retina_54",
+  topic: "Anatomy",
+  q: `What is the role of retinal ganglion cells in the visual pathway?`,
+  a: `
+
+Integrate signals from **bipolar** + **amacrine cells** → transmit signal to 3rd-order neurons in the LGN.
+
+`,
+},
+
+/*/// Question 55 ///*/
+{
+  id: "retina_55",
+  topic: "Anatomy",
+  q: `What is the role of amacrine cells in visual processing?`,
+  a: `
+
+Signal processing by responding to:
+
+- **Light intensity** sudden changes 
+
+- Stimuli of particular **sizes**
+
+`,
+},
+
+/*/// Question 56 ///*/
+{
+  id: "retina_56",
+  topic: "Anatomy",
+  q: `Which cell types are found in the INL?`,
+  a: `
+
+- Bipolar cells
+
+- Amacrine cells
+
+- Horizontal cells
+
+- Müller cells — *extend through most of the retinal thickness*
+
+`,
+},
+
+/*/// Question 57 ///*/
+{
+  id: "retina_57",
+  topic: "Anatomy",
+  q: `Name and define the retinal limiting membranes`,
+  a: `
+
+**ILM:** Footplates of **Müller** cells
+
+---
+
+**MLM:**
+Junctions between **photoreceptors** and **bipolar** cells, [SIREN]*in the inner 1/3 of the OPL*
+
+---
+
+**ELM:**: Zonular junctions between **photoreceptors** and **Müller** cells
+
+[WARNING] *None of these structures is a true membrane*
+
+`,
+},
+
+/*/// Question 58 ///*/
+{
+  id: "retina_58",
+  topic: "Anatomy",
+  q: `Name the sources of retinal blood supply`,
+  a: `
+
+- Central retinal artery (CRA)
+
+- Choroidal circulation
+
+- Cilioretinal artery → *in one-third of individuals*
+
+`,
+},
+
+/*/// Question 59 ///*/
+{
+  id: "retina_59",
+  topic: "Anatomy",
+  q: `How is the retinal thickness vascularized?`,
+  a: `
+
+**Inner retina (up to the INL):** Central retinal artery ± cilioretinal artery
+
+**Outer retina (from the OPL onward):** Choroidal circulation
+
+---
+
+[SIREN] This boundary may vary according to 
+
+- topographic location
+
+- retinal thickness
+
+- ambient light intensity
+
+`,
+},
+
+/*/// Question 60 ///*/
+{
+  id: "retina_60",
+  topic: "Anatomy",
+  q: `Name the vascular plexuses supplied by the central retinal artery (CRA)`,
+  a: `
+
+**Superficial capillary plexus (SCP):** in the GCL
+
+---
+
+**Deep capillary plexus (DCP):** two vascular networks within the INL
+
+---
+
+**Radial peripapillary capillary plexus (RPC):** in the NFL around the optic nerve head
+
+`,
+},
+
+/*/// Question 61 ///*/
+{
+  id: "retina_61",
+  topic: "Anatomy",
+  q: `PAMM (paracentral acute middle maculopathy) results from ischemia of which retinal layer?`,
+  a: `
+
+Inner nuclear layer (INL)
+
+`,
+},
   
 ];
